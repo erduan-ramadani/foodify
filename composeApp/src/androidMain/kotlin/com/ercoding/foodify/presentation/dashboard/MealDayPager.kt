@@ -86,6 +86,7 @@ fun MealDayPager(
                 val listState = rememberLazyListState()
                 LazyColumn(
                     state = listState,
+                    modifier = Modifier.weight(1f)
                 ) {
                     items(entriesForDay.size, key = { entriesForDay[it].id }) { index ->
                         val entry = entriesForDay[index]

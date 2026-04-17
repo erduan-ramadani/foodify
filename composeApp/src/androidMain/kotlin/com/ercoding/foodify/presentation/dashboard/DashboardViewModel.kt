@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ercoding.foodify.domain.AnthropicInterface
@@ -20,6 +21,7 @@ import java.net.UnknownHostException
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
+import kotlin.math.absoluteValue
 
 @RequiresApi(Build.VERSION_CODES.O)
 class DashboardViewModel(
@@ -30,7 +32,6 @@ class DashboardViewModel(
     var nutritionEntries = mutableStateListOf<NutritionEntry>()
     val dailyThreshold by mutableIntStateOf(3000)
     val dailyCalories: Int get() = getDailyCalories(selectedDate)
-    val progress by mutableIntStateOf(0)
     val nutritionEntriesByDate: Map<LocalDate, List<NutritionEntry>>
         @RequiresApi(Build.VERSION_CODES.O)
         get() = nutritionEntries.groupBy { entry ->
@@ -55,12 +56,6 @@ class DashboardViewModel(
             nutritionEntries.addAll(prefRepository.getNutritionEntries())
         }
     }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getDailyCalories(date: LocalDate?): Int {
-        return (nutritionEntriesByDate[date]?.sumOf { it.calories } ?: 0).toInt()
-    }
-
 
     fun addNutritionValues(query: String) {
         viewModelScope.launch {
@@ -99,12 +94,55 @@ class DashboardViewModel(
 
     fun getProgress(): Float {
         return dailyCalories.toFloat() / dailyThreshold
-//        val percentage: Int = (progress * 100).toInt()
-//        return if (percentage >= 100) 100
-//        else percentage
+    }
+
+    fun getProgressColor(): Color {
+        val progress = getProgress()
+        return if (progress > 0.75f){
+            Color.Red
+        } else if (progress in 0.5f..0.8f){
+            Color(0xFFFF7E19)
+        } else {
+            Color(0xFF004D02)
+        }
     }
 
     fun getRemainingDailyCalories(): Int {
-        return dailyThreshold - dailyCalories
+        val remaining = dailyThreshold - dailyCalories
+        return remaining.absoluteValue
+    }
+
+    fun getCalorieLimitText(): String{
+        val calorieDeficit = dailyThreshold - dailyCalories
+        return if (calorieDeficit >= 0) {
+            "kcal übrig"
+        } else {
+            "kcal Überschuss"
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getDailyCalories(date: LocalDate?): Int {
+        return (nutritionEntriesByDate[date]?.sumOf { it.calories } ?: 0).toInt()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getDailyCarbs(): Int {
+        return (nutritionEntriesByDate[selectedDate]?.sumOf { it.carbohydrates } ?: 0).toInt()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getDailyFat(): Int {
+        return (nutritionEntriesByDate[selectedDate]?.sumOf { it.fat } ?: 0).toInt()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getDailyProtein(): Int {
+        return (nutritionEntriesByDate[selectedDate]?.sumOf { it.protein } ?: 0).toInt()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getDailySugar(): Int {
+        return (nutritionEntriesByDate[selectedDate]?.sumOf { it.sugar } ?: 0).toInt()
     }
 }

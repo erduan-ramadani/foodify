@@ -123,20 +123,21 @@ fun DashboardScreen(
         ) {
             Box(contentAlignment = Alignment.Center) {
                 CircularProgressIndicator(
-                    strokeWidth = 8.dp,
+                    strokeWidth = 10.dp,
                     modifier = Modifier.size(120.dp),
-                    progress = { viewModel.getProgress()}
+                    progress = { viewModel.getProgress()},
+                    color = viewModel.getProgressColor()
                 )
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
                         text = "${viewModel.getRemainingDailyCalories()}",
-                        color = MaterialTheme.colorScheme.primary,
+                        color = Color.Black,
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "kcal übrig",
-                        color = MaterialTheme.colorScheme.primary,
+                        text = viewModel.getCalorieLimitText(),
+                        color = viewModel.getProgressColor(),
                         style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.Bold
                     )
@@ -182,7 +183,7 @@ fun DashboardScreen(
                             .padding(vertical = 8.dp)
                     ) {
                         Text(
-                            text = "1234",
+                            text = "${viewModel.getDailyCarbs()}g",
                             color = Color(0xFFFF7E19),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold
@@ -209,7 +210,7 @@ fun DashboardScreen(
                             .padding(vertical = 8.dp),
                     ) {
                         Text(
-                            text = "45",
+                            text = "${viewModel.getDailyProtein()}g",
                             color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold
@@ -237,7 +238,7 @@ fun DashboardScreen(
                             .padding(vertical = 8.dp),
                     ) {
                         Text(
-                            text = "12344",
+                            text = "${viewModel.getDailyFat()}g",
                             color = Color(0xFF004D02),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold
@@ -265,7 +266,7 @@ fun DashboardScreen(
                             .padding(vertical = 8.dp),
                     ) {
                         Text(
-                            text = "39g",
+                            text = "${viewModel.getDailySugar()}g",
                             color = Color(0xFFE91E63),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold

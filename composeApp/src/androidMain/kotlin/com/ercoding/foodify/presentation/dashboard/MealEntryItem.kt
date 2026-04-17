@@ -2,13 +2,17 @@ package com.ercoding.foodify.presentation.dashboard
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -32,7 +36,6 @@ fun MealEntryItem(
     entry: NutritionEntry,
     onDismiss: () -> Unit
 ) {
-
     val swipeState = rememberSwipeToDismissBoxState()
 
     LaunchedEffect(swipeState.currentValue) {
@@ -59,7 +62,13 @@ fun MealEntryItem(
                 .fillMaxWidth()
                 .padding(4.dp)
         ) {
-            Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
+
+            Row(
+                modifier = Modifier
+                    .padding(12.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Box(
                     modifier = Modifier
                         .size(40.dp)
@@ -69,15 +78,34 @@ fun MealEntryItem(
                 ) {
                     Text(
                         text = entry.emoji,
-                        fontSize = 18.sp
+                        fontSize = 22.sp
                     )
                 }
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = entry.meal,
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.weight(1f)
-                )
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = entry.meal,
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text(
+                            "E: ${entry.protein.toInt()}g",
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                        Text(
+                            "K: ${entry.carbohydrates.toInt()}g",
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                        Text("F: ${entry.fat.toInt()}g", style = MaterialTheme.typography.bodySmall)
+                        Text(
+                            "Z: ${entry.sugar.toInt()}g",
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                }
                 Text(
                     text = "${entry.calories.toInt()}kcal",
                     color = MaterialTheme.colorScheme.primary,
