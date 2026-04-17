@@ -8,22 +8,14 @@ import kotlinx.coroutines.flow.flowOf
 class FakePreferencesRepository() : PreferencesInterface {
     override val darkMode: Flow<Boolean>
         get() = flowOf(false)
-    override val proteinGoal: Flow<Int?>
-        get() = flowOf(150)
-    override val dailyReached: Flow<Int?>
-        get() = flowOf(50)
-    override val proteinEntries: Flow<String?>
+    override val nutritionEntries: Flow<String?>
         get() = flowOf(null)
 
     override suspend fun setDarkMode(enabled: Boolean) {}
 
-    override suspend fun setProteinGoal(proteinGoal: Int) {}
+    override suspend fun setNutritionEntries(entries: List<ProteinEntry>) {}
 
-    override suspend fun setDailyReached(dailyReached: Int) {}
-
-    override suspend fun setProteinEntries(entries: List<ProteinEntry>) {}
-
-    override suspend fun getProteinEntries(): List<ProteinEntry> {
+    override suspend fun getNutritionEntries(): List<ProteinEntry> {
         return listOf()
     }
 }

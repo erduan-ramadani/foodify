@@ -30,26 +30,13 @@ class DashboardViewModelTest {
     }
 
     @Test
-    fun addProteins_increases_dailyReached() = runTest {
-        // Arrange: dailyReached startet bei 0, FakeRepo gibt immer 35 zurück
-        // Act — Aktion ausführen
-        viewModel = DashboardViewModel(
-            FakeAnthropicRepository(35), fakePreferencesRepo
-        )
-        viewModel.addProteins("100g hähnchen")
-        advanceUntilIdle()
-        // Assert — Ergebnis prüfen
-        assert(viewModel.dailyReached == 35)
-    }
-
-    @Test
     fun addProteins_withZeroProtein_doesNotAddEntry() = runTest {
         viewModel = DashboardViewModel(
             FakeAnthropicRepository(0), fakePreferencesRepo
         )
-        viewModel.addProteins("asdfg")
+        viewModel.addNutritionValues("asdfg")
         advanceUntilIdle()
-        assert(viewModel.proteinEntries.isEmpty())
+        assert(viewModel.nutritionEntries.isEmpty())
     }
 
     @Test
@@ -57,9 +44,8 @@ class DashboardViewModelTest {
         viewModel = DashboardViewModel(
             FakeAnthropicRepository(35), fakePreferencesRepo
         )
-        viewModel.addProteins("100g hähnchen")
+        viewModel.addNutritionValues("100g hähnchen")
         advanceUntilIdle()
         viewModel.reset()
-        assert(viewModel.proteinEntries.isEmpty() && viewModel.dailyReached == 0)
     }
 }

@@ -13,15 +13,12 @@ import com.ercoding.foodify.domain.PreferencesInterface
 import com.ercoding.foodify.domain.ProteinEntry
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
-import java.util.UUID
 
 @RequiresApi(Build.VERSION_CODES.O)
 class DashboardViewModel(
@@ -29,17 +26,11 @@ class DashboardViewModel(
     private val prefRepository: PreferencesInterface
 ) : ViewModel() {
 
-    val dailyReached: Int get() = getDailyReached(selectedDate)
-    val dailyGoal = prefRepository.proteinGoal.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        0
-    )
-    var proteinEntries = mutableStateListOf<ProteinEntry>()
+    var nutritionEntries = mutableStateListOf<ProteinEntry>()
 
-    val proteinEntriesByDate: Map<LocalDate, List<ProteinEntry>>
+    val nutritionEntriesByDate: Map<LocalDate, List<ProteinEntry>>
         @RequiresApi(Build.VERSION_CODES.O)
-        get() = proteinEntries.groupBy { entry ->
+        get() = nutritionEntries.groupBy { entry ->
             Instant.ofEpochMilli(entry.createdAt)
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate()
@@ -52,54 +43,31 @@ class DashboardViewModel(
     var selectedDate: LocalDate? by mutableStateOf(LocalDate.now())
 
     var isLoading by mutableStateOf(false)
-    val progress: Float
-        get() =
-            if ((dailyGoal.value ?: 0) == 0) 0f
-            else dailyReached.toFloat() / (dailyGoal.value ?: 0)
 
     private val _events = Channel<String>()
     val events = _events.receiveAsFlow()
 
     init {
         viewModelScope.launch {
-            proteinEntries.addAll(prefRepository.getProteinEntries())
+            nutritionEntries.addAll(prefRepository.getNutritionEntries())
         }
     }
 
-    fun addProteins(query: String) {
+    fun addNutritionValues(query: String) {
         viewModelScope.launch {
             isLoading = true
-            val result = anthropicRepo.requestProteinAmount(query)
+            val result = anthropicRepo.requestNutritionValues(query)
             result.onFailure { exception ->
                 val errorMessage = when (exception) {
                     is UnknownHostException -> "Kein Internet"
                     is HttpRequestTimeoutException -> "Timeout"
                     else -> "Unbekannter Fehler"
                 }
+                println("Exception: $exception")
                 _events.send(errorMessage)
             }
             result.onSuccess { response ->
                 println("Antwort: $response")
-                val parts = response.split("|")
-                val proteinAmount = parts[0].toIntOrNull() ?: 0
-                val emoji = parts.getOrNull(1) ?: "🍽️"
-                if (proteinAmount == 0) {
-                    _events.send("Proteingehalt nicht gefunden")
-                } else {
-                    val createdAt = selectedDate?.atStartOfDay(ZoneId.systemDefault())?.toInstant()
-                        ?.toEpochMilli()
-                        ?: System.currentTimeMillis()
-
-                    proteinEntries += ProteinEntry(
-                        UUID.randomUUID().toString(),
-                        query,
-                        proteinAmount,
-                        emoji,
-                        createdAt
-                    )
-                    prefRepository.setDailyReached(dailyReached)
-                    prefRepository.setProteinEntries(proteinEntries)
-                }
             }
             isLoading = false
         }
@@ -107,24 +75,16 @@ class DashboardViewModel(
 
     fun reset() {
         viewModelScope.launch {
-            prefRepository.setDailyReached(dailyReached)
-            proteinEntries.clear()
-            prefRepository.setProteinEntries(proteinEntries)
+            nutritionEntries.clear()
+            prefRepository.setNutritionEntries(nutritionEntries)
         }
     }
 
-    fun removeProteinEntry(entry: ProteinEntry) {
+    fun removeNutritionEntry(entry: ProteinEntry) {
         viewModelScope.launch {
-            prefRepository.setDailyReached(dailyReached)
-
-            proteinEntries.removeIf { it.id == entry.id }
-            prefRepository.setProteinEntries(proteinEntries)
+            nutritionEntries.removeIf { it.id == entry.id }
+            prefRepository.setNutritionEntries(nutritionEntries)
         }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getDailyReached(date: LocalDate?): Int {
-        return proteinEntriesByDate[date]?.sumOf { it.proteinAmount } ?: 0
     }
 
     fun getProgress(progress: Float): Int {
@@ -134,14 +94,8 @@ class DashboardViewModel(
 
     }
 
-    fun getDailyProteinAmountRemaining(): Int? {
-        val remaining = dailyGoal.value?.minus(dailyReached)
-        return if (remaining == null || remaining <= 0) 0
-        else remaining
-    }
-
     fun getEntryAmountOfDay(date: LocalDate): Int {
-        val currentEntriesCount = proteinEntriesByDate[date]?.size ?: 0
+        val currentEntriesCount = nutritionEntriesByDate[date]?.size ?: 0
         return currentEntriesCount
     }
 }

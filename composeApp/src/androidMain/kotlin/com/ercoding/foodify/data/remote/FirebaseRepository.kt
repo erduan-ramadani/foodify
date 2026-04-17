@@ -17,10 +17,7 @@ class FirebaseRepository {
             remoteConfig.fetchAndActivate().await()
             apiKey = remoteConfig.getString("anthropicApiKey")
         }
-        val activated = remoteConfig.fetchAndActivate().await()
-        println("Activated: $activated")
         apiKey = remoteConfig.getString("anthropicApiKey")
-        println("API Key: $apiKey")
 
         return apiKey
     }

@@ -45,12 +45,6 @@ fun SettingsScreen(
 
     val viewModel: SettingsViewModel = koinViewModel()
     val isDarkMode by viewModel.isDarkMode.collectAsState(false)
-    val dailyGoal = viewModel.proteinGoal.collectAsState(null).value?.toString() ?: ""
-    var newDailyGoal by remember { mutableStateOf(dailyGoal) }
-
-    LaunchedEffect(dailyGoal) {
-        if (newDailyGoal.isEmpty()) newDailyGoal = dailyGoal
-    }
 
     Scaffold(
         topBar = {
@@ -87,47 +81,6 @@ fun SettingsScreen(
                     containerColor = MaterialTheme.colorScheme.background
                 )
             )
-            ListItem(
-                headlineContent = { Text("Proteinziel") },
-                supportingContent = { Text("Täglicher Eiweißbedarf") },
-                trailingContent = {
-                    Text(text = "$dailyGoal g", style = MaterialTheme.typography.bodyLarge)
-                },
-                colors = ListItemDefaults.colors(
-                    containerColor = MaterialTheme.colorScheme.background
-                )
-            )
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(IntrinsicSize.Min)
-            ) {
-                OutlinedTextField(
-                    value = newDailyGoal,
-                    placeholder = { Text(dailyGoal) },
-                    onValueChange = { newDailyGoal = it },
-                    shape = RoundedCornerShape(20.dp),
-                    modifier = Modifier
-                        .weight(0.6f)
-                        .padding(horizontal = 8.dp)
-                        .fillMaxHeight()
-                        .onFocusChanged { focusState ->
-                            if (focusState.isFocused) newDailyGoal = ""
-                        }
-                )
-                Button(
-                    onClick = {
-                        viewModel.setProteinGoal(newDailyGoal.toInt())
-                    },
-                    shape = RoundedCornerShape(20.dp),
-                    modifier = Modifier
-                        .weight(0.4f)
-                        .padding(horizontal = 8.dp)
-                        .fillMaxHeight()
-                ) {
-                    Text("Speichern")
-                }
-            }
         }
     }
 }

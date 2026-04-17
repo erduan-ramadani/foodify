@@ -1,6 +1,7 @@
 package com.ercoding.foodify.data.remote
 
 import com.ercoding.foodify.domain.AnthropicInterface
+import com.ercoding.foodify.domain.NutritionEntry
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -22,12 +23,10 @@ class AnthropicRepository(
         }
     }
 
-    override suspend fun requestProteinAmount(query: String): Result<String> {
+    override suspend fun requestNutritionValues(query: String): Result<NutritionEntry> {
         val key = firebaseRepository.fetchAnthropicApiKey()
-        val anthropicQueryWithEmoji =
-            "Wie viel Gramm Eiweiß enthält folgende Mahlzeit: $query. Wenn die Menge unklar ist, schätze eine typische Portion. Antworte nur mit einer ganzen Zahl in Gramm und einem passenden Emoji getrennt durch |. Beispiel: 31|\uD83C\uDF57"
         return runCatching {
-            client.post("https://api.anthropic.com/v1/messages") {
+           val response = client.post("https://api.anthropic.com/v1/messages") {
                 contentType(ContentType.Application.Json)
                 header("x-api-key", key)
                 header("anthropic-version", "2023-06-01")
@@ -38,13 +37,15 @@ class AnthropicRepository(
                         messages = listOf(
                             Message(
                                 role = "user",
-                                content = anthropicQueryWithEmoji
+                                content = buildNutritionQuery(query)
                             )
                         )
                     )
                 )
             }.body<MessageResponse>()
                 .content.firstOrNull()?.text ?: ""
+            val cleaned = "{${response.substringAfter("{").substringBeforeLast("}")}}"
+            Json.decodeFromString<NutritionEntry>(cleaned).copy(meal = query)
         }
     }
 }

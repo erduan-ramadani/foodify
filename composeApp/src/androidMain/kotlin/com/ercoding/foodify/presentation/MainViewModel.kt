@@ -18,14 +18,10 @@ class MainViewModel(prefRepo: PreferencesInterface) : ViewModel() {
             false
         )
 
-    val isOnboardingComplete = mutableStateOf(false)
     val isLoading = mutableStateOf(true)
 
     init {
         viewModelScope.launch {
-            isLoading.value = true
-            val proteinGoal = prefRepo.proteinGoal.first()
-            isOnboardingComplete.value = proteinGoal != null
             isLoading.value = false
         }
     }

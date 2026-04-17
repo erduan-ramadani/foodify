@@ -54,11 +54,7 @@ fun DashboardScreen(
 ) {
 
     val viewModel: DashboardViewModel = koinViewModel()
-    val dailyGoal = viewModel.dailyGoal.collectAsState()
-    val dailyReached = viewModel.dailyReached
-    val progress = viewModel.progress
-
-    val dailyEntriesByDate = viewModel.proteinEntriesByDate
+    val dailyEntriesByDate = viewModel.nutritionEntriesByDate
     val pagerState = rememberPagerState(
         initialPage = viewModel.last7Days.size - 1,
         pageCount = { viewModel.last7Days.size }
@@ -128,11 +124,11 @@ fun DashboardScreen(
                 CircularProgressIndicator(
                     strokeWidth = 8.dp,
                     modifier = Modifier.size(80.dp),
-                    progress = { progress }
+                    progress = { 0.8f }
                 )
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = "${viewModel.getProgress(progress)}%",
+                        text = "progress",
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold
@@ -148,14 +144,14 @@ fun DashboardScreen(
                         .padding(horizontal = 16.dp)
                 ) {
                     Text(
-                        text = "${dailyReached}g gegessen",
+                        text = "gegessen",
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
                 }
                 Text(
-                    text = " / ${dailyGoal.value}g",
+                    text = " / xg",
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
@@ -179,7 +175,7 @@ fun DashboardScreen(
                             .padding(vertical = 8.dp)
                     ) {
                         Text(
-                            text = "${dailyReached}g",
+                            text = "xg",
                             color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold
@@ -206,16 +202,13 @@ fun DashboardScreen(
                             .padding(vertical = 8.dp),
                     ) {
                         Text(
-                            text =
-                                if (viewModel.getDailyProteinAmountRemaining() == 0) "🎉"
-                                else "${viewModel.getDailyProteinAmountRemaining()}g",
+                            text = "🎉",
                             color = Color(0xFF009604),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            if (viewModel.getDailyProteinAmountRemaining() != 0) "übrig"
-                            else "Ziel erreicht",
+                            "übrig",
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             style = MaterialTheme.typography.bodyMedium
 
@@ -258,7 +251,7 @@ fun DashboardScreen(
             Spacer(modifier = Modifier.padding(8.dp))
             ProteinInputSection(
                 onClick = { query ->
-                    viewModel.addProteins(query)
+                    viewModel.addNutritionValues(query)
                 },
                 isLoading = viewModel.isLoading
             )
@@ -267,7 +260,7 @@ fun DashboardScreen(
                 pagerState = pagerState,
                 dailyEntriesByDate = dailyEntriesByDate,
                 last7Days = viewModel.last7Days,
-                onDismiss = { entry -> viewModel.removeProteinEntry(entry) },
+                onDismiss = { entry -> viewModel.removeNutritionEntry(entry) },
             )
         }
     }

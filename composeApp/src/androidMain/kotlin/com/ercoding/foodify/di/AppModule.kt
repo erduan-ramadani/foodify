@@ -13,7 +13,6 @@ import com.ercoding.foodify.domain.AnthropicInterface
 import com.ercoding.foodify.domain.PreferencesInterface
 import com.ercoding.foodify.presentation.MainViewModel
 import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
-import com.ercoding.foodify.presentation.onboarding.OnboardingViewModel
 import com.ercoding.foodify.presentation.settings.SettingsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +34,5 @@ val appModule = module {
 val viewModelModule = module {
     viewModel { MainViewModel(get()) }
     viewModel { DashboardViewModel(get(), get()) }
-    viewModel { OnboardingViewModel(get()) }
     viewModel { SettingsViewModel(get()) }
 }

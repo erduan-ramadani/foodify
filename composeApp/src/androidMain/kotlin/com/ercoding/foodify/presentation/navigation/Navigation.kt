@@ -15,7 +15,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ercoding.foodify.presentation.MainViewModel
 import com.ercoding.foodify.presentation.dashboard.DashboardScreen
-import com.ercoding.foodify.presentation.onboarding.OnboardingScreen
 import com.ercoding.foodify.presentation.settings.SettingsScreen
 import com.ercoding.foodify.presentation.theme.FoodifyTheme
 import org.koin.androidx.compose.koinViewModel
@@ -29,12 +28,7 @@ fun Navigation() {
     val isDarkMode by mainViewModel.isDarkMode.collectAsState()
 
     FoodifyTheme(darkTheme = isDarkMode) {
-        startDestination =
-            if (mainViewModel.isOnboardingComplete.value) {
-                Routes.dashboard
-            } else {
-                Routes.onboarding
-            }
+        startDestination = Routes.dashboard
         if (mainViewModel.isLoading.value) {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -46,11 +40,6 @@ fun Navigation() {
             }
         } else {
             NavHost(navController, startDestination) {
-                composable(Routes.onboarding) {
-                    OnboardingScreen(
-                        onConfirmClick = { navController.navigate(Routes.dashboard) }
-                    )
-                }
                 composable(Routes.dashboard) {
                     DashboardScreen(
                         onSettingsClick = { navController.navigate(Routes.settings) }

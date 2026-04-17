@@ -9,18 +9,11 @@ import kotlinx.coroutines.launch
 
 class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel() {
 
-    val proteinGoal: Flow<Int?> = prefRepo.proteinGoal
     val isDarkMode: Flow<Boolean> = prefRepo.darkMode
 
     fun toggleDarkMode() {
         viewModelScope.launch {
             prefRepo.setDarkMode(!isDarkMode.first())
-        }
-    }
-
-    fun setProteinGoal(goal: Int) {
-        viewModelScope.launch {
-            prefRepo.setProteinGoal(goal)
         }
     }
 }
