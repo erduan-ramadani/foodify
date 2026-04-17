@@ -32,7 +32,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +39,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import org.koin.androidx.compose.koinViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -55,6 +55,7 @@ fun DashboardScreen(
 
     val viewModel: DashboardViewModel = koinViewModel()
     val dailyEntriesByDate = viewModel.nutritionEntriesByDate
+    viewModel.selectedDate
     val pagerState = rememberPagerState(
         initialPage = viewModel.last7Days.size - 1,
         pageCount = { viewModel.last7Days.size }
@@ -123,14 +124,20 @@ fun DashboardScreen(
             Box(contentAlignment = Alignment.Center) {
                 CircularProgressIndicator(
                     strokeWidth = 8.dp,
-                    modifier = Modifier.size(80.dp),
-                    progress = { 0.8f }
+                    modifier = Modifier.size(120.dp),
+                    progress = { viewModel.getProgress()}
                 )
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = "progress",
+                        text = "${viewModel.getRemainingDailyCalories()}",
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "kcal übrig",
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.Bold
                     )
                 }
@@ -144,14 +151,14 @@ fun DashboardScreen(
                         .padding(horizontal = 16.dp)
                 ) {
                     Text(
-                        text = "gegessen",
+                        text = "${viewModel.dailyCalories}kcal gegessen",
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
                 }
                 Text(
-                    text = " / xg",
+                    text = "/ ${viewModel.dailyThreshold}kcal",
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
@@ -175,13 +182,13 @@ fun DashboardScreen(
                             .padding(vertical = 8.dp)
                     ) {
                         Text(
-                            text = "xg",
-                            color = MaterialTheme.colorScheme.primary,
+                            text = "1234",
+                            color = Color(0xFFFF7E19),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "Protein",
+                            text = "Carbs",
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             style = MaterialTheme.typography.bodyMedium
                         )
@@ -202,13 +209,13 @@ fun DashboardScreen(
                             .padding(vertical = 8.dp),
                     ) {
                         Text(
-                            text = "🎉",
-                            color = Color(0xFF009604),
+                            text = "45",
+                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            "übrig",
+                            "Protein",
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             style = MaterialTheme.typography.bodyMedium
 
@@ -230,17 +237,41 @@ fun DashboardScreen(
                             .padding(vertical = 8.dp),
                     ) {
                         Text(
-                            text = "${
-                                viewModel.getEntryAmountOfDay(
-                                    viewModel.last7Days[pagerState.currentPage]
-                                )
-                            }",
-                            color = Color(0xFFFF7E19),
+                            text = "12344",
+                            color = Color(0xFF004D02),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "Einträge",
+                            text = "Fett",
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.bodyMedium
+
+                        )
+                    }
+                }
+                Card(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(4.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface
+                    )
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                    ) {
+                        Text(
+                            text = "39g",
+                            color = Color(0xFFE91E63),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "Zucker",
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             style = MaterialTheme.typography.bodyMedium
 
@@ -256,7 +287,7 @@ fun DashboardScreen(
                 isLoading = viewModel.isLoading
             )
             Spacer(modifier = Modifier.padding(8.dp))
-            ProteinDayPager(
+            MealDayPager(
                 pagerState = pagerState,
                 dailyEntriesByDate = dailyEntriesByDate,
                 last7Days = viewModel.last7Days,

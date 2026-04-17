@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
@@ -26,18 +25,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.ercoding.foodify.domain.ProteinEntry
+import com.ercoding.foodify.domain.NutritionEntry
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun ProteinDayPager(
+fun MealDayPager(
     pagerState: PagerState,
-    dailyEntriesByDate: Map<LocalDate, List<ProteinEntry>>,
+    dailyEntriesByDate: Map<LocalDate, List<NutritionEntry>>,
     last7Days: List<LocalDate>,
-    onDismiss: (ProteinEntry) -> Unit
+    onDismiss: (NutritionEntry) -> Unit
 ) {
     HorizontalPager(pagerState) { page ->
 
@@ -88,8 +87,9 @@ fun ProteinDayPager(
                 LazyColumn(
                     state = listState,
                 ) {
-                    items(entriesForDay, key = { it.id }) { entry ->
-                        ProteinEntryItem(
+                    items(entriesForDay.size, key = { entriesForDay[it].id }) { index ->
+                        val entry = entriesForDay[index]
+                        MealEntryItem(
                             entry,
                             onDismiss = { onDismiss(entry) }
                         )

@@ -3,14 +3,15 @@ package com.ercoding.foodify.presentation.dashboard
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ercoding.foodify.domain.AnthropicInterface
+import com.ercoding.foodify.domain.NutritionEntry
 import com.ercoding.foodify.domain.PreferencesInterface
-import com.ercoding.foodify.domain.ProteinEntry
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -26,9 +27,11 @@ class DashboardViewModel(
     private val prefRepository: PreferencesInterface
 ) : ViewModel() {
 
-    var nutritionEntries = mutableStateListOf<ProteinEntry>()
-
-    val nutritionEntriesByDate: Map<LocalDate, List<ProteinEntry>>
+    var nutritionEntries = mutableStateListOf<NutritionEntry>()
+    val dailyThreshold by mutableIntStateOf(3000)
+    val dailyCalories: Int get() = getDailyCalories(selectedDate)
+    val progress by mutableIntStateOf(0)
+    val nutritionEntriesByDate: Map<LocalDate, List<NutritionEntry>>
         @RequiresApi(Build.VERSION_CODES.O)
         get() = nutritionEntries.groupBy { entry ->
             Instant.ofEpochMilli(entry.createdAt)
@@ -53,6 +56,12 @@ class DashboardViewModel(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getDailyCalories(date: LocalDate?): Int {
+        return (nutritionEntriesByDate[date]?.sumOf { it.calories } ?: 0).toInt()
+    }
+
+
     fun addNutritionValues(query: String) {
         viewModelScope.launch {
             isLoading = true
@@ -68,6 +77,7 @@ class DashboardViewModel(
             }
             result.onSuccess { response ->
                 println("Antwort: $response")
+            nutritionEntries.add(response)
             }
             isLoading = false
         }
@@ -80,22 +90,21 @@ class DashboardViewModel(
         }
     }
 
-    fun removeNutritionEntry(entry: ProteinEntry) {
+    fun removeNutritionEntry(entry: NutritionEntry) {
         viewModelScope.launch {
             nutritionEntries.removeIf { it.id == entry.id }
             prefRepository.setNutritionEntries(nutritionEntries)
         }
     }
 
-    fun getProgress(progress: Float): Int {
-        val percentage: Int = (progress * 100).toInt()
-        return if (percentage >= 100) 100
-        else percentage
-
+    fun getProgress(): Float {
+        return dailyCalories.toFloat() / dailyThreshold
+//        val percentage: Int = (progress * 100).toInt()
+//        return if (percentage >= 100) 100
+//        else percentage
     }
 
-    fun getEntryAmountOfDay(date: LocalDate): Int {
-        val currentEntriesCount = nutritionEntriesByDate[date]?.size ?: 0
-        return currentEntriesCount
+    fun getRemainingDailyCalories(): Int {
+        return dailyThreshold - dailyCalories
     }
 }

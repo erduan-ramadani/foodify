@@ -7,6 +7,8 @@ import java.util.UUID
 data class NutritionEntry(
     val id: String = UUID.randomUUID().toString(),
     val meal: String = "",
+    val emoji: String = "",
+    val createdAt: Long = System.currentTimeMillis(),
     val calories: Double = 0.0,
     val protein: Double = 0.0,
     val fat: Double = 0.0,
@@ -29,7 +31,7 @@ data class NutritionEntry(
     val folicAcid: Double = 0.0,
     val calcium: Double = 0.0,
     val iron: Double = 0.0,
-    val magnesium: Int = 0,
+    val magnesium: Double = 0.0,
     val zinc: Double = 0.0,
     val phosphorus: Double = 0.0,
     val selenium: Double = 0.0,

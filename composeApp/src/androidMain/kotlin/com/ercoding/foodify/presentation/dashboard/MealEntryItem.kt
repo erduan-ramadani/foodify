@@ -24,12 +24,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ercoding.foodify.domain.ProteinEntry
+import com.ercoding.foodify.domain.NutritionEntry
 
 
 @Composable
-fun ProteinEntryItem(
-    entry: ProteinEntry,
+fun MealEntryItem(
+    entry: NutritionEntry,
     onDismiss: () -> Unit
 ) {
 
@@ -74,12 +74,12 @@ fun ProteinEntryItem(
                 }
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    entry.meal,
+                    text = entry.meal,
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
-                    entry.proteinAmount.toString() + "g",
+                    text = "${entry.calories.toInt()}kcal",
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.titleMedium,
                 )

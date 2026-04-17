@@ -5,8 +5,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.ercoding.foodify.domain.NutritionEntry
 import com.ercoding.foodify.domain.PreferencesInterface
-import com.ercoding.foodify.domain.ProteinEntry
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -26,13 +26,13 @@ class PreferencesRepository(private val dataStore: DataStore<Preferences>) :
         dataStore.edit { it[DARK_MODE_KEY] = enabled }
     }
 
-    override suspend fun setNutritionEntries(entries: List<ProteinEntry>) {
+    override suspend fun setNutritionEntries(entries: List<NutritionEntry>) {
         val encodedEntries = Json.encodeToString(entries)
         dataStore.edit { it[NUTRITION_ENTRIES] = encodedEntries }
     }
 
-    override suspend fun getNutritionEntries(): List<ProteinEntry> {
+    override suspend fun getNutritionEntries(): List<NutritionEntry> {
         val json = nutritionEntries.first() ?: return emptyList()
-        return Json.decodeFromString<List<ProteinEntry>>(json)
+        return Json.decodeFromString<List<NutritionEntry>>(json)
     }
 }

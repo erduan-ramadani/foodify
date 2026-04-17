@@ -1,7 +1,7 @@
 package com.ercoding.foodify.data.local
 
+import com.ercoding.foodify.domain.NutritionEntry
 import com.ercoding.foodify.domain.PreferencesInterface
-import com.ercoding.foodify.domain.ProteinEntry
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -13,9 +13,9 @@ class FakePreferencesRepository() : PreferencesInterface {
 
     override suspend fun setDarkMode(enabled: Boolean) {}
 
-    override suspend fun setNutritionEntries(entries: List<ProteinEntry>) {}
+    override suspend fun setNutritionEntries(entries: List<NutritionEntry>) {}
 
-    override suspend fun getNutritionEntries(): List<ProteinEntry> {
+    override suspend fun getNutritionEntries(): List<NutritionEntry> {
         return listOf()
     }
 }

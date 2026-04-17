@@ -2,7 +2,11 @@ package com.ercoding.foodify.data.remote
 
 
 fun buildNutritionQuery(query: String): String {
-    return "gib mir die folgende werte von $query als json. kein text davor oder danach. wenn die menge unklar ist, schäte eine typische portion: calories\n" +
+    return "Return the nutritional values for $query as JSON. No text before or after the JSON." +
+            "Calculate values based on standard nutrition tables (USDA)." +
+            "If no amount is specified, assume a typical serving size. " +
+            "calories\n" +
+            "emoji\n" +
             "protein\n" +
             "fat\n" +
             "saturatedFat\n" +

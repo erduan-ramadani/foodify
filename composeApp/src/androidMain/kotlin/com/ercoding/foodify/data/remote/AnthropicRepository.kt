@@ -45,7 +45,8 @@ class AnthropicRepository(
             }.body<MessageResponse>()
                 .content.firstOrNull()?.text ?: ""
             val cleaned = "{${response.substringAfter("{").substringBeforeLast("}")}}"
-            Json.decodeFromString<NutritionEntry>(cleaned).copy(meal = query)
+            val json = Json { ignoreUnknownKeys = true }
+            json.decodeFromString<NutritionEntry>(cleaned).copy(meal = query)
         }
     }
 }
