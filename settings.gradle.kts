@@ -1,4 +1,4 @@
-rootProject.name = "ProteinTracker"
+rootProject.name = "NutritionTracker"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "70583307462",
-    "project_id": "protein-track-ea9af",
-    "storage_bucket": "protein-track-ea9af.firebasestorage.app"
+    "project_number": "360188824482",
+    "project_id": "foodify-c1c85",
+    "storage_bucket": "foodify-c1c85.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:70583307462:android:a45cf6ad813bdcf4e31bc7",
+        "mobilesdk_app_id": "1:360188824482:android:0c43e467497de346b900fb",
         "android_client_info": {
-          "package_name": "com.ercoding.proteintracker"
+          "package_name": "com.ercoding.foodify"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAl7cQ2gPgOS21m0Im0SHlrU91axnb7Q_A"
+          "current_key": "AIzaSyB2PG0VA5Fx4OUO2_EJKaZB3nAFcr5qz_g"
         }
       ],
       "services": {
