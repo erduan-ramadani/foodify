@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun DailySummary(
+fun DailyKcalSummary(
     viewModel: DashboardViewModel
 ) {
 

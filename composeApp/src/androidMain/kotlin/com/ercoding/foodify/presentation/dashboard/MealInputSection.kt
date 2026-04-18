@@ -41,7 +41,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ProteinInputSection(
+fun MealInputSection(
     onClick: (String) -> Unit,
     isLoading: Boolean
 ) {
