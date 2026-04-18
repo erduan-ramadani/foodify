@@ -5,20 +5,14 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,10 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import org.koin.androidx.compose.koinViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -55,7 +46,6 @@ fun DashboardScreen(
 
     val viewModel: DashboardViewModel = koinViewModel()
     val dailyEntriesByDate = viewModel.nutritionEntriesByDate
-    viewModel.selectedDate
     val pagerState = rememberPagerState(
         initialPage = viewModel.last7Days.size - 1,
         pageCount = { viewModel.last7Days.size }
@@ -113,7 +103,6 @@ fun DashboardScreen(
         },
         bottomBar = {}
     ) { paddingValues ->
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -121,169 +110,13 @@ fun DashboardScreen(
                 .padding(16.dp, 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(contentAlignment = Alignment.Center) {
-                CircularProgressIndicator(
-                    strokeWidth = 10.dp,
-                    modifier = Modifier.size(120.dp),
-                    progress = { viewModel.getProgress()},
-                    color = viewModel.getProgressColor()
-                )
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = "${viewModel.getRemainingDailyCalories()}",
-                        color = Color.Black,
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = viewModel.getCalorieLimitText(),
-                        color = viewModel.getProgressColor(),
-                        style = MaterialTheme.typography.bodySmall,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            }
+            DailySummary(viewModel)
             Spacer(modifier = Modifier.padding(8.dp))
-            Row {
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(50))
-                        .background(MaterialTheme.colorScheme.primaryContainer)
-                        .padding(horizontal = 16.dp)
-                ) {
-                    Text(
-                        text = "${viewModel.dailyCalories}kcal gegessen",
-                        color = MaterialTheme.colorScheme.primary,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-                Text(
-                    text = "/ ${viewModel.dailyThreshold}kcal",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-            Spacer(modifier = Modifier.padding(8.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                Card(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(4.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    )
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp)
-                    ) {
-                        Text(
-                            text = "${viewModel.getDailyCarbs()}g",
-                            color = Color(0xFFFF7E19),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = "Carbs",
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
-                }
-                Card(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(4.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    )
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                    ) {
-                        Text(
-                            text = "${viewModel.getDailyProtein()}g",
-                            color = MaterialTheme.colorScheme.primary,
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            "Protein",
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.bodyMedium
-
-                        )
-                    }
-                }
-                Card(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(4.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    )
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                    ) {
-                        Text(
-                            text = "${viewModel.getDailyFat()}g",
-                            color = Color(0xFF004D02),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = "Fett",
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.bodyMedium
-
-                        )
-                    }
-                }
-                Card(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(4.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    )
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                    ) {
-                        Text(
-                            text = "${viewModel.getDailySugar()}g",
-                            color = Color(0xFFE91E63),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = "Zucker",
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.bodyMedium
-
-                        )
-                    }
-                }
-            }
+            NutritionCards(viewModel)
             Spacer(modifier = Modifier.padding(8.dp))
             ProteinInputSection(
                 onClick = { query ->
-                    viewModel.addNutritionValues(query)
+                    viewModel.addNutritionValues(query, viewModel.selectedDate)
                 },
                 isLoading = viewModel.isLoading
             )

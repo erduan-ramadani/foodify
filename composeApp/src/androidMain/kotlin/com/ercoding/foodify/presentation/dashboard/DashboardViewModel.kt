@@ -57,9 +57,10 @@ class DashboardViewModel(
         }
     }
 
-    fun addNutritionValues(query: String) {
+    fun addNutritionValues(query: String, date: LocalDate?) {
         viewModelScope.launch {
             isLoading = true
+            val query = query.replaceFirstChar { it.uppercase() }
             val result = anthropicRepo.requestNutritionValues(query)
             result.onFailure { exception ->
                 val errorMessage = when (exception) {
@@ -72,16 +73,12 @@ class DashboardViewModel(
             }
             result.onSuccess { response ->
                 println("Antwort: $response")
-            nutritionEntries.add(response)
+                val timestamp = date?.atStartOfDay(ZoneId.systemDefault())?.toInstant()
+                    ?.toEpochMilli() ?: System.currentTimeMillis()
+                nutritionEntries.add(response.copy(createdAt = timestamp))
+                prefRepository.setNutritionEntries(nutritionEntries)
             }
             isLoading = false
-        }
-    }
-
-    fun reset() {
-        viewModelScope.launch {
-            nutritionEntries.clear()
-            prefRepository.setNutritionEntries(nutritionEntries)
         }
     }
 
@@ -98,9 +95,9 @@ class DashboardViewModel(
 
     fun getProgressColor(): Color {
         val progress = getProgress()
-        return if (progress > 0.75f){
+        return if (progress > 0.75f) {
             Color.Red
-        } else if (progress in 0.5f..0.8f){
+        } else if (progress in 0.5f..0.8f) {
             Color(0xFFFF7E19)
         } else {
             Color(0xFF004D02)
@@ -112,7 +109,7 @@ class DashboardViewModel(
         return remaining.absoluteValue
     }
 
-    fun getCalorieLimitText(): String{
+    fun getCalorieLimitText(): String {
         val calorieDeficit = dailyThreshold - dailyCalories
         return if (calorieDeficit >= 0) {
             "kcal übrig"
