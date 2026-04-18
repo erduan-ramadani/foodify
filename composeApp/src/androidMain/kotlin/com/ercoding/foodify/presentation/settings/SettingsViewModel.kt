@@ -10,10 +10,18 @@ import kotlinx.coroutines.launch
 class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel() {
 
     val isDarkMode: Flow<Boolean> = prefRepo.darkMode
+    val dailyThreshold: Flow<Int> = prefRepo.dailyThreshold
 
     fun toggleDarkMode() {
         viewModelScope.launch {
             prefRepo.setDarkMode(!isDarkMode.first())
         }
     }
+
+    fun setDailyThreshold(threshold: Int) {
+        viewModelScope.launch {
+            prefRepo.setDailyThreshold(threshold)
+        }
+    }
+
 }

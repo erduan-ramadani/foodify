@@ -1,5 +1,7 @@
 package com.ercoding.foodify.presentation.dashboard
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,17 +14,20 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DailySummary(
     viewModel: DashboardViewModel
 ) {
+
+    val dailyThreshold = viewModel.dailyThreshold.collectAsState()
 
     Box(contentAlignment = Alignment.Center) {
         CircularProgressIndicator(
@@ -34,7 +39,7 @@ fun DailySummary(
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = "${viewModel.getRemainingDailyCalories()}",
-                color = Color.Black,
+                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
@@ -62,7 +67,7 @@ fun DailySummary(
             )
         }
         Text(
-            text = "/ ${viewModel.dailyThreshold}kcal",
+            text = "/ ${dailyThreshold.value}kcal",
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }

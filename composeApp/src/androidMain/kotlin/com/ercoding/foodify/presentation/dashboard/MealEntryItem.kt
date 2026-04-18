@@ -75,7 +75,6 @@ fun MealEntryItem(
                 modifier = Modifier
                     .padding(12.dp)
                     .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
             ) {
                 Box(
                     modifier = Modifier
@@ -90,7 +89,7 @@ fun MealEntryItem(
                     )
                 }
 
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(8.dp))
 
                 Column(modifier = Modifier.weight(1f)) {
                     Text(

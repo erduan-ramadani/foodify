@@ -38,13 +38,13 @@ fun NutritionCards(
                     .padding(vertical = 8.dp)
             ) {
                 Text(
-                    text = "${viewModel.getDailyCarbs()}g",
+                    text = "${viewModel.dailyCarbs}g",
                     color = Color(0xFFFF7E19),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "Carbs",
+                    text = "Kohlenhy.",
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.bodyMedium
                 )
@@ -65,7 +65,7 @@ fun NutritionCards(
                     .padding(vertical = 8.dp),
             ) {
                 Text(
-                    text = "${viewModel.getDailyProtein()}g",
+                    text = "${viewModel.dailyProtein}g",
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
@@ -93,7 +93,7 @@ fun NutritionCards(
                     .padding(vertical = 8.dp),
             ) {
                 Text(
-                    text = "${viewModel.getDailyFat()}g",
+                    text = "${viewModel.dailyFat}g",
                     color = Color(0xFF004D02),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
@@ -121,7 +121,7 @@ fun NutritionCards(
                     .padding(vertical = 8.dp),
             ) {
                 Text(
-                    text = "${viewModel.getDailySugar()}g",
+                    text = "${viewModel.dailySugar}g",
                     color = Color(0xFFE91E63),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold

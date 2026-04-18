@@ -3,7 +3,6 @@ package com.ercoding.foodify.presentation.dashboard
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -15,7 +14,10 @@ import com.ercoding.foodify.domain.NutritionEntry
 import com.ercoding.foodify.domain.PreferencesInterface
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
 import java.time.Instant
@@ -29,9 +31,12 @@ class DashboardViewModel(
     private val prefRepository: PreferencesInterface
 ) : ViewModel() {
 
-    var nutritionEntries = mutableStateListOf<NutritionEntry>()
-    val dailyThreshold by mutableIntStateOf(3000)
     val dailyCalories: Int get() = getDailyCalories(selectedDate)
+    val dailyCarbs get() = getDailyTotal { it.carbohydrates }
+    val dailyFat get() = getDailyTotal { it.fat }
+    val dailyProtein get() = getDailyTotal { it.protein }
+    val dailySugar get() = getDailyTotal { it.sugar }
+    var nutritionEntries = mutableStateListOf<NutritionEntry>()
     val nutritionEntriesByDate: Map<LocalDate, List<NutritionEntry>>
         @RequiresApi(Build.VERSION_CODES.O)
         get() = nutritionEntries.groupBy { entry ->
@@ -39,20 +44,24 @@ class DashboardViewModel(
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate()
         }.toSortedMap()
+    val dailyThreshold = prefRepository.dailyThreshold.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        1234
+    )
 
     @RequiresApi(Build.VERSION_CODES.O)
     val last7Days: List<LocalDate> = (0..6).map {
         LocalDate.now().minusDays(it.toLong())
     }.reversed()
     var selectedDate: LocalDate? by mutableStateOf(LocalDate.now())
-
     var isLoading by mutableStateOf(false)
-
     private val _events = Channel<String>()
     val events = _events.receiveAsFlow()
 
     init {
         viewModelScope.launch {
+            println("Threshold: ${prefRepository.dailyThreshold.first()}")
             nutritionEntries.addAll(prefRepository.getNutritionEntries())
         }
     }
@@ -90,7 +99,7 @@ class DashboardViewModel(
     }
 
     fun getProgress(): Float {
-        return dailyCalories.toFloat() / dailyThreshold
+        return dailyCalories.toFloat() / dailyThreshold.value
     }
 
     fun getProgressColor(): Color {
@@ -105,12 +114,12 @@ class DashboardViewModel(
     }
 
     fun getRemainingDailyCalories(): Int {
-        val remaining = dailyThreshold - dailyCalories
+        val remaining = dailyThreshold.value - dailyCalories
         return remaining.absoluteValue
     }
 
     fun getCalorieLimitText(): String {
-        val calorieDeficit = dailyThreshold - dailyCalories
+        val calorieDeficit = dailyThreshold.value - dailyCalories
         return if (calorieDeficit >= 0) {
             "kcal übrig"
         } else {
@@ -123,23 +132,7 @@ class DashboardViewModel(
         return (nutritionEntriesByDate[date]?.sumOf { it.calories } ?: 0).toInt()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getDailyCarbs(): Int {
-        return (nutritionEntriesByDate[selectedDate]?.sumOf { it.carbohydrates } ?: 0).toInt()
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getDailyFat(): Int {
-        return (nutritionEntriesByDate[selectedDate]?.sumOf { it.fat } ?: 0).toInt()
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getDailyProtein(): Int {
-        return (nutritionEntriesByDate[selectedDate]?.sumOf { it.protein } ?: 0).toInt()
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getDailySugar(): Int {
-        return (nutritionEntriesByDate[selectedDate]?.sumOf { it.sugar } ?: 0).toInt()
+    fun getDailyTotal(selector: (NutritionEntry) -> Double): Int {
+        return (nutritionEntriesByDate[selectedDate]?.sumOf(selector) ?: 0.0).toInt()
     }
 }
