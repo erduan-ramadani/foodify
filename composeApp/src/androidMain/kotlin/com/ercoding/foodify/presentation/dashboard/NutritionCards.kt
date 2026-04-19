@@ -47,7 +47,7 @@ fun NutritionCards(
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "Kohlenhy.",
+                    text = "Carbs",
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.bodyMedium
                 )

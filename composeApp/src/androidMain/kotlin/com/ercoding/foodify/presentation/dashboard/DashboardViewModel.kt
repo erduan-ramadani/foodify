@@ -23,6 +23,8 @@ import java.net.UnknownHostException
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 import kotlin.math.absoluteValue
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -49,12 +51,11 @@ class DashboardViewModel(
         SharingStarted.WhileSubscribed(5000),
         1234
     )
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    val last7Days: List<LocalDate> = (0..6).map {
-        LocalDate.now().minusDays(it.toLong())
-    }.reversed()
-    var selectedDate: LocalDate? by mutableStateOf(LocalDate.now())
+    var selectedDate: LocalDate by mutableStateOf(LocalDate.now())
+    val isToday: Boolean
+        get() = selectedDate == LocalDate.now()
+    val isYesterday: Boolean
+        get() = selectedDate == LocalDate.now().minusDays(1)
     var isLoading by mutableStateOf(false)
     private val _events = Channel<String>()
     val events = _events.receiveAsFlow()
@@ -134,5 +135,17 @@ class DashboardViewModel(
 
     fun getDailyTotal(selector: (NutritionEntry) -> Double): Int {
         return (nutritionEntriesByDate[selectedDate]?.sumOf(selector) ?: 0.0).toInt()
+    }
+}
+
+fun LocalDate.toDisplayString(): String {
+    val today = LocalDate.now()
+    val formatter = DateTimeFormatter.ofPattern("d. MMMM", Locale.GERMAN)
+    val fullFormatter = DateTimeFormatter.ofPattern("EEEE, d. MMMM", Locale.GERMAN)
+
+    return when (this) {
+        today -> "Heute, ${format(formatter)}"
+        today.minusDays(1) -> "Gestern, ${format(formatter)}"
+        else -> format(fullFormatter)
     }
 }

@@ -43,7 +43,7 @@ fun DashboardScreen(
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         snackbarHost = { SnackbarHost(snackbarHostState) },
-        topBar = { FoodifyTopAppBar(onSettingsClick) }
+        topBar = { FoodifyTopAppBar(onSettingsClick, vm) }
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -52,7 +52,6 @@ fun DashboardScreen(
                 .padding(16.dp, 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            DateSelector(vm)
             DailyKcalSummary(vm)
             Spacer(modifier = Modifier.padding(8.dp))
             NutritionCards(vm)
