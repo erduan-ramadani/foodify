@@ -93,9 +93,6 @@ fun MealInputSection(
                     localFocusManager.clearFocus()
                     userTextInput = ""
                 },
-//                enabled = userTextInput.isNotBlank()
-//                        && userTextInput.length >= 3
-//                        && userTextInput.length < 40,
                 modifier = Modifier
                     .fillMaxHeight()
                     .weight(0.2f),

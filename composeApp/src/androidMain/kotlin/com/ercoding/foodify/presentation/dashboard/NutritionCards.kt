@@ -14,6 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.presentation.theme.carbsColor
+import com.ercoding.foodify.presentation.theme.proteinColor
+import com.ercoding.foodify.presentation.theme.sugarColor
 
 @Composable
 fun NutritionCards(
@@ -39,7 +42,7 @@ fun NutritionCards(
             ) {
                 Text(
                     text = "${viewModel.dailyCarbs}g",
-                    color = Color(0xFFFF7E19),
+                    color = MaterialTheme.colorScheme.carbsColor,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -66,7 +69,7 @@ fun NutritionCards(
             ) {
                 Text(
                     text = "${viewModel.dailyProtein}g",
-                    color = MaterialTheme.colorScheme.primary,
+                    color = MaterialTheme.colorScheme.proteinColor,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -122,7 +125,7 @@ fun NutritionCards(
             ) {
                 Text(
                     text = "${viewModel.dailySugar}g",
-                    color = Color(0xFFE91E63),
+                    color = MaterialTheme.colorScheme.sugarColor,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )

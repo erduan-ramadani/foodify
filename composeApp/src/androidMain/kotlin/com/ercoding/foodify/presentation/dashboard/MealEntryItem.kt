@@ -2,7 +2,6 @@ package com.ercoding.foodify.presentation.dashboard
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -96,20 +95,12 @@ fun MealEntryItem(
                         text = entry.meal,
                         style = MaterialTheme.typography.titleMedium
                     )
-
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(
-                            "K: ${entry.carbohydrates.toInt()}g",
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                        Text(
-                            "E: ${entry.protein.toInt()}g",
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                        Text("F: ${entry.fat.toInt()}g", style = MaterialTheme.typography.bodySmall)
-                        Text(
-                            "Z: ${entry.sugar.toInt()}g",
-                            style = MaterialTheme.typography.bodySmall
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        ColorLegend(
+                            "${entry.carbohydrates.toInt()}g",
+                            "${entry.protein.toInt()}g",
+                            "${entry.fat.toInt()}g",
+                            "${entry.sugar.toInt()}g",
                         )
                     }
                 }
