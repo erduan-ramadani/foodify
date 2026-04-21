@@ -1,6 +1,7 @@
 package com.ercoding.foodify.presentation.dashboard.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -12,6 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -24,6 +27,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.SuggestionChip
+import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,10 +44,13 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.domain.model.sheet.NutritionEntry
 
 @Composable
 fun MealInputSection(
-    onClick: (String) -> Unit,
+    recentEntries: List<NutritionEntry>,
+    onButtonClick: (String) -> Unit,
+    onSuggestionChipClick: (NutritionEntry) -> Unit,
     isLoading: Boolean
 ) {
     val localFocusManager = LocalFocusManager.current
@@ -50,7 +58,7 @@ fun MealInputSection(
     val focusRequester = remember { FocusRequester() }
     var userTextInput by remember { mutableStateOf("") }
 
-    Column() {
+    Column {
         Text(
             text = "Mahlzeit hinzufügen",
             color = MaterialTheme.colorScheme.primary,
@@ -79,7 +87,7 @@ fun MealInputSection(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(
                     onDone = {
-                        onClick(userTextInput)
+                        onButtonClick(userTextInput)
                         focusRequester.freeFocus()
                         keyboardController?.hide()
                         userTextInput = ""
@@ -89,7 +97,7 @@ fun MealInputSection(
             Spacer(modifier = Modifier.width(8.dp))
             Button(
                 onClick = {
-                    onClick(userTextInput)
+                    onButtonClick(userTextInput)
                     localFocusManager.clearFocus()
                     userTextInput = ""
                 },
@@ -107,6 +115,33 @@ fun MealInputSection(
                 } else {
                     Icon(Icons.Default.Add, contentDescription = "Add")
                 }
+            }
+        }
+        Spacer(modifier = Modifier.padding(2.dp))
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(40.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(
+                recentEntries,
+            ) { entry ->
+                SuggestionChip(
+                    onClick = { onSuggestionChipClick(entry) },
+                    label = {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(2.dp)
+                        ) {
+                            Text(entry.emoji)
+                            Text(entry.meal)
+                        }
+                    },
+                    shape = RoundedCornerShape(20.dp),
+                    colors = SuggestionChipDefaults.suggestionChipColors(
+                        containerColor = MaterialTheme.colorScheme.surface
+                    )
+                )
             }
         }
         Spacer(modifier = Modifier.padding(2.dp))

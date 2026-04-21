@@ -25,6 +25,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import java.util.UUID
 import kotlin.math.absoluteValue
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -39,6 +40,9 @@ class DashboardViewModel(
     val dailyProtein get() = getDailyTotal { it.protein }
     val dailySugar get() = getDailyTotal { it.sugar }
     var nutritionEntries = mutableStateListOf<NutritionEntry>()
+    val recentEntries: List<NutritionEntry>
+        get() = nutritionEntries.distinctBy { it.meal }
+
     val nutritionEntriesByDate: Map<LocalDate, List<NutritionEntry>>
         @RequiresApi(Build.VERSION_CODES.O)
         get() = nutritionEntries.groupBy { entry ->
@@ -64,10 +68,11 @@ class DashboardViewModel(
         viewModelScope.launch {
             println("Threshold: ${prefRepository.dailyThreshold.first()}")
             nutritionEntries.addAll(prefRepository.getNutritionEntries())
+//            recentEntries = nutritionEntries.distinctBy { entry -> entry.meal }
         }
     }
 
-    fun addNutritionValues(query: String, date: LocalDate?) {
+    fun requestNutritionValues(query: String) {
         viewModelScope.launch {
             isLoading = true
             val query = query.replaceFirstChar { it.uppercase() }
@@ -83,14 +88,32 @@ class DashboardViewModel(
             }
             result.onSuccess { response ->
                 println("Antwort: $response")
-                val timestamp = date?.atStartOfDay(ZoneId.systemDefault())?.toInstant()
-                    ?.toEpochMilli() ?: System.currentTimeMillis()
-                nutritionEntries.add(response.copy(createdAt = timestamp))
-                prefRepository.setNutritionEntries(nutritionEntries)
+                addNutritionFromRepo(response)
             }
             isLoading = false
         }
     }
+
+    fun addNutritionFromRepo(nutritionEntry: NutritionEntry) {
+        addEntry(nutritionEntry)
+    }
+
+    fun addNutritionFromSuggestion(nutritionEntry: NutritionEntry) {
+        val newEntry = nutritionEntry.copy(
+            id = UUID.randomUUID().toString(),
+        )
+        addEntry(newEntry)
+    }
+
+    fun addEntry(nutritionEntry: NutritionEntry) {
+        val timestamp = selectedDate.atStartOfDay(ZoneId.systemDefault())?.toInstant()
+            ?.toEpochMilli() ?: System.currentTimeMillis()
+        nutritionEntries.add(nutritionEntry.copy(createdAt = timestamp))
+        viewModelScope.launch {
+            prefRepository.setNutritionEntries(nutritionEntries)
+        }
+    }
+
 
     fun removeNutritionEntry(entry: NutritionEntry) {
         viewModelScope.launch {

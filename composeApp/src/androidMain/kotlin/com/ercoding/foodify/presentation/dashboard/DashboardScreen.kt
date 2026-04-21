@@ -62,8 +62,12 @@ fun DashboardScreen(
             NutritionCards(vm)
             Spacer(modifier = Modifier.padding(4.dp))
             MealInputSection(
-                onClick = { query ->
-                    vm.addNutritionValues(query, vm.selectedDate)
+                recentEntries = vm.recentEntries,
+                onButtonClick = { query ->
+                    vm.requestNutritionValues(query)
+                },
+                onSuggestionChipClick = { entry ->
+                    vm.addNutritionFromSuggestion(entry)
                 },
                 isLoading = vm.isLoading
             )
