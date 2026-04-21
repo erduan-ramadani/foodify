@@ -22,8 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.domain.extension.toDisplayString
 import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
-import com.ercoding.foodify.presentation.dashboard.toDisplayString
 import java.time.LocalDate
 
 @Composable

@@ -6,7 +6,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ercoding.foodify.domain.AnthropicInterface
@@ -23,8 +22,6 @@ import java.net.UnknownHostException
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import java.util.Locale
 import java.util.UUID
 import kotlin.math.absoluteValue
 
@@ -58,25 +55,31 @@ class DashboardViewModel(
     var selectedDate: LocalDate by mutableStateOf(LocalDate.now())
     val isToday: Boolean
         get() = selectedDate == LocalDate.now()
-    val isYesterday: Boolean
-        get() = selectedDate == LocalDate.now().minusDays(1)
     var isLoading by mutableStateOf(false)
     private val _events = Channel<String>()
     val events = _events.receiveAsFlow()
+
+    val progress: Float
+        get() = dailyCalories.toFloat() / dailyThreshold.value
+
+    val remainingDailyCalories: Int
+        get() = (dailyThreshold.value - dailyCalories).absoluteValue
+
+    val calorieLimitText: String
+        get() = if (dailyThreshold.value - dailyCalories >= 0) "kcal übrig" else "kcal Überschuss"
 
     init {
         viewModelScope.launch {
             println("Threshold: ${prefRepository.dailyThreshold.first()}")
             nutritionEntries.addAll(prefRepository.getNutritionEntries())
-//            recentEntries = nutritionEntries.distinctBy { entry -> entry.meal }
         }
     }
 
     fun requestNutritionValues(query: String) {
         viewModelScope.launch {
             isLoading = true
-            val query = query.replaceFirstChar { it.uppercase() }
-            val result = anthropicRepo.requestNutritionValues(query)
+            val formattedQuery = query.replaceFirstChar { it.uppercase() }
+            val result = anthropicRepo.requestNutritionValues(formattedQuery)
             result.onFailure { exception ->
                 val errorMessage = when (exception) {
                     is UnknownHostException -> "Kein Internet"
@@ -88,14 +91,10 @@ class DashboardViewModel(
             }
             result.onSuccess { response ->
                 println("Antwort: $response")
-                addNutritionFromRepo(response)
+                addEntry(response)
             }
             isLoading = false
         }
-    }
-
-    fun addNutritionFromRepo(nutritionEntry: NutritionEntry) {
-        addEntry(nutritionEntry)
     }
 
     fun addNutritionFromSuggestion(nutritionEntry: NutritionEntry) {
@@ -105,7 +104,7 @@ class DashboardViewModel(
         addEntry(newEntry)
     }
 
-    fun addEntry(nutritionEntry: NutritionEntry) {
+    private fun addEntry(nutritionEntry: NutritionEntry) {
         val timestamp = selectedDate.atStartOfDay(ZoneId.systemDefault())?.toInstant()
             ?.toEpochMilli() ?: System.currentTimeMillis()
         nutritionEntries.add(nutritionEntry.copy(createdAt = timestamp))
@@ -114,7 +113,6 @@ class DashboardViewModel(
         }
     }
 
-
     fun removeNutritionEntry(entry: NutritionEntry) {
         viewModelScope.launch {
             nutritionEntries.removeIf { it.id == entry.id }
@@ -122,53 +120,12 @@ class DashboardViewModel(
         }
     }
 
-    fun getProgress(): Float {
-        return dailyCalories.toFloat() / dailyThreshold.value
-    }
-
-    fun getProgressColor(): Color {
-        val progress = getProgress()
-        return if (progress > 0.75f) {
-            Color.Red
-        } else if (progress in 0.5f..0.8f) {
-            Color(0xFFFF7E19)
-        } else {
-            Color(0xFF004D02)
-        }
-    }
-
-    fun getRemainingDailyCalories(): Int {
-        val remaining = dailyThreshold.value - dailyCalories
-        return remaining.absoluteValue
-    }
-
-    fun getCalorieLimitText(): String {
-        val calorieDeficit = dailyThreshold.value - dailyCalories
-        return if (calorieDeficit >= 0) {
-            "kcal übrig"
-        } else {
-            "kcal Überschuss"
-        }
-    }
-
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getDailyCalories(date: LocalDate?): Int {
+    private fun getDailyCalories(date: LocalDate?): Int {
         return (nutritionEntriesByDate[date]?.sumOf { it.calories } ?: 0).toInt()
     }
 
-    fun getDailyTotal(selector: (NutritionEntry) -> Double): Int {
+    private fun getDailyTotal(selector: (NutritionEntry) -> Double): Int {
         return (nutritionEntriesByDate[selectedDate]?.sumOf(selector) ?: 0.0).toInt()
-    }
-}
-
-fun LocalDate.toDisplayString(): String {
-    val today = LocalDate.now()
-    val formatter = DateTimeFormatter.ofPattern("d. MMMM", Locale.GERMAN)
-    val fullFormatter = DateTimeFormatter.ofPattern("EEEE, d. MMMM", Locale.GERMAN)
-
-    return when (this) {
-        today -> "Heute, ${format(formatter)}"
-        today.minusDays(1) -> "Gestern, ${format(formatter)}"
-        else -> format(fullFormatter)
     }
 }

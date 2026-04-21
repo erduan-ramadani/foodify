@@ -18,6 +18,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
@@ -29,24 +30,29 @@ fun DailyKcalSummary(
 ) {
 
     val dailyThreshold = viewModel.dailyThreshold.collectAsState()
+    val progressColor = when {
+        viewModel.progress > 0.75f -> Color.Red
+        viewModel.progress in 0.5f..0.8f -> Color(0xFFFF7E19)
+        else -> Color(0xFF004D02)
+    }
 
     Box(contentAlignment = Alignment.Center) {
         CircularProgressIndicator(
             strokeWidth = 10.dp,
             modifier = Modifier.size(120.dp),
-            progress = { viewModel.getProgress() },
-            color = viewModel.getProgressColor()
+            progress = { viewModel.progress },
+            color = progressColor
         )
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "${viewModel.getRemainingDailyCalories()}",
+                text = "${viewModel.remainingDailyCalories}",
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = viewModel.getCalorieLimitText(),
-                color = viewModel.getProgressColor(),
+                text = viewModel.calorieLimitText,
+                color = progressColor,
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.Bold
             )
