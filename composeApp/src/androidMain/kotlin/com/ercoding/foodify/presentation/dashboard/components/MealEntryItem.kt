@@ -107,6 +107,8 @@ fun MealEntryItem(
         }
     }
     if (showSheet) {
-        NutritionBottomSheet(entry, onDismiss)
+        NutritionBottomSheet(
+            entry = entry,
+            onDismiss = { showSheet = false })
     }
 }
