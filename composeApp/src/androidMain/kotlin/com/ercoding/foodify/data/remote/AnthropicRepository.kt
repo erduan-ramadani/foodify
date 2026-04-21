@@ -1,7 +1,7 @@
 package com.ercoding.foodify.data.remote
 
 import com.ercoding.foodify.domain.AnthropicInterface
-import com.ercoding.foodify.domain.NutritionEntry
+import com.ercoding.foodify.domain.model.sheet.NutritionEntry
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -26,7 +26,7 @@ class AnthropicRepository(
     override suspend fun requestNutritionValues(query: String): Result<NutritionEntry> {
         val key = firebaseRepository.fetchAnthropicApiKey()
         return runCatching {
-           val response = client.post("https://api.anthropic.com/v1/messages") {
+            val response = client.post("https://api.anthropic.com/v1/messages") {
                 contentType(ContentType.Application.Json)
                 header("x-api-key", key)
                 header("anthropic-version", "2023-06-01")

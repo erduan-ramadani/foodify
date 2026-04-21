@@ -1,4 +1,4 @@
-package com.ercoding.foodify.presentation.dashboard
+package com.ercoding.foodify.presentation.dashboard.sheet
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ercoding.foodify.domain.NutrientRow
+import com.ercoding.foodify.domain.model.sheet.NutrientRow
 
 @Composable
 fun NutrientRowItem(row: NutrientRow) {

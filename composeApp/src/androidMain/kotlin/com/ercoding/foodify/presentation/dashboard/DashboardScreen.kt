@@ -18,6 +18,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.presentation.dashboard.components.DailyKcalSummary
+import com.ercoding.foodify.presentation.dashboard.components.DailyMealsList
+import com.ercoding.foodify.presentation.dashboard.components.FoodifyTopAppBar
+import com.ercoding.foodify.presentation.dashboard.components.MealInputSection
+import com.ercoding.foodify.presentation.dashboard.components.NutritionCards
 import org.koin.androidx.compose.koinViewModel
 
 

@@ -1,7 +1,7 @@
 package com.ercoding.foodify.data.local
 
-import com.ercoding.foodify.domain.NutritionEntry
 import com.ercoding.foodify.domain.PreferencesInterface
+import com.ercoding.foodify.domain.model.sheet.NutritionEntry
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 

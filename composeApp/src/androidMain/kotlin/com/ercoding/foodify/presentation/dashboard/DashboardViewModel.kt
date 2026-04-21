@@ -10,8 +10,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ercoding.foodify.domain.AnthropicInterface
-import com.ercoding.foodify.domain.NutritionEntry
 import com.ercoding.foodify.domain.PreferencesInterface
+import com.ercoding.foodify.domain.model.sheet.NutritionEntry
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted

@@ -1,4 +1,4 @@
-package com.ercoding.foodify.presentation.dashboard
+package com.ercoding.foodify.presentation.dashboard.components
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -17,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.ercoding.foodify.domain.NutritionEntry
+import com.ercoding.foodify.domain.model.sheet.NutritionEntry
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable

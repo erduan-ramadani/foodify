@@ -1,4 +1,4 @@
-package com.ercoding.foodify.domain
+package com.ercoding.foodify.domain.model.sheet
 
 data class NutrientRow(
     val label: String,

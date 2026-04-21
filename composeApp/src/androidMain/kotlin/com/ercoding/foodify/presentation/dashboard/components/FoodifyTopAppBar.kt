@@ -1,4 +1,4 @@
-package com.ercoding.foodify.presentation.dashboard
+package com.ercoding.foodify.presentation.dashboard.components
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)

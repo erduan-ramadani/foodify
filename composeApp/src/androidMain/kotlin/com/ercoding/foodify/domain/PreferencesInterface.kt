@@ -1,5 +1,6 @@
 package com.ercoding.foodify.domain
 
+import com.ercoding.foodify.domain.model.sheet.NutritionEntry
 import kotlinx.coroutines.flow.Flow
 
 interface PreferencesInterface {

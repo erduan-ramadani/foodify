@@ -1,4 +1,4 @@
-package com.ercoding.foodify.presentation.dashboard
+package com.ercoding.foodify.presentation.dashboard.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
 import com.ercoding.foodify.presentation.theme.carbsColor
 import com.ercoding.foodify.presentation.theme.proteinColor
 import com.ercoding.foodify.presentation.theme.sugarColor

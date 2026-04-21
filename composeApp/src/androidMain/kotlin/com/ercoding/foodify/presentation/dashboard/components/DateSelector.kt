@@ -1,4 +1,4 @@
-package com.ercoding.foodify.presentation.dashboard
+package com.ercoding.foodify.presentation.dashboard.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -22,6 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
+import com.ercoding.foodify.presentation.dashboard.toDisplayString
 import java.time.LocalDate
 
 @Composable
