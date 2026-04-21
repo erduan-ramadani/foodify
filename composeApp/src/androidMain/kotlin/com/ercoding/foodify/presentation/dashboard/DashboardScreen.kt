@@ -53,16 +53,16 @@ fun DashboardScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             DailyKcalSummary(vm)
-            Spacer(modifier = Modifier.padding(8.dp))
+            Spacer(modifier = Modifier.padding(4.dp))
             NutritionCards(vm)
-            Spacer(modifier = Modifier.padding(8.dp))
+            Spacer(modifier = Modifier.padding(4.dp))
             MealInputSection(
                 onClick = { query ->
                     vm.addNutritionValues(query, vm.selectedDate)
                 },
                 isLoading = vm.isLoading
             )
-            Spacer(modifier = Modifier.padding(8.dp))
+            Spacer(modifier = Modifier.padding(4.dp))
             DailyMealsList(
                 dailyEntries = dailyEntries,
                 onDismiss = { entry -> vm.removeNutritionEntry(entry) },

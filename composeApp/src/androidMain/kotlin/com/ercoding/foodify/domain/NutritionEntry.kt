@@ -41,35 +41,84 @@ data class NutritionEntry(
     val omega6: Double = 0.0
 )
 
-fun NutritionEntry.toDisplayList(): List<Pair<String, String>> = listOf(
-    "Kalorien" to "${calories.toInt()} kcal",
-    "Eiweiß" to "${protein.toInt()}g",
-    "Fett" to "${fat.toInt()}g",
-    "Gesättigte Fettsäuren" to "${saturatedFat.toInt()}g",
-    "Ungesättigte Fettsäuren" to "${unsaturatedFat.toInt()}g",
-    "Kohlenhydrate" to "${carbohydrates.toInt()}g",
-    "Zucker" to "${sugar.toInt()}g",
-    "Ballaststoffe" to "${fiber.toInt()}g",
-    "Salz" to "${"%.1f".format(salt)}g",
-    "Cholesterin" to "${cholesterol.toInt()}mg",
-    "Natrium" to "${sodium.toInt()}mg",
-    "Kalium" to "${potassium.toInt()}mg",
-    "Vitamin A" to "${vitaminA.toInt()}µg",
-    "Vitamin B6" to "${"%.2f".format(vitaminB6)}mg",
-    "Vitamin B12" to "${"%.2f".format(vitaminB12)}µg",
-    "Vitamin C" to "${vitaminC.toInt()}mg",
-    "Vitamin D" to "${vitaminD.toInt()}µg",
-    "Vitamin E" to "${"%.1f".format(vitaminE)}mg",
-    "Vitamin K" to "${"%.1f".format(vitaminK)}µg",
-    "Folsäure" to "${folicAcid.toInt()}µg",
-    "Calcium" to "${calcium.toInt()}mg",
-    "Eisen" to "${"%.1f".format(iron)}mg",
-    "Magnesium" to "${magnesium.toInt()}mg",
-    "Zink" to "${"%.1f".format(zinc)}mg",
-    "Phosphor" to "${phosphorus.toInt()}mg",
-    "Selen" to "${"%.1f".format(selenium)}µg",
-    "Kupfer" to "${"%.2f".format(copper)}mg",
-    "Mangan" to "${"%.2f".format(manganese)}mg",
-    "Omega-3" to "${"%.1f".format(omega3)}g",
-    "Omega-6" to "${"%.1f".format(omega6)}g"
+//fun NutritionEntry.toDisplayList(): List<Pair<String, String>> = listOf(
+//    "Kalorien" to "${calories.toInt()} kcal",
+//    "Eiweiß" to "${protein.toInt()}g",
+//    "Fett" to "${fat.toInt()}g",
+//    "Gesättigte Fettsäuren" to "${saturatedFat.toInt()}g",
+//    "Ungesättigte Fettsäuren" to "${unsaturatedFat.toInt()}g",
+//    "Kohlenhydrate" to "${carbohydrates.toInt()}g",
+//    "Zucker" to "${sugar.toInt()}g",
+//    "Ballaststoffe" to "${fiber.toInt()}g",
+//    "Salz" to "${"%.1f".format(salt)}g",
+//    "Cholesterin" to "${cholesterol.toInt()}mg",
+//    "Natrium" to "${sodium.toInt()}mg",
+//    "Kalium" to "${potassium.toInt()}mg",
+//    "Vitamin A" to "${vitaminA.toInt()}µg",
+//    "Vitamin B6" to "${"%.2f".format(vitaminB6)}mg",
+//    "Vitamin B12" to "${"%.2f".format(vitaminB12)}µg",
+//    "Vitamin C" to "${vitaminC.toInt()}mg",
+//    "Vitamin D" to "${vitaminD.toInt()}µg",
+//    "Vitamin E" to "${"%.1f".format(vitaminE)}mg",
+//    "Vitamin K" to "${"%.1f".format(vitaminK)}µg",
+//    "Folsäure" to "${folicAcid.toInt()}µg",
+//    "Calcium" to "${calcium.toInt()}mg",
+//    "Eisen" to "${"%.1f".format(iron)}mg",
+//    "Magnesium" to "${magnesium.toInt()}mg",
+//    "Zink" to "${"%.1f".format(zinc)}mg",
+//    "Phosphor" to "${phosphorus.toInt()}mg",
+//    "Selen" to "${"%.1f".format(selenium)}µg",
+//    "Kupfer" to "${"%.2f".format(copper)}mg",
+//    "Mangan" to "${"%.2f".format(manganese)}mg",
+//    "Omega-3" to "${"%.1f".format(omega3)}g",
+//    "Omega-6" to "${"%.1f".format(omega6)}g"
+//)
+
+fun NutritionEntry.toNutrientSections(): List<NutrientSection> = listOf(
+    NutrientSection(
+        "Makronährwerte",
+        listOf(
+            NutrientRow("Kalorien", calories, "kcal", isBold = true),
+            NutrientRow("Kohlenhydrate", carbohydrates, "g", isBold = true),
+            NutrientRow("davon Zucker", sugar, "g", isIndented = true),
+            NutrientRow("Ballaststoffe", fiber, "g", isIndented = true),
+            NutrientRow("Protein", protein, "g", isBold = true),
+            NutrientRow("Fett", fat, "g", isBold = true),
+            NutrientRow("gesättigt", saturatedFat, "g", isIndented = true),
+            NutrientRow("ungesättigt", unsaturatedFat, "g", isIndented = true),
+            NutrientRow("Salz", salt, "g"),
+            NutrientRow("Cholesterin", cholesterol, "mg"),
+        )
+    ),
+    NutrientSection(
+        "Fettsäuren",
+        listOf(
+            NutrientRow("Omega-3", omega3, "mg"),
+            NutrientRow("Omega-6", omega6, "mg"),
+        )
+    ),
+    NutrientSection(
+        "Vitamine",
+        listOf(
+            NutrientRow("Vitamin A", vitaminA, "µg"),
+            NutrientRow("Vitamin B6", vitaminB6, "mg"),
+            NutrientRow("Vitamin B12", vitaminB12, "µg"),
+            NutrientRow("Vitamin C", vitaminC, "mg"),
+            NutrientRow("Vitamin D", vitaminD, "µg"),
+            NutrientRow("Vitamin E", vitaminE, "mg"),
+            NutrientRow("Vitamin K", vitaminK, "µg"),
+            NutrientRow("Folsäure", folicAcid, "µg"),
+        )
+    ),
+    NutrientSection(
+        "Mineralstoffe",
+        listOf(
+            NutrientRow("Kalzium", calcium, "mg"),
+            NutrientRow("Eisen", iron, "mg"),
+            NutrientRow("Magnesium", magnesium, "mg"),
+            NutrientRow("Zink", zinc, "mg"),
+            NutrientRow("Kalium", potassium, "mg"),
+            NutrientRow("Phosphor", phosphorus, "mg"),
+        )
+    ),
 )
