@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +34,7 @@ fun GoalPage(vm: OnboardingViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 24.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         Text(
             text = "Schritt 2 von 2",
@@ -46,7 +49,9 @@ fun GoalPage(vm: OnboardingViewModel) {
         )
         Spacer(modifier = Modifier.height(6.dp))
         Text(
-            text = "So viel Energie verbraucht dein Körper täglich",
+            text = "So viel Energie verbraucht dein Körper täglich im Ruhezustand, " +
+                    "nur um die Grundfunktionen aufrechtzuerhalten: " +
+                    "Atmung, Herzschlag, Organfunktionen, Zellregeneration.",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -67,15 +72,10 @@ fun GoalPage(vm: OnboardingViewModel) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "${vm.calculateBMR().toInt()}",
+                    text = "${vm.calculateBMR().toInt()} kcal",
                     style = MaterialTheme.typography.displayMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary
-                )
-                Text(
-                    text = "kcal Tagesbudget",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
@@ -142,6 +142,7 @@ fun GoalPage(vm: OnboardingViewModel) {
                         )
                     }
                 }
+                Spacer(modifier = Modifier.padding(4.dp))
             }
         }
     }

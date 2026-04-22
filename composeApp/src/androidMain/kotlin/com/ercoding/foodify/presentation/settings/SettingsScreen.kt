@@ -79,7 +79,7 @@ fun SettingsScreen(
             )
             ListItem(
                 headlineContent = { Text("Tägliches Kalorienlimit") },
-                supportingContent = { Text("Aktuell: ${onboardingData?.dailyCalorieLimit}") },
+                supportingContent = { Text("Aktuell: ${onboardingData?.dailyCalorieLimit} kcal") },
                 modifier = Modifier.clickable { showDialog = true },
                 colors = listItemColors
             )

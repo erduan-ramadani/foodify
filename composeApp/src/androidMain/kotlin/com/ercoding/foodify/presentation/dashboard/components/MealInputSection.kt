@@ -60,7 +60,7 @@ fun MealInputSection(
 
     Column {
         Text(
-            text = "Mahlzeit hinzufügen",
+            text = "Mahlzeit/Aktivität hinzufügen",
             color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Bold
@@ -74,7 +74,7 @@ fun MealInputSection(
             OutlinedTextField(
                 value = userTextInput,
                 onValueChange = { userTextInput = it },
-                placeholder = { Text("z.B. 200g Hähnchen") },
+                placeholder = { Text("z.B. 4 Eier oder 30min joggen") },
                 singleLine = true,
                 shape = RoundedCornerShape(20.dp),
                 colors = OutlinedTextFieldDefaults.colors(

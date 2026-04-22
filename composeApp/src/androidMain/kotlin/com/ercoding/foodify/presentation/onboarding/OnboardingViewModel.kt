@@ -14,12 +14,12 @@ class OnboardingViewModel(
     var age: Int by mutableIntStateOf(30)
     var size: Int by mutableIntStateOf(180)
     var weight: Int by mutableIntStateOf(80)
-    var dailyCalorieLimit: Int by mutableIntStateOf(0)
+    var dailyGoal: Int by mutableIntStateOf(0)
     var goal: NutritionGoal? by mutableStateOf(null)
 
     fun getButtonLabel(currentPage: Int): String = when (currentPage) {
         0 -> "Bedarf berechnen"
-        1 -> "Tracking starten"
+        1 -> "Los gehts"
         else -> "Weiter"
     }
 
@@ -30,7 +30,7 @@ class OnboardingViewModel(
             age = age,
             size = size,
             weight = weight,
-            dailyCalorieLimit = dailyCalorieLimit,
+            dailyCalorieLimit = dailyGoal,
             goal = goal ?: NutritionGoal.LOSE
         )
     }
@@ -49,12 +49,24 @@ class OnboardingViewModel(
 
     fun getGoalText(): String {
         val base = calculateBMR().toInt()
-        dailyCalorieLimit = base - (7700 / 7)
-        return when (goal) {
-            NutritionGoal.LOSE -> "Du brauchst ein Kaloriendefizit von $dailyCalorieLimit kcal täglich, um 1kg pro Woche abzunehmen"
-            NutritionGoal.MAINTAIN -> "Du brauchst tägl. $base kcal um dein Gewicht zu halten"
-            NutritionGoal.GAIN -> "Du brauchst einen Kalorienüberschuss von $dailyCalorieLimit kcal täglich, um 1kg pro Woche zuzunehmen"
-            else -> ""
+        val weeklyDeficit = 7700 / 7
+        when (goal) {
+            NutritionGoal.LOSE -> {
+                dailyGoal = base - weeklyDeficit
+                return "Du brauchst ein Kaloriendefizit von $weeklyDeficit kcal täglich, um 1kg pro Woche abzunehmen. Daraus ergibt sich ein Tageslimit von $dailyGoal kcal."
+            }
+
+            NutritionGoal.MAINTAIN -> {
+                dailyGoal = base
+                return "Du brauchst täglich $base kcal um dein Gewicht zu halten"
+            }
+
+            NutritionGoal.GAIN -> {
+                dailyGoal = base + weeklyDeficit
+                return "Du brauchst einen Kalorienüberschuss von $weeklyDeficit kcal täglich, um 1kg pro Woche zuzunehmen. Daraus ergibt sich ein Tagesziel von $dailyGoal kcal."
+            }
+
+            else -> return ""
         }
     }
 
