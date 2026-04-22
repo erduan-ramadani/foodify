@@ -42,6 +42,7 @@ kotlin {
 
             implementation(project.dependencies.platform(libs.firebase.bom))
             implementation(libs.firebase.config)
+            implementation(libs.firebase.messaging)
 
         }
         commonMain.dependencies {

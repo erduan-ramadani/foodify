@@ -7,8 +7,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.ercoding.foodify.data.local.PreferencesRepository
-import com.ercoding.foodify.data.remote.AnthropicRepository
-import com.ercoding.foodify.data.remote.FirebaseRepository
+import com.ercoding.foodify.data.remote.anthropic.AnthropicRepository
+import com.ercoding.foodify.data.remote.firebase.FirebaseRepository
 import com.ercoding.foodify.domain.AnthropicInterface
 import com.ercoding.foodify.domain.PreferencesInterface
 import com.ercoding.foodify.presentation.MainViewModel

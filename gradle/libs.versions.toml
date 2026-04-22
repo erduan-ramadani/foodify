@@ -24,6 +24,7 @@ junit = "4.13.2"
 gms = "4.4.4"
 firebase = "34.12.0"
 firebaseConfig = "23.0.1"
+firebaseMessaging = "23.4.1"
 
 
 [libraries]
@@ -75,6 +76,7 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 #Firebase
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
 firebase-config = { group = "com.google.firebase", name = "firebase-config", version.ref = "firebaseConfig" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessaging" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
