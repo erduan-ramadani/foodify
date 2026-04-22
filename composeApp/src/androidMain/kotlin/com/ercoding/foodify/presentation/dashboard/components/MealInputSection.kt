@@ -154,7 +154,7 @@ fun MealInputSection(
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
-                text = "KI schätzt Proteine automatisch",
+                text = "KI schätzt Nährwerte automatisch",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodySmall,
             )

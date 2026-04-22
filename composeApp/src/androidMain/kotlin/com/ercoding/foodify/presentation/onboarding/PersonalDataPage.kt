@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun GenderAgePage(vm: OnboardingViewModel) {
+fun PersonalDataPage(vm: OnboardingViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -125,9 +125,8 @@ fun GenderAgePage(vm: OnboardingViewModel) {
         )
         Spacer(modifier = Modifier.height(8.dp))
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-            verticalAlignment = Alignment.Bottom
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             OutlinedTextField(
                 value = vm.size.toString(),
@@ -136,13 +135,35 @@ fun GenderAgePage(vm: OnboardingViewModel) {
                 suffix = { Text("cm") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true,
-                modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(12.dp)
             )
+        }
+        Spacer(modifier = Modifier.height(28.dp))
+        Text(
+            text = "Gewicht",
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.primary
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(60.dp),
+            verticalAlignment = Alignment.Bottom
+        ) {
             OutlinedTextField(
                 value = vm.weight.toString(),
                 onValueChange = { vm.weight = it.toIntOrNull() ?: vm.weight },
-                label = { Text("Gewicht") },
+                label = { Text("Aktuell") },
+                suffix = { Text("kg") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                singleLine = true,
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(12.dp)
+            )
+
+            OutlinedTextField(
+                value = vm.weightGoal.toString(),
+                onValueChange = { vm.weightGoal = it.toIntOrNull() ?: vm.weightGoal },
+                label = { Text("Ziel") },
                 suffix = { Text("kg") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true,

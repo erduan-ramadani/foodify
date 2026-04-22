@@ -6,8 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface PreferencesInterface {
     val darkMode: Flow<Boolean>
-
-    //    val dailyThreshold: Flow<Int>
     val nutritionEntries: Flow<String?>
     val onboardingData: Flow<OnboardingData?>
     suspend fun setDarkMode(enabled: Boolean)

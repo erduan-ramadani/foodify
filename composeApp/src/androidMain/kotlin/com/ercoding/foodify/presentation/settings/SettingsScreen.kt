@@ -35,11 +35,10 @@ import org.koin.androidx.compose.koinViewModel
 fun SettingsScreen(
     onBackClick: () -> Unit
 ) {
-
     val viewModel: SettingsViewModel = koinViewModel()
     val isDarkMode by viewModel.isDarkMode.collectAsState(false)
     val onboardingData by viewModel.onboardingData.collectAsState(null)
-    var showDialog by remember { mutableStateOf(false) }
+    var showCalorieDialog by remember { mutableStateOf(false) }
     val listItemColors = ListItemDefaults.colors(
         containerColor = MaterialTheme.colorScheme.background
     )
@@ -80,11 +79,11 @@ fun SettingsScreen(
             ListItem(
                 headlineContent = { Text("Tägliches Kalorienlimit") },
                 supportingContent = { Text("Aktuell: ${onboardingData?.dailyCalorieLimit} kcal") },
-                modifier = Modifier.clickable { showDialog = true },
+                modifier = Modifier.clickable { showCalorieDialog = true },
                 colors = listItemColors
             )
 
-            if (showDialog) {
+            if (showCalorieDialog) {
                 var input by remember { mutableStateOf("") }
                 AlertDialog(
                     title = { Text("Tägl. Kalorienbedarf") },
@@ -98,12 +97,12 @@ fun SettingsScreen(
                     confirmButton = {
                         TextButton(onClick = {
                             viewModel.setDailyCalorieLimit(input.toInt())
-                            showDialog = false
+                            showCalorieDialog = false
                         }) {
                             Text("Speichern")
                         }
                     },
-                    onDismissRequest = { showDialog = false },
+                    onDismissRequest = { showCalorieDialog = false },
                 )
             }
         }

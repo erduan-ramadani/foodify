@@ -5,17 +5,16 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.ercoding.foodify.domain.model.onboarding.NutritionGoal
 import com.ercoding.foodify.domain.model.onboarding.OnboardingData
 
 class OnboardingViewModel(
 ) : ViewModel() {
     var isMale: Boolean? by mutableStateOf(null)
-    var age: Int by mutableIntStateOf(30)
+    var age: Int by mutableIntStateOf(36)
     var size: Int by mutableIntStateOf(180)
     var weight: Int by mutableIntStateOf(80)
+    var weightGoal: Int by mutableIntStateOf(78)
     var dailyGoal: Int by mutableIntStateOf(0)
-    var goal: NutritionGoal? by mutableStateOf(null)
 
     fun getButtonLabel(currentPage: Int): String = when (currentPage) {
         0 -> "Bedarf berechnen"
@@ -31,13 +30,13 @@ class OnboardingViewModel(
             size = size,
             weight = weight,
             dailyCalorieLimit = dailyGoal,
-            goal = goal ?: NutritionGoal.LOSE
+            weightGoal = weightGoal
         )
     }
 
     fun canProceed(currentPage: Int): Boolean = when (currentPage) {
         0 -> isMale != null
-        1 -> goal != null
+        1 -> true
         2 -> true
         else -> false
     }
@@ -50,23 +49,15 @@ class OnboardingViewModel(
     fun getGoalText(): String {
         val base = calculateBMR().toInt()
         val weeklyDeficit = 7700 / 7
-        when (goal) {
-            NutritionGoal.LOSE -> {
-                dailyGoal = base - weeklyDeficit
-                return "Du brauchst ein Kaloriendefizit von $weeklyDeficit kcal täglich, um 1kg pro Woche abzunehmen. Daraus ergibt sich ein Tageslimit von $dailyGoal kcal."
-            }
-
-            NutritionGoal.MAINTAIN -> {
-                dailyGoal = base
-                return "Du brauchst täglich $base kcal um dein Gewicht zu halten"
-            }
-
-            NutritionGoal.GAIN -> {
-                dailyGoal = base + weeklyDeficit
-                return "Du brauchst einen Kalorienüberschuss von $weeklyDeficit kcal täglich, um 1kg pro Woche zuzunehmen. Daraus ergibt sich ein Tagesziel von $dailyGoal kcal."
-            }
-
-            else -> return ""
+        if (weight < weightGoal) {
+            dailyGoal = base + weeklyDeficit
+            return "Du brauchst einen Kalorienüberschuss von $weeklyDeficit kcal täglich, um 1kg pro Woche zuzunehmen. Daraus ergibt sich ein Tagesziel von $dailyGoal kcal."
+        } else if (weight > weightGoal) {
+            dailyGoal = base - weeklyDeficit
+            return "Du brauchst ein Kaloriendefizit von $weeklyDeficit kcal täglich, um 1kg pro Woche abzunehmen. Daraus ergibt sich ein Tageslimit von $dailyGoal kcal."
+        } else {
+            dailyGoal = base
+            return "Du brauchst täglich $base kcal um dein Gewicht zu halten"
         }
     }
 

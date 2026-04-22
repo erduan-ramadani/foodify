@@ -9,11 +9,5 @@ data class OnboardingData(
     val size: Int,
     val weight: Int,
     val dailyCalorieLimit: Int,
-    val goal: NutritionGoal
+    val weightGoal: Int
 )
-
-enum class NutritionGoal {
-    LOSE,
-    MAINTAIN,
-    GAIN
-}

@@ -61,7 +61,7 @@ fun OnboardingScreen(
             modifier = Modifier.weight(1f)
         ) { page ->
             when (page) {
-                0 -> GenderAgePage(viewModel)
+                0 -> PersonalDataPage(viewModel)
                 1 -> GoalPage(viewModel)
             }
         }
