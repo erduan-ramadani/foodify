@@ -38,8 +38,8 @@ fun SettingsScreen(
 
     val viewModel: SettingsViewModel = koinViewModel()
     val isDarkMode by viewModel.isDarkMode.collectAsState(false)
-    val dailyThreshold by viewModel.dailyThreshold.collectAsState(0)
-    var showDailyThresholdDialog by remember { mutableStateOf(false) }
+    val onboardingData by viewModel.onboardingData.collectAsState(null)
+    var showDialog by remember { mutableStateOf(false) }
     val listItemColors = ListItemDefaults.colors(
         containerColor = MaterialTheme.colorScheme.background
     )
@@ -78,13 +78,13 @@ fun SettingsScreen(
                 },
             )
             ListItem(
-                headlineContent = { Text("Täglicher Kalorienbedarf") },
-                supportingContent = { Text("Aktuell: $dailyThreshold") },
-                modifier = Modifier.clickable { showDailyThresholdDialog = true },
+                headlineContent = { Text("Tägliches Kalorienlimit") },
+                supportingContent = { Text("Aktuell: ${onboardingData?.dailyCalorieLimit}") },
+                modifier = Modifier.clickable { showDialog = true },
                 colors = listItemColors
             )
 
-            if (showDailyThresholdDialog) {
+            if (showDialog) {
                 var input by remember { mutableStateOf("") }
                 AlertDialog(
                     title = { Text("Tägl. Kalorienbedarf") },
@@ -97,13 +97,13 @@ fun SettingsScreen(
                     },
                     confirmButton = {
                         TextButton(onClick = {
-                            viewModel.setDailyThreshold(input.toIntOrNull() ?: 0)
-                            showDailyThresholdDialog = false
+                            viewModel.setDailyCalorieLimit(input.toInt())
+                            showDialog = false
                         }) {
                             Text("Speichern")
                         }
                     },
-                    onDismissRequest = { showDailyThresholdDialog = false },
+                    onDismissRequest = { showDialog = false },
                 )
             }
         }

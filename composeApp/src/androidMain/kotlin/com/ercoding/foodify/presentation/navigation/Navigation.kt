@@ -1,5 +1,7 @@
 package com.ercoding.foodify.presentation.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -15,10 +17,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ercoding.foodify.presentation.MainViewModel
 import com.ercoding.foodify.presentation.dashboard.DashboardScreen
+import com.ercoding.foodify.presentation.onboarding.OnboardingScreen
 import com.ercoding.foodify.presentation.settings.SettingsScreen
 import com.ercoding.foodify.presentation.theme.FoodifyTheme
 import org.koin.androidx.compose.koinViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Navigation() {
 
@@ -26,9 +30,12 @@ fun Navigation() {
     val navController = rememberNavController()
     var startDestination: String
     val isDarkMode by mainViewModel.isDarkMode.collectAsState()
+    val onboardingData by mainViewModel.onboardingData.collectAsState()
 
     FoodifyTheme(darkTheme = isDarkMode) {
-        startDestination = Routes.dashboard
+        startDestination =
+            onboardingData?.let { Routes.dashboard } ?: Routes.onboarding
+        println("onboard start: $startDestination")
         if (mainViewModel.isLoading.value) {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -40,6 +47,17 @@ fun Navigation() {
             }
         } else {
             NavHost(navController, startDestination) {
+                println("onboard start: $startDestination")
+                composable(Routes.onboarding) {
+                    OnboardingScreen(
+                        onComplete = { onboardingData ->
+                            mainViewModel.saveOnboardingData(onboardingData)
+                            navController.navigate(Routes.dashboard) {
+                                popUpTo(Routes.onboarding) { inclusive = true }
+                            }
+                        }
+                    )
+                }
                 composable(Routes.dashboard) {
                     DashboardScreen(
                         onSettingsClick = { navController.navigate(Routes.settings) }

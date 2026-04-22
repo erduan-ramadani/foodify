@@ -4,9 +4,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.ercoding.foodify.domain.PreferencesInterface
+import com.ercoding.foodify.domain.model.onboarding.OnboardingData
 import com.ercoding.foodify.domain.model.sheet.NutritionEntry
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -17,13 +17,19 @@ class PreferencesRepository(private val dataStore: DataStore<Preferences>) :
     PreferencesInterface {
     companion object {
         val DARK_MODE_KEY = booleanPreferencesKey("dark_mode")
-        val DAILY_THRESHOLD = intPreferencesKey("daily_threshold")
+        val ONBOARDING_KEY = stringPreferencesKey("onboarded")
         val NUTRITION_ENTRIES = stringPreferencesKey("nutrition_entries")
     }
 
     override val darkMode: Flow<Boolean> = dataStore.data.map { it[DARK_MODE_KEY] ?: false }
-    override val dailyThreshold: Flow<Int> = dataStore.data.map { it[DAILY_THRESHOLD] ?: 2000 }
+
     override val nutritionEntries: Flow<String?> = dataStore.data.map { it[NUTRITION_ENTRIES] }
+    override val onboardingData: Flow<OnboardingData?> = dataStore.data
+        .map { prefs ->
+            prefs[ONBOARDING_KEY]?.let {
+                Json.decodeFromString<OnboardingData>(it)
+            }
+        }
 
     override suspend fun setDarkMode(enabled: Boolean) {
         dataStore.edit { it[DARK_MODE_KEY] = enabled }
@@ -39,8 +45,8 @@ class PreferencesRepository(private val dataStore: DataStore<Preferences>) :
         return Json.decodeFromString<List<NutritionEntry>>(json)
     }
 
-    override suspend fun setDailyThreshold(threshold: Int) {
-        println("Speichere Threshold: $threshold")
-        dataStore.edit { it[DAILY_THRESHOLD] = threshold }
+    override suspend fun setOnboardingData(onboardingData: OnboardingData?) {
+        val encodedOnboardingData = Json.encodeToString(onboardingData)
+        dataStore.edit { it[ONBOARDING_KEY] = encodedOnboardingData }
     }
 }

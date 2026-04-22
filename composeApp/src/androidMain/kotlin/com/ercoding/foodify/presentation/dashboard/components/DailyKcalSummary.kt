@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,8 +29,7 @@ import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
 fun DailyKcalSummary(
     viewModel: DashboardViewModel
 ) {
-
-    val dailyThreshold = viewModel.dailyThreshold.collectAsState()
+    val onboardingData by viewModel.onboardingData.collectAsState()
     val progressColor = when {
         viewModel.progress > 0.75f -> Color.Red
         viewModel.progress in 0.5f..0.8f -> Color(0xFFFF7E19)
@@ -45,7 +45,7 @@ fun DailyKcalSummary(
         )
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "${viewModel.remainingDailyCalories}",
+                text = "${viewModel.remainingDailyCaloriesLimit}",
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
@@ -67,14 +67,14 @@ fun DailyKcalSummary(
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = "${viewModel.dailyCalories}kcal gegessen",
+                text = "${viewModel.dailyCalories}kcal",
                 color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
         }
         Text(
-            text = "/ ${dailyThreshold.value}kcal",
+            text = "/ ${onboardingData?.dailyCalorieLimit} kcal ",
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }

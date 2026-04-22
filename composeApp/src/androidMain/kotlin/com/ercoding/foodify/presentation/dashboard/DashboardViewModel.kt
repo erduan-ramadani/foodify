@@ -14,7 +14,6 @@ import com.ercoding.foodify.domain.model.sheet.NutritionEntry
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -47,11 +46,13 @@ class DashboardViewModel(
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate()
         }.toSortedMap()
-    val dailyThreshold = prefRepository.dailyThreshold.stateIn(
+    val onboardingData = prefRepository.onboardingData.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
-        1234
+        null
     )
+    val dailyCalorieLimit: Int
+        get() = onboardingData.value?.dailyCalorieLimit ?: 1
     var selectedDate: LocalDate by mutableStateOf(LocalDate.now())
     val isToday: Boolean
         get() = selectedDate == LocalDate.now()
@@ -60,17 +61,16 @@ class DashboardViewModel(
     val events = _events.receiveAsFlow()
 
     val progress: Float
-        get() = dailyCalories.toFloat() / dailyThreshold.value
+        get() = dailyCalories.toFloat() / dailyCalorieLimit
 
-    val remainingDailyCalories: Int
-        get() = (dailyThreshold.value - dailyCalories).absoluteValue
+    val remainingDailyCaloriesLimit: Int
+        get() = (dailyCalorieLimit - dailyCalories).absoluteValue
 
     val calorieLimitText: String
-        get() = if (dailyThreshold.value - dailyCalories >= 0) "kcal übrig" else "kcal Überschuss"
+        get() = if (dailyCalorieLimit - dailyCalories >= 0) "kcal übrig" else "kcal Überschuss"
 
     init {
         viewModelScope.launch {
-            println("Threshold: ${prefRepository.dailyThreshold.first()}")
             nutritionEntries.addAll(prefRepository.getNutritionEntries())
         }
     }

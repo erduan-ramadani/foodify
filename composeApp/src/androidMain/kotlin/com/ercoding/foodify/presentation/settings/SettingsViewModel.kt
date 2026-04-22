@@ -4,13 +4,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ercoding.foodify.domain.PreferencesInterface
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel() {
 
     val isDarkMode: Flow<Boolean> = prefRepo.darkMode
-    val dailyThreshold: Flow<Int> = prefRepo.dailyThreshold
+    val onboardingData = prefRepo.onboardingData.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        null
+    )
 
     fun toggleDarkMode() {
         viewModelScope.launch {
@@ -18,9 +24,9 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
         }
     }
 
-    fun setDailyThreshold(threshold: Int) {
+    fun setDailyCalorieLimit(limit: Int) {
         viewModelScope.launch {
-            prefRepo.setDailyThreshold(threshold)
+            prefRepo.setOnboardingData(onboardingData.value?.copy(dailyCalorieLimit = limit))
         }
     }
 

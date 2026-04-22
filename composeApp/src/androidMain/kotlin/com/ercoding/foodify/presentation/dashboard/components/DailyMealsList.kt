@@ -43,9 +43,9 @@ fun DailyMealsList(
             Spacer(modifier = Modifier.weight(1f))
             ColorLegend(
                 "Carbs",
-                textProtein = "Protein",
-                textFat = "Fat",
-                textSugar = "Sugar"
+                textProtein = "Proteine",
+                textFat = "Fett",
+                textSugar = "Zucker"
             )
         }
         Spacer(modifier = Modifier.padding(3.dp))
