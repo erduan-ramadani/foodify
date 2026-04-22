@@ -1,4 +1,4 @@
-package com.ercoding.foodify.data.remote
+package com.ercoding.foodify.data.remote.firebase
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings

@@ -1,5 +1,6 @@
-package com.ercoding.foodify.data.remote
+package com.ercoding.foodify.data.remote.anthropic
 
+import com.ercoding.foodify.data.remote.firebase.FirebaseRepository
 import com.ercoding.foodify.domain.AnthropicInterface
 import com.ercoding.foodify.domain.model.sheet.NutritionEntry
 import io.ktor.client.HttpClient

@@ -1,4 +1,4 @@
-package com.ercoding.foodify.data.remote
+package com.ercoding.foodify.data.remote.anthropic
 
 import java.util.Locale
 
