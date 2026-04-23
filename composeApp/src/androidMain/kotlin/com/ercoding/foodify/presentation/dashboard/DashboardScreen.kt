@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -57,25 +58,36 @@ fun DashboardScreen(
                 .padding(16.dp, 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            DailyKcalSummary(vm)
-            Spacer(modifier = Modifier.padding(4.dp))
-            NutritionCards(vm)
-            Spacer(modifier = Modifier.padding(4.dp))
-            MealInputSection(
-                recentEntries = vm.recentEntries,
-                onButtonClick = { query ->
-                    vm.requestNutritionValues(query)
-                },
-                onSuggestionChipClick = { entry ->
-                    vm.addNutritionFromSuggestion(entry)
-                },
-                isLoading = vm.isLoading
+            SegmentedTabs(
+                selectedTab = vm.selectedTab,
+                onTabSelected = { vm.selectedTab = it }
             )
-            Spacer(modifier = Modifier.padding(4.dp))
-            DailyMealsList(
-                dailyEntries = dailyEntries,
-                onDismiss = { entry -> vm.removeNutritionEntry(entry) },
-            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+            if (vm.selectedTab == 0) {
+
+                DailyKcalSummary(vm)
+                Spacer(modifier = Modifier.padding(4.dp))
+                NutritionCards(vm)
+                Spacer(modifier = Modifier.padding(4.dp))
+                MealInputSection(
+                    recentEntries = vm.recentEntries,
+                    onButtonClick = { query ->
+                        vm.requestNutritionValues(query)
+                    },
+                    onSuggestionChipClick = { entry ->
+                        vm.addNutritionFromSuggestion(entry)
+                    },
+                    isLoading = vm.isLoading
+                )
+                Spacer(modifier = Modifier.padding(4.dp))
+                DailyMealsList(
+                    dailyEntries = dailyEntries,
+                    onDismiss = { entry -> vm.removeNutritionEntry(entry) },
+                )
+            } else {
+                // Analyse
+            }
         }
     }
 }

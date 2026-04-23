@@ -30,6 +30,7 @@ class DashboardViewModel(
     private val prefRepository: PreferencesInterface
 ) : ViewModel() {
 
+    var selectedTab by mutableStateOf(0)
     val dailyCalories: Int get() = getDailyCalories(selectedDate)
     val dailyCarbs get() = getDailyTotal { it.carbohydrates }
     val dailyFat get() = getDailyTotal { it.fat }
