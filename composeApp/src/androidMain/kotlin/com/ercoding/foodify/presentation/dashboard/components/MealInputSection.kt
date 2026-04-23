@@ -134,7 +134,7 @@ fun MealInputSection(
                             horizontalArrangement = Arrangement.spacedBy(2.dp)
                         ) {
                             Text(entry.emoji)
-                            Text(entry.meal)
+                            Text(entry.query)
                         }
                     },
                     shape = RoundedCornerShape(20.dp),

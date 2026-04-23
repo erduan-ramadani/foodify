@@ -68,6 +68,7 @@ fun MealEntryItem(
                 modifier = Modifier
                     .padding(12.dp)
                     .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Box(
                     modifier = Modifier
@@ -86,20 +87,22 @@ fun MealEntryItem(
 
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = entry.meal,
+                        text = entry.query,
                         style = MaterialTheme.typography.titleMedium
                     )
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        ColorLegend(
-                            "${entry.carbohydrates.toInt()}g",
-                            "${entry.protein.toInt()}g",
-                            "${entry.fat.toInt()}g",
-                            "${entry.sugar.toInt()}g",
-                        )
+                        if (entry.isMeal) {
+                            ColorLegend(
+                                "${entry.carbohydrates.toInt()}g",
+                                "${entry.protein.toInt()}g",
+                                "${entry.fat.toInt()}g",
+                                "${entry.sugar.toInt()}g",
+                            )
+                        }
                     }
                 }
                 Text(
-                    text = "${entry.calories.toInt()}kcal",
+                    text = "${entry.calories.toInt()} kcal",
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.titleMedium,
                 )

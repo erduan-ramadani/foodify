@@ -37,7 +37,7 @@ class DashboardViewModel(
     val dailySugar get() = getDailyTotal { it.sugar }
     var nutritionEntries = mutableStateListOf<NutritionEntry>()
     val recentEntries: List<NutritionEntry>
-        get() = nutritionEntries.distinctBy { it.meal }
+        get() = nutritionEntries.distinctBy { it.query }
 
     val nutritionEntriesByDate: Map<LocalDate, List<NutritionEntry>>
         @RequiresApi(Build.VERSION_CODES.O)

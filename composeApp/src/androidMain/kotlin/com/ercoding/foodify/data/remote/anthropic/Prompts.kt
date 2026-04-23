@@ -14,14 +14,16 @@ fun buildNutritionQuery(query: String): String {
         - Calculate values based on standard nutrition tables (USDA).
         - If no amount is specified, assume a typical serving size.
         - Calories must be positive.
+        - JSON field isMeal is true.
         
         If the input is an ACTIVITY (e.g. "30min spazieren", "1h Fahrrad", "45min joggen"):
         - Return negative calories based on average burn rate for a 75kg person.
         - Set ALL other nutritional values to 0.
         - Use an appropriate activity emoji.
+        - JSON field isMeal is false.
         
         JSON fields:
-        calories, emoji, protein, fat, saturatedFat, unsaturatedFat, carbohydrates,
+        isMeal, calories, emoji, protein, fat, saturatedFat, unsaturatedFat, carbohydrates,
         sugar, fiber, salt, cholesterol, sodium, potassium, vitaminA, vitaminB6,
         vitaminB12, vitaminC, vitaminD, vitaminE, vitaminK, folicAcid, calcium,
         iron, magnesium, zinc, phosphorus, selenium, copper, manganese, omega3, omega6

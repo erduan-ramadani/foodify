@@ -6,7 +6,8 @@ import java.util.UUID
 @Serializable
 data class NutritionEntry(
     val id: String = UUID.randomUUID().toString(),
-    val meal: String = "",
+    val query: String = "",
+    val isMeal: Boolean = true,
     val emoji: String = "",
     val createdAt: Long = System.currentTimeMillis(),
     val calories: Double = 0.0,
