@@ -10,8 +10,8 @@ fun LocalDate.toDisplayString(): String {
     val fullFormatter = DateTimeFormatter.ofPattern("EEEE, d. MMMM", Locale.GERMAN)
 
     return when (this) {
-        today -> "Heute, ${format(formatter)}"
-        today.minusDays(1) -> "Gestern, ${format(formatter)}"
-        else -> format(fullFormatter)
+        today -> "Heute"
+        today.minusDays(1) -> "Gestern"
+        else -> format(formatter)
     }
 }
