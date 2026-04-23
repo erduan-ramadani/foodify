@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel() {
 
     val isDarkMode: Flow<Boolean> = prefRepo.darkMode
+    val isReminding: Flow<Boolean> = prefRepo.reminder
     val onboardingData = prefRepo.onboardingData.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
@@ -24,10 +25,36 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
         }
     }
 
+    fun toggleReminder() {
+        viewModelScope.launch {
+            prefRepo.setReminder(!isReminding.first())
+        }
+    }
+
+    fun toggleGender() {
+        viewModelScope.launch {
+            val isMale: Boolean = onboardingData.value?.isMale ?: false
+            prefRepo.setOnboardingData(onboardingData.value?.copy(isMale = !isMale))
+        }
+    }
+
     fun setDailyCalorieLimit(limit: Int) {
         viewModelScope.launch {
             prefRepo.setOnboardingData(onboardingData.value?.copy(dailyCalorieLimit = limit))
         }
     }
 
+    fun saveSettingsBottomSheetChange(fieldName: String, value: Int) {
+        val updated = when (fieldName) {
+            "age" -> onboardingData.value?.copy(age = value)
+            "height" -> onboardingData.value?.copy(height = value)
+            "weight" -> onboardingData.value?.copy(weight = value)
+            "weightGoal" -> onboardingData.value?.copy(weightGoal = value)
+            "dailyCalorieLimit" -> onboardingData.value?.copy(dailyCalorieLimit = value)
+            else -> null
+        }
+        updated?.let {
+            viewModelScope.launch { prefRepo.setOnboardingData(it) }
+        }
+    }
 }

@@ -17,12 +17,13 @@ class PreferencesRepository(private val dataStore: DataStore<Preferences>) :
     PreferencesInterface {
     companion object {
         val DARK_MODE_KEY = booleanPreferencesKey("dark_mode")
+        val REMINDER_KEY = booleanPreferencesKey("reminder")
         val ONBOARDING_KEY = stringPreferencesKey("onboarded")
         val NUTRITION_ENTRIES = stringPreferencesKey("nutrition_entries")
     }
 
     override val darkMode: Flow<Boolean> = dataStore.data.map { it[DARK_MODE_KEY] ?: false }
-
+    override val reminder: Flow<Boolean> = dataStore.data.map { it[REMINDER_KEY] ?: false }
     override val nutritionEntries: Flow<String?> = dataStore.data.map { it[NUTRITION_ENTRIES] }
     override val onboardingData: Flow<OnboardingData?> = dataStore.data
         .map { prefs ->
@@ -33,6 +34,10 @@ class PreferencesRepository(private val dataStore: DataStore<Preferences>) :
 
     override suspend fun setDarkMode(enabled: Boolean) {
         dataStore.edit { it[DARK_MODE_KEY] = enabled }
+    }
+
+    override suspend fun setReminder(enabled: Boolean) {
+        dataStore.edit { it[REMINDER_KEY] = enabled }
     }
 
     override suspend fun setNutritionEntries(entries: List<NutritionEntry>) {
