@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class OnboardingData(
     val isMale: Boolean,
     val age: Int,
-    val size: Int,
+    val height: Int,
     val weight: Int,
     val dailyCalorieLimit: Int,
     val weightGoal: Int

@@ -129,8 +129,8 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             OutlinedTextField(
-                value = vm.size.toString(),
-                onValueChange = { vm.size = it.toIntOrNull() ?: vm.size },
+                value = vm.height.toString(),
+                onValueChange = { vm.height = it.toIntOrNull() ?: vm.height },
                 label = { Text("Größe") },
                 suffix = { Text("cm") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),

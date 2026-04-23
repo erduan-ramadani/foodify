@@ -11,7 +11,7 @@ class OnboardingViewModel(
 ) : ViewModel() {
     var isMale: Boolean? by mutableStateOf(null)
     var age: Int by mutableIntStateOf(36)
-    var size: Int by mutableIntStateOf(180)
+    var height: Int by mutableIntStateOf(180)
     var weight: Int by mutableIntStateOf(80)
     var weightGoal: Int by mutableIntStateOf(78)
     var dailyGoal: Int by mutableIntStateOf(0)
@@ -27,7 +27,7 @@ class OnboardingViewModel(
         return OnboardingData(
             isMale = isMale ?: false,
             age = age,
-            size = size,
+            height = height,
             weight = weight,
             dailyCalorieLimit = dailyGoal,
             weightGoal = weightGoal
@@ -42,7 +42,7 @@ class OnboardingViewModel(
     }
 
     fun calculateBMR(): Double {
-        val base = (10 * weight) + (6.25 * size) - (5 * age)
+        val base = (10 * weight) + (6.25 * height) - (5 * age)
         return if (isMale == true) base + 5 else base - 161
     }
 
