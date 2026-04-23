@@ -44,17 +44,18 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
         }
     }
 
-    fun saveSettingsBottomSheetChange(fieldName: String, value: Int) {
+    fun saveSettingsBottomSheetChange(fieldName: Settingsfield, value: Int) {
         val updated = when (fieldName) {
-            "age" -> onboardingData.value?.copy(age = value)
-            "height" -> onboardingData.value?.copy(height = value)
-            "weight" -> onboardingData.value?.copy(weight = value)
-            "weightGoal" -> onboardingData.value?.copy(weightGoal = value)
-            "dailyCalorieLimit" -> onboardingData.value?.copy(dailyCalorieLimit = value)
-            else -> null
+            Settingsfield.AGE -> onboardingData.value?.copy(age = value)
+            Settingsfield.HEIGHT -> onboardingData.value?.copy(height = value)
+            Settingsfield.WEIGHT -> onboardingData.value?.copy(weight = value)
+            Settingsfield.WEIGHT_GOAL -> onboardingData.value?.copy(weightGoal = value)
+            Settingsfield.DAILY_CALORIE_LIMIT -> onboardingData.value?.copy(dailyCalorieLimit = value)
         }
         updated?.let {
             viewModelScope.launch { prefRepo.setOnboardingData(it) }
         }
     }
 }
+
+enum class Settingsfield { AGE, HEIGHT, WEIGHT, WEIGHT_GOAL, DAILY_CALORIE_LIMIT }
