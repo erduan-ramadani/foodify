@@ -34,6 +34,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.datastore)
             implementation(libs.androidx.navigation)
+            implementation(libs.androidx.work)
 
             implementation(libs.koin.androidx.navigation)
             implementation(libs.koin.androidx.compose)
