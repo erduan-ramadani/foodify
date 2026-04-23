@@ -74,7 +74,7 @@ fun MealInputSection(
             OutlinedTextField(
                 value = userTextInput,
                 onValueChange = { userTextInput = it },
-                placeholder = { Text("z.B. 4 Eier oder 30min joggen") },
+                placeholder = { Text("z.B. 4 Eier, 1std Gym") },
                 singleLine = true,
                 shape = RoundedCornerShape(20.dp),
                 colors = OutlinedTextFieldDefaults.colors(

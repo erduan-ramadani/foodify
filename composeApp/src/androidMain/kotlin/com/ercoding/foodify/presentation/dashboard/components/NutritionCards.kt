@@ -39,7 +39,7 @@ fun NutritionCards(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp)
+                    .padding(vertical = 4.dp)
             ) {
                 Text(
                     text = "${viewModel.dailyCarbs}g",
@@ -66,7 +66,7 @@ fun NutritionCards(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
+                    .padding(vertical = 4.dp),
             ) {
                 Text(
                     text = "${viewModel.dailyProtein}g",
@@ -94,7 +94,7 @@ fun NutritionCards(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
+                    .padding(vertical = 4.dp),
             ) {
                 Text(
                     text = "${viewModel.dailyFat}g",
@@ -122,7 +122,7 @@ fun NutritionCards(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
+                    .padding(vertical = 4.dp),
             ) {
                 Text(
                     text = "${viewModel.dailySugar}g",
