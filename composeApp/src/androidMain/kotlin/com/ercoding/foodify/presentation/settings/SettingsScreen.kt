@@ -114,7 +114,7 @@ fun SettingsScreen(
                     onSettingClick = { editingField = Settingsfield.WEIGHT_GOAL }
                 )
                 SettingsRow(
-                    label = "Tägliches Kalorienlimit",
+                    label = "Tägl. Kalorienlimit",
                     value = "${onboardingData?.dailyCalorieLimit ?: 1000} kcal",
                     onSettingClick = { editingField = Settingsfield.DAILY_CALORIE_LIMIT }
                 )

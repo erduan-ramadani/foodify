@@ -20,11 +20,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.ercoding.foodify.presentation.dashboard.components.DailyKcalSummary
-import com.ercoding.foodify.presentation.dashboard.components.FoodifyTopAppBar
-import com.ercoding.foodify.presentation.dashboard.components.MealEntryItem
-import com.ercoding.foodify.presentation.dashboard.components.MealInputSection
-import com.ercoding.foodify.presentation.dashboard.components.NutritionCards
+import com.ercoding.foodify.presentation.dashboard.analysistab.AnalysisScreen
+import com.ercoding.foodify.presentation.dashboard.analysistab.AnalysisViewModel
+import com.ercoding.foodify.presentation.dashboard.daytab.components.DailyKcalSummary
+import com.ercoding.foodify.presentation.dashboard.daytab.components.FoodifyTopAppBar
+import com.ercoding.foodify.presentation.dashboard.daytab.components.MealEntryItem
+import com.ercoding.foodify.presentation.dashboard.daytab.components.MealInputSection
+import com.ercoding.foodify.presentation.dashboard.daytab.components.NutritionCards
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -35,6 +37,7 @@ fun DashboardScreen(
     onSettingsClick: () -> Unit
 ) {
     val vm: DashboardViewModel = koinViewModel()
+    val vmAnalysis: AnalysisViewModel = koinViewModel()
     val snackbarHostState = remember { SnackbarHostState() }
     val dailyEntries = vm.nutritionEntriesByDate[vm.selectedDate] ?: emptyList()
 
@@ -70,7 +73,7 @@ fun DashboardScreen(
             }
 
             if (vm.selectedTab == 0) {
-
+                // DayTab
                 item {
                     DailyKcalSummary(vm)
                     Spacer(modifier = Modifier.height(4.dp))
@@ -100,6 +103,31 @@ fun DashboardScreen(
                         onDismiss = { vm.removeNutritionEntry(entry) }
                     )
                 }
+            } else {
+                // AnalaysisTab
+                item {
+                    AnalysisScreen()
+                    Spacer(modifier = Modifier.height(4.dp))
+                }
+//                item {
+//                    HeroCard(4.0, 2130)
+//                    Spacer(modifier = Modifier.height(4.dp))
+//                }
+//                item {
+//                    WeeklyBarChart(vmAnalysis.weekData, 5)
+//                    Spacer(modifier = Modifier.height(4.dp))
+//                }
+//                item {
+//                    StatCard(
+//                        modifier = Modifier.
+//                        "gegessen",
+//                        2136,
+//                        "Kg",
+//                        Color.Red,
+//                        "\uD83C\uDF7D\uFE0F"
+//                    )
+//                    Spacer(modifier = Modifier.height(4.dp))
+//                }
             }
         }
     }
