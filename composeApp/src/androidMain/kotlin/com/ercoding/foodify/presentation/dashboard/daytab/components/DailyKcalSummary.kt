@@ -1,4 +1,4 @@
-package com.ercoding.foodify.presentation.dashboard.components
+package com.ercoding.foodify.presentation.dashboard.daytab.components
 
 import android.os.Build
 import androidx.annotation.RequiresApi

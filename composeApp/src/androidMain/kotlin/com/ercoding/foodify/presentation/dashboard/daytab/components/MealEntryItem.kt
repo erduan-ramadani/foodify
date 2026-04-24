@@ -1,4 +1,4 @@
-package com.ercoding.foodify.presentation.dashboard.components
+package com.ercoding.foodify.presentation.dashboard.daytab.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -31,7 +31,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ercoding.foodify.domain.model.sheet.NutritionEntry
-import com.ercoding.foodify.presentation.dashboard.sheet.NutritionBottomSheet
+import com.ercoding.foodify.presentation.dashboard.daytab.sheet.NutritionBottomSheet
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

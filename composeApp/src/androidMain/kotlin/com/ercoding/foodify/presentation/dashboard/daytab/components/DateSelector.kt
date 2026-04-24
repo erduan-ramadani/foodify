@@ -1,4 +1,4 @@
-package com.ercoding.foodify.presentation.dashboard.components
+package com.ercoding.foodify.presentation.dashboard.daytab.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.IntrinsicSize

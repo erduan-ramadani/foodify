@@ -1,4 +1,4 @@
-package com.ercoding.foodify.presentation.dashboard.sheet
+package com.ercoding.foodify.presentation.dashboard.daytab.sheet
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
