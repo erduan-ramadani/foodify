@@ -24,7 +24,6 @@ import java.time.ZoneId
 import java.util.UUID
 import kotlin.math.absoluteValue
 
-@RequiresApi(Build.VERSION_CODES.O)
 class DashboardViewModel(
     private val anthropicRepo: AnthropicInterface,
     private val prefRepository: PreferencesInterface
