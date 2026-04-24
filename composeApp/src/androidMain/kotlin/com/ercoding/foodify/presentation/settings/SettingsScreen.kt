@@ -54,7 +54,7 @@ fun SettingsScreen(
     val isDarkMode by viewModel.isDarkMode.collectAsState(false)
     val isReminding by viewModel.isReminding.collectAsState(false)
     val onboardingData by viewModel.onboardingData.collectAsState(null)
-    var editingField by remember { mutableStateOf<String?>(null) }
+    var editingField by remember { mutableStateOf<Settingsfield?>(null) }
     val listItemColors = ListItemDefaults.colors(
         containerColor = MaterialTheme.colorScheme.background
     )
@@ -93,30 +93,30 @@ fun SettingsScreen(
                 SettingsRow(
                     label = "Alter",
                     value = "${onboardingData?.age ?: 25} Jahre",
-                    onSettingClick = { editingField = "age" }
+                    onSettingClick = { editingField = Settingsfield.AGE }
                 )
                 SettingsDivider()
                 SettingsRow(
                     label = "Größe",
                     value = "${onboardingData?.height ?: 175} cm",
-                    onSettingClick = { editingField = "height" }
+                    onSettingClick = { editingField = Settingsfield.HEIGHT }
                 )
                 SettingsDivider()
                 SettingsRow(
                     label = "Gewicht",
                     value = "${onboardingData?.weight ?: 75} kg",
-                    onSettingClick = { editingField = "weight" }
+                    onSettingClick = { editingField = Settingsfield.WEIGHT }
                 )
                 SettingsDivider()
                 SettingsRow(
                     label = "Zielgewicht",
                     value = "${onboardingData?.weightGoal ?: 70} kg",
-                    onSettingClick = { editingField = "weightGoal" }
+                    onSettingClick = { editingField = Settingsfield.WEIGHT_GOAL }
                 )
                 SettingsRow(
                     label = "Tägliches Kalorienlimit",
                     value = "${onboardingData?.dailyCalorieLimit ?: 1000} kcal",
-                    onSettingClick = { editingField = "dailyCalorieLimit" }
+                    onSettingClick = { editingField = Settingsfield.DAILY_CALORIE_LIMIT }
                 )
             }
             SettingsSectionHeader("App")

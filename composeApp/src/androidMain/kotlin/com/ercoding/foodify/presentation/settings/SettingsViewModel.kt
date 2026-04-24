@@ -38,12 +38,6 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
         }
     }
 
-    fun setDailyCalorieLimit(limit: Int) {
-        viewModelScope.launch {
-            prefRepo.setOnboardingData(onboardingData.value?.copy(dailyCalorieLimit = limit))
-        }
-    }
-
     fun saveSettingsBottomSheetChange(fieldName: Settingsfield, value: Int) {
         val updated = when (fieldName) {
             Settingsfield.AGE -> onboardingData.value?.copy(age = value)

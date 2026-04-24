@@ -32,9 +32,9 @@ import com.ercoding.foodify.domain.model.onboarding.OnboardingData
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsBottomSheet(
-    editingField: String,
+    editingField: Settingsfield,
     onboardingData: OnboardingData?,
-    onSave: (String, Int) -> Unit,
+    onSave: (Settingsfield, Int) -> Unit,
     onDismiss: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -49,7 +49,7 @@ fun SettingsBottomSheet(
     )
 
     val config = when (editingField) {
-        "age" -> FieldConfig(
+        Settingsfield.AGE -> FieldConfig(
             "Alter",
             "Jahre",
             14f,
@@ -58,7 +58,7 @@ fun SettingsBottomSheet(
             onboardingData?.age?.toFloat() ?: 25f
         )
 
-        "height" -> FieldConfig(
+        Settingsfield.HEIGHT -> FieldConfig(
             "Größe",
             "cm",
             120f,
@@ -67,7 +67,7 @@ fun SettingsBottomSheet(
             onboardingData?.height?.toFloat() ?: 175f
         )
 
-        "weight" -> FieldConfig(
+        Settingsfield.WEIGHT -> FieldConfig(
             "Gewicht",
             "kg",
             30f,
@@ -76,7 +76,7 @@ fun SettingsBottomSheet(
             onboardingData?.weight?.toFloat() ?: 75f
         )
 
-        "weightGoal" -> FieldConfig(
+        Settingsfield.WEIGHT_GOAL -> FieldConfig(
             "Zielgewicht",
             "kg",
             30f,
@@ -85,7 +85,7 @@ fun SettingsBottomSheet(
             onboardingData?.weight?.toFloat() ?: 72f
         )
 
-        "dailyCalorieLimit" -> FieldConfig(
+        Settingsfield.DAILY_CALORIE_LIMIT -> FieldConfig(
             "Tägliches Kalorienlimit",
             "kcal",
             10f,
@@ -93,8 +93,6 @@ fun SettingsBottomSheet(
             10f,
             onboardingData?.dailyCalorieLimit?.toFloat() ?: 2000f
         )
-
-        else -> return
     }
 
     var sliderValue by remember(editingField) { mutableFloatStateOf(config.currentValue) }
