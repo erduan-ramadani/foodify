@@ -1,7 +1,5 @@
 package com.ercoding.foodify.presentation.dashboard.daytab.components
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,7 +17,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.ercoding.foodify.domain.model.sheet.NutritionEntry
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DailyMealsList(
     dailyEntries: List<NutritionEntry>,

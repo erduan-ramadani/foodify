@@ -1,8 +1,6 @@
 package com.ercoding.foodify.di
 
 import android.content.Context
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -32,7 +30,6 @@ val appModule = module {
     single<AnthropicInterface> { AnthropicRepository(get()) }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 val viewModelModule = module {
     viewModel { MainViewModel(get()) }
     viewModel { OnboardingViewModel() }

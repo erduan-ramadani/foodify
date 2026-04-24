@@ -1,7 +1,5 @@
 package com.ercoding.foodify.presentation.dashboard
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -40,7 +38,6 @@ class DashboardViewModel(
         get() = nutritionEntries.distinctBy { it.query }
 
     val nutritionEntriesByDate: Map<LocalDate, List<NutritionEntry>>
-        @RequiresApi(Build.VERSION_CODES.O)
         get() = nutritionEntries.groupBy { entry ->
             Instant.ofEpochMilli(entry.createdAt)
                 .atZone(ZoneId.systemDefault())
@@ -120,7 +117,6 @@ class DashboardViewModel(
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun getDailyCalories(date: LocalDate?): Int {
         return (nutritionEntriesByDate[date]?.sumOf { it.calories } ?: 0).toInt()
     }
