@@ -17,13 +17,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
 
 @Composable
 fun RangePicker(
     selected: Int,
-    onRangeChange: (Int) -> Unit
+    onRangeChange: (Int) -> Unit,
+    vm: DashboardViewModel
 ) {
-    val ranges = listOf(7, 30, 90)
+    val rangeList = listOf(7, 30, 90)
 
     Row(
         modifier = Modifier
@@ -37,7 +39,7 @@ fun RangePicker(
             )
             .padding(4.dp)
     ) {
-        ranges.forEach { days ->
+        rangeList.forEach { days ->
             val isSelected = selected == days
             Box(
                 modifier = Modifier
@@ -47,7 +49,10 @@ fun RangePicker(
                         if (isSelected) MaterialTheme.colorScheme.primary
                         else Color.Transparent
                     )
-                    .clickable { onRangeChange(days) }
+                    .clickable {
+                        onRangeChange(days)
+                        println("Range: ${vm.range}")
+                    }
                     .padding(vertical = 8.dp),
                 contentAlignment = Alignment.Center
             ) {

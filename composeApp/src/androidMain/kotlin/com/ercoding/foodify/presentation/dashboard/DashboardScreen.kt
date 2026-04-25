@@ -1,5 +1,7 @@
 package com.ercoding.foodify.presentation.dashboard
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -17,6 +19,7 @@ import com.ercoding.foodify.presentation.dashboard.daytab.DayScreen
 import com.ercoding.foodify.presentation.dashboard.daytab.components.FoodifyTopAppBar
 import org.koin.androidx.compose.koinViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DashboardScreen(
     onSettingsClick: () -> Unit

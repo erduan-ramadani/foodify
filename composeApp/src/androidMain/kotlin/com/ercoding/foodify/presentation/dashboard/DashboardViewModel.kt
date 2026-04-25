@@ -1,6 +1,9 @@
 package com.ercoding.foodify.presentation.dashboard
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import com.ercoding.foodify.domain.AnthropicInterface
 import com.ercoding.foodify.domain.PreferencesInterface
 import com.ercoding.foodify.domain.model.sheet.NutritionEntry
+import com.ercoding.foodify.presentation.dashboard.analysistab.components.DayData
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
@@ -22,13 +26,83 @@ import java.time.ZoneId
 import java.util.UUID
 import kotlin.math.absoluteValue
 
+@RequiresApi(Build.VERSION_CODES.O)
 class DashboardViewModel(
     private val anthropicRepo: AnthropicInterface,
     private val prefRepository: PreferencesInterface
 ) : ViewModel() {
+    var range by mutableIntStateOf(7)   // 7, 30, oder 90
+    val totalCalories: Double
+        get() {
+            val today = LocalDate.now()
+            val calorieRangeList = (0 until range).map { day ->
+                nutritionEntriesByDate[today.minusDays(day.toLong())]?.sumOf { it.calories } ?: 0.0
+            }
+            println("TotalCalories of Range: ${calorieRangeList.sum()}")
+            return calorieRangeList.sum()
+        }
+    val totalBurned: Double
+        get() {
+            val today = LocalDate.now()
+            return (0 until range)
+                .flatMap { day ->
+                    nutritionEntriesByDate[today.minusDays(day.toLong())] ?: emptyList()
+                }.filter { !it.isMeal }
+                .sumOf { it.calories }.absoluteValue
+        }
+    val totalConsumed: Double
+        get() {
+            val today = LocalDate.now()
+            return (0 until range)
+                .flatMap { day ->
+                    nutritionEntriesByDate[today.minusDays(day.toLong())] ?: emptyList()
+                }
+                .filter { it.isMeal }
+                .sumOf { it.calories }
+        }
+    val trackedDays: Int
+        get() {
+            val today = LocalDate.now()
+            return (0 until range).map { day ->
+                nutritionEntriesByDate[today.minusDays(day.toLong())] ?: emptyList()
+            }
+                .filter { !it.isEmpty() }.size
+        }
+    val estimatedKg: Double = 0.0   // positiv = abgenommen
+    val netDeficit: Int = 0         // kcal Defizit/Überschuss
+    val goalProgress: Float = 0f    // 0f..100f
+    val avgConsumed: Int
+        get() {
+            return totalConsumed.toInt() / trackedDays
+        }
+    val avgBurned: Int
+        get() {
+            return totalBurned.toInt() / trackedDays
+        }
 
-    var selectedTab by mutableStateOf(0)
-    val dailyCalories: Int get() = getDailyCalories(selectedDate)
+    // bester tag: größter wert von calorien verbrannt - calorien gegessen
+    val bestDay: Pair<LocalDate, Double>?
+        get() {
+            val dayDeficits: Map<LocalDate, Double> = (0 until range).associate { day ->
+                val today = LocalDate.now()
+
+                val date = today.minusDays(day.toLong())
+                val entries = nutritionEntriesByDate[date] ?: emptyList()
+                val net =
+                    entries.sumOf { it.calories }  // gegessen - verbrannt (weil Aktivitäten negativ sind)
+                val deficit = dailyCalorieLimit - net
+                date to deficit
+            }
+            return dayDeficits.entries.maxByOrNull { it.value }?.let { it.key to it.value }
+        }
+
+    //    val bestDay: DayData? = null
+    val weekData: List<DayData> = emptyList()
+    var selectedTab by mutableIntStateOf(0)
+    val dailyCalories: Int
+        get() {
+            return (nutritionEntriesByDate[selectedDate]?.sumOf { it.calories } ?: 0).toInt()
+        }
     val dailyCarbs get() = getDailyTotal { it.carbohydrates }
     val dailyFat get() = getDailyTotal { it.fat }
     val dailyProtein get() = getDailyTotal { it.protein }
@@ -91,6 +165,7 @@ class DashboardViewModel(
                 addEntry(response)
             }
             isLoading = false
+            getCalorieDeficit()
         }
     }
 
@@ -117,8 +192,27 @@ class DashboardViewModel(
         }
     }
 
-    private fun getDailyCalories(date: LocalDate?): Int {
-        return (nutritionEntriesByDate[date]?.sumOf { it.calories } ?: 0).toInt()
+    fun getWeightChange(): String {
+        val totalCalories = totalCalories / (1100 * range)
+        val weightChange: Double = totalCalories / 7700.0 - 1
+        val roundedWeightChange = String.format("%.2f", weightChange)
+
+        println("Total Calorie überschuss: $totalCalories")
+        println("WeightChange: $weightChange kg")
+        println("Rounded WeightChange: $roundedWeightChange kg")
+        return roundedWeightChange
+    }
+
+    fun getCalorieDeficit(): Int {
+        // überschuss = summe gegessen - (tageslimit * anzahl tage)
+        // überschuss = getTotalCalories + (dailyLimit * analysisRange.size)
+        val totalCalories = totalCalories
+        val deficit = totalCalories + (dailyCalorieLimit * range)
+        println("Defizit: $deficit")
+        println("Daily Limit: $dailyCalorieLimit")
+        println("Range: $range")
+        println("TotalCalories: $totalCalories")
+        return deficit.toInt()
     }
 
     private fun getDailyTotal(selector: (NutritionEntry) -> Double): Int {

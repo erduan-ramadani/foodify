@@ -1,5 +1,7 @@
 package com.ercoding.foodify.presentation.dashboard.analysistab.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,14 +23,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlin.math.abs
+import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HeroCard(
-    estimatedKg: Double,
-    netDeficit: Int
+    vm: DashboardViewModel
 ) {
-    val isDeficit = estimatedKg > 0
+    val isDeficit = vm.estimatedKg > 0
     val prefix = if (isDeficit) "−" else "+"
 
     Card(
@@ -63,7 +65,7 @@ fun HeroCard(
 
                 Row(verticalAlignment = Alignment.Bottom) {
                     Text(
-                        text = "$prefix${"%.2f".format(abs(estimatedKg))}",
+                        text = vm.getWeightChange(),
                         fontSize = 56.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = Color.White,
@@ -81,7 +83,7 @@ fun HeroCard(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Basierend auf ${netDeficit} kcal ${if (isDeficit) "Defizit" else "Überschuss"}",
+                    text = "Basierend auf ${vm.getCalorieDeficit()} kcal ${if (isDeficit) "Defizit" else "Überschuss"}",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color.White.copy(alpha = 0.85f)
                 )

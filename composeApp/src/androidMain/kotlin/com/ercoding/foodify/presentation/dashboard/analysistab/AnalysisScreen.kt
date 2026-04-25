@@ -1,5 +1,7 @@
 package com.ercoding.foodify.presentation.dashboard.analysistab
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +18,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.domain.extension.toDisplayString
+import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
 import com.ercoding.foodify.presentation.dashboard.analysistab.components.BestDayCard
 import com.ercoding.foodify.presentation.dashboard.analysistab.components.ConsistencyCard
 import com.ercoding.foodify.presentation.dashboard.analysistab.components.GoalProgressCard
@@ -25,9 +29,10 @@ import com.ercoding.foodify.presentation.dashboard.analysistab.components.StatCa
 import com.ercoding.foodify.presentation.dashboard.analysistab.components.WeeklyBarChart
 import org.koin.androidx.compose.koinViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AnalysisScreen() {
-    val vm: AnalysisViewModel = koinViewModel()
+    val vm: DashboardViewModel = koinViewModel()
 
     Column(
         modifier = Modifier
@@ -50,16 +55,14 @@ fun AnalysisScreen() {
             item {
                 RangePicker(
                     selected = vm.range,
-                    onRangeChange = { vm.range = it }
+                    onRangeChange = { vm.range = it },
+                    vm
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
             }
             item {
-                HeroCard(
-                    estimatedKg = vm.estimatedKg,
-                    netDeficit = vm.netDeficit
-                )
+                HeroCard(vm)
 
                 Spacer(modifier = Modifier.height(12.dp))
             }
@@ -104,7 +107,7 @@ fun AnalysisScreen() {
                     StatCard(
                         modifier = Modifier.weight(1f),
                         label = "Gesamt gegessen",
-                        value = vm.totalConsumed,
+                        value = vm.totalConsumed.toInt(),
                         unit = "kcal · ${vm.range} Tage",
                         color = Color(0xFFF5A623),
                         icon = "📊"
@@ -112,7 +115,7 @@ fun AnalysisScreen() {
                     StatCard(
                         modifier = Modifier.weight(1f),
                         label = "Gesamt verbrannt",
-                        value = vm.totalBurned,
+                        value = vm.totalBurned.toInt(),
                         unit = "kcal · ${vm.range} Tage",
                         color = Color(0xFF3A7CA5),
                         icon = "💪"
@@ -122,8 +125,8 @@ fun AnalysisScreen() {
             }
             item {
                 BestDayCard(
-                    dayLabel = vm.bestDay?.label ?: "—",
-                    calories = vm.bestDay?.calories ?: 0
+                    dayLabel = vm.bestDay?.first?.toDisplayString() ?: "—",
+                    calories = vm.bestDay?.second?.toInt() ?: 0
                 )
                 Spacer(modifier = Modifier.height(12.dp))
             }
@@ -137,7 +140,7 @@ fun AnalysisScreen() {
             item {
                 WeeklyBarChart(
                     data = vm.weekData,
-                    dailyLimit = vm.dailyLimit
+                    dailyLimit = vm.dailyCalorieLimit
                 )
                 Spacer(modifier = Modifier.height(40.dp))
             }

@@ -60,7 +60,7 @@ fun BestDayCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = "$dayLabel · $calories kcal",
+                    text = "$dayLabel · $calories kcal Defizit",
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Bold
                 )
