@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.ercoding.foodify.domain.model.onboarding.OnboardingData
+import com.ercoding.foodify.domain.model.onboarding.WeightGoal
 
 class OnboardingViewModel(
 ) : ViewModel() {
@@ -13,7 +14,7 @@ class OnboardingViewModel(
     var age: Int by mutableIntStateOf(36)
     var height: Int by mutableIntStateOf(180)
     var weight: Int by mutableIntStateOf(80)
-    var weightGoal: Int by mutableIntStateOf(78)
+    var weightGoal: WeightGoal? by mutableStateOf(null)
     var dailyGoal: Int by mutableIntStateOf(0)
 
     fun getButtonLabel(currentPage: Int): String = when (currentPage) {
@@ -49,16 +50,17 @@ class OnboardingViewModel(
     fun getGoalText(): String {
         val base = calculateBMR().toInt()
         val weeklyDeficit = 7700 / 7
-        if (weight < weightGoal) {
-            dailyGoal = base + weeklyDeficit
-            return "Du brauchst einen Kalorienüberschuss von $weeklyDeficit kcal täglich, um 1kg pro Woche zuzunehmen. Daraus ergibt sich ein Tagesziel von $dailyGoal kcal."
-        } else if (weight > weightGoal) {
-            dailyGoal = base - weeklyDeficit
-            return "Du brauchst ein Kaloriendefizit von $weeklyDeficit kcal täglich, um 1kg pro Woche abzunehmen. Daraus ergibt sich ein Tageslimit von $dailyGoal kcal."
-        } else {
-            dailyGoal = base
-            return "Du brauchst täglich $base kcal um dein Gewicht zu halten"
-        }
+        return "fehlt noch"
+//        if (weight < weightGoal.) {
+//            dailyGoal = base + weeklyDeficit
+//            return "Du brauchst einen Kalorienüberschuss von $weeklyDeficit kcal täglich, um 1kg pro Woche zuzunehmen. Daraus ergibt sich ein Tagesziel von $dailyGoal kcal."
+//        } else if (weight > weightGoal) {
+//            dailyGoal = base - weeklyDeficit
+//            return "Du brauchst ein Kaloriendefizit von $weeklyDeficit kcal täglich, um 1kg pro Woche abzunehmen. Daraus ergibt sich ein Tageslimit von $dailyGoal kcal."
+//        } else {
+//            dailyGoal = base
+//            return "Du brauchst täglich $base kcal um dein Gewicht zu halten"
+//        }
     }
 
 }

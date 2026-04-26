@@ -162,7 +162,7 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
 
             OutlinedTextField(
                 value = vm.weightGoal.toString(),
-                onValueChange = { vm.weightGoal = it.toIntOrNull() ?: vm.weightGoal },
+                onValueChange = { },
                 label = { Text("Ziel") },
                 suffix = { Text("kg") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),

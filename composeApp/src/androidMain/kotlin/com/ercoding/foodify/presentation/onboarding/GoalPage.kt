@@ -76,13 +76,10 @@ fun GoalPage(vm: OnboardingViewModel) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Text(
-            text = "Was ist dein Ziel?",
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.primary
+        WeightGoalSelector(
+            selected = vm.weightGoal,
+            onSelect = { vm.weightGoal = it }
         )
-        Spacer(modifier = Modifier.height(8.dp))
-
         // Goal result
         Spacer(modifier = Modifier.height(12.dp))
         Card(

@@ -3,6 +3,7 @@ package com.ercoding.foodify.presentation.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ercoding.foodify.domain.PreferencesInterface
+import com.ercoding.foodify.domain.model.onboarding.WeightGoal
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.first
@@ -43,7 +44,7 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
             Settingsfield.AGE -> onboardingData.value?.copy(age = value)
             Settingsfield.HEIGHT -> onboardingData.value?.copy(height = value)
             Settingsfield.WEIGHT -> onboardingData.value?.copy(weight = value)
-            Settingsfield.WEIGHT_GOAL -> onboardingData.value?.copy(weightGoal = value)
+            Settingsfield.WEIGHT_GOAL -> onboardingData.value?.copy(weightGoal = WeightGoal.NORMAL)
             Settingsfield.DAILY_CALORIE_LIMIT -> onboardingData.value?.copy(dailyCalorieLimit = value)
         }
         updated?.let {
