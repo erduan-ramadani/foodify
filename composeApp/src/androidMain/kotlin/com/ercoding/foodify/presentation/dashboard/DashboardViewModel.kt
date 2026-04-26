@@ -191,7 +191,7 @@ class DashboardViewModel(
         val weightChange: Double = totalCalories / 7700.0 - 1
         val roundedWeightChange = String.format("%.2f", weightChange)
 
-        println("Total Calorie überschuss: $totalCalories")
+        println("Total Calorie über: $totalCalories")
         println("WeightChange: $weightChange kg")
         println("Rounded WeightChange: $roundedWeightChange kg")
         return roundedWeightChange
