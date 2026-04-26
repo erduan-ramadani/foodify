@@ -51,7 +51,6 @@ fun RangePicker(
                     )
                     .clickable {
                         onRangeChange(days)
-                        println("Range: ${vm.range}")
                     }
                     .padding(vertical = 8.dp),
                 contentAlignment = Alignment.Center

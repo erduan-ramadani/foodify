@@ -38,7 +38,6 @@ class MainViewModel(private val prefRepo: PreferencesInterface) : ViewModel() {
 
     fun saveOnboardingData(onboardingData: OnboardingData) {
         viewModelScope.launch {
-            println("Onboarding Main: $onboardingData")
             prefRepo.setOnboardingData(onboardingData)
         }
     }

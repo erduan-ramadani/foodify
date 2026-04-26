@@ -32,7 +32,6 @@ fun Navigation() {
     FoodifyTheme(darkTheme = isDarkMode) {
         startDestination =
             onboardingData?.let { Routes.dashboard } ?: Routes.onboarding
-        println("onboard start: $startDestination")
         if (mainViewModel.isLoading.value) {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -44,7 +43,6 @@ fun Navigation() {
             }
         } else {
             NavHost(navController, startDestination) {
-                println("onboard start: $startDestination")
                 composable(Routes.onboarding) {
                     OnboardingScreen(
                         onComplete = { onboardingData ->

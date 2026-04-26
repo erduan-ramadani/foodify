@@ -38,7 +38,6 @@ class DashboardViewModel(
             val calorieRangeList = (0 until range).map { day ->
                 nutritionEntriesByDate[today.minusDays(day.toLong())]?.sumOf { it.calories } ?: 0.0
             }
-            println("TotalCalories of Range: ${calorieRangeList.sum()}")
             return calorieRangeList.sum()
         }
     val totalBurned: Int
@@ -151,7 +150,6 @@ class DashboardViewModel(
                     is HttpRequestTimeoutException -> "Timeout"
                     else -> "Unbekannter Fehler"
                 }
-                println("Exception: $exception")
                 _events.send(errorMessage)
             }
             result.onSuccess { response ->
@@ -190,22 +188,12 @@ class DashboardViewModel(
         val totalCalories = totalCalories / (1100 * range)
         val weightChange: Double = totalCalories / 7700.0 - 1
         val roundedWeightChange = String.format("%.2f", weightChange)
-
-        println("Total Calorie über: $totalCalories")
-        println("WeightChange: $weightChange kg")
-        println("Rounded WeightChange: $roundedWeightChange kg")
         return roundedWeightChange
     }
 
     fun getCalorieDeficit(): Int {
-        // überschuss = summe gegessen - (tageslimit * anzahl tage)
-        // überschuss = getTotalCalories + (dailyLimit * analysisRange.size)
         val totalCalories = totalCalories
         val deficit = totalCalories + (dailyCalorieLimit * range)
-        println("Defizit: $deficit")
-        println("Daily Limit: $dailyCalorieLimit")
-        println("Range: $range")
-        println("TotalCalories: $totalCalories")
         return deficit.toInt()
     }
 
