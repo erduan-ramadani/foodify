@@ -1,5 +1,8 @@
 package com.ercoding.foodify.presentation.dashboard.daytab.components
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,17 +35,28 @@ fun DailyKcalSummary(
         viewModel.progress in 0.5f..0.8f -> Color(0xFFFF7E19)
         else -> Color(0xFF004D02)
     }
+    val animatedCalories by animateIntAsState(
+        targetValue = viewModel.remainingDailyCaloriesLimit,
+        animationSpec = tween(durationMillis = 2000),
+        label = "calorieAnimation"
+    )
+
+    val animatedProgress by animateFloatAsState(
+        targetValue = viewModel.progress,
+        animationSpec = tween(durationMillis = 4000),
+        label = "calorieAnimation"
+    )
 
     Box(contentAlignment = Alignment.Center) {
         CircularProgressIndicator(
             strokeWidth = 10.dp,
             modifier = Modifier.size(120.dp),
-            progress = { viewModel.progress },
+            progress = { animatedProgress },
             color = progressColor
         )
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "${viewModel.remainingDailyCaloriesLimit}",
+                text = "$animatedCalories",
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
