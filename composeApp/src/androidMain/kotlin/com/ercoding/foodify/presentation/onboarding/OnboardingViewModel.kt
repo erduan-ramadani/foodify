@@ -14,8 +14,8 @@ class OnboardingViewModel(
     var age: Int by mutableIntStateOf(36)
     var height: Int by mutableIntStateOf(180)
     var weight: Int by mutableIntStateOf(80)
-    var weightGoal: WeightGoal? by mutableStateOf(null)
-    var dailyGoal: Int by mutableIntStateOf(0)
+    var weightGoal: WeightGoal? by mutableStateOf(WeightGoal.NORMAL)
+    var dailyLimit: Int by mutableIntStateOf(0)
 
     fun getButtonLabel(currentPage: Int): String = when (currentPage) {
         0 -> "Bedarf berechnen"
@@ -30,7 +30,7 @@ class OnboardingViewModel(
             age = age,
             height = height,
             weight = weight,
-            dailyCalorieLimit = dailyGoal,
+            dailyCalorieLimit = dailyLimit,
             weightGoal = weightGoal
         )
     }
@@ -48,19 +48,11 @@ class OnboardingViewModel(
     }
 
     fun getGoalText(): String {
-        val base = calculateBMR().toInt()
-        val weeklyDeficit = 7700 / 7
-        return "fehlt noch"
-//        if (weight < weightGoal.) {
-//            dailyGoal = base + weeklyDeficit
-//            return "Du brauchst einen Kalorienüberschuss von $weeklyDeficit kcal täglich, um 1kg pro Woche zuzunehmen. Daraus ergibt sich ein Tagesziel von $dailyGoal kcal."
-//        } else if (weight > weightGoal) {
-//            dailyGoal = base - weeklyDeficit
-//            return "Du brauchst ein Kaloriendefizit von $weeklyDeficit kcal täglich, um 1kg pro Woche abzunehmen. Daraus ergibt sich ein Tageslimit von $dailyGoal kcal."
-//        } else {
-//            dailyGoal = base
-//            return "Du brauchst täglich $base kcal um dein Gewicht zu halten"
-//        }
+        val base = calculateBMR()
+        dailyLimit = (base - (weightGoal?.dailyDeficit ?: 0)).toInt()
+        val goalMessage =
+            "Du brauchst ein Kaloriendefizit von ${weightGoal?.dailyDeficit} kcal täglich, um ${weightGoal?.kgPerWeek}kg pro Woche abzunehmen. Daraus ergibt sich ein Tagesziel von $dailyLimit kcal."
+        return goalMessage
     }
 
 }

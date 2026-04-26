@@ -16,5 +16,8 @@ enum class WeightGoal(val kgPerWeek: Double, val label: String, val warning: Str
     SLOW(0.25, "Langsam", null),
     NORMAL(0.5, "Empfohlen", null),
     FAST(0.75, "Schnell", "Erfordert strikte Disziplin"),
-    AGGRESSIVE(1.0, "Sehr schnell", "Nur für kurze Zeiträume empfohlen")
+    AGGRESSIVE(1.0, "Sehr schnell", "Nur für kurze Zeiträume empfohlen");
+
+    val dailyDeficit: Int
+        get() = (7700 * kgPerWeek / 7).toInt()
 }
