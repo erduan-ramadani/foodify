@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Card
@@ -124,53 +125,32 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
             color = MaterialTheme.colorScheme.primary
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            OutlinedTextField(
-                value = vm.height.toString(),
-                onValueChange = { vm.height = it.toIntOrNull() ?: vm.height },
-                label = { Text("Größe") },
-                suffix = { Text("cm") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                singleLine = true,
-                shape = RoundedCornerShape(12.dp)
-            )
-        }
+        OutlinedTextField(
+            value = vm.height.toString(),
+            onValueChange = { vm.height = it.toIntOrNull() ?: vm.height },
+            label = { Text("Größe") },
+            suffix = { Text("cm") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            singleLine = true,
+            shape = RoundedCornerShape(12.dp),
+            modifier = Modifier.width(100.dp)
+        )
         Spacer(modifier = Modifier.height(28.dp))
         Text(
             text = "Gewicht",
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.primary
         )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(60.dp),
-            verticalAlignment = Alignment.Bottom
-        ) {
-            OutlinedTextField(
-                value = vm.weight.toString(),
-                onValueChange = { vm.weight = it.toIntOrNull() ?: vm.weight },
-                label = { Text("Aktuell") },
-                suffix = { Text("kg") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                singleLine = true,
-                modifier = Modifier.weight(1f),
-                shape = RoundedCornerShape(12.dp)
-            )
-
-            OutlinedTextField(
-                value = vm.weightGoal.toString(),
-                onValueChange = { },
-                label = { Text("Ziel") },
-                suffix = { Text("kg") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                singleLine = true,
-                modifier = Modifier.weight(1f),
-                shape = RoundedCornerShape(12.dp)
-            )
-        }
+        OutlinedTextField(
+            value = vm.weight.toString(),
+            onValueChange = { vm.weight = it.toIntOrNull() ?: vm.weight },
+            label = { Text("Aktuell") },
+            suffix = { Text("kg") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            singleLine = true,
+            shape = RoundedCornerShape(12.dp),
+            modifier = Modifier.width(100.dp)
+        )
     }
 }
 
