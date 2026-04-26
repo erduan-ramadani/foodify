@@ -107,7 +107,7 @@ fun AnalysisScreen() {
                     StatCard(
                         modifier = Modifier.weight(1f),
                         label = "Gesamt gegessen",
-                        value = vm.totalConsumed.toInt(),
+                        value = vm.totalConsumed,
                         unit = "kcal · ${vm.range} Tage",
                         color = Color(0xFFF5A623),
                         icon = "📊"
@@ -115,7 +115,7 @@ fun AnalysisScreen() {
                     StatCard(
                         modifier = Modifier.weight(1f),
                         label = "Gesamt verbrannt",
-                        value = vm.totalBurned.toInt(),
+                        value = vm.totalBurned,
                         unit = "kcal · ${vm.range} Tage",
                         color = Color(0xFF3A7CA5),
                         icon = "💪"

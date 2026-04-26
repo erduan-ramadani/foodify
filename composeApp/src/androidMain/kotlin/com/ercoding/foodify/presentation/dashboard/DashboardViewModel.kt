@@ -41,16 +41,16 @@ class DashboardViewModel(
             println("TotalCalories of Range: ${calorieRangeList.sum()}")
             return calorieRangeList.sum()
         }
-    val totalBurned: Double
+    val totalBurned: Int
         get() {
             val today = LocalDate.now()
             return (0 until range)
                 .flatMap { day ->
                     nutritionEntriesByDate[today.minusDays(day.toLong())] ?: emptyList()
                 }.filter { !it.isMeal }
-                .sumOf { it.calories }.absoluteValue
+                .sumOf { it.calories }.toInt().absoluteValue
         }
-    val totalConsumed: Double
+    val totalConsumed: Int
         get() {
             val today = LocalDate.now()
             return (0 until range)
@@ -58,7 +58,7 @@ class DashboardViewModel(
                     nutritionEntriesByDate[today.minusDays(day.toLong())] ?: emptyList()
                 }
                 .filter { it.isMeal }
-                .sumOf { it.calories }
+                .sumOf { it.calories }.toInt()
         }
     val trackedDays: Int
         get() {
@@ -69,18 +69,12 @@ class DashboardViewModel(
                 .filter { !it.isEmpty() }.size
         }
     val estimatedKg: Double = 0.0   // positiv = abgenommen
-    val netDeficit: Int = 0         // kcal Defizit/Überschuss
     val goalProgress: Float = 0f    // 0f..100f
     val avgConsumed: Int
-        get() {
-            return totalConsumed.toInt() / trackedDays
-        }
+        get() = if (trackedDays > 0) totalConsumed / trackedDays else 0
     val avgBurned: Int
-        get() {
-            return totalBurned.toInt() / trackedDays
-        }
+        get() = if (trackedDays > 0) totalBurned / trackedDays else 0
 
-    // bester tag: größter wert von calorien verbrannt - calorien gegessen
     val bestDay: Pair<LocalDate, Double>?
         get() {
             val dayDeficits: Map<LocalDate, Double> = (0 until range).associate { day ->
