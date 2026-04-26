@@ -28,6 +28,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.ercoding.foodify.domain.model.onboarding.OnboardingData
+import com.ercoding.foodify.domain.model.onboarding.WeightGoal
+import com.ercoding.foodify.presentation.onboarding.WeightGoalSelector
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,6 +37,7 @@ fun SettingsBottomSheet(
     editingField: Settingsfield,
     onboardingData: OnboardingData?,
     onSave: (Settingsfield, Int) -> Unit,
+    onSaveWeightGoal: (WeightGoal) -> Unit,
     onDismiss: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -77,12 +80,12 @@ fun SettingsBottomSheet(
         )
 
         Settingsfield.WEIGHT_GOAL -> FieldConfig(
-            "Zielgewicht",
+            "Wochenziel",
             "kg",
-            30f,
-            200f,
-            1f,
-            onboardingData?.weight?.toFloat() ?: 72f
+            0.25f,
+            1.0f,
+            0.25f,
+            onboardingData?.weightGoal?.kgPerWeek?.toFloat() ?: 0.5f
         )
 
         Settingsfield.DAILY_CALORIE_LIMIT -> FieldConfig(
@@ -106,80 +109,100 @@ fun SettingsBottomSheet(
                 .padding(horizontal = 24.dp)
                 .padding(bottom = 40.dp)
         ) {
-            Text(
-                text = config.title,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-                fontWeight = FontWeight.Bold
-            )
+            when (editingField) {
+                Settingsfield.WEIGHT_GOAL -> {
+                    Text(
+                        text = "Wochenziel",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
 
-            Spacer(modifier = Modifier.height(24.dp))
+                    WeightGoalSelector(
+                        selected = onboardingData?.weightGoal,
+                        onSelect = { selectedGoal ->
+                            onSaveWeightGoal(selectedGoal)
+                        }
+                    )
+                }
 
-            // Value display
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.Bottom
-            ) {
-                Text(
-                    text = "${sliderValue.toInt()}",
-                    style = MaterialTheme.typography.displaySmall,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Spacer(modifier = Modifier.width(6.dp))
-                Text(
-                    text = config.unit,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(bottom = 6.dp)
-                )
-            }
+                else -> {
+                    Text(
+                        text = config.title,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontWeight = FontWeight.Bold
+                    )
 
-            Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(24.dp))
 
-            Slider(
-                value = sliderValue,
-                onValueChange = { sliderValue = it },
-                valueRange = config.min..config.max,
-                steps = ((config.max - config.min) / config.step).toInt() - 1,
-                colors = SliderDefaults.colors(
-                    thumbColor = MaterialTheme.colorScheme.primary,
-                    activeTrackColor = MaterialTheme.colorScheme.primary
-                )
-            )
+                    // Value display
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.Bottom
+                    ) {
+                        Text(
+                            text = "${sliderValue.toInt()}",
+                            style = MaterialTheme.typography.displaySmall,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = config.unit,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(bottom = 6.dp)
+                        )
+                    }
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "${config.min.toInt()} ${config.unit}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Text(
-                    text = "${config.max.toInt()} ${config.unit}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
+                    Spacer(modifier = Modifier.height(16.dp))
 
-            Spacer(modifier = Modifier.height(24.dp))
+                    Slider(
+                        value = sliderValue,
+                        onValueChange = { sliderValue = it },
+                        valueRange = config.min..config.max,
+                        steps = ((config.max - config.min) / config.step).toInt() - 1,
+                        colors = SliderDefaults.colors(
+                            thumbColor = MaterialTheme.colorScheme.primary,
+                            activeTrackColor = MaterialTheme.colorScheme.primary
+                        )
+                    )
 
-            Button(
-                onClick = { onSave(editingField, sliderValue.toInt()) },
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(20.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                )
-            ) {
-                Text(
-                    text = "Speichern",
-                    modifier = Modifier.padding(vertical = 4.dp),
-                    fontWeight = FontWeight.SemiBold
-                )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = "${config.min.toInt()} ${config.unit}",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = "${config.max.toInt()} ${config.unit}",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    Button(
+                        onClick = { onSave(editingField, sliderValue.toInt()) },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(20.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary
+                        )
+                    ) {
+                        Text(
+                            text = "Speichern",
+                            modifier = Modifier.padding(vertical = 4.dp),
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                }
             }
         }
     }

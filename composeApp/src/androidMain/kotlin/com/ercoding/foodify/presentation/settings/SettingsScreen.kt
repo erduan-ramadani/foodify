@@ -23,7 +23,6 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
@@ -43,6 +42,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ercoding.foodify.domain.model.onboarding.WeightGoal
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
@@ -55,9 +55,6 @@ fun SettingsScreen(
     val isReminding by viewModel.isReminding.collectAsState(false)
     val onboardingData by viewModel.onboardingData.collectAsState(null)
     var editingField by remember { mutableStateOf<Settingsfield?>(null) }
-    val listItemColors = ListItemDefaults.colors(
-        containerColor = MaterialTheme.colorScheme.background
-    )
 
     Scaffold(
         topBar = {
@@ -109,14 +106,9 @@ fun SettingsScreen(
                 )
                 SettingsDivider()
                 SettingsRow(
-                    label = "Zielgewicht",
-                    value = "${onboardingData?.weightGoal ?: 70} kg",
+                    label = "Wochenziel",
+                    value = "${onboardingData?.weightGoal?.kgPerWeek ?: WeightGoal.NORMAL} kg",
                     onSettingClick = { editingField = Settingsfield.WEIGHT_GOAL }
-                )
-                SettingsRow(
-                    label = "Tägl. Kalorienlimit",
-                    value = "${onboardingData?.dailyCalorieLimit ?: 1000} kcal",
-                    onSettingClick = { editingField = Settingsfield.DAILY_CALORIE_LIMIT }
                 )
             }
             SettingsSectionHeader("App")
@@ -178,6 +170,10 @@ fun SettingsScreen(
                     onboardingData = onboardingData,
                     onSave = { fieldName, value ->
                         viewModel.saveSettingsBottomSheetChange(fieldName, value)
+                        editingField = null
+                    },
+                    onSaveWeightGoal = { goal ->
+                        viewModel.setWeightGoal(goal)
                         editingField = null
                     },
                     onDismiss = { editingField = null }

@@ -66,7 +66,7 @@ fun GoalPage(vm: OnboardingViewModel) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "${vm.calculateBMR().toInt()} kcal",
+                    text = "${vm.bmr} kcal",
                     style = MaterialTheme.typography.displayMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary
