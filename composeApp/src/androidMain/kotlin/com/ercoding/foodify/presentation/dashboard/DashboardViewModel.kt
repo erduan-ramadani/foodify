@@ -131,7 +131,7 @@ class DashboardViewModel(
         get() = (dailyCalorieLimit - dailyCalories).absoluteValue
 
     val calorieLimitText: String
-        get() = if (dailyCalorieLimit - dailyCalories >= 0) "kcal übrig" else "kcal Überschuss"
+        get() = if (dailyCalorieLimit - dailyCalories >= 0) "kcal übrig" else "kcal über"
 
     init {
         viewModelScope.launch {
