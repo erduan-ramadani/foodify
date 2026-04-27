@@ -65,7 +65,7 @@ fun HeroCard(
 
                 Row(verticalAlignment = Alignment.Bottom) {
                     Text(
-                        text = vm.getWeightChange(),
+                        text = "%.2f".format(vm.weightChange),
                         fontSize = 56.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = Color.White,

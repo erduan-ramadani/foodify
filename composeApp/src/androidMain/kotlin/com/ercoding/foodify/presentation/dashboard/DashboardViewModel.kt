@@ -133,6 +133,9 @@ class DashboardViewModel(
     val calorieLimitText: String
         get() = if (dailyCalorieLimit - dailyCalories >= 0) "kcal übrig" else "kcal über"
 
+    val weightChange: Double
+        get() = (totalCalories - (dailyCalorieLimit * trackedDays)) / 7700.0
+
     init {
         viewModelScope.launch {
             nutritionEntries.addAll(prefRepository.getNutritionEntries())
