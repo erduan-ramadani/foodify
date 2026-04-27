@@ -1,6 +1,9 @@
 package com.ercoding.foodify.domain.model.sheet
 
 import kotlinx.serialization.Serializable
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 @Serializable
@@ -90,3 +93,10 @@ fun NutritionEntry.toNutrientSections(): List<NutrientSection> = listOf(
         )
     ),
 )
+
+val NutritionEntry.formattedTime: String
+    get() {
+        val instant = Instant.ofEpochMilli(createdAt)
+        val time = instant.atZone(ZoneId.systemDefault()).toLocalTime()
+        return time.format(DateTimeFormatter.ofPattern("HH:mm"))
+    }
