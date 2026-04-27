@@ -192,8 +192,11 @@ class DashboardViewModel(
     }
 
     private fun addEntry(nutritionEntry: NutritionEntry) {
-        val timestamp = selectedDate.atStartOfDay(ZoneId.systemDefault())?.toInstant()
-            ?.toEpochMilli() ?: System.currentTimeMillis()
+        val timestamp = if (selectedDate == LocalDate.now()) {
+            System.currentTimeMillis()
+        } else {
+            selectedDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        }
         nutritionEntries.add(nutritionEntry.copy(createdAt = timestamp))
         viewModelScope.launch {
             prefRepository.setNutritionEntries(nutritionEntries)

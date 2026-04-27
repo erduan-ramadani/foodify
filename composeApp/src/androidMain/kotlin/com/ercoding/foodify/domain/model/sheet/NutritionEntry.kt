@@ -1,5 +1,7 @@
 package com.ercoding.foodify.domain.model.sheet
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import kotlinx.serialization.Serializable
 import java.time.Instant
 import java.time.ZoneId
@@ -95,6 +97,7 @@ fun NutritionEntry.toNutrientSections(): List<NutrientSection> = listOf(
 )
 
 val NutritionEntry.formattedTime: String
+    @RequiresApi(Build.VERSION_CODES.O)
     get() {
         val instant = Instant.ofEpochMilli(createdAt)
         val time = instant.atZone(ZoneId.systemDefault()).toLocalTime()

@@ -1,5 +1,7 @@
 package com.ercoding.foodify.presentation.dashboard.daytab.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
@@ -42,6 +44,7 @@ import com.ercoding.foodify.domain.model.sheet.formattedTime
 import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
 import com.ercoding.foodify.presentation.dashboard.daytab.sheet.NutritionBottomSheet
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun EntriesCard(
     entries: List<NutritionEntry>,
@@ -85,6 +88,7 @@ fun EntriesCard(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun EntryRow(
     entry: NutritionEntry,
