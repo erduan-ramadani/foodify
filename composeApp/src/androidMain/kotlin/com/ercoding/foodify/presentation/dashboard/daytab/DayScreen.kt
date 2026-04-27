@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
 import com.ercoding.foodify.presentation.dashboard.daytab.components.DailyKcalSummary
 import com.ercoding.foodify.presentation.dashboard.daytab.components.MealEntryItem
-import com.ercoding.foodify.presentation.dashboard.daytab.components.MealInputSection
 import com.ercoding.foodify.presentation.dashboard.daytab.components.NutritionCards
 import org.koin.androidx.compose.koinViewModel
 
@@ -50,16 +49,6 @@ fun DayScreen(
 
         item {
             NutritionCards(vm)
-            Spacer(modifier = Modifier.height(4.dp))
-        }
-
-        item {
-            MealInputSection(
-                recentEntries = vm.recentEntries,
-                onButtonClick = { vm.requestNutritionValues(it) },
-                onSuggestionChipClick = { vm.addNutritionFromSuggestion(it) },
-                isLoading = vm.isLoading
-            )
             Spacer(modifier = Modifier.height(4.dp))
         }
 

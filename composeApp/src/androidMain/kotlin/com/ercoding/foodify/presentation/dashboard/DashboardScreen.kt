@@ -30,7 +30,13 @@ fun DashboardScreen(
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         snackbarHost = { SnackbarHost(snackbarHostState) },
-        topBar = { FoodifyTopAppBar(onSettingsClick, vm) }
+        topBar = { FoodifyTopAppBar(onSettingsClick, vm) },
+        bottomBar = {
+            FoodifyBottomBar(
+                onButtonClick = { vm.requestNutritionValues(it) },
+                isLoading = vm.isLoading
+            )
+        }
     ) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
             SegmentedTabs(
