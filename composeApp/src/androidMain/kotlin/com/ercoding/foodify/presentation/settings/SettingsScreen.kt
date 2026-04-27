@@ -26,6 +26,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -117,14 +118,14 @@ fun SettingsScreen(
                     label = "Dark Mode",
                     icon = "🌙",
                     checked = isDarkMode,
-                    onCheckedChange = { viewModel.toggleDarkMode() }
+                    onToggle = { viewModel.toggleDarkMode() }
                 )
                 SettingsDivider()
                 SettingsToggleRow(
                     label = "Erinnerungen",
                     icon = "🔔",
                     checked = isReminding,
-                    onCheckedChange = { viewModel.toggleReminder() }
+                    onToggle = { viewModel.toggleReminder() }
                 )
             }
             SettingsSectionHeader("Daten")
@@ -199,7 +200,7 @@ private fun SettingsSectionHeader(title: String) {
         text = title.uppercase(),
         modifier = Modifier.padding(start = 24.dp, top = 20.dp, bottom = 8.dp),
         style = MaterialTheme.typography.labelSmall,
-        color = MaterialTheme.colorScheme.primary,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
         letterSpacing = 0.8.sp
     )
 }
@@ -224,7 +225,7 @@ private fun SettingsCard(content: @Composable ColumnScope.() -> Unit) {
 private fun SettingsRow(
     label: String,
     value: String,
-    valueColor: Color = MaterialTheme.colorScheme.primary,
+    valueColor: Color = MaterialTheme.colorScheme.onSurface,
     onSettingClick: () -> Unit
 ) {
     Row(
@@ -265,7 +266,7 @@ private fun SettingsToggleRow(
     label: String,
     icon: String,
     checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit
+    onToggle: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -287,7 +288,12 @@ private fun SettingsToggleRow(
         }
         Switch(
             checked = checked,
-            onCheckedChange = onCheckedChange
+            onCheckedChange = { onToggle() },
+            colors = SwitchDefaults.colors(
+                uncheckedTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                uncheckedBorderColor = MaterialTheme.colorScheme.outline,
+                uncheckedThumbColor = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         )
     }
 }
