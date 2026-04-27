@@ -46,7 +46,7 @@ fun OnboardingScreen(
 
     ) {
         LinearProgressIndicator(
-            progress = { (pagerState.currentPage + 1) / 2f },
+            progress = { (pagerState.currentPage + 1f) / pagerState.pageCount },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(4.dp)
