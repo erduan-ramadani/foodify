@@ -30,6 +30,56 @@ class DashboardViewModel(
     private val anthropicRepo: AnthropicInterface,
     private val prefRepository: PreferencesInterface
 ) : ViewModel() {
+
+    // === SHARED STATE ===
+    var selectedTab by mutableIntStateOf(0)
+    var nutritionEntries = mutableStateListOf<NutritionEntry>()
+    val onboardingData = prefRepository.onboardingData.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        null
+    )
+    val dailyCalorieLimit: Int
+        get() = onboardingData.value?.dailyCalorieLimit ?: 1
+
+    var selectedDate: LocalDate by mutableStateOf(LocalDate.now())
+    val isToday: Boolean
+        get() = selectedDate == LocalDate.now()
+    var isLoading by mutableStateOf(false)
+    private val _events = Channel<String>()
+    val events = _events.receiveAsFlow()
+
+    // === DAY TAB ===
+    val dailyCalories: Int
+        get() {
+            return (nutritionEntriesByDate[selectedDate]?.sumOf { it.calories } ?: 0).toInt()
+        }
+
+    val dailyFat get() = getDailyTotal { it.fat }
+    val dailyProtein get() = getDailyTotal { it.protein }
+    val dailySugar get() = getDailyTotal { it.sugar }
+
+    val recentEntries: List<NutritionEntry>
+        get() = nutritionEntries.distinctBy { it.query }
+
+    val nutritionEntriesByDate: Map<LocalDate, List<NutritionEntry>>
+        get() = nutritionEntries.groupBy { entry ->
+            Instant.ofEpochMilli(entry.createdAt)
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate()
+        }.toSortedMap()
+    val dailyCarbs get() = getDailyTotal { it.carbohydrates }
+    val progress: Float
+        get() = dailyCalories.toFloat() / dailyCalorieLimit
+
+    val remainingDailyCaloriesLimit: Int
+        get() = (dailyCalorieLimit - dailyCalories).absoluteValue
+
+    val calorieLimitText: String
+        get() = if (dailyCalorieLimit - dailyCalories >= 0) "kcal übrig" else "kcal über"
+
+
+    // === ANALYSIS TAB ===
     var range by mutableIntStateOf(7)   // 7, 30, oder 90
     private val entriesInRange: List<NutritionEntry>
         get() {
@@ -88,48 +138,6 @@ class DashboardViewModel(
             }
             return dayDeficits.entries.maxByOrNull { it.value }?.let { it.key to it.value }
         }
-
-    var selectedTab by mutableIntStateOf(0)
-    val dailyCalories: Int
-        get() {
-            return (nutritionEntriesByDate[selectedDate]?.sumOf { it.calories } ?: 0).toInt()
-        }
-    val dailyCarbs get() = getDailyTotal { it.carbohydrates }
-    val dailyFat get() = getDailyTotal { it.fat }
-    val dailyProtein get() = getDailyTotal { it.protein }
-    val dailySugar get() = getDailyTotal { it.sugar }
-    var nutritionEntries = mutableStateListOf<NutritionEntry>()
-    val recentEntries: List<NutritionEntry>
-        get() = nutritionEntries.distinctBy { it.query }
-
-    val nutritionEntriesByDate: Map<LocalDate, List<NutritionEntry>>
-        get() = nutritionEntries.groupBy { entry ->
-            Instant.ofEpochMilli(entry.createdAt)
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate()
-        }.toSortedMap()
-    val onboardingData = prefRepository.onboardingData.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        null
-    )
-    val dailyCalorieLimit: Int
-        get() = onboardingData.value?.dailyCalorieLimit ?: 1
-    var selectedDate: LocalDate by mutableStateOf(LocalDate.now())
-    val isToday: Boolean
-        get() = selectedDate == LocalDate.now()
-    var isLoading by mutableStateOf(false)
-    private val _events = Channel<String>()
-    val events = _events.receiveAsFlow()
-
-    val progress: Float
-        get() = dailyCalories.toFloat() / dailyCalorieLimit
-
-    val remainingDailyCaloriesLimit: Int
-        get() = (dailyCalorieLimit - dailyCalories).absoluteValue
-
-    val calorieLimitText: String
-        get() = if (dailyCalorieLimit - dailyCalories >= 0) "kcal übrig" else "kcal über"
 
     val weightChange: Double
         get() = (totalCalories - (dailyCalorieLimit * trackedDays)) / 7700.0
