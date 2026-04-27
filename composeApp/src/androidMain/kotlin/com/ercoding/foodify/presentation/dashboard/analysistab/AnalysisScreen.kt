@@ -26,7 +26,6 @@ import com.ercoding.foodify.presentation.dashboard.analysistab.components.GoalPr
 import com.ercoding.foodify.presentation.dashboard.analysistab.components.HeroCard
 import com.ercoding.foodify.presentation.dashboard.analysistab.components.RangePicker
 import com.ercoding.foodify.presentation.dashboard.analysistab.components.StatCard
-import com.ercoding.foodify.presentation.dashboard.analysistab.components.WeeklyBarChart
 import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -136,13 +135,6 @@ fun AnalysisScreen() {
                     totalDays = vm.range
                 )
                 Spacer(modifier = Modifier.height(12.dp))
-            }
-            item {
-                WeeklyBarChart(
-                    data = vm.weekData,
-                    dailyLimit = vm.dailyCalorieLimit
-                )
-                Spacer(modifier = Modifier.height(40.dp))
             }
         }
     }

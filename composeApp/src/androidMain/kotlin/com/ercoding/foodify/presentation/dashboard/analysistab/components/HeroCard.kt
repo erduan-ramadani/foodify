@@ -83,7 +83,7 @@ fun HeroCard(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Basierend auf ${vm.getCalorieDeficit()} kcal ${if (isDeficit) "Defizit" else "Überschuss"}",
+                    text = "Basierend auf ${vm.calorieDeficit} kcal ${if (isDeficit) "Defizit" else "Überschuss"}",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color.White.copy(alpha = 0.85f)
                 )
