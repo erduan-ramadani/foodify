@@ -1,5 +1,7 @@
 package com.ercoding.foodify.presentation.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -20,6 +22,7 @@ import com.ercoding.foodify.presentation.settings.SettingsScreen
 import com.ercoding.foodify.presentation.theme.FoodifyTheme
 import org.koin.androidx.compose.koinViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Navigation() {
 

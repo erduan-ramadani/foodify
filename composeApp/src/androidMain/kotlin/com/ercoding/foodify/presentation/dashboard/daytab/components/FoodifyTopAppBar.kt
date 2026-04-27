@@ -1,25 +1,34 @@
 package com.ercoding.foodify.presentation.dashboard.daytab.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.ChevronLeft
+import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.domain.extension.toDisplayString
 import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
+import java.time.LocalDate
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FoodifyTopAppBar(
@@ -34,19 +43,56 @@ fun FoodifyTopAppBar(
             Spacer(modifier = Modifier.size(48.dp))
         },
         title = {
-            DateSelector(viewModel)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                IconButton(
+                    onClick = { viewModel.selectedDate = viewModel.selectedDate.minusDays(1) }
+                ) {
+                    Icon(
+                        Icons.Default.ChevronLeft,
+                        contentDescription = "Vorheriger Tag",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+
+                Text(
+                    text = viewModel.selectedDate.toDisplayString(),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier
+                        .clickable { viewModel.selectedDate = LocalDate.now() }
+                        .padding(horizontal = 12.dp, vertical = 6.dp)
+                )
+
+                IconButton(
+                    onClick = {
+                        if (viewModel.selectedDate < LocalDate.now()) {
+                            viewModel.selectedDate = viewModel.selectedDate.plusDays(1)
+                        }
+                    },
+                    enabled = viewModel.selectedDate < LocalDate.now()
+                ) {
+                    Icon(
+                        Icons.Default.ChevronRight,
+                        contentDescription = "Nächster Tag",
+                        tint = if (viewModel.selectedDate < LocalDate.now())
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        else
+                            MaterialTheme.colorScheme.outline
+                    )
+                }
+            }
         },
         actions = {
             IconButton(onClick = onSettingsClick) {
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.primaryContainer),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(Icons.Default.Settings, contentDescription = "Profile")
-                }
+                Icon(
+                    imageVector = Icons.Outlined.Settings,
+                    contentDescription = "Einstellungen",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
         }
     )
