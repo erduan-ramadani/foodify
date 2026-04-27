@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -80,12 +79,9 @@ fun CalorieRing(
                 style = Stroke(width = strokeWidth, cap = StrokeCap.Round)
             )
 
-            // Progress-Bogen mit Gradient
+            // Progress-Bogen
             drawArc(
-                brush = Brush.sweepGradient(
-                    0f to ringColor.copy(alpha = 0.5f),
-                    1f to ringColor
-                ),
+                color = ringColor,
                 startAngle = 135f,
                 sweepAngle = 270f * animatedProgress.coerceIn(0f, 1f),
                 useCenter = false,
