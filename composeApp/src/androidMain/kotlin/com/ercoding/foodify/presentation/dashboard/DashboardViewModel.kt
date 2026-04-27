@@ -54,6 +54,18 @@ class DashboardViewModel(
         get() {
             return (nutritionEntriesByDate[selectedDate]?.sumOf { it.calories } ?: 0).toInt()
         }
+    val dailyCaloriesEaten: Int
+        get() {
+            return (nutritionEntriesByDate[selectedDate]?.filter { it.isMeal }
+                ?.sumOf { it.calories }
+                ?: 0).toInt()
+        }
+    val dailyCaloriesBurned: Int
+        get() {
+            return (nutritionEntriesByDate[selectedDate]?.filter { !it.isMeal }
+                ?.sumOf { it.calories }
+                ?: 0).toInt()
+        }
 
     val dailyFat get() = getDailyTotal { it.fat }
     val dailyProtein get() = getDailyTotal { it.protein }
