@@ -1,5 +1,7 @@
 package com.ercoding.foodify.presentation.dashboard.daytab.components
 
+import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +20,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,6 +33,17 @@ import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
 fun BalanceCard(
     viewModel: DashboardViewModel
 ) {
+    val animatedEatenCalories by animateIntAsState(
+        targetValue = viewModel.dailyCaloriesEaten,
+        animationSpec = tween(durationMillis = 2000),
+        label = "eatenCalorieAnimation"
+    )
+    val animatedBurnedCalories by animateIntAsState(
+        targetValue = viewModel.dailyCaloriesBurned,
+        animationSpec = tween(durationMillis = 2000),
+        label = "eatenCalorieAnimation"
+    )
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
@@ -46,12 +60,12 @@ fun BalanceCard(
         ) {
             BalanceItem(
                 label = "Gegessen",
-                value = viewModel.dailyCaloriesEaten,
+                value = animatedEatenCalories,
                 dotColor = Color(0xFFD4A04E)
             )
             BalanceItem(
                 label = "Verbrannt",
-                value = viewModel.dailyCaloriesBurned,
+                value = animatedBurnedCalories,
                 dotColor = Color(0xFF4A9F6F)
             )
             BalanceItem(
