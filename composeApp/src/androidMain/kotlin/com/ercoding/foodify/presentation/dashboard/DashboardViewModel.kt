@@ -1,6 +1,7 @@
 package com.ercoding.foodify.presentation.dashboard
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -159,10 +160,16 @@ class DashboardViewModel(
 
     init {
         viewModelScope.launch {
+            val loaded = prefRepository.getNutritionEntries()
+            Log.d("Foodify", "Loaded entries: ${loaded.size}")
+            loaded.forEach { println("  - ${it.query} at ${it.createdAt}") }
+            nutritionEntries.addAll(loaded)
+        }
+
+        viewModelScope.launch {
             prefRepository.onboardingData.collect { data ->
                 dailyCalorieLimit = data?.dailyCalorieLimit ?: 0
             }
-            nutritionEntries.addAll(prefRepository.getNutritionEntries())
         }
     }
 
