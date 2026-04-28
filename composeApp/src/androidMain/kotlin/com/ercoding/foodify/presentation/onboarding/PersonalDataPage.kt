@@ -14,9 +14,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
@@ -85,7 +88,7 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
-        Spacer(modifier = Modifier.height(28.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         Text(
             text = "Geschlecht",
@@ -151,29 +154,50 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
                 )
             )
         }
-        Spacer(modifier = Modifier.height(28.dp))
-
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(
+            "Größe und Gewicht",
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Spacer(modifier = Modifier.height(8.dp))
         Row(
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             OutlinedTextField(
                 value = "${vm.height} cm",
                 onValueChange = {},
-                label = { Text("Größe") },
                 readOnly = true,
                 shape = RoundedCornerShape(12.dp),
                 interactionSource = interactionSourceHeight,
+                trailingIcon = {
+                    Icon(
+                        Icons.Default.ChevronRight,
+                        null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                },
+                modifier = Modifier.weight(1f)
+
             )
             OutlinedTextField(
                 value = "${vm.weight} kg",
                 onValueChange = {},
-                label = { Text("Gewicht") },
                 readOnly = true,
                 shape = RoundedCornerShape(12.dp),
                 interactionSource = interactionSourceWeight,
+                trailingIcon = {
+                    Icon(
+                        Icons.Default.ChevronRight,
+                        null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                },
+                modifier = Modifier.weight(1f)
             )
         }
-        Spacer(modifier = Modifier.height(28.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         if (showHeightPicker) {
             ModalBottomSheet(onDismissRequest = { showHeightPicker = false }) {
