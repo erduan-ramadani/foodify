@@ -22,7 +22,8 @@ class OnboardingViewModel(
     var height: Int by mutableIntStateOf(180)
     var weight: Int by mutableIntStateOf(80)
     var weightGoal: WeightGoal? by mutableStateOf(WeightGoal.NORMAL)
-    var dailyCalorieLimit: Int by mutableIntStateOf(0)
+    val dailyCalorieLimit: Int
+        get() = bmr - (weightGoal?.dailyDeficit ?: 0)
     val bmr: Int
         get() = calculateBMR(isMale == true, weight, height, age).toInt()
     var activityLevel: ActivityLevel? by mutableStateOf(null)
@@ -53,18 +54,6 @@ class OnboardingViewModel(
         2 -> true
         else -> false
     }
-
-
-    fun getGoalText(): String {
-        val base = calculateBMR(isMale == true, weight, height, age)
-        dailyCalorieLimit = (base - (weightGoal?.dailyDeficit ?: 0)).toInt()
-        val goalMessage =
-            "Du brauchst ein Kaloriendefizit von ${weightGoal?.dailyDeficit} kcal täglich, " +
-                    "um ${weightGoal?.kgPerWeek}kg pro Woche abzunehmen. " +
-                    "Daraus ergibt sich ein Tagesziel von $dailyCalorieLimit kcal."
-        return goalMessage
-    }
-
 }
 
 enum class ActivityLevel(
