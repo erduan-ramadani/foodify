@@ -39,8 +39,7 @@ class DashboardViewModel(
         SharingStarted.WhileSubscribed(5000),
         null
     )
-    val dailyCalorieLimit: Int
-        get() = onboardingData.value?.dailyCalorieLimit ?: 1
+    var dailyCalorieLimit by mutableIntStateOf(0)
 
     var selectedDate: LocalDate by mutableStateOf(LocalDate.now())
     val isToday: Boolean
@@ -82,7 +81,7 @@ class DashboardViewModel(
         }.toSortedMap()
     val dailyCarbs get() = getDailyTotal { it.carbohydrates }
     val progress: Float
-        get() = dailyCalories.toFloat() / dailyCalorieLimit
+        get() = if (dailyCalorieLimit > 0) dailyCalories.toFloat() / dailyCalorieLimit else 0f
 
     val remainingDailyCaloriesLimit: Int
         get() = (dailyCalorieLimit - dailyCalories).absoluteValue
@@ -159,6 +158,9 @@ class DashboardViewModel(
 
     init {
         viewModelScope.launch {
+            prefRepository.onboardingData.collect { data ->
+                dailyCalorieLimit = data?.dailyCalorieLimit ?: 0
+            }
             nutritionEntries.addAll(prefRepository.getNutritionEntries())
         }
     }
