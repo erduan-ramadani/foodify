@@ -31,7 +31,7 @@ fun GoalPage(vm: OnboardingViewModel) {
             .verticalScroll(rememberScrollState())
     ) {
         Text(
-            text = "Schritt 2 von 2",
+            text = "Schritt 3 von 3",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -41,8 +40,11 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
 
     var showHeightPicker by remember { mutableStateOf(false) }
     var showWeightPicker by remember { mutableStateOf(false) }
+
     val interactionSourceWeight = remember { MutableInteractionSource() }
     val interactionSourceHeight = remember { MutableInteractionSource() }
+
+
 
     LaunchedEffect(interactionSourceHeight) {
         interactionSourceHeight.interactions.collect { interaction ->
@@ -66,7 +68,7 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
             .padding(top = 24.dp)
     ) {
         Text(
-            text = "Schritt 1 von 2",
+            text = "Schritt 1 von 3",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -151,39 +153,28 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
         }
         Spacer(modifier = Modifier.height(28.dp))
 
-        Text(
-            text = "Körpermaße",
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        OutlinedTextField(
-            value = "${vm.height} cm",
-            onValueChange = { vm.height = it.toIntOrNull() ?: vm.height },
-            label = { Text("Größe") },
-            readOnly = true,
-            enabled = true,
-            shape = RoundedCornerShape(12.dp),
-            interactionSource = interactionSourceHeight,
-            modifier = Modifier.width(100.dp)
-        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            OutlinedTextField(
+                value = "${vm.height} cm",
+                onValueChange = {},
+                label = { Text("Größe") },
+                readOnly = true,
+                shape = RoundedCornerShape(12.dp),
+                interactionSource = interactionSourceHeight,
+            )
+            OutlinedTextField(
+                value = "${vm.weight} kg",
+                onValueChange = {},
+                label = { Text("Gewicht") },
+                readOnly = true,
+                shape = RoundedCornerShape(12.dp),
+                interactionSource = interactionSourceWeight,
+            )
+        }
         Spacer(modifier = Modifier.height(28.dp))
-        Text(
-            text = "Gewicht",
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-        OutlinedTextField(
-            value = vm.weight.toString(),
-            onValueChange = { vm.weight = it.toIntOrNull() ?: vm.weight },
-            label = { Text("Aktuell") },
-            suffix = { Text("kg") },
-            readOnly = true,
-            enabled = true,
-            shape = RoundedCornerShape(12.dp),
-            interactionSource = interactionSourceWeight,
-            modifier = Modifier.width(100.dp)
-        )
+
         if (showHeightPicker) {
             ModalBottomSheet(onDismissRequest = { showHeightPicker = false }) {
                 PickerBottomSheet(

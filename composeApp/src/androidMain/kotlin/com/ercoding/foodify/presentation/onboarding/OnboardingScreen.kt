@@ -33,7 +33,7 @@ fun OnboardingScreen(
     onComplete: (OnboardingData) -> Unit
 ) {
     val viewModel: OnboardingViewModel = koinViewModel()
-    val pagerState = rememberPagerState(pageCount = { 4 })
+    val pagerState = rememberPagerState(pageCount = { 3 })
     val scope = rememberCoroutineScope()
 
     val canProceed: Boolean = viewModel.canProceed(pagerState.currentPage)
@@ -62,7 +62,8 @@ fun OnboardingScreen(
         ) { page ->
             when (page) {
                 0 -> PersonalDataPage(viewModel)
-                1 -> GoalPage(viewModel)
+                1 -> ActivityPage(viewModel)
+                2 -> GoalPage(viewModel)
             }
         }
 
@@ -86,7 +87,7 @@ fun OnboardingScreen(
 
             Button(
                 onClick = {
-                    if (pagerState.currentPage < 1) {
+                    if (pagerState.currentPage < 2) {
                         scope.launch {
                             pagerState.animateScrollToPage(pagerState.currentPage + 1)
                         }
