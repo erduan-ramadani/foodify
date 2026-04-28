@@ -15,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,7 +25,6 @@ fun StatCard(
     label: String,
     value: Int,
     unit: String,
-    color: Color,
     icon: String
 ) {
     Card(
@@ -57,7 +55,6 @@ fun StatCard(
                 text = value.toString(),
                 fontSize = 22.sp,
                 fontWeight = FontWeight.ExtraBold,
-                color = color,
                 letterSpacing = (-0.5).sp
             )
 

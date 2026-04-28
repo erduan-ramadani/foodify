@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.ercoding.foodify.domain.extension.toDisplayString
 import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
@@ -84,7 +83,6 @@ fun AnalysisScreen() {
                         label = "Ø gegessen",
                         value = vm.avgConsumed,
                         unit = "kcal/Tag",
-                        color = Color(0xFFE8652E),
                         icon = "🍽️"
                     )
                     StatCard(
@@ -92,7 +90,6 @@ fun AnalysisScreen() {
                         label = "Ø verbrannt",
                         value = vm.avgBurned,
                         unit = "kcal/Tag",
-                        color = Color(0xFF4CAF50),
                         icon = "🔥"
                     )
                 }
@@ -108,7 +105,6 @@ fun AnalysisScreen() {
                         label = "Gesamt gegessen",
                         value = vm.totalConsumed,
                         unit = "kcal · ${vm.range} Tage",
-                        color = Color(0xFFF5A623),
                         icon = "📊"
                     )
                     StatCard(
@@ -116,7 +112,6 @@ fun AnalysisScreen() {
                         label = "Gesamt verbrannt",
                         value = vm.totalBurned,
                         unit = "kcal · ${vm.range} Tage",
-                        color = Color(0xFF3A7CA5),
                         icon = "💪"
                     )
                 }
