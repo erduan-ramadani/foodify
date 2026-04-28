@@ -72,8 +72,18 @@ enum class ActivityLevel(
     val description: String,
     val icon: ImageVector
 ) {
-    SEDENTARY("Wenig aktiv", "Bürojob, kaum Bewegung", Icons.Outlined.Chair),
-    LIGHT("Mäßig aktiv", "1-2x Sport pro Woche", Icons.Outlined.DirectionsWalk),
-    ACTIVE("Aktiv", "3-5x Sport pro Woche", Icons.Outlined.DirectionsRun),
-    VERY_ACTIVE("Sehr aktiv / Gym", "Tägliches Training", Icons.Outlined.FitnessCenter)
+    SEDENTARY(
+        "Wenig aktiv",
+        "Bürojob, weniger als 5.000 Schritte/Tag",
+        Icons.Outlined.Chair
+    ),
+    LIGHT(
+        "Mäßig aktiv", "1-2× Sport pro Woche oder viel zu Fuß", Icons.Outlined.DirectionsWalk
+    ),
+    ACTIVE(
+        "Aktiv", "3-5× intensives Training pro Woche", Icons.Outlined.DirectionsRun
+    ),
+    VERY_ACTIVE(
+        "Sehr aktiv", "Tägliches Training oder körperliche Arbeit", Icons.Outlined.FitnessCenter
+    )
 }
