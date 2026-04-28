@@ -16,13 +16,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Bolt
-import androidx.compose.material.icons.outlined.Restaurant
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,6 +35,7 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ercoding.foodify.domain.model.sheet.NutritionEntry
 import com.ercoding.foodify.domain.model.sheet.formattedTime
 import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
@@ -129,17 +126,9 @@ private fun EntryRow(
                 ),
             contentAlignment = Alignment.Center
         ) {
-            Icon(
-                imageVector = if (entry.isMeal)
-                    Icons.Outlined.Restaurant
-                else
-                    Icons.Outlined.Bolt,
-                contentDescription = null,
-                modifier = Modifier.size(16.dp),
-                tint = if (entry.isMeal)
-                    MaterialTheme.colorScheme.onSurfaceVariant
-                else
-                    MaterialTheme.colorScheme.primary
+            Text(
+                text = entry.emoji,
+                fontSize = 16.sp
             )
         }
 
