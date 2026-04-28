@@ -18,6 +18,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -35,76 +36,80 @@ fun OnboardingScreen(
     val viewModel: OnboardingViewModel = koinViewModel()
     val pagerState = rememberPagerState(pageCount = { 3 })
     val scope = rememberCoroutineScope()
-
     val canProceed: Boolean = viewModel.canProceed(pagerState.currentPage)
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            .windowInsetsPadding(WindowInsets.systemBars)
-
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
     ) {
-        LinearProgressIndicator(
-            progress = { (pagerState.currentPage + 1f) / pagerState.pageCount },
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(4.dp)
-                .clip(RoundedCornerShape(2.dp)),
-            color = MaterialTheme.colorScheme.primary,
-            trackColor = MaterialTheme.colorScheme.surfaceVariant
-        )
+                .fillMaxSize()
+                .padding(16.dp)
+                .windowInsetsPadding(WindowInsets.systemBars)
 
-        HorizontalPager(
-            state = pagerState,
-            userScrollEnabled = false,
-            modifier = Modifier.weight(1f)
-        ) { page ->
-            when (page) {
-                0 -> PersonalDataPage(viewModel)
-                1 -> ActivityPage(viewModel)
-                2 -> GoalPage(viewModel)
-            }
-        }
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            if (pagerState.currentPage > 0) {
-                OutlinedButton(
-                    onClick = {
-                        scope.launch {
-                            pagerState.animateScrollToPage(pagerState.currentPage - 1)
-                        }
-                    },
-                    modifier = Modifier.weight(1f),
-                    shape = RoundedCornerShape(20.dp)
-                ) {
-                    Text("Zurück")
+            LinearProgressIndicator(
+                progress = { (pagerState.currentPage + 1f) / pagerState.pageCount },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(4.dp)
+                    .clip(RoundedCornerShape(2.dp)),
+                color = MaterialTheme.colorScheme.primary,
+                trackColor = MaterialTheme.colorScheme.surfaceVariant
+            )
+
+            HorizontalPager(
+                state = pagerState,
+                userScrollEnabled = false,
+                modifier = Modifier.weight(1f)
+            ) { page ->
+                when (page) {
+                    0 -> PersonalDataPage(viewModel)
+                    1 -> ActivityPage(viewModel)
+                    2 -> GoalPage(viewModel)
                 }
             }
 
-            Button(
-                onClick = {
-                    if (pagerState.currentPage < 2) {
-                        scope.launch {
-                            pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                        }
-                    } else {
-                        onComplete(viewModel.getOnboardingData())
-                    }
-                },
-                enabled = canProceed,
-                modifier = Modifier.weight(1f),
-                shape = RoundedCornerShape(20.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text(
-                    viewModel.getButtonLabel(pagerState.currentPage),
-                )
+                if (pagerState.currentPage > 0) {
+                    OutlinedButton(
+                        onClick = {
+                            scope.launch {
+                                pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                            }
+                        },
+                        modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(20.dp)
+                    ) {
+                        Text("Zurück")
+                    }
+                }
+
+                Button(
+                    onClick = {
+                        if (pagerState.currentPage < 2) {
+                            scope.launch {
+                                pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                            }
+                        } else {
+                            onComplete(viewModel.getOnboardingData())
+                        }
+                    },
+                    enabled = canProceed,
+                    modifier = Modifier.weight(1f),
+                    shape = RoundedCornerShape(20.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary
+                    )
+                ) {
+                    Text(
+                        viewModel.getButtonLabel(pagerState.currentPage),
+                    )
+                }
             }
         }
     }
