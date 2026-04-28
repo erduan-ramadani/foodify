@@ -94,7 +94,8 @@ private fun EntryRow(
     entry: NutritionEntry,
     viewModel: DashboardViewModel
 ) {
-    var showSheet by remember { mutableStateOf(false) }
+    var showNutritionSheet by remember { mutableStateOf(false) }
+    var showEditSheet by remember { mutableStateOf(false) }
     val haptic = LocalHapticFeedback.current
 
     Row(
@@ -103,12 +104,12 @@ private fun EntryRow(
             .combinedClickable(
                 onClick = {
                     if (entry.isMeal) {
-                        showSheet = true
+                        showNutritionSheet = true
                     }
                 },
                 onLongClick = {
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                    viewModel.removeNutritionEntry(entry)
+                    showEditSheet = true
                 }
             )
             .padding(horizontal = 16.dp, vertical = 12.dp),
@@ -181,10 +182,22 @@ private fun EntryRow(
         }
     }
 
-    if (showSheet) {
+    if (showNutritionSheet) {
         NutritionBottomSheet(
             entry = entry,
-            onDismiss = { showSheet = false })
+            onDismiss = { showNutritionSheet = false })
+    }
+
+    if (showEditSheet) {
+        EditEntrySheet(
+            entry = entry,
+            onSave = { name, time, calories ->
+                viewModel.updateEntry(entry, name, time, calories)
+                showEditSheet = false
+            },
+            onEntryDelete = { viewModel.removeNutritionEntry(entry) },
+            onDismiss = { showEditSheet = false }
+        )
     }
 }
 

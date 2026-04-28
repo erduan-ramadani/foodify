@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 import java.net.UnknownHostException
 import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.ZoneId
 import java.util.UUID
 import kotlin.math.absoluteValue
@@ -214,5 +215,34 @@ class DashboardViewModel(
 
     private fun getDailyTotal(selector: (NutritionEntry) -> Double): Int {
         return (nutritionEntriesByDate[selectedDate]?.sumOf(selector) ?: 0.0).toInt()
+    }
+
+    fun updateEntry(
+        entry: NutritionEntry,
+        newName: String,
+        newTime: LocalTime,
+        newCalories: Double
+    ) {
+        val index = nutritionEntries.indexOfFirst { it.id == entry.id }
+        if (index == -1) return
+
+        // Datum vom alten Eintrag behalten, Uhrzeit ersetzen
+        val oldDate = Instant.ofEpochMilli(entry.createdAt)
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+        val newTimestamp = oldDate.atTime(newTime)
+            .atZone(ZoneId.systemDefault())
+            .toInstant()
+            .toEpochMilli()
+
+        nutritionEntries[index] = entry.copy(
+            query = newName,
+            createdAt = newTimestamp,
+            calories = newCalories
+        )
+
+        viewModelScope.launch {
+            prefRepository.setNutritionEntries(nutritionEntries)
+        }
     }
 }
