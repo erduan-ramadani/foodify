@@ -40,6 +40,7 @@ fun NutritionBottomSheet(
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
+        containerColor = MaterialTheme.colorScheme.surface,
     ) {
         Column(
             modifier = Modifier
@@ -55,7 +56,7 @@ fun NutritionBottomSheet(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(MaterialTheme.colorScheme.primaryContainer),
+                        .background(MaterialTheme.colorScheme.surfaceVariant),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
@@ -90,7 +91,7 @@ fun NutritionBottomSheet(
                 HorizontalDivider(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    color = MaterialTheme.colorScheme.primary,
+                    color = MaterialTheme.colorScheme.outline,
                 )
                 section.items.forEach { row ->
                     NutrientRowItem(row)
