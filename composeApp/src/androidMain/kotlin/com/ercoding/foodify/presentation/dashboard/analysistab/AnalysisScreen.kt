@@ -66,8 +66,8 @@ fun AnalysisScreen() {
             }
             item {
                 GoalProgressCard(
-                    progress = vm.goalProgress,
-                    goalDescription = "Ziel: 0,5 kg/Woche abnehmen (3.500 kcal Defizit)"
+                    progress = vm.weeklyProgress.toInt(),
+                    goalDescription = "Ziel: ${vm.weeklyGoal} kg/Woche abnehmen (${vm.weeklyLimit.toInt()} kcal Defizit)"
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))

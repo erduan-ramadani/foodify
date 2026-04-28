@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun GoalProgressCard(
-    progress: Float, // 0f to 100f
+    progress: Int, // 0 to 100
     goalDescription: String
 ) {
     Card(
@@ -47,7 +47,7 @@ fun GoalProgressCard(
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
-                    text = "${progress.toInt()}%",
+                    text = "${progress}%",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = if (progress >= 100f) Color(0xFF4CAF50)

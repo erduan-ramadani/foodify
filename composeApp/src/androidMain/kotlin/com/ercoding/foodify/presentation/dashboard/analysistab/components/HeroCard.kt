@@ -28,7 +28,7 @@ import kotlin.math.absoluteValue
 fun HeroCard(
     vm: DashboardViewModel
 ) {
-    val isDeficit = vm.estimatedKg > 0
+    val isDeficit = vm.weightChange < 0
     val prefix = if (isDeficit) "−" else "+"
 
     Card(

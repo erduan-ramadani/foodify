@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ercoding.foodify.domain.AnthropicInterface
 import com.ercoding.foodify.domain.PreferencesInterface
+import com.ercoding.foodify.domain.model.onboarding.WeightGoal
 import com.ercoding.foodify.domain.model.sheet.NutritionEntry
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import kotlinx.coroutines.channels.Channel
@@ -88,9 +89,6 @@ class DashboardViewModel(
     val remainingDailyCaloriesLimit: Int
         get() = (dailyCalorieLimit - dailyCalories).absoluteValue
 
-    val calorieLimitText: String
-        get() = if (dailyCalorieLimit - dailyCalories >= 0) "kcal übrig" else "kcal über"
-
 
     // === ANALYSIS TAB ===
     var range by mutableIntStateOf(7)   // 7, 30, oder 90
@@ -130,8 +128,22 @@ class DashboardViewModel(
             return calorieRangeList.sum()
         }
 
-    val estimatedKg: Double = 0.0   // positiv = abgenommen
-    val goalProgress: Float = 0f    // 0f..100f
+    private val entriesLastWeek: List<NutritionEntry>
+        get() {
+            val weekAgoMillis = System.currentTimeMillis() - 7L * 24 * 60 * 60 * 1000
+            return nutritionEntries.filter { it.createdAt >= weekAgoMillis }
+        }
+
+    val weeklyGoal: Double
+        get() = onboardingData.value?.weightGoal?.kgPerWeek ?: WeightGoal.NORMAL.kgPerWeek
+
+    val weeklyLimit: Double
+        get() = 7000 * weeklyGoal
+    val weeklyProgress: Double
+        get() {
+            val progress = calorieDeficit / weeklyLimit * 100
+            return if (progress > 0) progress else 0.0
+        }
     val avgConsumed: Int
         get() = if (trackedDays > 0) totalConsumed / trackedDays else 0
     val avgBurned: Int
