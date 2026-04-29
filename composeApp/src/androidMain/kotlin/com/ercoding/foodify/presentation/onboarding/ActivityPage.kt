@@ -94,6 +94,7 @@ fun ActivityPage(vm: OnboardingViewModel) {
                 idealWeightMax = idealWeightMax
             )
         }
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
