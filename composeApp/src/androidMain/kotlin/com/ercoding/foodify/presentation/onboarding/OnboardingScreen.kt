@@ -82,7 +82,7 @@ fun OnboardingScreen(
                                 pagerState.animateScrollToPage(pagerState.currentPage - 1)
                             }
                         },
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(0.8f),
                         shape = RoundedCornerShape(20.dp)
                     ) {
                         Text("Zurück")
@@ -100,7 +100,7 @@ fun OnboardingScreen(
                         }
                     },
                     enabled = canProceed,
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.weight(1.2f),
                     shape = RoundedCornerShape(20.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary
