@@ -67,7 +67,12 @@ fun Navigation() {
                 }
                 composable(Routes.settings) {
                     SettingsScreen(
-                        onBackClick = { navController.popBackStack() }
+                        onBackClick = { navController.popBackStack() },
+                        onDeleteAllData = {
+                            navController.navigate(Routes.onboarding) {
+                                popUpTo(0) { inclusive = true }
+                            }
+                        }
                     )
                 }
             }

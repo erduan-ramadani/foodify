@@ -71,6 +71,12 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
             )
         }
     }
+
+    fun deleteAllData() {
+        viewModelScope.launch {
+            prefRepo.clearAll()
+        }
+    }
 }
 
 enum class Settingsfield { AGE, HEIGHT, WEIGHT, WEIGHT_GOAL, DAILY_CALORIE_LIMIT }

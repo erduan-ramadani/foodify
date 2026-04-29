@@ -14,4 +14,5 @@ interface PreferencesInterface {
     suspend fun setOnboardingData(onboardingData: OnboardingData?)
     suspend fun setNutritionEntries(entries: List<NutritionEntry>)
     suspend fun getNutritionEntries(): List<NutritionEntry>
+    suspend fun clearAll()
 }

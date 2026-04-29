@@ -50,6 +50,10 @@ class PreferencesRepository(private val dataStore: DataStore<Preferences>) :
         return Json.decodeFromString<List<NutritionEntry>>(json)
     }
 
+    override suspend fun clearAll() {
+        dataStore.edit { it.clear() }
+    }
+
     override suspend fun setOnboardingData(onboardingData: OnboardingData?) {
         val encodedOnboardingData = Json.encodeToString(onboardingData)
         dataStore.edit { it[ONBOARDING_KEY] = encodedOnboardingData }
