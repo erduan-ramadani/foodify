@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -41,7 +40,7 @@ fun WeightGoalSelector(
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             WeightGoal.entries.forEach { goal ->
                 val isSelected = selected == goal
@@ -56,7 +55,7 @@ fun WeightGoalSelector(
                             MaterialTheme.colorScheme.surface
                     ),
                     border = BorderStroke(
-                        width = 1.5.dp,
+                        width = 1.dp,
                         color = if (isSelected)
                             MaterialTheme.colorScheme.primary
                         else
@@ -66,11 +65,11 @@ fun WeightGoalSelector(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(10.dp),
+                            .padding(horizontal = 4.dp, vertical = 10.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = "${goal.kgPerWeek} kg",
+                            text = "${goal.kgPerWeek}kg",
                             style = MaterialTheme.typography.labelLarge,
                             fontWeight = FontWeight.Bold
                         )
@@ -91,7 +90,7 @@ fun WeightGoalSelector(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(10.dp))
-                    .background(Color(0xFFFFF8F0))
+                    .background(MaterialTheme.colorScheme.errorContainer)
                     .padding(12.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -100,7 +99,7 @@ fun WeightGoalSelector(
                 Text(
                     text = warning,
                     style = MaterialTheme.typography.bodySmall,
-                    color = Color(0xFFE8652E)
+                    color = MaterialTheme.colorScheme.error
                 )
             }
         }
