@@ -12,6 +12,10 @@ import java.util.concurrent.TimeUnit
 class Scheduling(
     private val context: Context
 ) {
+    companion object {
+        private const val DAILY_REMINDER_WORK_NAME = "daily_reminder"
+    }
+
     fun schedule() {
         val request = PeriodicWorkRequestBuilder<ReminderWorker>(
             1, TimeUnit.DAYS
@@ -21,7 +25,7 @@ class Scheduling(
 
         WorkManager.getInstance(context)
             .enqueueUniquePeriodicWork(
-                "daily_reminder",
+                DAILY_REMINDER_WORK_NAME,
                 ExistingPeriodicWorkPolicy.UPDATE,
                 request
             )
@@ -52,5 +56,11 @@ class Scheduling(
         }
 
         return target.timeInMillis - now.timeInMillis
+    }
+
+    fun cancel() {
+
+        WorkManager.getInstance(context).cancelUniqueWork(DAILY_REMINDER_WORK_NAME)
+        Log.d("ReminderWorker", "Worker gestoppt")
     }
 }

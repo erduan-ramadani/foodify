@@ -39,10 +39,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ercoding.foodify.data.local.Scheduling
 import com.ercoding.foodify.domain.model.onboarding.WeightGoal
 import org.koin.androidx.compose.koinViewModel
 
@@ -53,9 +55,11 @@ fun SettingsScreen(
 ) {
     val viewModel: SettingsViewModel = koinViewModel()
     val isDarkMode by viewModel.isDarkMode.collectAsState(false)
-    val isReminding by viewModel.isReminding.collectAsState(false)
+    val isReminding by viewModel.isReminding.collectAsState(true)
     val onboardingData by viewModel.onboardingData.collectAsState(null)
     var editingField by remember { mutableStateOf<Settingsfield?>(null) }
+
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -125,7 +129,11 @@ fun SettingsScreen(
                     label = "Erinnerungen",
                     icon = "🔔",
                     checked = isReminding,
-                    onToggle = { viewModel.toggleReminder() }
+                    onToggle = { newValue ->
+                        if (newValue) Scheduling(context).schedule()
+                        else Scheduling(context).cancel()
+                        viewModel.toggleReminder()
+                    }
                 )
             }
             SettingsSectionHeader("Daten")
@@ -266,7 +274,7 @@ private fun SettingsToggleRow(
     label: String,
     icon: String,
     checked: Boolean,
-    onToggle: () -> Unit
+    onToggle: (Boolean) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -288,7 +296,7 @@ private fun SettingsToggleRow(
         }
         Switch(
             checked = checked,
-            onCheckedChange = { onToggle() },
+            onCheckedChange = { newValue -> onToggle(newValue) },
             colors = SwitchDefaults.colors(
                 uncheckedTrackColor = MaterialTheme.colorScheme.surfaceVariant,
                 uncheckedBorderColor = MaterialTheme.colorScheme.outline,

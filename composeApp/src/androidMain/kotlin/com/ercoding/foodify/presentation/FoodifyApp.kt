@@ -1,7 +1,6 @@
 package com.ercoding.foodify.presentation
 
 import android.app.Application
-import com.ercoding.foodify.data.local.Scheduling
 import com.ercoding.foodify.di.initKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -13,6 +12,5 @@ class FoodifyApp : Application() {
             androidContext(this@FoodifyApp)
             androidLogger()
         }
-        Scheduling(this).schedule()
     }
 }

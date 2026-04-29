@@ -23,7 +23,7 @@ class PreferencesRepository(private val dataStore: DataStore<Preferences>) :
     }
 
     override val darkMode: Flow<Boolean> = dataStore.data.map { it[DARK_MODE_KEY] ?: false }
-    override val reminder: Flow<Boolean> = dataStore.data.map { it[REMINDER_KEY] ?: false }
+    override val reminder: Flow<Boolean> = dataStore.data.map { it[REMINDER_KEY] ?: true }
     override val nutritionEntries: Flow<String?> = dataStore.data.map { it[NUTRITION_ENTRIES] }
     override val onboardingData: Flow<OnboardingData?> = dataStore.data
         .map { prefs ->
