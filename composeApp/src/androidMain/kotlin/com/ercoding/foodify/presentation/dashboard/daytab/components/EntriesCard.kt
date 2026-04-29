@@ -56,27 +56,48 @@ fun EntriesCard(
             modifier = Modifier.padding(4.dp)
         )
 
-
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface
-            ),
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
-        ) {
-            Column {
-                entries.forEachIndexed { index, entry ->
-                    key(entry.id) {
-                        EntryRow(
-                            entry = entry,
-                            viewModel = viewModel
-                        )
-                        if (index < entries.size - 1) {
-                            HorizontalDivider(
-                                modifier = Modifier.padding(horizontal = 16.dp),
-                                color = MaterialTheme.colorScheme.outline
+        if (entries.isEmpty()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("🍽️", fontSize = 32.sp)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "Noch keine Einträge",
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Medium
+                )
+                Text(
+                    text = "Trag deine erste Mahlzeit unten ein",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        } else {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                ),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
+            ) {
+                Column {
+                    entries.forEachIndexed { index, entry ->
+                        key(entry.id) {
+                            EntryRow(
+                                entry = entry,
+                                viewModel = viewModel
                             )
+                            if (index < entries.size - 1) {
+                                HorizontalDivider(
+                                    modifier = Modifier.padding(horizontal = 16.dp),
+                                    color = MaterialTheme.colorScheme.outline
+                                )
+                            }
                         }
                     }
                 }
