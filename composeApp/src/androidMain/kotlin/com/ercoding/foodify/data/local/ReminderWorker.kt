@@ -21,7 +21,6 @@ class ReminderWorker(
 
     private fun showNotification() {
         val channelId = "reminder_channel"
-
         val manager = applicationContext
             .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -37,8 +36,8 @@ class ReminderWorker(
 
         val notification = NotificationCompat.Builder(applicationContext, channelId)
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle("Foodify 🍽️")
-            .setContentText("Zeit dein Essen zu tracken!")
+            .setContentTitle(applicationContext.getString(R.string.reminder_notification_title))
+            .setContentText(applicationContext.getString(R.string.reminder_notification_text))
             .setAutoCancel(true)
             .build()
 

@@ -34,7 +34,7 @@ fun DayScreen(
 
 
     LaunchedEffect(Unit) {
-        vm.events.collect { apiResponse ->
+        vm.stringEvents.collect { apiResponse ->
             snackbarHostState.showSnackbar(
                 message = apiResponse,
                 duration = SnackbarDuration.Long

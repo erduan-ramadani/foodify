@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="step_indicator">Step %1$d of %2$d</string>
+    <string name="goal_title">Your Energy Needs</string>
+    <string name="bmi_low">Underweight</string>
+    <string name="bmi_normal">Normal weight</string>
+    <string name="bmi_lightly_increased">Slightly elevated</string>
+    <string name="bmi_high">Overweight</string>
+    <string name="your_activity_level">Your activity level</string>
+    <string name="bmi">BMI</string>
+    <string name="recommended_weight">Recommended weight</string>
+    <string name="goal_description">Your body uses this energy daily at rest.</string>
+    <string name="calorie_base">Basal metabolic rate</string>
+    <string name="weekly_goal">Weekly goal</string>
+    <string name="daily_goal">Your daily goal</string>
+    <string name="kcal_day">kcal/day</string>
+    <string name="speed">Speed</string>
+    <string name="kg_week">%1$s kg/week</string>
+    <string name="calculate_needs">Calculate needs</string>
+    <string name="calculate_bmi">Calculate BMI</string>
+    <string name="start">Let\'s go</string>
+    <string name="next">Next</string>
+
+
+    <string name="about_you">About you</string>
+    <string name="calculate_calorie_title">We\'ll calculate your personal calorie needs</string>
+    <string name="weightloss_title">How fast do you want to lose weight?</string>
+
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="settings_male">♂ Male</string>
+    <string name="settings_female">♀ Female</string>
+    <string name="age">Age</string>
+    <string name="years">Years</string>
+    <string name="weight_and_height">Height and weight</string>
+    <string name="x_cm">%1$d cm</string>
+    <string name="x_kg">%1$d kg</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+
+    <string name="settings_daily_calorie_limit">Daily calorie limit</string>
+    <string name="settings_personal_data">Personal data</string>
+    <string name="app">App</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="reminder">Reminders</string>
+    <string name="data">Data</string>
+    <string name="data_export">Export data</string>
+    <string name="delete_all_data">Delete all data</string>
+    <string name="version">Foodify v1.0.0 - Made with 💜</string>
+    <string name="confirm_delete_title">Delete all data?</string>
+    <string name="confirm_delete_description">All entries and your onboarding data will be permanently deleted.</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="day">Day</string>
+    <string name="analysis">Analysis</string>
+    <string name="meal_or_activity">Meal or activity</string>
+    <string name="voice_input">Voice input</string>
+    <string name="error_no_internet">No internet</string>
+    <string name="error_timeout">Timeout</string>
+    <string name="error_unknown">Unknown error</string>
+    <string name="limit">Limit</string>
+    <string name="burned">Burned</string>
+    <string name="eaten">Eaten</string>
+    <string name="over_limit">Over limit</string>
+    <string name="left_over">Remaining</string>
+    <string name="kcal">kcal</string>
+    <string name="calendar">Calendar</string>
+    <string name="back">Back</string>
+    <string name="edit_entry">Edit entry</string>
+    <string name="name">Name</string>
+    <string name="time">Time</string>
+    <string name="finished">Done</string>
+    <string name="save">Save</string>
+    <string name="entries">Entries</string>
+    <string name="no_entries">No entries yet</string>
+    <string name="add_first_entry">Add your first meal below</string>
+    <string name="previous_day">Previous day</string>
+    <string name="next_day">Next day</string>
+    <string name="settings">Settings</string>
+    <string name="add_meal_or_activity">Add meal/activity</string>
+    <string name="frequent_entries">Recent</string>
+    <string name="speech_prompt">What did you eat?</string>
+    <string name="analysis_title">Your progress at a glance</string>
+    <string name="goal">Goal: lose %1$s kg/week (%2$d kcal deficit)</string>
+    <string name="average_eaten">Avg. eaten</string>
+    <string name="kcal_per_day">kcal/day</string>
+    <string name="average_burned">Avg. burned</string>
+    <string name="total_eaten">Total eaten</string>
+    <string name="total_burned">Total burned</string>
+    <string name="kcal_x_days">kcal · %1$d days</string>
+    <string name="estimated_change">ESTIMATED CHANGE</string>
+    <string name="base_on">Based on %1$d kcal %2$s</string>
+    <string name="deficit">Deficit</string>
+    <string name="surplus">Surplus</string>
+    <string name="weekly_goal_reached">Weekly goal reached</string>
+    <string name="tracking_consistency">Tracking consistency</string>
+    <string name="days_tracked_text">Tracked %1$s days</string>
+    <string name="best_day">Best day</string>
+    <string name="x_kcal_deficit">%1$s · %2$d kcal deficit</string>
+    <string name="at_goal">At goal</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="kg">kg</string>
+    <string name="cm">cm</string>
+    <string name="x_days">%1$d days</string>
+    <string name="day_empty_state">No entries today</string>
+
+
+    <!-- Activity Levels -->
+    <string name="activity_sedentary_label">Sedentary</string>
+    <string name="activity_light_label">Lightly active</string>
+    <string name="activity_active_label">Active</string>
+    <string name="activity_very_active_label">Very active</string>
+    <string name="activity_sedentary_description">Office job, less than 5,000 steps/day</string>
+    <string name="activity_light_description">1-2× exercise per week or lots of walking</string>
+    <string name="activity_active_description">3-5× intense training per week</string>
+    <string name="activity_very_active_description">Daily training or physical work</string>
+
+    <!-- Weight Goals -->
+    <string name="weight_goal_slow">Slow</string>
+    <string name="weight_goal_normal">Balanced</string>
+    <string name="weight_goal_fast">Fast</string>
+    <string name="weight_goal_aggressive">Very fast</string>
+    <string name="weight_goal_fast_warning">Requires strict discipline</string>
+    <string name="weight_goal_aggressive_warning">Only recommended for short periods</string>
+
+    <!-- Notifications -->
+    <string name="reminder_notification_title">Foodify 🍽️</string>
+    <string name="reminder_notification_text">Time to track your meals!</string>
+
+    <!-- Nutrient sections -->
+    <string name="nutrients_macros">Macronutrients</string>
+    <string name="nutrients_fatty_acids">Fatty acids</string>
+    <string name="nutrients_vitamins">Vitamins</string>
+    <string name="nutrients_minerals">Minerals</string>
+
+    <!-- Macros -->
+    <string name="nutrient_calories">Calories</string>
+    <string name="nutrient_carbs">Carbohydrates</string>
+    <string name="nutrient_sugar">of which sugar</string>
+    <string name="nutrient_fiber">Fiber</string>
+    <string name="nutrient_protein">Protein</string>
+    <string name="nutrient_fat">Fat</string>
+    <string name="nutrient_fat_saturated">saturated</string>
+    <string name="nutrient_fat_unsaturated">unsaturated</string>
+    <string name="nutrient_salt">Salt</string>
+    <string name="nutrient_cholesterol">Cholesterol</string>
+
+    <!-- Fatty acids -->
+    <string name="nutrient_omega3">Omega-3</string>
+    <string name="nutrient_omega6">Omega-6</string>
+
+    <!-- Vitamins -->
+    <string name="nutrient_vitamin_a">Vitamin A</string>
+    <string name="nutrient_vitamin_b6">Vitamin B6</string>
+    <string name="nutrient_vitamin_b12">Vitamin B12</string>
+    <string name="nutrient_vitamin_c">Vitamin C</string>
+    <string name="nutrient_vitamin_d">Vitamin D</string>
+    <string name="nutrient_vitamin_e">Vitamin E</string>
+    <string name="nutrient_vitamin_k">Vitamin K</string>
+    <string name="nutrient_folic_acid">Folic acid</string>
+
+    <!-- Minerals -->
+    <string name="nutrient_calcium">Calcium</string>
+    <string name="nutrient_iron">Iron</string>
+    <string name="nutrient_magnesium">Magnesium</string>
+    <string name="nutrient_zinc">Zinc</string>
+    <string name="nutrient_potassium">Potassium</string>
+    <string name="nutrient_phosphorus">Phosphorus</string>
+</resources>

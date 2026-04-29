@@ -12,11 +12,11 @@ data class OnboardingData(
     val weightGoal: WeightGoal?
 )
 
-enum class WeightGoal(val kgPerWeek: Double, val label: String, val warning: String? = null) {
-    SLOW(0.25, "Langsam", null),
-    NORMAL(0.5, "Empfohlen", null),
-    FAST(0.75, "Schnell", "Erfordert strikte Disziplin"),
-    AGGRESSIVE(1.0, "Sehr schnell", "Nur für kurze Zeiträume empfohlen");
+enum class WeightGoal(val kgPerWeek: Double) {
+    SLOW(0.25),
+    NORMAL(0.5),
+    FAST(0.75),
+    AGGRESSIVE(1.0);
 
     val dailyDeficit: Int
         get() = (7700 * kgPerWeek / 7).toInt()

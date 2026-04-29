@@ -1,5 +1,7 @@
 package com.ercoding.foodify.presentation.dashboard.daytab.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween
@@ -22,11 +24,14 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ercoding.foodify.R
 import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CalorieRing(
     viewModel: DashboardViewModel
@@ -92,7 +97,7 @@ fun CalorieRing(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = if (isOverLimit) "Über Limit" else "Verbleibend",
+                text = if (isOverLimit) stringResource(R.string.over_limit) else stringResource(R.string.left_over),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -107,7 +112,7 @@ fun CalorieRing(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "kcal",
+                text = stringResource(R.string.kcal),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

@@ -15,15 +15,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
+import com.ercoding.foodify.R
 
 @Composable
 fun RangePicker(
     selected: Int,
     onRangeChange: (Int) -> Unit,
-    vm: DashboardViewModel
 ) {
     val rangeList = listOf(7, 30, 90)
 
@@ -56,7 +56,7 @@ fun RangePicker(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "$days Tage",
+                    text = stringResource(R.string.x_days, days),
                     style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.SemiBold,
                     color = if (isSelected) Color.White

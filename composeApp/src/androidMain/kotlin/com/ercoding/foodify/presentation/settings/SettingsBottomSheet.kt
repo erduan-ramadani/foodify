@@ -25,8 +25,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.R
 import com.ercoding.foodify.domain.model.onboarding.OnboardingData
 import com.ercoding.foodify.domain.model.onboarding.WeightGoal
 import com.ercoding.foodify.presentation.onboarding.WeightGoalSelector
@@ -53,8 +55,8 @@ fun SettingsBottomSheet(
 
     val config = when (editingField) {
         Settingsfield.AGE -> FieldConfig(
-            "Alter",
-            "Jahre",
+            stringResource(R.string.age),
+            stringResource(R.string.years),
             14f,
             80f,
             1f,
@@ -62,8 +64,8 @@ fun SettingsBottomSheet(
         )
 
         Settingsfield.HEIGHT -> FieldConfig(
-            "Größe",
-            "cm",
+            stringResource(R.string.height),
+            stringResource(R.string.cm),
             120f,
             220f,
             1f,
@@ -71,8 +73,8 @@ fun SettingsBottomSheet(
         )
 
         Settingsfield.WEIGHT -> FieldConfig(
-            "Gewicht",
-            "kg",
+            stringResource(R.string.weight),
+            stringResource(R.string.kg),
             30f,
             200f,
             1f,
@@ -80,8 +82,8 @@ fun SettingsBottomSheet(
         )
 
         Settingsfield.WEIGHT_GOAL -> FieldConfig(
-            "Wochenziel",
-            "kg",
+            stringResource(R.string.weekly_goal),
+            stringResource(R.string.kg),
             0.25f,
             1.0f,
             0.25f,
@@ -89,8 +91,8 @@ fun SettingsBottomSheet(
         )
 
         Settingsfield.DAILY_CALORIE_LIMIT -> FieldConfig(
-            "Tägliches Kalorienlimit",
-            "kcal",
+            stringResource(R.string.settings_daily_calorie_limit),
+            stringResource(R.string.kcal),
             10f,
             2000f,
             10f,
@@ -112,7 +114,7 @@ fun SettingsBottomSheet(
             when (editingField) {
                 Settingsfield.WEIGHT_GOAL -> {
                     Text(
-                        text = "Wochenziel",
+                        text = stringResource(R.string.weekly_goal),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
@@ -197,7 +199,7 @@ fun SettingsBottomSheet(
                         )
                     ) {
                         Text(
-                            text = "Speichern",
+                            text = stringResource(R.string.save),
                             modifier = Modifier.padding(vertical = 4.dp),
                             fontWeight = FontWeight.SemiBold
                         )

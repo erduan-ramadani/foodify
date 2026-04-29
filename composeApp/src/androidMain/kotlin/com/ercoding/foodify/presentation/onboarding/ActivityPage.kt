@@ -24,16 +24,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.R
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
 @Composable
-fun ActivityPage(vm: OnboardingViewModel) {
-
+fun ActivityPage(
+    vm: OnboardingViewModel,
+    currentStep: Int,
+    totalSteps: Int
+) {
     val showBMI = vm.activityLevel != null
-
 
     val (minBmi, maxBmi) = when (vm.activityLevel) {
         ActivityLevel.SEDENTARY -> 22.0 to 24.0
@@ -48,10 +52,10 @@ fun ActivityPage(vm: OnboardingViewModel) {
 
     val bmi = vm.weight / ((vm.height / 100.0) * (vm.height / 100.0))
     val bmiCategory = when {
-        bmi < 18.5 -> "Untergewicht"
-        bmi < 25.0 -> "Normalgewicht"
-        bmi < 27.0 -> "Leicht erhöht"
-        bmi < 30.0 -> "Übergewicht"
+        bmi < 18.5 -> stringResource(R.string.bmi_low)
+        bmi < 25.0 -> stringResource(R.string.bmi_normal)
+        bmi < 27.0 -> stringResource(R.string.bmi_lightly_increased)
+        bmi < 30.0 -> stringResource(R.string.bmi_high)
         else -> "Adipositas"
     }
 
@@ -63,20 +67,22 @@ fun ActivityPage(vm: OnboardingViewModel) {
             .verticalScroll(rememberScrollState())
     ) {
         Text(
-            text = "Schritt 2 von 3",
-            style = MaterialTheme.typography.bodySmall,
+            text = stringResource(
+                R.string.step_indicator,
+                currentStep, totalSteps
+            ), style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = "Dein Aktivitätslevel",
+            text = stringResource(R.string.your_activity_level),
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(6.dp))
         ActivityLevel.entries.forEach { level ->
             ActivityLevelCard(
-                level = level,
+                activityLevel = level,
                 isSelected = vm.activityLevel == level,
                 onClick = {
                     vm.activityLevel = level
@@ -100,7 +106,7 @@ fun ActivityPage(vm: OnboardingViewModel) {
 
 @Composable
 private fun ActivityLevelCard(
-    level: ActivityLevel,
+    activityLevel: ActivityLevel,
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
@@ -130,7 +136,7 @@ private fun ActivityLevelCard(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Icon(
-                imageVector = level.icon,
+                imageVector = activityLevel.icon,
                 contentDescription = null,
                 modifier = Modifier.size(24.dp),
                 tint = if (isSelected)
@@ -141,14 +147,14 @@ private fun ActivityLevelCard(
             Spacer(modifier = Modifier.width(6.dp))
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = level.label,
+                    text = activityLevel.label(),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = level.description,
+                    text = activityLevel.description(),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

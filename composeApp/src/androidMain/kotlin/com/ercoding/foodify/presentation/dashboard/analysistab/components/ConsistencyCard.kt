@@ -18,15 +18,38 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ercoding.foodify.R
 
 @Composable
 fun ConsistencyCard(
     trackedDays: Int,
     totalDays: Int
 ) {
+    val trackedText = buildAnnotatedString {
+        val template = stringResource(R.string.days_tracked_text)
+        val countText = "$trackedDays von $totalDays"
+        val parts = template.split("%1\$s")
+
+        append(parts[0])
+        withStyle(
+            SpanStyle(
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        ) {
+            append(countText)
+        }
+        if (parts.size > 1) append(parts[1])
+    }
+
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
@@ -54,28 +77,15 @@ fun ConsistencyCard(
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "Tracking-Konsistenz",
+                    text = stringResource(R.string.tracking_consistency),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Bold
                 )
-                Row {
-                    Text(
-                        text = "Du hast an ",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Text(
-                        text = "$trackedDays von $totalDays",
-                        style = MaterialTheme.typography.bodySmall,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                    Text(
-                        text = " Tagen getrackt",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
+                Text(
+                    text = trackedText,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
         }
     }

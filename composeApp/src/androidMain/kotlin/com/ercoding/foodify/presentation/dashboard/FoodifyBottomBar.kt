@@ -30,8 +30,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.R
 import com.ercoding.foodify.presentation.dashboard.daytab.components.rememberSpeechLauncher
 
 @Composable
@@ -48,7 +50,7 @@ fun FoodifyBottomBar(
     OutlinedTextField(
         value = userTextInput,
         onValueChange = { userTextInput = it },
-        placeholder = { Text("Mahlzeit oder Aktivität") },
+        placeholder = { Text(stringResource(R.string.meal_or_activity)) },
         singleLine = true,
         shape = RoundedCornerShape(20.dp),
         colors = OutlinedTextFieldDefaults.colors(
@@ -91,7 +93,7 @@ fun FoodifyBottomBar(
                     IconButton(onClick = startSpeech) {
                         Icon(
                             Icons.Default.Mic,
-                            contentDescription = "Spracheingabe",
+                            contentDescription = stringResource(R.string.voice_input),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }

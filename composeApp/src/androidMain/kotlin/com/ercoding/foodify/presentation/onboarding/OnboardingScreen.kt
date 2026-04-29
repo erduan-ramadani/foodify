@@ -24,7 +24,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.R
 import com.ercoding.foodify.domain.model.onboarding.OnboardingData
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -37,6 +39,12 @@ fun OnboardingScreen(
     val pagerState = rememberPagerState(pageCount = { 3 })
     val scope = rememberCoroutineScope()
     val canProceed: Boolean = viewModel.canProceed(pagerState.currentPage)
+    val buttonLabel = when (pagerState.currentPage) {
+        0 -> stringResource(R.string.calculate_bmi)
+        1 -> stringResource(R.string.calculate_needs)
+        2 -> stringResource(R.string.start)
+        else -> stringResource(R.string.next)
+    }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -65,9 +73,14 @@ fun OnboardingScreen(
                 modifier = Modifier.weight(1f)
             ) { page ->
                 when (page) {
-                    0 -> PersonalDataPage(viewModel)
-                    1 -> ActivityPage(viewModel)
-                    2 -> GoalPage(viewModel)
+                    0 -> PersonalDataPage(
+                        viewModel,
+                        pagerState.currentPage + 1,
+                        pagerState.pageCount
+                    )
+
+                    1 -> ActivityPage(viewModel, pagerState.currentPage + 1, pagerState.pageCount)
+                    2 -> GoalPage(viewModel, pagerState.currentPage + 1, pagerState.pageCount)
                 }
             }
 
@@ -85,7 +98,7 @@ fun OnboardingScreen(
                         modifier = Modifier.weight(0.8f),
                         shape = RoundedCornerShape(20.dp)
                     ) {
-                        Text("Zurück")
+                        Text(stringResource(R.string.back))
                     }
                 }
 
@@ -106,9 +119,7 @@ fun OnboardingScreen(
                         containerColor = MaterialTheme.colorScheme.primary
                     )
                 ) {
-                    Text(
-                        viewModel.getButtonLabel(pagerState.currentPage),
-                    )
+                    Text(buttonLabel)
                 }
             }
         }

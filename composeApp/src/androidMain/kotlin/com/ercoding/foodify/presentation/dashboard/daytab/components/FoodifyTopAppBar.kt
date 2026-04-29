@@ -22,10 +22,12 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.ercoding.foodify.domain.extension.toDisplayString
+import com.ercoding.foodify.R
 import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
+import com.ercoding.foodify.presentation.util.toDisplayString
 import java.time.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -52,7 +54,7 @@ fun FoodifyTopAppBar(
                 ) {
                     Icon(
                         Icons.Default.ChevronLeft,
-                        contentDescription = "Vorheriger Tag",
+                        contentDescription = stringResource(R.string.previous_day),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
@@ -77,7 +79,7 @@ fun FoodifyTopAppBar(
                 ) {
                     Icon(
                         Icons.Default.ChevronRight,
-                        contentDescription = "Nächster Tag",
+                        contentDescription = stringResource(R.string.next_day),
                         tint = if (viewModel.selectedDate < LocalDate.now())
                             MaterialTheme.colorScheme.onSurfaceVariant
                         else
@@ -90,7 +92,7 @@ fun FoodifyTopAppBar(
             IconButton(onClick = onSettingsClick) {
                 Icon(
                     imageVector = Icons.Outlined.Settings,
-                    contentDescription = "Einstellungen",
+                    contentDescription = stringResource(R.string.settings),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }

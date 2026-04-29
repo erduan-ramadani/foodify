@@ -47,55 +47,6 @@ data class NutritionEntry(
     val omega6: Double = 0.0
 )
 
-fun NutritionEntry.toNutrientSections(): List<NutrientSection> = listOf(
-    NutrientSection(
-        "Makronährwerte",
-        listOf(
-            NutrientRow("Kalorien", calories, "kcal", isBold = true),
-            NutrientRow("Kohlenhydrate", carbohydrates, "g", isBold = true),
-            NutrientRow("davon Zucker", sugar, "g", isIndented = true),
-            NutrientRow("Ballaststoffe", fiber, "g", isIndented = true),
-            NutrientRow("Protein", protein, "g", isBold = true),
-            NutrientRow("Fett", fat, "g", isBold = true),
-            NutrientRow("gesättigt", saturatedFat, "g", isIndented = true),
-            NutrientRow("ungesättigt", unsaturatedFat, "g", isIndented = true),
-            NutrientRow("Salz", salt, "g"),
-            NutrientRow("Cholesterin", cholesterol, "mg"),
-        )
-    ),
-    NutrientSection(
-        "Fettsäuren",
-        listOf(
-            NutrientRow("Omega-3", omega3, "mg"),
-            NutrientRow("Omega-6", omega6, "mg"),
-        )
-    ),
-    NutrientSection(
-        "Vitamine",
-        listOf(
-            NutrientRow("Vitamin A", vitaminA, "µg"),
-            NutrientRow("Vitamin B6", vitaminB6, "mg"),
-            NutrientRow("Vitamin B12", vitaminB12, "µg"),
-            NutrientRow("Vitamin C", vitaminC, "mg"),
-            NutrientRow("Vitamin D", vitaminD, "µg"),
-            NutrientRow("Vitamin E", vitaminE, "mg"),
-            NutrientRow("Vitamin K", vitaminK, "µg"),
-            NutrientRow("Folsäure", folicAcid, "µg"),
-        )
-    ),
-    NutrientSection(
-        "Mineralstoffe",
-        listOf(
-            NutrientRow("Kalzium", calcium, "mg"),
-            NutrientRow("Eisen", iron, "mg"),
-            NutrientRow("Magnesium", magnesium, "mg"),
-            NutrientRow("Zink", zinc, "mg"),
-            NutrientRow("Kalium", potassium, "mg"),
-            NutrientRow("Phosphor", phosphorus, "mg"),
-        )
-    ),
-)
-
 val NutritionEntry.formattedTime: String
     @RequiresApi(Build.VERSION_CODES.O)
     get() {

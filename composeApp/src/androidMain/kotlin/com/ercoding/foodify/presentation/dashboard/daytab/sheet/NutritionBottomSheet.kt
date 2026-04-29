@@ -26,7 +26,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ercoding.foodify.domain.model.sheet.NutritionEntry
-import com.ercoding.foodify.domain.model.sheet.toNutrientSections
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

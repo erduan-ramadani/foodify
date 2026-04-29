@@ -19,9 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ercoding.foodify.R
 
 @Composable
 fun BestDayCard(
@@ -55,12 +57,12 @@ fun BestDayCard(
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "Bester Tag",
+                    text = stringResource(R.string.best_day),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = "$dayLabel · $calories kcal Defizit",
+                    text = stringResource(R.string.x_kcal_deficit, dayLabel, calories),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -73,7 +75,7 @@ fun BestDayCard(
                     .padding(horizontal = 10.dp, vertical = 4.dp)
             ) {
                 Text(
-                    text = "Am Ziel",
+                    text = stringResource(R.string.at_goal),
                     style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.SemiBold,
                     color = Color(0xFF4CAF50)

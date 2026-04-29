@@ -1,5 +1,7 @@
 package com.ercoding.foodify.presentation.dashboard.daytab.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
@@ -36,14 +38,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.R
 import com.ercoding.foodify.domain.model.sheet.NutritionEntry
 import java.time.Instant
 import java.time.LocalTime
 import java.time.ZoneId
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditEntrySheet(
@@ -89,7 +94,7 @@ fun EditEntrySheet(
                 .padding(bottom = 32.dp)
         ) {
             Text(
-                text = "Eintrag bearbeiten",
+                text = stringResource(R.string.edit_entry),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -99,7 +104,7 @@ fun EditEntrySheet(
 
             // Name
             Text(
-                text = "Name",
+                text = stringResource(R.string.name),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -114,9 +119,8 @@ fun EditEntrySheet(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Uhrzeit
             Text(
-                text = "Uhrzeit",
+                text = stringResource(R.string.time),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -133,7 +137,7 @@ fun EditEntrySheet(
                         onClick = { showTimePicker = false },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Fertig")
+                        Text(stringResource(R.string.finished))
                     }
                 }
             } else {
@@ -165,7 +169,7 @@ fun EditEntrySheet(
 
             // Kalorien
             Text(
-                text = "Kalorien",
+                text = stringResource(R.string.nutrient_calories),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -176,7 +180,7 @@ fun EditEntrySheet(
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp),
-                suffix = { Text("kcal") },
+                suffix = { Text(stringResource(R.string.kcal)) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
 
@@ -192,7 +196,7 @@ fun EditEntrySheet(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = "Speichern",
+                    text = stringResource(R.string.save),
                     modifier = Modifier.padding(vertical = 4.dp),
                     fontWeight = FontWeight.SemiBold
                 )
@@ -213,7 +217,7 @@ fun EditEntrySheet(
                     modifier = Modifier.size(18.dp)
                 )
                 Spacer(Modifier.width(8.dp))
-                Text("Löschen")
+                Text(stringResource(R.string.delete))
             }
         }
     }

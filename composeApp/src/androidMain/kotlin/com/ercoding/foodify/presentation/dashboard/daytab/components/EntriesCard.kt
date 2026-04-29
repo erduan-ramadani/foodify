@@ -32,10 +32,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ercoding.foodify.R
 import com.ercoding.foodify.domain.model.sheet.NutritionEntry
 import com.ercoding.foodify.domain.model.sheet.formattedTime
 import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
@@ -49,7 +51,7 @@ fun EntriesCard(
 ) {
     Column {
         Text(
-            text = "Einträge",
+            text = stringResource(R.string.entries),
             style = MaterialTheme.typography.labelMedium,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -66,12 +68,12 @@ fun EntriesCard(
                 Text("🍽️", fontSize = 32.sp)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Noch keine Einträge",
+                    text = stringResource(R.string.no_entries),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Medium
                 )
                 Text(
-                    text = "Trag deine erste Mahlzeit unten ein",
+                    text = stringResource(R.string.add_first_entry),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

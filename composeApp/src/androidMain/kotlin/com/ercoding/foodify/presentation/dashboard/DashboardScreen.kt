@@ -1,5 +1,6 @@
 package com.ercoding.foodify.presentation.dashboard
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
@@ -8,17 +9,22 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.R
 import com.ercoding.foodify.presentation.dashboard.analysistab.AnalysisScreen
 import com.ercoding.foodify.presentation.dashboard.daytab.DayScreen
 import com.ercoding.foodify.presentation.dashboard.daytab.components.FoodifyTopAppBar
 import org.koin.androidx.compose.koinViewModel
 
+@SuppressLint("LocalContextGetResourceValueCall")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DashboardScreen(
@@ -26,6 +32,18 @@ fun DashboardScreen(
 ) {
     val vm: DashboardViewModel = koinViewModel()
     val snackbarHostState = remember { SnackbarHostState() }
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        vm.connectionEvents.collect { event ->
+            val message = when (event) {
+                UiConnectionEvent.NoInternet -> context.getString(R.string.error_no_internet)
+                UiConnectionEvent.Timeout -> context.getString(R.string.error_timeout)
+                UiConnectionEvent.UnknownError -> context.getString(R.string.error_unknown)
+            }
+            snackbarHostState.showSnackbar(message, duration = SnackbarDuration.Long)
+        }
+    }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,

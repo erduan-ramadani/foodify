@@ -18,8 +18,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.ercoding.foodify.domain.extension.toDisplayString
+import com.ercoding.foodify.R
 import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
 import com.ercoding.foodify.presentation.dashboard.analysistab.components.BestDayCard
 import com.ercoding.foodify.presentation.dashboard.analysistab.components.ConsistencyCard
@@ -27,6 +28,7 @@ import com.ercoding.foodify.presentation.dashboard.analysistab.components.GoalPr
 import com.ercoding.foodify.presentation.dashboard.analysistab.components.HeroCard
 import com.ercoding.foodify.presentation.dashboard.analysistab.components.RangePicker
 import com.ercoding.foodify.presentation.dashboard.analysistab.components.StatCard
+import com.ercoding.foodify.presentation.util.toDisplayString
 import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -49,7 +51,7 @@ fun AnalysisScreen() {
         ) {
             item {
                 Text(
-                    text = "Dein Fortschritt im Überblick",
+                    text = stringResource(R.string.analysis_title),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -58,7 +60,6 @@ fun AnalysisScreen() {
                 RangePicker(
                     selected = vm.range,
                     onRangeChange = { vm.range = it },
-                    vm
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -71,7 +72,11 @@ fun AnalysisScreen() {
             item {
                 GoalProgressCard(
                     progress = vm.weeklyProgress.toInt(),
-                    goalDescription = "Ziel: ${vm.weeklyGoal} kg/Woche abnehmen (${vm.weeklyLimit.toInt()} kcal Defizit)"
+                    goalDescription = stringResource(
+                        R.string.goal,
+                        vm.weeklyGoal,
+                        vm.weeklyLimit.toInt()
+                    )
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -84,16 +89,16 @@ fun AnalysisScreen() {
                 ) {
                     StatCard(
                         modifier = Modifier.weight(1f),
-                        label = "Ø gegessen",
-                        value = vm.avgConsumed,
-                        unit = "kcal/Tag",
+                        label = stringResource(R.string.average_eaten),
+                        value = vm.avgEaten,
+                        unit = stringResource(R.string.kcal_per_day),
                         icon = "🍽️"
                     )
                     StatCard(
                         modifier = Modifier.weight(1f),
-                        label = "Ø verbrannt",
+                        label = stringResource(R.string.average_burned),
                         value = vm.avgBurned,
-                        unit = "kcal/Tag",
+                        unit = stringResource(R.string.kcal_per_day),
                         icon = "🔥"
                     )
                 }
@@ -106,16 +111,16 @@ fun AnalysisScreen() {
                 ) {
                     StatCard(
                         modifier = Modifier.weight(1f),
-                        label = "Gesamt gegessen",
+                        label = stringResource(R.string.total_eaten),
                         value = vm.totalConsumed,
-                        unit = "kcal · ${vm.range} Tage",
+                        unit = stringResource(R.string.kcal_x_days, vm.range),
                         icon = "📊"
                     )
                     StatCard(
                         modifier = Modifier.weight(1f),
-                        label = "Gesamt verbrannt",
+                        label = stringResource(R.string.total_burned),
                         value = vm.totalBurned,
-                        unit = "kcal · ${vm.range} Tage",
+                        unit = stringResource(R.string.kcal_x_days, vm.range),
                         icon = "💪"
                     )
                 }

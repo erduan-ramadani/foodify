@@ -41,10 +41,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ercoding.foodify.BuildConfig
+import com.ercoding.foodify.R
 import com.ercoding.foodify.data.local.Scheduling
 import com.ercoding.foodify.domain.model.onboarding.WeightGoal
 import org.koin.androidx.compose.koinViewModel
@@ -88,17 +91,21 @@ fun SettingsScreen(
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState()),
         ) {
-            SettingsSectionHeader("Persönliche Daten")
+            SettingsSectionHeader(stringResource(R.string.settings_personal_data))
             SettingsCard {
                 SettingsRow(
-                    label = "Geschlecht",
-                    value = if (onboardingData?.isMale == true) "♂ Männlich" else "♀ Weiblich",
+                    label = stringResource(R.string.gender),
+                    value = if (onboardingData?.isMale == true) {
+                        stringResource(R.string.settings_male)
+                    } else {
+                        stringResource(R.string.settings_female)
+                    },
                     onSettingClick = { viewModel.toggleGender() }
                 )
                 SettingsDivider()
                 SettingsRow(
                     label = "Alter",
-                    value = "${onboardingData?.age ?: 25} Jahre",
+                    value = "${onboardingData?.age ?: 25} " + stringResource(R.string.age),
                     onSettingClick = { editingField = Settingsfield.AGE }
                 )
                 SettingsDivider()
@@ -115,22 +122,22 @@ fun SettingsScreen(
                 )
                 SettingsDivider()
                 SettingsRow(
-                    label = "Wochenziel",
+                    label = stringResource(R.string.weekly_goal),
                     value = "${onboardingData?.weightGoal?.kgPerWeek ?: WeightGoal.NORMAL} kg",
                     onSettingClick = { editingField = Settingsfield.WEIGHT_GOAL }
                 )
             }
-            SettingsSectionHeader("App")
+            SettingsSectionHeader(stringResource(R.string.app))
             SettingsCard {
                 SettingsToggleRow(
-                    label = "Dark Mode",
+                    label = stringResource(R.string.dark_mode),
                     icon = "🌙",
                     checked = isDarkMode,
                     onToggle = { viewModel.toggleDarkMode() }
                 )
                 SettingsDivider()
                 SettingsToggleRow(
-                    label = "Erinnerungen",
+                    label = stringResource(R.string.reminder),
                     icon = "🔔",
                     checked = isReminding,
                     onToggle = { newValue ->
@@ -140,7 +147,7 @@ fun SettingsScreen(
                     }
                 )
             }
-            SettingsSectionHeader("Daten")
+            SettingsSectionHeader(stringResource(R.string.data))
             SettingsCard {
                 Row(
                     modifier = Modifier
@@ -152,7 +159,7 @@ fun SettingsScreen(
                 ) {
                     Text("\uD83D\uDCE4️", fontSize = 16.sp)
                     Text(
-                        "Daten exportieren",
+                        stringResource(R.string.data_export),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.error,
                         fontWeight = FontWeight.Medium
@@ -169,7 +176,7 @@ fun SettingsScreen(
                 ) {
                     Text("🗑️", fontSize = 16.sp)
                     Text(
-                        "Alle Daten löschen",
+                        stringResource(R.string.delete_all_data),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.error,
                         fontWeight = FontWeight.Medium
@@ -194,7 +201,7 @@ fun SettingsScreen(
             }
 
             Text(
-                text = "Foodify v1.0.0 - Made with \uD83D\uDC9C",
+                text = "Foodify v${BuildConfig.VERSION_NAME} - Made with 💜",
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 16.dp),
@@ -208,8 +215,8 @@ fun SettingsScreen(
     if (showConfirmDataDeletionDialog) {
         AlertDialog(
             onDismissRequest = { showConfirmDataDeletionDialog = false },
-            title = { Text("Alle Daten löschen?") },
-            text = { Text("Alle Einträge und deine Onboarding-Daten werden unwiderruflich gelöscht.") },
+            title = { Text(stringResource(R.string.confirm_delete_title)) },
+            text = { Text(stringResource(R.string.confirm_delete_description)) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -219,12 +226,15 @@ fun SettingsScreen(
                         showConfirmDataDeletionDialog = false
                     }
                 ) {
-                    Text("Löschen", color = MaterialTheme.colorScheme.error)
+                    Text(stringResource(R.string.delete), color = MaterialTheme.colorScheme.error)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showConfirmDataDeletionDialog = false }) {
-                    Text("Abbrechen", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(
+                        stringResource(R.string.cancel),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
             }
         )

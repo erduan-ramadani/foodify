@@ -1,5 +1,7 @@
 package com.ercoding.foodify.presentation.dashboard.daytab.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
@@ -25,10 +27,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.R
 import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun BalanceCard(
     viewModel: DashboardViewModel
@@ -59,17 +64,17 @@ fun BalanceCard(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             BalanceItem(
-                label = "Gegessen",
+                label = stringResource(R.string.eaten),
                 value = animatedEatenCalories,
                 dotColor = Color(0xFFD4A04E)
             )
             BalanceItem(
-                label = "Verbrannt",
+                label = stringResource(R.string.burned),
                 value = animatedBurnedCalories,
                 dotColor = Color(0xFF4A9F6F)
             )
             BalanceItem(
-                label = "Limit",
+                label = stringResource(R.string.limit),
                 value = viewModel.dailyCalorieLimit,
                 dotColor = MaterialTheme.colorScheme.onSurfaceVariant
             )

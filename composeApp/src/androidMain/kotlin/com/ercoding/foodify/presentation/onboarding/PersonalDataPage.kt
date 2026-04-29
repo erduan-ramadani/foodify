@@ -34,12 +34,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ercoding.foodify.R
 
 @Composable
-fun PersonalDataPage(vm: OnboardingViewModel) {
+fun PersonalDataPage(
+    vm: OnboardingViewModel,
+    currentStep: Int,
+    totalSteps: Int
+) {
 
     var showHeightPicker by remember { mutableStateOf(false) }
     var showWeightPicker by remember { mutableStateOf(false) }
@@ -71,19 +77,22 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
             .padding(top = 24.dp)
     ) {
         Text(
-            text = "Schritt 1 von 3",
+            text = stringResource(
+                R.string.step_indicator,
+                currentStep, totalSteps
+            ),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = "Über dich",
+            text = stringResource(R.string.about_you),
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(6.dp))
         Text(
-            text = "Wir berechnen deinen persönlichen Kalorienbedarf",
+            text = stringResource(R.string.calculate_calorie_title),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -91,7 +100,7 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "Geschlecht",
+            text = stringResource(R.string.gender),
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -101,14 +110,14 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             GenderCard(
-                label = "Männlich",
+                label = stringResource(R.string.male),
                 icon = "♂",
                 isSelected = vm.isMale == true,
                 onClick = { vm.isMale = true },
                 modifier = Modifier.weight(1f)
             )
             GenderCard(
-                label = "Weiblich",
+                label = stringResource(R.string.female),
                 icon = "♀",
                 isSelected = vm.isMale == false,
                 onClick = { vm.isMale = false },
@@ -119,7 +128,7 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
-            text = "Alter",
+            text = stringResource(R.string.age),
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -137,7 +146,7 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
                     color = MaterialTheme.colorScheme.primary
                 )
                 Text(
-                    text = "Jahre",
+                    text = stringResource(R.string.years),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -156,7 +165,7 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
         }
         Spacer(modifier = Modifier.height(20.dp))
         Text(
-            "Größe und Gewicht",
+            stringResource(R.string.weight_and_height),
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -166,7 +175,7 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             OutlinedTextField(
-                value = "${vm.height} cm",
+                value = stringResource(R.string.x_cm, vm.height),
                 onValueChange = {},
                 readOnly = true,
                 shape = RoundedCornerShape(12.dp),
@@ -182,7 +191,7 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
 
             )
             OutlinedTextField(
-                value = "${vm.weight} kg",
+                value = stringResource(R.string.x_kg, vm.weight),
                 onValueChange = {},
                 readOnly = true,
                 shape = RoundedCornerShape(12.dp),
@@ -202,8 +211,8 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
         if (showHeightPicker) {
             ModalBottomSheet(onDismissRequest = { showHeightPicker = false }) {
                 PickerBottomSheet(
-                    text = "Größe",
-                    unit = "cm",
+                    text = stringResource(R.string.height),
+                    unit = stringResource(R.string.x_cm),
                     currentValue = vm.height,
                     range = 100..210,
                     onConfirm = {
@@ -218,8 +227,8 @@ fun PersonalDataPage(vm: OnboardingViewModel) {
         if (showWeightPicker) {
             ModalBottomSheet(onDismissRequest = { showWeightPicker = false }) {
                 PickerBottomSheet(
-                    text = "Gewicht",
-                    unit = "kg",
+                    text = stringResource(R.string.weight),
+                    unit = stringResource(R.string.x_kg),
                     range = 30..200,
                     currentValue = vm.weight,
                     onConfirm = {

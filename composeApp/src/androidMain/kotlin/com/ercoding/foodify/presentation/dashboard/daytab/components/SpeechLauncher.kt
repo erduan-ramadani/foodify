@@ -5,9 +5,15 @@ import android.speech.RecognizerIntent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import com.ercoding.foodify.R
+import java.util.Locale
 
 @Composable
 fun rememberSpeechLauncher(onResult: (String) -> Unit): () -> Unit {
+    val locale = Locale.getDefault().toLanguageTag()
+    val prompt = stringResource(R.string.speech_prompt)
+
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -23,8 +29,8 @@ fun rememberSpeechLauncher(onResult: (String) -> Unit): () -> Unit {
                 RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
             )
-            putExtra(RecognizerIntent.EXTRA_LANGUAGE, "de-DE")
-            putExtra(RecognizerIntent.EXTRA_PROMPT, "Was hast du gegessen?")
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, locale)
+            putExtra(RecognizerIntent.EXTRA_PROMPT, prompt)
         }
         launcher.launch(intent)
     }

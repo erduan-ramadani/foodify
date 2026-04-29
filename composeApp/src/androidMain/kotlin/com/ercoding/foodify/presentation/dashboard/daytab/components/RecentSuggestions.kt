@@ -12,8 +12,10 @@ import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.R
 import com.ercoding.foodify.domain.model.sheet.NutritionEntry
 
 @Composable
@@ -25,7 +27,7 @@ fun RecentSuggestions(
 
     Column {
         Text(
-            text = "Häufige Einträge",
+            text = stringResource(R.string.frequent_entries),
             style = MaterialTheme.typography.labelMedium,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurfaceVariant,

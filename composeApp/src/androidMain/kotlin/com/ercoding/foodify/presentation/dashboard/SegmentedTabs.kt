@@ -17,15 +17,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.R
 
 @Composable
 fun SegmentedTabs(
     selectedTab: Int,
     onTabSelected: (Int) -> Unit
 ) {
-    val tabs = listOf("Tag", "Analyse")
+    val tabs = listOf(stringResource(R.string.day), stringResource(R.string.analysis))
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(modifier = Modifier.fillMaxWidth()) {

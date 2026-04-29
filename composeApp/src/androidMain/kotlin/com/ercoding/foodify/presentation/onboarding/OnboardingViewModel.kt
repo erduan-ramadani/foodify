@@ -1,15 +1,9 @@
 package com.ercoding.foodify.presentation.onboarding
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Chair
-import androidx.compose.material.icons.outlined.DirectionsRun
-import androidx.compose.material.icons.outlined.DirectionsWalk
-import androidx.compose.material.icons.outlined.FitnessCenter
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
 import com.ercoding.foodify.domain.calculation.calculateBMR
 import com.ercoding.foodify.domain.model.onboarding.OnboardingData
@@ -27,14 +21,6 @@ class OnboardingViewModel(
     val bmr: Int
         get() = calculateBMR(isMale == true, weight, height, age).toInt()
     var activityLevel: ActivityLevel? by mutableStateOf(null)
-
-
-    fun getButtonLabel(currentPage: Int): String = when (currentPage) {
-        0 -> "BMI berechnen"
-        1 -> "Bedarf berechnen"
-        2 -> "Los gehts"
-        else -> "Weiter"
-    }
 
     fun getOnboardingData(
     ): OnboardingData {
@@ -54,25 +40,4 @@ class OnboardingViewModel(
         2 -> true
         else -> false
     }
-}
-
-enum class ActivityLevel(
-    val label: String,
-    val description: String,
-    val icon: ImageVector
-) {
-    SEDENTARY(
-        "Wenig aktiv",
-        "Bürojob, weniger als 5.000 Schritte/Tag",
-        Icons.Outlined.Chair
-    ),
-    LIGHT(
-        "Mäßig aktiv", "1-2× Sport pro Woche oder viel zu Fuß", Icons.Outlined.DirectionsWalk
-    ),
-    ACTIVE(
-        "Aktiv", "3-5× intensives Training pro Woche", Icons.Outlined.DirectionsRun
-    ),
-    VERY_ACTIVE(
-        "Sehr aktiv", "Tägliches Training oder körperliche Arbeit", Icons.Outlined.FitnessCenter
-    )
 }

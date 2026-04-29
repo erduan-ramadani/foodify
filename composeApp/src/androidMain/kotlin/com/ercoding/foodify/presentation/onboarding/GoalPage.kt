@@ -21,12 +21,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ercoding.foodify.R
 
 @Composable
-fun GoalPage(vm: OnboardingViewModel) {
+fun GoalPage(
+    vm: OnboardingViewModel,
+    currentStep: Int,
+    totalSteps: Int
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -34,19 +40,22 @@ fun GoalPage(vm: OnboardingViewModel) {
             .verticalScroll(rememberScrollState())
     ) {
         Text(
-            text = "Schritt 3 von 3",
+            text = stringResource(
+                R.string.step_indicator,
+                currentStep, totalSteps
+            ),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = "Dein Energiebedarf",
+            text = stringResource(R.string.goal_title),
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(6.dp))
         Text(
-            text = "Dein Körper verbraucht diese Energie täglich im Ruhezustand.",
+            text = stringResource(R.string.goal_description),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -64,7 +73,7 @@ fun GoalPage(vm: OnboardingViewModel) {
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
                 Text(
-                    text = "Grundumsatz",
+                    text = stringResource(R.string.calorie_base),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -93,7 +102,7 @@ fun GoalPage(vm: OnboardingViewModel) {
 
         // Section Header
         Text(
-            text = "Wochenziel",
+            text = stringResource(R.string.weekly_goal),
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -117,7 +126,7 @@ fun GoalPage(vm: OnboardingViewModel) {
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
                 Text(
-                    text = "Dein Tagesziel",
+                    text = stringResource(R.string.daily_goal),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -133,7 +142,7 @@ fun GoalPage(vm: OnboardingViewModel) {
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "kcal/Tag",
+                        text = stringResource(R.string.kcal_day),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(bottom = 8.dp)
@@ -148,13 +157,16 @@ fun GoalPage(vm: OnboardingViewModel) {
 
                 // Aufschlüsselung
                 GoalDetailRow(
-                    label = "Defizit",
+                    label = stringResource(R.string.deficit),
                     value = "${vm.weightGoal?.dailyDeficit ?: 0} kcal/Tag"
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 GoalDetailRow(
-                    label = "Geschwindigkeit",
-                    value = "${vm.weightGoal?.kgPerWeek ?: 0.0} kg/Woche"
+                    label = stringResource(R.string.speed),
+                    value = stringResource(
+                        R.string.kg_week,
+                        vm.weightGoal?.kgPerWeek ?: 0.0
+                    )
                 )
             }
         }

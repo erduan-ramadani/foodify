@@ -26,7 +26,7 @@ fun buildNutritionQuery(query: String, userWeightKg: Int): String {
         Examples for a ${userWeightKg}kg person:
         - "10km cycling" (≈30min moderate) ≈ ${(userWeightKg * 8 * 0.5).toInt()} kcal
         - "5km running" (≈30min) ≈ ${(userWeightKg * 9.8 * 0.5).toInt()} kcal
-        - "10000 steps" ≈ ${(userWeightKg * 4).toInt()} kcal
+        - "10000 steps" ≈ ${(userWeightKg * 4)} kcal
 
         JSON fields:
         isMeal, calories, emoji, protein, fat, saturatedFat, unsaturatedFat, carbohydrates,

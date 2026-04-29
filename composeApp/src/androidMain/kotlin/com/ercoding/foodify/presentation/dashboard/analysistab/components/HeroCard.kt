@@ -17,9 +17,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ercoding.foodify.R
 import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
 import kotlin.math.absoluteValue
 
@@ -45,7 +47,7 @@ fun HeroCard(
                 .padding(vertical = 28.dp, horizontal = 24.dp)
         ) {
             Text(
-                text = "GESCHÄTZTE VERÄNDERUNG",
+                text = stringResource(R.string.estimated_change),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 letterSpacing = 0.5.sp
@@ -73,7 +75,11 @@ fun HeroCard(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Basierend auf ${vm.calorieDeficit.absoluteValue} kcal ${if (isDeficit) "Defizit" else "Überschuss"}",
+                text = stringResource(
+                    R.string.base_on,
+                    vm.calorieDeficit.absoluteValue,
+                    if (isDeficit) stringResource(R.string.deficit) else stringResource(R.string.surplus)
+                ),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

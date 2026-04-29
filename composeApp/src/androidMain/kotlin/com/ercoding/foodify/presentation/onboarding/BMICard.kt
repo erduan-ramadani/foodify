@@ -26,9 +26,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ercoding.foodify.R
 
 @Composable
 fun BMICard(
@@ -55,7 +57,7 @@ fun BMICard(
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             Text(
-                text = "BMI",
+                text = stringResource(R.string.bmi),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -96,7 +98,7 @@ fun BMICard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Empfohlenes Gewicht",
+                    text = stringResource(R.string.recommended_weight),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

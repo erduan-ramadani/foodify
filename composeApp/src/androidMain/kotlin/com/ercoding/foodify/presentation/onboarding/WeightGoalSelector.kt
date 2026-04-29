@@ -19,9 +19,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ercoding.foodify.R
 import com.ercoding.foodify.domain.model.onboarding.WeightGoal
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,7 +34,7 @@ fun WeightGoalSelector(
 ) {
     Column {
         Text(
-            text = "Wie schnell möchtest du abnehmen?",
+            text = stringResource(R.string.weightloss_title),
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.primary
         )
@@ -74,7 +76,7 @@ fun WeightGoalSelector(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = goal.label,
+                            text = goal.label(),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -84,7 +86,7 @@ fun WeightGoalSelector(
         }
 
         // Warning für aggressive Optionen
-        selected?.warning?.let { warning ->
+        selected?.warning()?.let { warning ->
             Spacer(modifier = Modifier.height(8.dp))
             Row(
                 modifier = Modifier

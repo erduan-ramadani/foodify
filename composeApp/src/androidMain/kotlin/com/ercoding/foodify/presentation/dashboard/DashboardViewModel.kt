@@ -48,8 +48,10 @@ class DashboardViewModel(
     val isToday: Boolean
         get() = selectedDate == LocalDate.now()
     var isLoading by mutableStateOf(false)
-    private val _events = Channel<String>()
-    val events = _events.receiveAsFlow()
+    private val _stringEvents = Channel<String>()
+    private val _connectionEvents = Channel<UiConnectionEvent>()
+    val stringEvents = _stringEvents.receiveAsFlow()
+    val connectionEvents = _connectionEvents.receiveAsFlow()
 
     // === DAY TAB ===
     val dailyCalories: Int
@@ -144,7 +146,7 @@ class DashboardViewModel(
             val progress = calorieDeficit / weeklyLimit * 100
             return if (progress > 0) progress else 0.0
         }
-    val avgConsumed: Int
+    val avgEaten: Int
         get() = if (trackedDays > 0) totalConsumed / trackedDays else 0
     val avgBurned: Int
         get() = if (trackedDays > 0) totalBurned / trackedDays else 0
@@ -194,12 +196,12 @@ class DashboardViewModel(
                 onboardingData.value?.weight ?: 75
             )
             result.onFailure { exception ->
-                val errorMessage = when (exception) {
-                    is UnknownHostException -> "Kein Internet"
-                    is HttpRequestTimeoutException -> "Timeout"
-                    else -> "Unbekannter Fehler"
+                val event = when (exception) {
+                    is UnknownHostException -> UiConnectionEvent.NoInternet
+                    is HttpRequestTimeoutException -> UiConnectionEvent.Timeout
+                    else -> UiConnectionEvent.UnknownError
                 }
-                _events.send(errorMessage)
+                _connectionEvents.send(event)
             }
             result.onSuccess { response ->
                 println("Antwort: $response")
