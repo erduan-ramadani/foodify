@@ -13,8 +13,10 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -30,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import com.ercoding.foodify.presentation.dashboard.daytab.components.rememberSpeechLauncher
 
 @Composable
 fun FoodifyBottomBar(
@@ -38,6 +41,9 @@ fun FoodifyBottomBar(
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     var userTextInput by remember { mutableStateOf("") }
+    val startSpeech = rememberSpeechLauncher { spokenText ->
+        userTextInput = spokenText
+    }
 
     OutlinedTextField(
         value = userTextInput,
@@ -63,31 +69,54 @@ fun FoodifyBottomBar(
             }
         ),
         trailingIcon = {
-            Box(
-                modifier = Modifier
-                    .padding(end = 4.dp)
-                    .size(40.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(MaterialTheme.colorScheme.primary)
-                    .clickable {
-                        onButtonClick(userTextInput)
-                        keyboardController?.hide()
-                        userTextInput = ""
-                    },
-                contentAlignment = Alignment.Center
-            ) {
-                if (isLoading) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(20.dp),
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        strokeWidth = 2.dp
-                    )
-                } else {
-                    Icon(
-                        Icons.Default.Add,
-                        contentDescription = "Add",
-                        tint = MaterialTheme.colorScheme.onPrimary
-                    )
+            when {
+                isLoading -> {
+                    Box(
+                        modifier = Modifier
+                            .padding(end = 4.dp)
+                            .size(40.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(MaterialTheme.colorScheme.primary),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(20.dp),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            strokeWidth = 2.dp
+                        )
+                    }
+                }
+
+                userTextInput.isBlank() -> {
+                    IconButton(onClick = startSpeech) {
+                        Icon(
+                            Icons.Default.Mic,
+                            contentDescription = "Spracheingabe",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+
+                else -> {
+                    Box(
+                        modifier = Modifier
+                            .padding(end = 4.dp)
+                            .size(40.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(MaterialTheme.colorScheme.primary)
+                            .clickable {
+                                onButtonClick(userTextInput)
+                                keyboardController?.hide()
+                                userTextInput = ""
+                            },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            Icons.Default.Add,
+                            contentDescription = "Add",
+                            tint = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
                 }
             }
         }
