@@ -189,7 +189,10 @@ class DashboardViewModel(
         viewModelScope.launch {
             isLoading = true
             val formattedQuery = query.replaceFirstChar { it.uppercase() }
-            val result = anthropicRepo.requestNutritionValues(formattedQuery)
+            val result = anthropicRepo.requestNutritionValues(
+                formattedQuery,
+                onboardingData.value?.weight ?: 75
+            )
             result.onFailure { exception ->
                 val errorMessage = when (exception) {
                     is UnknownHostException -> "Kein Internet"

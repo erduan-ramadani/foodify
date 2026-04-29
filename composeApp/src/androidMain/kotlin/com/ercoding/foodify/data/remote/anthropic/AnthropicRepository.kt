@@ -24,7 +24,10 @@ class AnthropicRepository(
         }
     }
 
-    override suspend fun requestNutritionValues(query: String): Result<NutritionEntry> {
+    override suspend fun requestNutritionValues(
+        query: String,
+        weight: Int
+    ): Result<NutritionEntry> {
         val key = firebaseRepository.fetchAnthropicApiKey()
         return runCatching {
             val response = client.post("https://api.anthropic.com/v1/messages") {
@@ -38,7 +41,9 @@ class AnthropicRepository(
                         messages = listOf(
                             Message(
                                 role = "user",
-                                content = buildNutritionQuery(query)
+                                content = buildNutritionQuery(
+                                    query, weight
+                                )
                             )
                         )
                     )
