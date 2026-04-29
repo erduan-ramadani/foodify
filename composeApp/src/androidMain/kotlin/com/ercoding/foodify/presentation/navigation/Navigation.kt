@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ercoding.foodify.data.local.Scheduling
 import com.ercoding.foodify.presentation.MainViewModel
+import com.ercoding.foodify.presentation.StartState
 import com.ercoding.foodify.presentation.dashboard.DashboardScreen
 import com.ercoding.foodify.presentation.onboarding.OnboardingScreen
 import com.ercoding.foodify.presentation.settings.SettingsScreen
@@ -30,50 +31,52 @@ fun Navigation() {
 
     val mainViewModel: MainViewModel = koinViewModel()
     val navController = rememberNavController()
-    var startDestination: String
+    val startState by mainViewModel.startState.collectAsState()
     val isDarkMode by mainViewModel.isDarkMode.collectAsState()
-    val onboardingData by mainViewModel.onboardingData.collectAsState()
 
     FoodifyTheme(darkTheme = isDarkMode) {
-        startDestination =
-            onboardingData?.let { Routes.dashboard } ?: Routes.onboarding
-        if (mainViewModel.isLoading.value) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(100.dp),
-                )
+        when (startState) {
+            StartState.Loading -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(modifier = Modifier.size(100.dp))
+                }
             }
-        } else {
-            NavHost(navController, startDestination) {
-                composable(Routes.onboarding) {
-                    val context = LocalContext.current
-                    OnboardingScreen(
-                        onComplete = { onboardingData ->
-                            mainViewModel.saveOnboardingData(onboardingData)
-                            Scheduling(context).schedule()
-                            navController.navigate(Routes.dashboard) {
-                                popUpTo(Routes.onboarding) { inclusive = true }
+
+            else -> {
+                val startDestination = if (startState == StartState.NeedsOnboarding)
+                    Routes.onboarding else Routes.dashboard
+
+                NavHost(navController, startDestination) {
+                    composable(Routes.onboarding) {
+                        val context = LocalContext.current
+                        OnboardingScreen(
+                            onComplete = { onboardingData ->
+                                mainViewModel.saveOnboardingData(onboardingData)
+                                Scheduling(context).schedule()
+                                navController.navigate(Routes.dashboard) {
+                                    popUpTo(Routes.onboarding) { inclusive = true }
+                                }
                             }
-                        }
-                    )
-                }
-                composable(Routes.dashboard) {
-                    DashboardScreen(
-                        onSettingsClick = { navController.navigate(Routes.settings) }
-                    )
-                }
-                composable(Routes.settings) {
-                    SettingsScreen(
-                        onBackClick = { navController.popBackStack() },
-                        onDeleteAllData = {
-                            navController.navigate(Routes.onboarding) {
-                                popUpTo(0) { inclusive = true }
+                        )
+                    }
+                    composable(Routes.dashboard) {
+                        DashboardScreen(
+                            onSettingsClick = { navController.navigate(Routes.settings) }
+                        )
+                    }
+                    composable(Routes.settings) {
+                        SettingsScreen(
+                            onBackClick = { navController.popBackStack() },
+                            onDeleteAllData = {
+                                navController.navigate(Routes.onboarding) {
+                                    popUpTo(0) { inclusive = true }
+                                }
                             }
-                        }
-                    )
+                        )
+                    }
                 }
             }
         }
