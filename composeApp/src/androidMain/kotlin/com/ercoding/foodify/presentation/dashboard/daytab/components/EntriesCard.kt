@@ -162,7 +162,10 @@ private fun EntryRow(
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
-                text = "${entry.formattedTime} · ${if (entry.isMeal) "Mahlzeit" else "Aktivität"}",
+                text = "${entry.formattedTime} · ${
+                    if (entry.isMeal) stringResource(R.string.meal)
+                    else stringResource(R.string.activity)
+                }",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

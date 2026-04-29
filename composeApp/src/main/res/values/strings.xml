@@ -78,6 +78,8 @@
     <string name="previous_day">Vorheriger Tag</string>
     <string name="next_day">Nächster Tag</string>
     <string name="settings">Einstellungen</string>
+    <string name="meal">Mahlzeit</string>
+    <string name="activity">Aktivität</string>
     <string name="add_meal_or_activity">Mahlzeit/Aktivität hinzufügen</string>
     <string name="frequent_entries">Häufige Einträge</string>
     <string name="speech_prompt">Was hast du gegessen?</string>
