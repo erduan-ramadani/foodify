@@ -57,7 +57,6 @@ fun DayScreen(
     ) {
         item {
             CalorieRing(vm)
-            Spacer(modifier = Modifier.height(4.dp))
         }
 
         item {

@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,10 +31,8 @@ import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
 fun CalorieRing(
     viewModel: DashboardViewModel
 ) {
-
     val isOverLimit = viewModel.dailyCalories > viewModel.dailyCalorieLimit
 
-    val onboardingData by viewModel.onboardingData.collectAsState()
     val ringColor = when {
         viewModel.progress > 1f -> Color(0xFFC77B5B)   // Über Limit - Orange
         viewModel.progress > 0.85f -> Color(0xFFD4A04E) // Knapp - Gelb
@@ -62,7 +59,7 @@ fun CalorieRing(
         Canvas(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(8.dp)
+                .padding(2.dp)
         ) {
             val strokeWidth = 5.dp.toPx()
             val arcSize = Size(size.width - strokeWidth, size.height - strokeWidth)
