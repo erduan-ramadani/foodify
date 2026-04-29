@@ -19,6 +19,7 @@ import com.ercoding.foodify.presentation.dashboard.DashboardViewModel
 import com.ercoding.foodify.presentation.dashboard.daytab.components.BalanceCard
 import com.ercoding.foodify.presentation.dashboard.daytab.components.CalorieRing
 import com.ercoding.foodify.presentation.dashboard.daytab.components.EntriesCard
+import com.ercoding.foodify.presentation.dashboard.daytab.components.RecentSuggestions
 import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -61,6 +62,13 @@ fun DayScreen(
 
         item {
             BalanceCard(vm)
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+
+        item {
+            RecentSuggestions(vm.recentEntries) { entry ->
+                vm.addNutritionFromSuggestion(entry)
+            }
             Spacer(modifier = Modifier.height(4.dp))
         }
 

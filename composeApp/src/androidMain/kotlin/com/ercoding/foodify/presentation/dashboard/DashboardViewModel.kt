@@ -74,7 +74,7 @@ class DashboardViewModel(
     val dailySugar get() = getDailyTotal { it.sugar }
 
     val recentEntries: List<NutritionEntry>
-        get() = nutritionEntries.distinctBy { it.query }
+        get() = nutritionEntries.distinctBy { it.query }.take(8)
 
     val nutritionEntriesByDate: Map<LocalDate, List<NutritionEntry>>
         get() = nutritionEntries.groupBy { entry ->
