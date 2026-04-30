@@ -212,7 +212,7 @@ fun PersonalDataPage(
             ModalBottomSheet(onDismissRequest = { showHeightPicker = false }) {
                 PickerBottomSheet(
                     text = stringResource(R.string.height),
-                    unit = stringResource(R.string.x_cm),
+                    unit = stringResource(R.string.cm),
                     currentValue = vm.height,
                     range = 100..210,
                     onConfirm = {
@@ -228,7 +228,7 @@ fun PersonalDataPage(
             ModalBottomSheet(onDismissRequest = { showWeightPicker = false }) {
                 PickerBottomSheet(
                     text = stringResource(R.string.weight),
-                    unit = stringResource(R.string.x_kg),
+                    unit = stringResource(R.string.kg),
                     range = 30..200,
                     currentValue = vm.weight,
                     onConfirm = {
