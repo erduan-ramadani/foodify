@@ -159,7 +159,7 @@ class DashboardViewModel(
                     val date = today.minusDays(day.toLong())
                     val entries = nutritionEntriesByDate[date] ?: return@mapNotNull null
                     if (entries.isEmpty()) return@mapNotNull null
-                    val net = entries.sumOf { it.calories }
+                    val net = entries.sumOf { if (it.isMeal) it.calories else -it.calories }
                     date to (dailyCalorieLimit - net)
                 }
             return dayDeficits.maxByOrNull { it.second }
