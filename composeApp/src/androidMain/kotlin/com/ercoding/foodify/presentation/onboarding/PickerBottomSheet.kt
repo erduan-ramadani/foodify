@@ -31,9 +31,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ercoding.foodify.R
 
 @Composable
 fun PickerBottomSheet(
@@ -66,7 +68,7 @@ fun PickerBottomSheet(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = onDismiss) {
-                Icon(Icons.Default.Close, contentDescription = "Abbrechen")
+                Icon(Icons.Default.Close, contentDescription = stringResource(R.string.cancel))
             }
             Text(
                 text,
@@ -74,7 +76,7 @@ fun PickerBottomSheet(
                 fontWeight = FontWeight.Bold
             )
             IconButton(onClick = { onConfirm(selectedValue) }) {
-                Icon(Icons.Default.Check, contentDescription = "Bestätigen")
+                Icon(Icons.Default.Check, contentDescription = stringResource(R.string.confirm))
             }
         }
 
