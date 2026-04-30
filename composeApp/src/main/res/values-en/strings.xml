@@ -117,7 +117,7 @@
     <string name="activity_sedentary_description">Office job, less than 5,000 steps/day</string>
     <string name="activity_light_description">1-2× exercise per week or lots of walking</string>
     <string name="activity_active_description">3-5× intense training per week</string>
-    <string name="activity_very_active_description">Daily training or physical work</string>
+    <string name="activity_very_active_description">Daily training, physical work or Bodybuilder</string>
 
     <!-- Weight Goals -->
     <string name="weight_goal_slow">Slow</string>

@@ -117,7 +117,7 @@
     <string name="activity_sedentary_description">Bürojob, weniger als 5.000 Schritte/Tag</string>
     <string name="activity_light_description">1-2× Sport pro Woche oder viel zu Fuß</string>
     <string name="activity_active_description">3-5× intensives Training pro Woche</string>
-    <string name="activity_very_active_description">Tägliches Training oder körperliche Arbeit</string>
+    <string name="activity_very_active_description">Tägliches Training, körperliche Arbeit oder Bodybuilder</string>
 
     <!-- Weight Goals -->
     <string name="weight_goal_slow">Langsam</string>
@@ -170,4 +170,5 @@
     <string name="nutrient_zinc">Zink</string>
     <string name="nutrient_potassium">Kalium</string>
     <string name="nutrient_phosphorus">Phosphor</string>
+    <string name="confirm">Bestätigen</string>
 </resources>
