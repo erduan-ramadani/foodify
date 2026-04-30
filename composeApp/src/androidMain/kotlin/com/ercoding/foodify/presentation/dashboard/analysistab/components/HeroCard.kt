@@ -76,7 +76,7 @@ fun HeroCard(
 
             Text(
                 text = stringResource(
-                    R.string.base_on,
+                    R.string.based_on,
                     vm.calorieDeficit.absoluteValue,
                     if (isDeficit) stringResource(R.string.deficit) else stringResource(R.string.surplus)
                 ),

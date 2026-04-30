@@ -92,7 +92,7 @@
     <string name="total_burned">Total burned</string>
     <string name="kcal_x_days">kcal · %1$d days</string>
     <string name="estimated_change">ESTIMATED CHANGE</string>
-    <string name="base_on">Based on %1$d kcal %2$s</string>
+    <string name="based_on">Based on %1$d kcal %2$s</string>
     <string name="deficit">Deficit</string>
     <string name="surplus">Surplus</string>
     <string name="weekly_goal_reached">Weekly goal reached</string>
