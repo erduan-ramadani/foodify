@@ -105,7 +105,7 @@ class DashboardViewModel(
     val totalBurned: Int
         get() {
             return entriesInRange.filter { !it.isMeal }
-                .sumOf { it.calories }.toInt().absoluteValue
+                .sumOf { it.calories }.toInt()
         }
     val totalEaten: Int
         get() {
@@ -113,21 +113,18 @@ class DashboardViewModel(
                 .filter { it.isMeal }
                 .sumOf { it.calories }.toInt()
         }
+
+    val totalCalories: Int
+        get() {
+            return totalEaten - totalBurned
+        }
+
     val trackedDays: Int
         get() {
             val today = LocalDate.now()
             return (0 until range).count { day ->
                 nutritionEntriesByDate[today.minusDays(day.toLong())]?.isNotEmpty() == true
             }
-        }
-
-    val totalCalories: Double
-        get() {
-            val today = LocalDate.now()
-            val calorieRangeList = (0 until range).map { day ->
-                nutritionEntriesByDate[today.minusDays(day.toLong())]?.sumOf { it.calories } ?: 0.0
-            }
-            return calorieRangeList.sum()
         }
 
     private val entriesLastWeek: List<NutritionEntry>
@@ -169,7 +166,7 @@ class DashboardViewModel(
         get() = (totalCalories - (dailyCalorieLimit * trackedDays)) / 7700.0
 
     val calorieDeficit: Int
-        get() = ((dailyCalorieLimit * trackedDays) - totalCalories).toInt()
+        get() = ((dailyCalorieLimit * trackedDays) - totalCalories)
 
     init {
         viewModelScope.launch {
