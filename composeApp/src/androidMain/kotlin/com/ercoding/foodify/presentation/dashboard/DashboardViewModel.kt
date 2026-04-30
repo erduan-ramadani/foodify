@@ -153,17 +153,16 @@ class DashboardViewModel(
 
     val bestDay: Pair<LocalDate, Double>?
         get() {
-            val dayDeficits: Map<LocalDate, Double> = (0 until range).associate { day ->
-                val today = LocalDate.now()
-
-                val date = today.minusDays(day.toLong())
-                val entries = nutritionEntriesByDate[date] ?: emptyList()
-                val net =
-                    entries.sumOf { it.calories }  // gegessen - verbrannt (weil Aktivitäten negativ sind)
-                val deficit = dailyCalorieLimit - net
-                date to deficit
-            }
-            return dayDeficits.entries.maxByOrNull { it.value }?.let { it.key to it.value }
+            val today = LocalDate.now()
+            val dayDeficits = (0 until range)
+                .mapNotNull { day ->
+                    val date = today.minusDays(day.toLong())
+                    val entries = nutritionEntriesByDate[date] ?: return@mapNotNull null
+                    if (entries.isEmpty()) return@mapNotNull null
+                    val net = entries.sumOf { it.calories }
+                    date to (dailyCalorieLimit - net)
+                }
+            return dayDeficits.maxByOrNull { it.second }
         }
 
     val weightChange: Double
