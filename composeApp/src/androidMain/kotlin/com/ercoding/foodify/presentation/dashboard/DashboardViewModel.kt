@@ -107,7 +107,7 @@ class DashboardViewModel(
             return entriesInRange.filter { !it.isMeal }
                 .sumOf { it.calories }.toInt().absoluteValue
         }
-    val totalConsumed: Int
+    val totalEaten: Int
         get() {
             return entriesInRange
                 .filter { it.isMeal }
@@ -147,7 +147,7 @@ class DashboardViewModel(
             return if (progress > 0) progress else 0.0
         }
     val avgEaten: Int
-        get() = if (trackedDays > 0) totalConsumed / trackedDays else 0
+        get() = if (trackedDays > 0) totalEaten / trackedDays else 0
     val avgBurned: Int
         get() = if (trackedDays > 0) totalBurned / trackedDays else 0
 

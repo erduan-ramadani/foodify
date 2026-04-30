@@ -112,7 +112,7 @@ fun AnalysisScreen() {
                     StatCard(
                         modifier = Modifier.weight(1f),
                         label = stringResource(R.string.total_eaten),
-                        value = vm.totalConsumed,
+                        value = vm.totalEaten,
                         unit = stringResource(R.string.kcal_x_days, vm.range),
                         icon = "📊"
                     )
