@@ -56,7 +56,7 @@ class DashboardViewModel(
     // === DAY TAB ===
     val dailyCalories: Int
         get() {
-            return (nutritionEntriesByDate[selectedDate]?.sumOf { it.calories } ?: 0).toInt()
+            return dailyCaloriesEaten - dailyCaloriesBurned
         }
     val dailyCaloriesEaten: Int
         get() {
@@ -74,6 +74,7 @@ class DashboardViewModel(
     val dailyFat get() = getDailyTotal { it.fat }
     val dailyProtein get() = getDailyTotal { it.protein }
     val dailySugar get() = getDailyTotal { it.sugar }
+    val dailyCarbs get() = getDailyTotal { it.carbohydrates }
 
     val recentEntries: List<NutritionEntry>
         get() = nutritionEntries.distinctBy { it.query }.take(8)
@@ -84,7 +85,6 @@ class DashboardViewModel(
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate()
         }.toSortedMap()
-    val dailyCarbs get() = getDailyTotal { it.carbohydrates }
     val progress: Float
         get() = if (dailyCalorieLimit > 0) dailyCalories.toFloat() / dailyCalorieLimit else 0f
 
