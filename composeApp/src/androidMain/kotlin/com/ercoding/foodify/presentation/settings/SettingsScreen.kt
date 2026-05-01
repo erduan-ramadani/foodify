@@ -72,7 +72,7 @@ fun SettingsScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Einstellungen")
+                    Text(stringResource(R.string.settings))
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
@@ -104,19 +104,19 @@ fun SettingsScreen(
                 )
                 SettingsDivider()
                 SettingsRow(
-                    label = "Alter",
+                    label = stringResource(R.string.age),
                     value = "${onboardingData?.age ?: 25} " + stringResource(R.string.age),
                     onSettingClick = { editingField = Settingsfield.AGE }
                 )
                 SettingsDivider()
                 SettingsRow(
-                    label = "Größe",
+                    label = stringResource(R.string.height),
                     value = "${onboardingData?.height ?: 175} cm",
                     onSettingClick = { editingField = Settingsfield.HEIGHT }
                 )
                 SettingsDivider()
                 SettingsRow(
-                    label = "Gewicht",
+                    label = stringResource(R.string.weight),
                     value = "${onboardingData?.weight ?: 75} kg",
                     onSettingClick = { editingField = Settingsfield.WEIGHT }
                 )
@@ -149,23 +149,23 @@ fun SettingsScreen(
             }
             SettingsSectionHeader(stringResource(R.string.data))
             SettingsCard {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { }
-                        .padding(horizontal = 20.dp, vertical = 14.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    Text("\uD83D\uDCE4️", fontSize = 16.sp)
-                    Text(
-                        stringResource(R.string.data_export),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.error,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
-                SettingsDivider()
+//                Row(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .clickable { }
+//                        .padding(horizontal = 20.dp, vertical = 14.dp),
+//                    verticalAlignment = Alignment.CenterVertically,
+//                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+//                ) {
+//                    Text("\uD83D\uDCE4️", fontSize = 16.sp)
+//                    Text(
+//                        stringResource(R.string.data_export),
+//                        style = MaterialTheme.typography.bodyMedium,
+//                        color = MaterialTheme.colorScheme.error,
+//                        fontWeight = FontWeight.Medium
+//                    )
+//                }
+//                SettingsDivider()
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
