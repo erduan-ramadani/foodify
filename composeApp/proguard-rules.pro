@@ -15,3 +15,8 @@
 # Ktor
 -keep class io.ktor.** { *; }
 -keep class kotlinx.coroutines.** { *; }
+
+# Ktor uses java.lang.management for debugger detection - not available on Android
+-dontwarn java.lang.management.**
+
+-dontwarn kotlinx.serialization.**
