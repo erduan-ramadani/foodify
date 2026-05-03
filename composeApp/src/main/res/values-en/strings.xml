@@ -129,7 +129,8 @@
 
     <!-- Notifications -->
     <string name="reminder_notification_title">Foodify 🍽️</string>
-    <string name="reminder_notification_text">Time to track your meals!</string>
+    <string name="reminder_daily_notification_text">Nothing tracked yet today — only takes 10 seconds!</string>
+    <string name="reminder_weekly_notification_text">Check out your weekly stats 📊</string>
 
     <!-- Nutrient sections -->
     <string name="nutrients_macros">Macronutrients</string>
