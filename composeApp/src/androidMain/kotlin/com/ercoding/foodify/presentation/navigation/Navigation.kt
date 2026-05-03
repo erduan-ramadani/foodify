@@ -11,18 +11,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.ercoding.foodify.data.local.Scheduling
 import com.ercoding.foodify.presentation.MainViewModel
 import com.ercoding.foodify.presentation.StartState
 import com.ercoding.foodify.presentation.dashboard.DashboardScreen
 import com.ercoding.foodify.presentation.onboarding.OnboardingScreen
 import com.ercoding.foodify.presentation.settings.SettingsScreen
 import com.ercoding.foodify.presentation.theme.FoodifyTheme
+import com.ercoding.foodify.presentation.util.rememberReminderScheduler
 import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -51,11 +50,12 @@ fun Navigation() {
 
                 NavHost(navController, startDestination) {
                     composable(Routes.onboarding) {
-                        val context = LocalContext.current
+                        val scheduleReminder = rememberReminderScheduler()
+
                         OnboardingScreen(
                             onComplete = { onboardingData ->
                                 mainViewModel.saveOnboardingData(onboardingData)
-                                Scheduling(context).schedule()
+                                scheduleReminder()
                                 navController.navigate(Routes.dashboard) {
                                     popUpTo(Routes.onboarding) { inclusive = true }
                                 }

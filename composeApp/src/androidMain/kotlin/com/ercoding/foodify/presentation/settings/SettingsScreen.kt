@@ -50,6 +50,7 @@ import com.ercoding.foodify.BuildConfig
 import com.ercoding.foodify.R
 import com.ercoding.foodify.data.local.Scheduling
 import com.ercoding.foodify.domain.model.onboarding.WeightGoal
+import com.ercoding.foodify.presentation.util.rememberReminderScheduler
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
@@ -67,6 +68,7 @@ fun SettingsScreen(
 
 
     val context = LocalContext.current
+    val scheduleReminder = rememberReminderScheduler()
 
     Scaffold(
         topBar = {
@@ -141,7 +143,7 @@ fun SettingsScreen(
                     icon = "🔔",
                     checked = isReminding,
                     onToggle = { newValue ->
-                        if (newValue) Scheduling(context).schedule()
+                        if (newValue) scheduleReminder()
                         else Scheduling(context).cancel()
                         viewModel.toggleReminder()
                     }
