@@ -54,8 +54,8 @@ class Scheduling(
         val now = Calendar.getInstance()
 
         val target = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, 11)
-            set(Calendar.MINUTE, 40)
+            set(Calendar.HOUR_OF_DAY, 20)
+            set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
         }
