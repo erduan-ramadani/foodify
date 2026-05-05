@@ -10,7 +10,7 @@
 }
 
 # Deine Domain-Modelle (für @Serializable)
--keep class com.ercoding.foodify.domain.model.** { *; }
+-keep class com.eddiapps.foodify.domain.model.** { *; }
 
 # Ktor
 -keep class io.ktor.** { *; }

@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "360188824482",
-    "project_id": "foodify-c1c85",
-    "storage_bucket": "foodify-c1c85.firebasestorage.app"
+    "project_number": "360333626684",
+    "project_id": "eddiapps-foodify",
+    "storage_bucket": "eddiapps-foodify.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:360188824482:android:0c43e467497de346b900fb",
+        "mobilesdk_app_id": "1:360333626684:android:d559e8704a8961daa52239",
         "android_client_info": {
-          "package_name": "com.ercoding.foodify"
+          "package_name": "com.eddiapps.foodify"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB2PG0VA5Fx4OUO2_EJKaZB3nAFcr5qz_g"
+          "current_key": "AIzaSyDdxd6ypxETDInZuZz7wJdVJs_6g9D6tdY"
         }
       ],
       "services": {

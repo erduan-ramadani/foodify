@@ -86,11 +86,11 @@ kotlin {
 }
 
 android {
-    namespace = "com.ercoding.foodify"
+    namespace = "com.eddiapps.foodify"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.ercoding.foodify"
+        applicationId = "com.eddiapps.foodify"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1

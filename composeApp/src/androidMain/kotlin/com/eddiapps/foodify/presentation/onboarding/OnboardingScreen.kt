@@ -1,0 +1,127 @@
+package com.eddiapps.foodify.presentation.onboarding
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.eddiapps.foodify.R
+import com.eddiapps.foodify.domain.model.onboarding.OnboardingData
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
+
+@Composable
+fun OnboardingScreen(
+    onComplete: (OnboardingData) -> Unit
+) {
+    val viewModel: OnboardingViewModel = koinViewModel()
+    val pagerState = rememberPagerState(pageCount = { 3 })
+    val scope = rememberCoroutineScope()
+    val canProceed: Boolean = viewModel.canProceed(pagerState.currentPage)
+    val buttonLabel = when (pagerState.currentPage) {
+        0 -> stringResource(R.string.calculate_bmi)
+        1 -> stringResource(R.string.calculate_needs)
+        2 -> stringResource(R.string.start)
+        else -> stringResource(R.string.next)
+    }
+
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .windowInsetsPadding(WindowInsets.systemBars)
+
+        ) {
+            LinearProgressIndicator(
+                progress = { (pagerState.currentPage + 1f) / pagerState.pageCount },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(4.dp)
+                    .clip(RoundedCornerShape(2.dp)),
+                color = MaterialTheme.colorScheme.primary,
+                trackColor = MaterialTheme.colorScheme.surfaceVariant
+            )
+
+            HorizontalPager(
+                state = pagerState,
+                userScrollEnabled = false,
+                modifier = Modifier.weight(1f)
+            ) { page ->
+                when (page) {
+                    0 -> PersonalDataPage(
+                        viewModel,
+                        pagerState.currentPage + 1,
+                        pagerState.pageCount
+                    )
+
+                    1 -> ActivityPage(viewModel, pagerState.currentPage + 1, pagerState.pageCount)
+                    2 -> GoalPage(viewModel, pagerState.currentPage + 1, pagerState.pageCount)
+                }
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                if (pagerState.currentPage > 0) {
+                    OutlinedButton(
+                        onClick = {
+                            scope.launch {
+                                pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                            }
+                        },
+                        modifier = Modifier.weight(0.8f),
+                        shape = RoundedCornerShape(20.dp)
+                    ) {
+                        Text(stringResource(R.string.back))
+                    }
+                }
+
+                Button(
+                    onClick = {
+                        if (pagerState.currentPage < 2) {
+                            scope.launch {
+                                pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                            }
+                        } else {
+                            onComplete(viewModel.getOnboardingData())
+                        }
+                    },
+                    enabled = canProceed,
+                    modifier = Modifier.weight(1.2f),
+                    shape = RoundedCornerShape(20.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary
+                    )
+                ) {
+                    Text(buttonLabel)
+                }
+            }
+        }
+    }
+}
