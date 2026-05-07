@@ -34,7 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.eddiapps.foodify.R
-import com.eddiapps.foodify.presentation.dashboard.daytab.components.rememberSpeechLauncher
+import com.eddiapps.foodify.presentation.dashboard.daytab.components.VoiceInputSheet
 
 @Composable
 fun FoodifyBottomBar(
@@ -43,9 +43,8 @@ fun FoodifyBottomBar(
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     var userTextInput by remember { mutableStateOf("") }
-    val startSpeech = rememberSpeechLauncher { spokenText ->
-        userTextInput = spokenText
-    }
+    var showVoiceSheet by remember { mutableStateOf(false) }
+
 
     OutlinedTextField(
         value = userTextInput,
@@ -90,10 +89,9 @@ fun FoodifyBottomBar(
                 }
 
                 userTextInput.isBlank() -> {
-                    IconButton(onClick = startSpeech) {
+                    IconButton(onClick = { showVoiceSheet = true }) {
                         Icon(
-                            Icons.Default.Mic,
-                            contentDescription = stringResource(R.string.voice_input),
+                            Icons.Default.Mic, contentDescription = null,
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
@@ -123,4 +121,14 @@ fun FoodifyBottomBar(
             }
         }
     )
+    if (showVoiceSheet) {
+        VoiceInputSheet(
+            onDismiss = { showVoiceSheet = false },
+            onTextRecognized = { spokenText ->
+                userTextInput = spokenText
+                onButtonClick(userTextInput)
+                userTextInput = ""
+            }
+        )
+    }
 }

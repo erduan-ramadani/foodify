@@ -173,4 +173,10 @@
     <string name="nutrient_potassium">Kalium</string>
     <string name="nutrient_phosphorus">Phosphor</string>
     <string name="confirm">Bestätigen</string>
+
+    <!-- Voice -->
+    <string name="voice_listening">Höre zu…</string>
+    <string name="voice_done">Fertig</string>
+    <string name="voice_hint">Sprich jetzt deine Mahlzeit</string>
+    <string name="done">Übernehmen</string>
 </resources>
