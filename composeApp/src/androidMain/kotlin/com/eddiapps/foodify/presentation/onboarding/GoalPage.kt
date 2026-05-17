@@ -164,10 +164,7 @@ fun GoalPage(
                 Spacer(modifier = Modifier.height(8.dp))
                 GoalDetailRow(
                     label = stringResource(R.string.speed),
-                    value = stringResource(
-                        R.string.kg_week,
-                        vm.weightGoal?.kgPerWeek ?: 0.0
-                    )
+                    value = "${vm.weightGoalDisplayValue} ${vm.weightUnit}"
                 )
             }
         }

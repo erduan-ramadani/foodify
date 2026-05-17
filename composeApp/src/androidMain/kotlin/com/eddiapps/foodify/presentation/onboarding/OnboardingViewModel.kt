@@ -103,13 +103,27 @@ class OnboardingViewModel(
         ).toInt()
     var activityLevel: ActivityLevel? by mutableStateOf(null)
 
+    val weightGoalDisplayValue: Double
+        get() {
+            return if (unitSystem == UnitSystem.METRIC) {
+                weightGoal?.kgPerWeek ?: 0.5
+            } else {
+                when (weightGoal) {
+                    WeightGoal.SLOW -> 0.5
+                    WeightGoal.NORMAL -> 1.0
+                    WeightGoal.FAST -> 1.5
+                    WeightGoal.AGGRESSIVE -> 2.0
+                    else -> {
+                        1.0
+                    }
+                }
+            }
+        }
+
     fun getOnboardingData(
     ): OnboardingData {
         return OnboardingData(
             isMale = isMale ?: false,
-            age = age,
-            height = height,
-            weight = weight,
             unitSystem = unitSystem,
             pickerState = _pickerState.value,
             dailyCalorieLimit = dailyCalorieLimit,
