@@ -3,7 +3,7 @@ package com.eddiapps.foodify.data.remote.anthropic
 import java.util.Locale
 
 
-fun buildNutritionQuery(query: String, userWeightKg: Int): String {
+fun buildNutritionQuery(query: String, userWeightKg: Double): String {
     val locale = Locale.getDefault().displayLanguage
     return """
         The input language is $locale. Interpret all food names in this language's context.

@@ -26,7 +26,7 @@ class AnthropicRepository(
 
     override suspend fun requestNutritionValues(
         query: String,
-        weight: Int
+        weight: Double
     ): Result<NutritionEntry> {
         val key = firebaseRepository.fetchAnthropicApiKey()
         return runCatching {
