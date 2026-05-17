@@ -98,6 +98,7 @@ fun ActivityPage(
                 bmiCategory = bmiCategory,
                 idealWeightMin = idealWeightMin,
                 idealWeightMax = idealWeightMax
+                vm.weightUnit
             )
         }
         Spacer(modifier = Modifier.height(8.dp))

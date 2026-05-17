@@ -38,6 +38,7 @@ fun BMICard(
     bmiCategory: String,
     idealWeightMin: Int,
     idealWeightMax: Int,
+    weightUnit: String,
     modifier: Modifier = Modifier
 ) {
     val categoryColor = when {
@@ -65,7 +66,7 @@ fun BMICard(
 
             Row(verticalAlignment = Alignment.Bottom) {
                 Text(
-                    text = String.format("%.1f", bmi),
+                    text = String.format(Locale.getDefault(), "%.1f", bmi),
                     style = MaterialTheme.typography.displaySmall,
                     fontWeight = FontWeight.Light,
                     color = MaterialTheme.colorScheme.onSurface,
@@ -103,7 +104,7 @@ fun BMICard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = "$idealWeightMin – $idealWeightMax kg",
+                    text = "$idealWeightMin – $idealWeightMax $weightUnit",
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSurface
