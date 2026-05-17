@@ -40,16 +40,100 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
         }
     }
 
-    fun saveSettingsBottomSheetChange(fieldName: Settingsfield, value: Int) {
-        val updated = when (fieldName) {
-            Settingsfield.AGE -> onboardingData.value?.copy(age = value)
-            Settingsfield.HEIGHT -> onboardingData.value?.copy(height = value)
-            Settingsfield.WEIGHT -> onboardingData.value?.copy(weight = value)
-            Settingsfield.WEIGHT_GOAL -> null // wird über setWeightGoal gehandelt
-            Settingsfield.DAILY_CALORIE_LIMIT -> onboardingData.value?.copy(dailyCalorieLimit = value)
+    fun toggleUnitSystem() {
+        viewModelScope.launch {
+            if (onboardingData.value?.unitSystem == UnitSystem.METRIC)
+                prefRepo.setOnboardingData(onboardingData.value?.copy(unitSystem = UnitSystem.IMPERIAL))
+            else
+                prefRepo.setOnboardingData(onboardingData.value?.copy(unitSystem = UnitSystem.METRIC))
         }
-        updated?.let {
-            viewModelScope.launch { prefRepo.setOnboardingData(it) }
+    }
+
+//    private fun convertImperialToMetric(
+//        field: SettingsField,
+//        firstPickerValue: Int,
+//        secondPickerValue: Int
+//    ): Double {
+//        return when (field) {
+//            SettingsField.HEIGHT -> UnitConverter.convertFeetInchesToCm(
+//                firstPickerValue,
+//                secondPickerValue
+//            )
+//
+//            SettingsField.WEIGHT -> UnitConverter.convertLbToKg(firstPickerValue)
+//            SettingsField.AGE -> firstPickerValue.toDouble()
+//            SettingsField.WEIGHT_GOAL -> TODO()
+//        }
+//    }
+
+    fun savePickerChange(fieldName: SettingsField, firstValue: Int, secondValue: Int) {
+        when (fieldName) {
+            SettingsField.AGE -> onAgeChanged(firstValue)
+            SettingsField.HEIGHT,
+            SettingsField.WEIGHT -> onHeightOrWeightChanged(fieldName, firstValue, secondValue)
+
+            SettingsField.WEIGHT_GOAL -> {}// handled by setWeightGoal
+        }
+    }
+
+    private fun onAgeChanged(firstValue: Int) {
+        val current = onboardingData.value ?: return
+        viewModelScope.launch {
+            prefRepo.setOnboardingData(
+                current.copy(
+                    pickerStateData = current.pickerStateData.copy(age = firstValue)
+                )
+            )
+        }
+    }
+
+    private fun onHeightOrWeightChanged(
+        fieldName: SettingsField,
+        firstValue: Int,
+        secondValue: Int
+    ) {
+        val onboardingData = this@SettingsViewModel.onboardingData.value ?: return
+
+        val updatedPickerState = if (unitSystem.value == UnitSystem.IMPERIAL) {
+            when (fieldName) {
+                SettingsField.HEIGHT -> onboardingData.pickerStateData.copy(
+                    heightFt = firstValue,
+                    heightIn = secondValue,
+                    heightCm = UnitConverter.convertFeetInchesToCm(firstValue, secondValue)
+                )
+
+                SettingsField.WEIGHT -> onboardingData.pickerStateData.copy(
+                    weightLb = firstValue,
+                    weightKg = UnitConverter.convertLbToKg(firstValue)
+                )
+
+                else -> return
+            }
+        } else {
+            when (fieldName) {
+                SettingsField.HEIGHT -> onboardingData.pickerStateData.copy(
+                    heightCm = firstValue,
+                    heightFt = UnitConverter.convertCmToFeetInches(firstValue).first,
+                    heightIn = UnitConverter.convertCmToFeetInches(firstValue).second
+                )
+
+                SettingsField.WEIGHT ->
+                    onboardingData.pickerStateData.copy(
+                        weightKg = UnitConverter.toDecimal(firstValue, secondValue),
+                        weightLb = UnitConverter.convertKgToLb(
+                            UnitConverter.toDecimal(
+                                firstValue,
+                                secondValue
+                            )
+                        )
+                    )
+
+                else -> return
+            }
+        }
+
+        viewModelScope.launch {
+            prefRepo.setOnboardingData(onboardingData.copy(pickerStateData = updatedPickerState))
         }
     }
 

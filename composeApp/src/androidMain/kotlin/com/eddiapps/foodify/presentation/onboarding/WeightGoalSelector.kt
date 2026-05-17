@@ -24,11 +24,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eddiapps.foodify.R
+import com.eddiapps.foodify.domain.model.UnitSystem
 import com.eddiapps.foodify.domain.model.onboarding.WeightGoal
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeightGoalSelector(
+    unitSystem: UnitSystem,
     selected: WeightGoal?,
     onSelect: (WeightGoal) -> Unit
 ) {
@@ -70,8 +72,14 @@ fun WeightGoalSelector(
                             .padding(horizontal = 4.dp, vertical = 10.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
+                        val weightUnit = if (unitSystem == UnitSystem.METRIC) "kg" else "lb"
+                        val displayValue = if (unitSystem == UnitSystem.IMPERIAL) {
+                            goal.kgPerWeek * 2
+                        } else {
+                            goal.kgPerWeek
+                        }
                         Text(
-                            text = "${goal.kgPerWeek}kg",
+                            text = "$displayValue $weightUnit",
                             style = MaterialTheme.typography.labelLarge,
                             fontWeight = FontWeight.Bold
                         )

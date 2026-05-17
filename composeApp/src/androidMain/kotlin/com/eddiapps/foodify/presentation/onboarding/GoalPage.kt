@@ -109,6 +109,7 @@ fun GoalPage(
         Spacer(modifier = Modifier.height(8.dp))
 
         WeightGoalSelector(
+            unitSystem = vm.unitSystem,
             selected = vm.weightGoal,
             onSelect = { vm.weightGoal = it }
         )

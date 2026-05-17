@@ -65,6 +65,7 @@ fun SettingsScreen(
     val onboardingData by viewModel.onboardingData.collectAsState(null)
     var editingField by remember { mutableStateOf<Settingsfield?>(null) }
     var showConfirmDataDeletionDialog by remember { mutableStateOf(false) }
+    val unitSystem by viewModel.unitSystem.collectAsState()
 
 
     val context = LocalContext.current

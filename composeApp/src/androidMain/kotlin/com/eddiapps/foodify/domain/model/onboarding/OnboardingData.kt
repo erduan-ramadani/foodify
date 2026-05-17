@@ -8,6 +8,7 @@ data class OnboardingData(
     val age: Int,
     val height: Int,
     val weight: Int,
+    val unitSystem: UnitSystem,
     val dailyCalorieLimit: Int,
     val weightGoal: WeightGoal?
 )

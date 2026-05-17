@@ -33,6 +33,7 @@
     <string name="settings_female">♀ Weiblich</string>
     <string name="age">Alter</string>
     <string name="years">Jahre</string>
+    <string name="unit_system">Einheitssystem</string>
     <string name="weight_and_height">Größe und Gewicht</string>
     <string name="x_cm">%1$d cm</string>
     <string name="x_kg">%1$d kg</string>
