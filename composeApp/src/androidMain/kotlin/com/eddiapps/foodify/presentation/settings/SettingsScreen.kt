@@ -49,7 +49,6 @@ import androidx.compose.ui.unit.sp
 import com.eddiapps.foodify.BuildConfig
 import com.eddiapps.foodify.R
 import com.eddiapps.foodify.data.local.Scheduling
-import com.eddiapps.foodify.domain.model.onboarding.WeightGoal
 import com.eddiapps.foodify.presentation.util.rememberReminderScheduler
 import org.koin.androidx.compose.koinViewModel
 
@@ -63,11 +62,11 @@ fun SettingsScreen(
     val isDarkMode by viewModel.isDarkMode.collectAsState(false)
     val isReminding by viewModel.isReminding.collectAsState(true)
     val onboardingData by viewModel.onboardingData.collectAsState(null)
-    var editingField by remember { mutableStateOf<Settingsfield?>(null) }
+    var settingsField by remember { mutableStateOf<SettingsField?>(null) }
     var showConfirmDataDeletionDialog by remember { mutableStateOf(false) }
     val unitSystem by viewModel.unitSystem.collectAsState()
 
-
+    val pickerState by viewModel.pickerState.collectAsState()
     val context = LocalContext.current
     val scheduleReminder = rememberReminderScheduler()
 
@@ -108,26 +107,32 @@ fun SettingsScreen(
                 SettingsDivider()
                 SettingsRow(
                     label = stringResource(R.string.age),
-                    value = "${onboardingData?.age ?: 25} " + stringResource(R.string.age),
-                    onSettingClick = { editingField = Settingsfield.AGE }
+                    value = "${pickerState?.age} " + stringResource(R.string.age),
+                    onSettingClick = { settingsField = SettingsField.AGE }
+                )
+                SettingsDivider()
+                SettingsRow(
+                    label = stringResource(R.string.unit_system),
+                    value = viewModel.unitDisplay,
+                    onSettingClick = { viewModel.toggleUnitSystem() }
                 )
                 SettingsDivider()
                 SettingsRow(
                     label = stringResource(R.string.height),
-                    value = "${onboardingData?.height ?: 175} cm",
-                    onSettingClick = { editingField = Settingsfield.HEIGHT }
+                    value = viewModel.heightDisplay + viewModel.heightUnit,
+                    onSettingClick = { settingsField = SettingsField.HEIGHT }
                 )
                 SettingsDivider()
                 SettingsRow(
                     label = stringResource(R.string.weight),
-                    value = "${onboardingData?.weight ?: 75} kg",
-                    onSettingClick = { editingField = Settingsfield.WEIGHT }
+                    value = "${viewModel.weightDisplay} ${viewModel.weightUnit}",
+                    onSettingClick = { settingsField = SettingsField.WEIGHT }
                 )
                 SettingsDivider()
                 SettingsRow(
                     label = stringResource(R.string.weekly_goal),
-                    value = "${onboardingData?.weightGoal?.kgPerWeek ?: WeightGoal.NORMAL} kg",
-                    onSettingClick = { editingField = Settingsfield.WEIGHT_GOAL }
+                    value = "${viewModel.weeklyGoalDisplay} ${viewModel.weightUnit}",
+                    onSettingClick = { settingsField = SettingsField.WEIGHT_GOAL }
                 )
             }
             SettingsSectionHeader(stringResource(R.string.app))
@@ -187,19 +192,25 @@ fun SettingsScreen(
                 }
             }
 
-            editingField?.let { field ->
+            settingsField?.let { field ->
                 SettingsBottomSheet(
+                    unitSystem = unitSystem,
                     editingField = field,
+                    pickerState = pickerState,
                     onboardingData = onboardingData,
-                    onSave = { fieldName, value ->
-                        viewModel.saveSettingsBottomSheetChange(fieldName, value)
-                        editingField = null
+                    onConfirmSinglePicker = { fieldName, firstValue -> //36 years, 180cm, 220lbs
+                        viewModel.savePickerChange(fieldName, firstValue, 0)
+                        settingsField = null
+                    },
+                    onConfirmDualPicker = { fieldName, firstValue, secondValue -> //80.5kg, 4ft'2in
+                        viewModel.savePickerChange(fieldName, firstValue, secondValue)
+                        settingsField = null
                     },
                     onSaveWeightGoal = { goal ->
                         viewModel.setWeightGoal(goal)
-                        editingField = null
+                        settingsField = null
                     },
-                    onDismiss = { editingField = null }
+                    onDismiss = { settingsField = null }
                 )
             }
 

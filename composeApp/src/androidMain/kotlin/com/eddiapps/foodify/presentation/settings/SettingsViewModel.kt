@@ -3,13 +3,18 @@ package com.eddiapps.foodify.presentation.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eddiapps.foodify.domain.PreferencesInterface
+import com.eddiapps.foodify.domain.calculation.UnitConverter
 import com.eddiapps.foodify.domain.calculation.calculateDailyCalorieLimit
+import com.eddiapps.foodify.domain.model.UnitSystem
 import com.eddiapps.foodify.domain.model.onboarding.WeightGoal
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.util.Locale
+import kotlin.math.roundToInt
 
 class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel() {
 
@@ -20,6 +25,70 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
         SharingStarted.WhileSubscribed(5000),
         null
     )
+    val unitSystem = onboardingData
+        .map { it?.unitSystem ?: UnitSystem.METRIC }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            UnitSystem.METRIC
+        )
+    val pickerState = onboardingData.map { it?.pickerState }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000), null
+    )
+    val weightGoal: WeightGoal = onboardingData.value?.weightGoal ?: WeightGoal.NORMAL
+    val weightUnit: String
+        get() = if (unitSystem.value == UnitSystem.METRIC) "kg" else "lb"
+    val heightUnit: String
+        get() = if (unitSystem.value == UnitSystem.METRIC) "cm" else "ft/in"
+    val heightDisplay: String
+        get() {
+            return if (unitSystem.value == UnitSystem.METRIC) {
+                pickerState.value?.heightCm.toString()
+            } else {
+                "${pickerState.value?.heightFt}'${pickerState.value?.heightIn} "
+            }
+        }
+    val weightDisplay: String
+        get() {
+            return if (unitSystem.value == UnitSystem.METRIC) {
+                String.format(Locale.getDefault(), "%.1f", pickerState.value?.weightKg)
+            } else {
+                "${pickerState.value?.weightLb}"
+            }
+        }
+    val unitDisplay: String
+        get() {
+            return if (unitSystem.value == UnitSystem.METRIC) {
+                "kg / cm"
+            } else {
+                "lb / feet"
+            }
+        }
+
+    val weeklyGoal: Double
+        get() = onboardingData.value?.weightGoal?.kgPerWeek ?: 0.5
+    val weeklyGoalDisplay: Double
+        get() {
+            return if (unitSystem.value == UnitSystem.METRIC) {
+                weeklyGoal
+            } else {
+                val weeklyGoalLbs = weeklyGoal * 2
+                (weeklyGoalLbs * 10).roundToInt() / 10.0
+            }
+        }
+//    private val _pickerState = MutableStateFlow(
+//        PickerStateData(36, 180, 80.0, 5, 11, 176)
+//    )
+//    val pickerState = _pickerState.asStateFlow()
+
+    init {
+//        viewModelScope.launch {
+//            onboardingData.filterNotNull().first().let { onboardingData ->
+//                _pickerState.update { onboardingData.pickerStateData }
+//            }
+//        }
+    }
 
     fun toggleDarkMode() {
         viewModelScope.launch {
@@ -81,7 +150,7 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
         viewModelScope.launch {
             prefRepo.setOnboardingData(
                 current.copy(
-                    pickerStateData = current.pickerStateData.copy(age = firstValue)
+                    pickerState = current.pickerState.copy(age = firstValue)
                 )
             )
         }
@@ -96,13 +165,13 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
 
         val updatedPickerState = if (unitSystem.value == UnitSystem.IMPERIAL) {
             when (fieldName) {
-                SettingsField.HEIGHT -> onboardingData.pickerStateData.copy(
+                SettingsField.HEIGHT -> onboardingData.pickerState.copy(
                     heightFt = firstValue,
                     heightIn = secondValue,
                     heightCm = UnitConverter.convertFeetInchesToCm(firstValue, secondValue)
                 )
 
-                SettingsField.WEIGHT -> onboardingData.pickerStateData.copy(
+                SettingsField.WEIGHT -> onboardingData.pickerState.copy(
                     weightLb = firstValue,
                     weightKg = UnitConverter.convertLbToKg(firstValue)
                 )
@@ -111,14 +180,14 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
             }
         } else {
             when (fieldName) {
-                SettingsField.HEIGHT -> onboardingData.pickerStateData.copy(
+                SettingsField.HEIGHT -> onboardingData.pickerState.copy(
                     heightCm = firstValue,
                     heightFt = UnitConverter.convertCmToFeetInches(firstValue).first,
                     heightIn = UnitConverter.convertCmToFeetInches(firstValue).second
                 )
 
                 SettingsField.WEIGHT ->
-                    onboardingData.pickerStateData.copy(
+                    onboardingData.pickerState.copy(
                         weightKg = UnitConverter.toDecimal(firstValue, secondValue),
                         weightLb = UnitConverter.convertKgToLb(
                             UnitConverter.toDecimal(
@@ -133,7 +202,7 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
         }
 
         viewModelScope.launch {
-            prefRepo.setOnboardingData(onboardingData.copy(pickerStateData = updatedPickerState))
+            prefRepo.setOnboardingData(onboardingData.copy(pickerState = updatedPickerState))
         }
     }
 
@@ -141,9 +210,9 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
         val current = onboardingData.value ?: return
         val newLimit = calculateDailyCalorieLimit(
             isMale = current.isMale,
-            weight = current.weight,
-            height = current.height,
-            age = current.age,
+            age = current.pickerState.age,
+            weight = current.pickerState.weightKg,
+            height = current.pickerState.heightCm,
             weightGoal = goal
         )
         viewModelScope.launch {
@@ -161,6 +230,14 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
             prefRepo.clearAll()
         }
     }
+
+    fun getWeeklyWeightGoalDisplayValue(): Double {
+        return if (unitSystem.value == UnitSystem.METRIC) {
+            weightGoal.kgPerWeek
+        } else {
+            weightGoal.kgPerWeek.times(2.20462)
+        }
+    }
 }
 
-enum class Settingsfield { AGE, HEIGHT, WEIGHT, WEIGHT_GOAL, DAILY_CALORIE_LIMIT }
+enum class SettingsField { AGE, HEIGHT, WEIGHT, WEIGHT_GOAL }
