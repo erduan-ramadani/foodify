@@ -28,6 +28,7 @@ import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,8 +54,10 @@ fun PersonalDataPage(
     val interactionSourceWeight = remember { MutableInteractionSource() }
     val interactionSourceHeight = remember { MutableInteractionSource() }
 
+    val pickerState by vm.pickerState.collectAsState()
 
 
+    // Used in OutlinedTextField to open PickerBottomSheet on click
     LaunchedEffect(interactionSourceHeight) {
         interactionSourceHeight.interactions.collect { interaction ->
             if (interaction is PressInteraction.Release) {
@@ -63,6 +66,7 @@ fun PersonalDataPage(
         }
     }
 
+    // Used in OutlinedTextField to open PickerBottomSheet on click
     LaunchedEffect(interactionSourceWeight) {
         interactionSourceWeight.interactions.collect { interaction ->
             if (interaction is PressInteraction.Release) {
@@ -140,7 +144,7 @@ fun PersonalDataPage(
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "${vm.age}",
+                    text = "${pickerState.age}",
                     style = MaterialTheme.typography.headlineLarge,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary

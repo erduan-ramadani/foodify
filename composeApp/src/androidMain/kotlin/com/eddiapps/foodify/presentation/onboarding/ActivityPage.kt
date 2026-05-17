@@ -22,14 +22,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.eddiapps.foodify.R
-import kotlin.math.pow
-import kotlin.math.roundToInt
 
 @Composable
 fun ActivityPage(
@@ -37,20 +37,14 @@ fun ActivityPage(
     currentStep: Int,
     totalSteps: Int
 ) {
+    val pickerState by vm.pickerState.collectAsState()
+
     val showBMI = vm.activityLevel != null
 
-    val (minBmi, maxBmi) = when (vm.activityLevel) {
-        ActivityLevel.SEDENTARY -> 22.0 to 24.0
-        ActivityLevel.LIGHT -> 23.0 to 25.0
-        ActivityLevel.ACTIVE -> 23.0 to 26.0
-        ActivityLevel.VERY_ACTIVE -> 24.0 to 27.0
-        null -> 23.0 to 25.0  // Default
-    }
-
-    val idealWeightMin = (minBmi * (vm.height / 100.0).pow(2)).roundToInt()
-    val idealWeightMax = (maxBmi * (vm.height / 100.0).pow(2)).roundToInt()
-
-    val bmi = vm.weight / ((vm.height / 100.0) * (vm.height / 100.0))
+    val bmi =
+        pickerState.weightKg /
+                ((pickerState.heightCm / 100.0) *
+                        (pickerState.heightCm / 100.0))
     val bmiCategory = when {
         bmi < 18.5 -> stringResource(R.string.bmi_low)
         bmi < 25.0 -> stringResource(R.string.bmi_normal)
@@ -96,8 +90,8 @@ fun ActivityPage(
             BMICard(
                 bmi = bmi,
                 bmiCategory = bmiCategory,
-                idealWeightMin = idealWeightMin,
-                idealWeightMax = idealWeightMax
+                idealWeightMin = vm.idealWeightMin,
+                idealWeightMax = vm.idealWeightMax,
                 vm.weightUnit
             )
         }

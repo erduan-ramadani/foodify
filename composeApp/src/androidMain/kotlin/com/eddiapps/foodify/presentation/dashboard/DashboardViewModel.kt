@@ -189,7 +189,7 @@ class DashboardViewModel(
             val formattedQuery = query.replaceFirstChar { it.uppercase() }
             val result = anthropicRepo.requestNutritionValues(
                 formattedQuery,
-                onboardingData.value?.weight ?: 75
+                onboardingData.value?.pickerState?.weightKg ?: 75.0
             )
             result.onFailure { exception ->
                 val event = when (exception) {

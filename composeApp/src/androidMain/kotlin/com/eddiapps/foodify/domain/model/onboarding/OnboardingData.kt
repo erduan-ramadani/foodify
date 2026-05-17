@@ -1,14 +1,14 @@
 package com.eddiapps.foodify.domain.model.onboarding
 
+import com.eddiapps.foodify.domain.model.UnitSystem
+import com.eddiapps.foodify.presentation.picker.PickerState
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class OnboardingData(
     val isMale: Boolean,
-    val age: Int,
-    val height: Int,
-    val weight: Int,
     val unitSystem: UnitSystem,
+    val pickerState: PickerState,
     val dailyCalorieLimit: Int,
     val weightGoal: WeightGoal?
 )
