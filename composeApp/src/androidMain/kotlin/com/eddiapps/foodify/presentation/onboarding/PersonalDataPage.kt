@@ -40,6 +40,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eddiapps.foodify.R
+import com.eddiapps.foodify.presentation.picker.PickerBottomSheet
+import com.eddiapps.foodify.presentation.picker.PickerConfigMapper
+import com.eddiapps.foodify.presentation.picker.PickerType
 
 @Composable
 fun PersonalDataPage(
@@ -47,7 +50,6 @@ fun PersonalDataPage(
     currentStep: Int,
     totalSteps: Int
 ) {
-
     var showHeightPicker by remember { mutableStateOf(false) }
     var showWeightPicker by remember { mutableStateOf(false) }
 
@@ -156,9 +158,9 @@ fun PersonalDataPage(
                 )
             }
             Slider(
-                value = vm.age.toFloat(),
-                onValueChange = { vm.age = it.toInt() },
-                valueRange = 10f..99f,
+                value = pickerState.age.toFloat(),
+                onValueChange = { vm.onAgePicked(it.toInt()) },
+                valueRange = vm.ageRange,
                 modifier = Modifier.weight(1f),
                 colors = SliderDefaults.colors(
                     thumbColor = MaterialTheme.colorScheme.primary,
@@ -174,12 +176,17 @@ fun PersonalDataPage(
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(modifier = Modifier.height(8.dp))
+        UnitToggle(
+            vm.unitSystem,
+            onChange = { vm.onUnitSystemChange(it) }
+        )
+        Spacer(modifier = Modifier.height(8.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             OutlinedTextField(
-                value = stringResource(R.string.x_cm, vm.height),
+                value = vm.displayHeightText,
                 onValueChange = {},
                 readOnly = true,
                 shape = RoundedCornerShape(12.dp),
@@ -195,7 +202,7 @@ fun PersonalDataPage(
 
             )
             OutlinedTextField(
-                value = stringResource(R.string.x_kg, vm.weight),
+                value = vm.displayWeightText,
                 onValueChange = {},
                 readOnly = true,
                 shape = RoundedCornerShape(12.dp),
@@ -213,14 +220,24 @@ fun PersonalDataPage(
         Spacer(modifier = Modifier.height(20.dp))
 
         if (showHeightPicker) {
-            ModalBottomSheet(onDismissRequest = { showHeightPicker = false }) {
+            val heightTitle = stringResource(R.string.height)
+            val config = PickerConfigMapper.create(
+                unitSystem = vm.unitSystem,
+                type = PickerType.HEIGHT,
+                title = heightTitle,
+                state = pickerState
+            )
+            ModalBottomSheet(
+                onDismissRequest = { showHeightPicker = false }
+            ) {
                 PickerBottomSheet(
-                    text = stringResource(R.string.height),
-                    unit = stringResource(R.string.cm),
-                    currentValue = vm.height,
-                    range = 100..210,
-                    onConfirm = {
-                        vm.height = it
+                    config,
+                    onConfirmSingle = { cm ->
+                        vm.onHeightPicked(cm, null)
+                        showHeightPicker = false
+                    },
+                    onConfirmDual = { feet, inches ->
+                        vm.onHeightPicked(feet, inches)
                         showHeightPicker = false
                     },
                     onDismiss = { showHeightPicker = false }
@@ -229,17 +246,28 @@ fun PersonalDataPage(
         }
 
         if (showWeightPicker) {
-            ModalBottomSheet(onDismissRequest = { showWeightPicker = false }) {
+            val config = PickerConfigMapper.create(
+                unitSystem = vm.unitSystem,
+                type = PickerType.WEIGHT,
+                title = stringResource(R.string.weight),
+                state = pickerState
+            )
+            ModalBottomSheet(
+                onDismissRequest = { showWeightPicker = false }
+            ) {
                 PickerBottomSheet(
-                    text = stringResource(R.string.weight),
-                    unit = stringResource(R.string.kg),
-                    range = 30..200,
-                    currentValue = vm.weight,
-                    onConfirm = {
-                        vm.weight = it
+                    config = config,
+                    onConfirmSingle = { lbs ->
+                        vm.onWeightPicked(lbs, null)
                         showWeightPicker = false
                     },
-                    onDismiss = { showWeightPicker = false }
+                    onConfirmDual = { kg, decimal ->
+                        vm.onWeightPicked(kg, decimal)
+                        showWeightPicker = false
+                    },
+                    onDismiss = {
+                        showWeightPicker = false
+                    }
                 )
             }
         }

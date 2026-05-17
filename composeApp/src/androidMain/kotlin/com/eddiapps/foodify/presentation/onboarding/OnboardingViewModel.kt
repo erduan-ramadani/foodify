@@ -23,6 +23,20 @@ class OnboardingViewModel(
 ) : ViewModel() {
     var unitSystem: UnitSystem by mutableStateOf(UnitSystem.METRIC)
         private set
+    private val _pickerState = MutableStateFlow(
+        PickerState(
+            age = 36,
+            heightCm = 180,
+            weightKg = 80.0,
+            heightFt = 3,
+            heightIn = 5,
+            weightLb = 242
+        )
+    )
+    val pickerState = _pickerState.asStateFlow()
+
+    //    val _pickerState.value: _pickerState.value
+//        get() = _pickerState.value
     var isMale: Boolean? by mutableStateOf(null)
     val ageRange: ClosedFloatingPointRange<Float> = 10f..99f
 
