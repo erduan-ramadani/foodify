@@ -9,6 +9,7 @@ import com.eddiapps.foodify.domain.calculation.UnitConverter.convertKgToLb
 import com.eddiapps.foodify.domain.calculation.UnitConverter.convertLbToKg
 import com.eddiapps.foodify.domain.calculation.UnitConverter.toDecimal
 import com.eddiapps.foodify.domain.calculation.calculateBMR
+import com.eddiapps.foodify.domain.calculation.calculateTDEE
 import com.eddiapps.foodify.domain.model.UnitSystem
 import com.eddiapps.foodify.domain.model.onboarding.OnboardingData
 import com.eddiapps.foodify.domain.model.onboarding.WeightGoal
@@ -102,7 +103,8 @@ class OnboardingViewModel(
             _pickerState.value.age
         ).toInt()
     var activityLevel: ActivityLevel? by mutableStateOf(null)
-
+    val tdee: Int
+        get() = calculateTDEE(bmr, activityLevel)
     val weightGoalDisplayValue: Double
         get() {
             return if (unitSystem == UnitSystem.METRIC) {

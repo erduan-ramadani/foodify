@@ -10,8 +10,9 @@
     <string name="bmi">BMI</string>
     <string name="tdee">Täglicher Kalorienverbrauch</string>
     <string name="recommended_weight">Empfohlenes Gewicht</string>
-    <string name="goal_description">Dein Körper verbraucht diese Energie täglich im Ruhezustand.</string>
+    <string name="goal_description">Dein Körper verbraucht diese Energie täglich im Ruhezustand und inkl. Aktivität</string>
     <string name="calorie_base">Grundumsatz</string>
+    <string name="calorie_total">Gesamtverbrauch</string>
     <string name="weekly_goal">Wochenziel</string>
     <string name="daily_limit">Dein Tageslimit</string>
     <string name="kcal_day">kcal/Tag</string>

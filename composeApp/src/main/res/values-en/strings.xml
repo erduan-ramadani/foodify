@@ -10,8 +10,9 @@
     <string name="bmi">BMI</string>
     <string name="tdee">Total Daily Energy Expenditure</string>
     <string name="recommended_weight">Recommended weight</string>
-    <string name="goal_description">Your body uses this energy daily at rest.</string>
-    <string name="calorie_base">Basal metabolic rate</string>
+    <string name="goal_description">Your body uses this energy daily at rest and including activity</string>
+    <string name="calorie_base">Resting Calories</string>
+    <string name="calorie_total">Total Calories</string>
     <string name="weekly_goal">Weekly goal</string>
     <string name="daily_limit">Your daily limit</string>
     <string name="kcal_day">kcal/day</string>
