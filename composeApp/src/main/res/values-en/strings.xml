@@ -132,6 +132,15 @@
     <string name="reminder_notification_title">Foodify 🍽️</string>
     <string name="reminder_daily_notification_text">Nothing tracked yet today — only takes 10 seconds!</string>
     <string name="reminder_weekly_notification_text">Check out your weekly stats 📊</string>
+    <string-array name="reminder_daily_texts">
+        <item>Nothing tracked yet today — only takes 10 seconds!</item>
+        <item>Hey, how was your day? Quickly log what you ate 🍽️</item>
+        <item>Stay on track! Tracked a meal today?</item>
+        <item>Your Foodify day is still empty 📋</item>
+        <item>Psst… you haven\'t logged anything today</item>
+        <item>Just 10 seconds — and your day is tracked!</item>
+        <item>Quick entry before the day ends 🌙</item>
+    </string-array>
 
     <!-- Nutrient sections -->
     <string name="nutrients_macros">Macronutrients</string>

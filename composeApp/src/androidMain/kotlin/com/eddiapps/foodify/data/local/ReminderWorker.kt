@@ -45,7 +45,7 @@ class ReminderWorker(
                     showNotification(
                         1,
                         applicationContext.getString(R.string.reminder_notification_title),
-                        applicationContext.getString(R.string.reminder_daily_notification_text)
+                        getRandomDailyText()
                     )
             }
 
@@ -60,6 +60,11 @@ class ReminderWorker(
             }
         }
         return Result.success()
+    }
+
+    private fun getRandomDailyText(): String {
+        val texts = applicationContext.resources.getStringArray(R.array.reminder_daily_texts)
+        return texts.random()
     }
 
     private fun showNotification(
