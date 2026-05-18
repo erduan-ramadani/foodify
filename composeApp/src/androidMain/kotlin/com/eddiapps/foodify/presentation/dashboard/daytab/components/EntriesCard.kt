@@ -88,7 +88,8 @@ fun EntriesCard(
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
             ) {
                 Column {
-                    entries.forEachIndexed { index, entry ->
+                    val sortedEntries = entries.sortedBy { it.createdAt }
+                    sortedEntries.forEachIndexed { index, entry ->
                         key(entry.id) {
                             EntryRow(
                                 entry = entry,
