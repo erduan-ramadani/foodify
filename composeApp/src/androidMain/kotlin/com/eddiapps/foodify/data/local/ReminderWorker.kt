@@ -5,8 +5,11 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.core.app.NotificationCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
@@ -89,8 +92,16 @@ class ReminderWorker(
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
+        val largeIcon = BitmapFactory.decodeResource(
+            applicationContext.resources,
+            R.mipmap.ic_launcher
+        )
+
+
         val notification = NotificationCompat.Builder(applicationContext, channelId)
             .setSmallIcon(R.drawable.ic_notification)
+            .setLargeIcon(largeIcon)
+            .setColor(Color(0xFF4A9F6F).toArgb())
             .setContentTitle(title)
             .setContentText(text)
             .setAutoCancel(true)
