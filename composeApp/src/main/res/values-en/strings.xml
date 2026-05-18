@@ -8,13 +8,13 @@
     <string name="bmi_high">Overweight</string>
     <string name="your_activity_level">Your activity level</string>
     <string name="bmi">BMI</string>
+    <string name="tdee">Total Daily Energy Expenditure</string>
     <string name="recommended_weight">Recommended weight</string>
     <string name="goal_description">Your body uses this energy daily at rest.</string>
     <string name="calorie_base">Basal metabolic rate</string>
     <string name="weekly_goal">Weekly goal</string>
     <string name="daily_limit">Your daily limit</string>
     <string name="kcal_day">kcal/day</string>
-    <string name="speed">Speed</string>
     <string name="kg_week">%1$s kg/week</string>
     <string name="calculate_needs">Calculate needs</string>
     <string name="calculate_bmi">Calculate BMI</string>
