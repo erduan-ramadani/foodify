@@ -12,7 +12,7 @@
     <string name="goal_description">Dein Körper verbraucht diese Energie täglich im Ruhezustand.</string>
     <string name="calorie_base">Grundumsatz</string>
     <string name="weekly_goal">Wochenziel</string>
-    <string name="daily_goal">Dein Tagesziel</string>
+    <string name="daily_limit">Dein Tageslimit</string>
     <string name="kcal_day">kcal/Tag</string>
     <string name="speed">Geschwindigkeit</string>
     <string name="kg_week">%1$s kg/Woche</string>

@@ -12,7 +12,7 @@
     <string name="goal_description">Your body uses this energy daily at rest.</string>
     <string name="calorie_base">Basal metabolic rate</string>
     <string name="weekly_goal">Weekly goal</string>
-    <string name="daily_goal">Your daily goal</string>
+    <string name="daily_limit">Your daily limit</string>
     <string name="kcal_day">kcal/day</string>
     <string name="speed">Speed</string>
     <string name="kg_week">%1$s kg/week</string>

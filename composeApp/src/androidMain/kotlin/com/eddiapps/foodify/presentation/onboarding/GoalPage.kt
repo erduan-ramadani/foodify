@@ -127,7 +127,7 @@ fun GoalPage(
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
                 Text(
-                    text = stringResource(R.string.daily_goal),
+                    text = stringResource(R.string.daily_limit),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
