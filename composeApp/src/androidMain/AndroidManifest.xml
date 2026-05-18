@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
         <activity
-            android:name="com.eddiapps.foodify.presentation.MainActivity"
+            android:name="com.eddiapps.foodify.presentation.SplashActivity"
             android:exported="true"
             tools:targetApi="26">
             <intent-filter>
@@ -22,6 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.eddiapps.foodify.presentation.MainActivity"
+            android:exported="false"></activity>
+
         <service
             android:name="com.eddiapps.foodify.data.remote.firebase.FirebaseService"
             android:exported="false">
