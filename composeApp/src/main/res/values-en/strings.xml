@@ -175,8 +175,8 @@
     <string name="confirm">Bestätigen</string>
 
     <!-- Voice -->
-    <string name="voice_listening">Höre zu…</string>
-    <string name="voice_done">Fertig</string>
-    <string name="voice_hint">Sprich jetzt deine Mahlzeit</string>
-    <string name="done">Übernehmen</string>
+    <string name="voice_listening">Listening…</string>
+    <string name="voice_done">Done</string>
+    <string name="voice_hint">Speak your meal now</string>
+    <string name="apply">Apply</string>
 </resources>

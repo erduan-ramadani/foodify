@@ -219,7 +219,7 @@ fun VoiceInputSheet(
                         containerColor = MaterialTheme.colorScheme.primary
                     )
                 ) {
-                    Text(stringResource(R.string.done))
+                    Text(stringResource(R.string.apply))
                 }
             }
         }
