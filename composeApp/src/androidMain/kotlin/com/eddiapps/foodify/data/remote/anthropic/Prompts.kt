@@ -17,6 +17,9 @@ fun buildNutritionQuery(query: String, userWeightKg: Double): String {
         - The app will multiply these values by quantity automatically.
         - Calories must be positive.
         - JSON field isMeal is true.
+        - Use a standard, average serving size for ONE unit, regardless of quantity.
+        - Example: 1 Döner = always ~550 kcal, whether the input is "1 Döner" or "10 Döner".
+        - DO NOT change the per-unit values based on quantity.
 
         If the input is an ACTIVITY (e.g. "30min walking", "1h cycling", "45min jogging"):
         - Calculate calories burned using MET values for a person weighing $userWeightKg kg.
