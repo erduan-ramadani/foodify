@@ -89,9 +89,6 @@ class OnboardingViewModel(
                 (idealWeightMaxKg * 2.20462).roundToInt()
             }
         }
-
-    val dailyCalorieLimit: Int
-        get() = bmr - (weightGoal?.dailyDeficit ?: 0)
     val bmr: Int
         get() = calculateBMR(
             isMale == true,
@@ -100,8 +97,11 @@ class OnboardingViewModel(
             _pickerState.value.age
         ).toInt()
     var activityLevel: ActivityLevel? by mutableStateOf(null)
+    val baseTdee: Int get() = (bmr * 1.2).toInt() //sedentary baseline
     val tdee: Int
         get() = calculateTDEE(bmr, activityLevel)
+    val dailyCalorieLimit: Int
+        get() = baseTdee - (weightGoal?.dailyDeficit ?: 0)
     val weightGoalDisplayValue: Double
         get() {
             return if (unitSystem == UnitSystem.METRIC) {
