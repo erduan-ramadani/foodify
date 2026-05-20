@@ -35,7 +35,7 @@ fun NutrientRowItem(row: NutrientRow) {
                 MaterialTheme.colorScheme.onSurface
         )
         Text(
-            text = "${row.value} ${row.unit}",
+            text = "${row.value.toInt()} ${row.unit}",
             fontSize = 13.sp,
             fontWeight = if (row.isBold) FontWeight.Bold else FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurface
