@@ -23,9 +23,9 @@ import androidx.compose.ui.unit.dp
 import com.eddiapps.foodify.R
 import com.eddiapps.foodify.presentation.dashboard.DashboardViewModel
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.BestDayCard
-import com.eddiapps.foodify.presentation.dashboard.analysistab.components.ConsistencyCard
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.GoalProgressCard
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.HeroCard
+import com.eddiapps.foodify.presentation.dashboard.analysistab.components.NutrientProgressCard
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.RangePicker
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.StatCard
 import com.eddiapps.foodify.presentation.util.toDisplayString
@@ -133,11 +133,45 @@ fun AnalysisScreen() {
                 )
                 Spacer(modifier = Modifier.height(12.dp))
             }
+//            item {
+//                ConsistencyCard(
+//                    trackedDays = vm.trackedDays,
+//                    totalDays = vm.range
+//                )
+//                Spacer(modifier = Modifier.height(12.dp))
+//            }
             item {
-                ConsistencyCard(
-                    trackedDays = vm.trackedDays,
-                    totalDays = vm.range
+                Text("Kritische Nährstoffe")
+                Spacer(modifier = Modifier.height(12.dp))
+            }
+            item {
+                NutrientProgressCard(
+                    label = "Zucker",
+                    current = vm.totalSugar.toFloat(),
+                    limit = vm.totalSugarLimit.toFloat(),
+                    range = vm.range,
+                    icon = "\uD83C\uDF6C"
                 )
+                Spacer(modifier = Modifier.height(12.dp))
+
+                NutrientProgressCard(
+                    label = "Salz",
+                    current = vm.totalSalt.toFloat(),
+                    limit = vm.totalSaltLimit.toFloat(),
+                    range = vm.range,
+                    icon = "\uD83E\uDDC2",
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+
+                NutrientProgressCard(
+                    label = "Gesättigte Fette",
+                    current = vm.totalSaturatedFat.toFloat(),
+                    limit = vm.totalSaturatedFatLimit.toFloat(),
+                    range = vm.range,
+                    icon = "\uD83E\uDD69",
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+            }
                 Spacer(modifier = Modifier.height(12.dp))
             }
         }

@@ -93,6 +93,7 @@
     <string name="total_eaten">Gesamt gegessen</string>
     <string name="total_burned">Gesamt verbrannt</string>
     <string name="kcal_x_days">kcal · %1$d Tage</string>
+    <string name="gram_who_per_week">WHO: max. %1$d g/Woche</string>
     <string name="estimated_change">GESCHÄTZTE VERÄNDERUNG</string>
     <string name="based_on">Basierend auf %1$d kcal %2$s</string>
     <string name="deficit">Defizit</string>
@@ -100,6 +101,7 @@
     <string name="weekly_goal_reached">Wochenziel erreicht</string>
     <string name="tracking_consistency">Tracking-Konsistenz</string>
     <string name="days_tracked_text">Du hast an %1$s Tagen getrackt</string>
+    <string name="days_sugar_text">Zucker an %1$s Tagen</string>
     <string name="best_day">Bester Tag</string>
     <string name="x_kcal_deficit">%1$s · %2$d kcal Defizit</string>
     <string name="at_goal">Am Ziel</string>
@@ -149,6 +151,11 @@
     <string name="nutrients_fatty_acids">Fettsäuren</string>
     <string name="nutrients_vitamins">Vitamine</string>
     <string name="nutrients_minerals">Mineralstoffe</string>
+
+    <string name="nutrient_progress_within_limit">Im Limit</string>
+    <string name="nutrient_progress_nearly_limit">Grenzwertig</string>
+    <string name="nutrient_progress_exceeded">Überschritten</string>
+    <string name="nutrient_who_recommendation">WHO-Empfehlung: max. %1$d g · %2$d Tage</string>
 
     <!-- Macros -->
     <string name="nutrient_calories">Kalorien</string>

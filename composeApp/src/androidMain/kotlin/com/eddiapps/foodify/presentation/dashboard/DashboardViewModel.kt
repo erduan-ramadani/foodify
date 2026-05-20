@@ -12,6 +12,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eddiapps.foodify.domain.AnthropicInterface
 import com.eddiapps.foodify.domain.PreferencesInterface
+import com.eddiapps.foodify.domain.calculation.calculateSaltLimit
+import com.eddiapps.foodify.domain.calculation.calculateSaturatedFatLimit
+import com.eddiapps.foodify.domain.calculation.calculateSugarLimit
 import com.eddiapps.foodify.domain.model.onboarding.WeightGoal
 import com.eddiapps.foodify.domain.model.sheet.NutritionEntry
 import io.ktor.client.plugins.HttpRequestTimeoutException
@@ -27,6 +30,7 @@ import java.time.LocalTime
 import java.time.ZoneId
 import java.util.UUID
 import kotlin.math.absoluteValue
+import kotlin.math.roundToInt
 
 @RequiresApi(Build.VERSION_CODES.O)
 class DashboardViewModel(
@@ -70,11 +74,6 @@ class DashboardViewModel(
                 ?.sumOf { it.calories }
                 ?: 0).toInt()
         }
-
-    val dailyFat get() = getDailyTotal { it.fat }
-    val dailyProtein get() = getDailyTotal { it.protein }
-    val dailySugar get() = getDailyTotal { it.sugar }
-    val dailyCarbs get() = getDailyTotal { it.carbohydrates }
 
     val recentEntries: List<NutritionEntry>
         get() = nutritionEntries.distinctBy { it.query }.take(8)
@@ -127,12 +126,6 @@ class DashboardViewModel(
             }
         }
 
-    private val entriesLastWeek: List<NutritionEntry>
-        get() {
-            val weekAgoMillis = System.currentTimeMillis() - 7L * 24 * 60 * 60 * 1000
-            return nutritionEntries.filter { it.createdAt >= weekAgoMillis }
-        }
-
     val weeklyGoal: Double
         get() = onboardingData.value?.weightGoal?.kgPerWeek ?: WeightGoal.NORMAL.kgPerWeek
 
@@ -147,6 +140,15 @@ class DashboardViewModel(
         get() = if (trackedDays > 0) totalEaten / trackedDays else 0
     val avgBurned: Int
         get() = if (trackedDays > 0) totalBurned / trackedDays else 0
+
+    val totalSaturatedFatLimit: Double
+        get() = calculateSaturatedFatLimit(dailyCalorieLimit, range)
+
+    val totalSugarLimit: Double
+        get() = calculateSugarLimit(dailyCalorieLimit, range)
+
+    val totalSaltLimit: Double
+        get() = calculateSaltLimit(range)
 
     val bestDay: Pair<LocalDate, Double>?
         get() {
@@ -167,6 +169,15 @@ class DashboardViewModel(
 
     val calorieDeficit: Int
         get() = ((dailyCalorieLimit * trackedDays) - totalCalories)
+
+    val totalSugar: Int get() = getTotalNutritionValue { it.sugar }
+    val totalSaturatedFat: Int get() = getTotalNutritionValue { it.saturatedFat }
+    val totalSalt: Int get() = getTotalNutritionValue { it.salt }
+    val totalCarbs: Int get() = getTotalNutritionValue { it.carbohydrates }
+    val totalCholesterol: Int get() = getTotalNutritionValue { it.cholesterol }
+    val totalMagnesium: Int get() = getTotalNutritionValue { it.magnesium }
+    val totalIron: Int get() = getTotalNutritionValue { it.iron }
+    val totalVitaminC: Int get() = getTotalNutritionValue { it.vitaminC }
 
     init {
         viewModelScope.launch {
@@ -233,10 +244,6 @@ class DashboardViewModel(
         }
     }
 
-    private fun getDailyTotal(selector: (NutritionEntry) -> Double): Int {
-        return (nutritionEntriesByDate[selectedDate]?.sumOf(selector) ?: 0.0).toInt()
-    }
-
     fun updateEntry(
         entry: NutritionEntry,
         newName: String,
@@ -264,5 +271,13 @@ class DashboardViewModel(
         viewModelScope.launch {
             prefRepository.setNutritionEntries(nutritionEntries)
         }
+    }
+
+    private fun getTotalNutritionValue(selector: (NutritionEntry) -> Double): Int {
+        return (0 until range).sumOf { day ->
+            val today = LocalDate.now()
+            nutritionEntriesByDate[today.minusDays(day.toLong())]
+                ?.sumOf { selector(it) } ?: 0.0
+        }.roundToInt()
     }
 }

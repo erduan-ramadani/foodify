@@ -28,3 +28,22 @@ fun calculateTDEE(bmr: Int, activityLevel: ActivityLevel?): Int {
     }
     return tdee.toInt()
 }
+
+fun calculateSaturatedFatLimit(
+    dailyCalorieLimit: Int,
+    days: Int
+): Double {
+    val dailySatFatLimit = (dailyCalorieLimit * 0.1) / 9.0
+    return (dailySatFatLimit * days)
+}
+
+fun calculateSugarLimit(
+    dailyCalorieLimit: Int,
+    days: Int,
+): Double {
+    return (((dailyCalorieLimit * 0.1) / 4.0) * days)
+}
+
+fun calculateSaltLimit(days: Int): Double {
+    return 5.0 * days
+}
