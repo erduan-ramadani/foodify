@@ -159,6 +159,7 @@ class DashboardViewModel(
                     val net = entries.sumOf { if (it.isMeal) it.calories else -it.calories }
                     date to (dailyCalorieLimit - net)
                 }
+                .filter { it.second > 0 }  // nur Tage mit echtem Defizit
             return dayDeficits.maxByOrNull { it.second }
         }
 
