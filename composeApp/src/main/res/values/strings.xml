@@ -195,6 +195,6 @@
     <!-- Voice -->
     <string name="voice_listening">Höre zu…</string>
     <string name="voice_done">Fertig</string>
-    <string name="voice_hint">Sprich jetzt deine Mahlzeit</string>
+    <string name="voice_hint">Sprich jetzt deine Mahlzeit oder Aktivität</string>
     <string name="apply">Übernehmen</string>
 </resources>

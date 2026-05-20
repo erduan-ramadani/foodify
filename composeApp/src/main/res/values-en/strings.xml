@@ -194,6 +194,6 @@
     <!-- Voice -->
     <string name="voice_listening">Listening…</string>
     <string name="voice_done">Done</string>
-    <string name="voice_hint">Speak your meal now</string>
+    <string name="voice_hint">Speak your meal or activity now</string>
     <string name="apply">Apply</string>
 </resources>
