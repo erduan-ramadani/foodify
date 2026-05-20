@@ -20,6 +20,13 @@ fun buildNutritionQuery(query: String, userWeightKg: Double): String {
         - Use a standard, average serving size for ONE unit, regardless of quantity.
         - Example: 1 Döner = always ~550 kcal, whether the input is "1 Döner" or "10 Döner".
         - DO NOT change the per-unit values based on quantity.
+        - For ambiguous items, use the simplest preparation:
+        - "1 egg" = 1 medium boiled egg (~75 kcal), not fried with oil
+        - "1 toast" = 1 slice of plain bread, not buttered
+        - When unsure, choose the lower-calorie standard preparation
+        - Extract quantity from input, including written numbers 
+            (e.g. "vier" = 4, "ein/eine" = 1, "zwei" = 2, "ten" = 10).
+        - If no quantity is found, set quantity=1.
 
         If the input is an ACTIVITY (e.g. "30min walking", "1h cycling", "45min jogging"):
         - Calculate calories burned using MET values for a person weighing $userWeightKg kg.
