@@ -16,6 +16,7 @@ data class NutritionEntry(
     val emoji: String = "",
     val createdAt: Long = System.currentTimeMillis(),
     val calories: Double = 0.0,
+    val quantity: Int = 1,
     val protein: Double = 0.0,
     val fat: Double = 0.0,
     val saturatedFat: Double = 0.0,
@@ -54,3 +55,40 @@ val NutritionEntry.formattedTime: String
         val time = instant.atZone(ZoneId.systemDefault()).toLocalTime()
         return time.format(DateTimeFormatter.ofPattern("HH:mm"))
     }
+
+fun NutritionEntry.multiplyByQuantity(): NutritionEntry {
+    if (quantity <= 1) return this
+    val q = quantity
+    return copy(
+        calories = calories * q,
+        protein = protein * q,
+        fat = fat * q,
+        saturatedFat = saturatedFat * q,
+        unsaturatedFat = unsaturatedFat * q,
+        carbohydrates = carbohydrates * q,
+        sugar = sugar * q,
+        fiber = fiber * q,
+        salt = salt * q,
+        cholesterol = cholesterol * q,
+        sodium = sodium * q,
+        potassium = potassium * q,
+        vitaminA = vitaminA * q,
+        vitaminB6 = vitaminB6 * q,
+        vitaminB12 = vitaminB12 * q,
+        vitaminC = vitaminC * q,
+        vitaminD = vitaminD * q,
+        vitaminE = vitaminE * q,
+        vitaminK = vitaminK * q,
+        folicAcid = folicAcid * q,
+        calcium = calcium * q,
+        iron = iron * q,
+        magnesium = magnesium * q,
+        zinc = zinc * q,
+        phosphorus = phosphorus * q,
+        selenium = selenium * q,
+        copper = copper * q,
+        manganese = manganese * q,
+        omega3 = omega3 * q,
+        omega6 = omega6 * q
+    )
+}

@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 data class MessageRequest(
     val model: String,
     val max_tokens: Int,
+    val temperature: Double,
     val messages: List<Message>
 )
 

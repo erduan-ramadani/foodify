@@ -11,8 +11,10 @@ fun buildNutritionQuery(query: String, userWeightKg: Double): String {
         Return nutritional values for "$query" as JSON. No text before or after the JSON.
 
         If the input is a MEAL:
-        - Calculate values based on standard nutrition tables (USDA).
-        - If no amount is specified, assume a typical serving size.
+        - Extract the quantity from the input (e.g. "5 Dönerkebap" → quantity=5, item=Dönerkebap).
+        - If no quantity is specified, set quantity=1 and assume a typical serving size.
+        - Calculate nutritional values for ONE unit only (e.g. 1 Dönerkebap).
+        - The app will multiply these values by quantity automatically.
         - Calories must be positive.
         - JSON field isMeal is true.
 
@@ -29,7 +31,7 @@ fun buildNutritionQuery(query: String, userWeightKg: Double): String {
         - "10000 steps" ≈ ${(userWeightKg * 4)} kcal
 
         JSON fields:
-        isMeal, calories, emoji, protein, fat, saturatedFat, unsaturatedFat, carbohydrates,
+        isMeal, calories, quantity, emoji, protein, fat, saturatedFat, unsaturatedFat, carbohydrates,
         sugar, fiber, salt, cholesterol, sodium, potassium, vitaminA, vitaminB6,
         vitaminB12, vitaminC, vitaminD, vitaminE, vitaminK, folicAcid, calcium,
         iron, magnesium, zinc, phosphorus, selenium, copper, manganese, omega3, omega6

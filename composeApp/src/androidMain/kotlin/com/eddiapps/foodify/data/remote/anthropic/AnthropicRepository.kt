@@ -3,6 +3,7 @@ package com.eddiapps.foodify.data.remote.anthropic
 import com.eddiapps.foodify.data.remote.firebase.FirebaseRepository
 import com.eddiapps.foodify.domain.AnthropicInterface
 import com.eddiapps.foodify.domain.model.sheet.NutritionEntry
+import com.eddiapps.foodify.domain.model.sheet.multiplyByQuantity
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -38,6 +39,7 @@ class AnthropicRepository(
                     MessageRequest(
                         model = "claude-haiku-4-5",
                         max_tokens = 1024,
+                        temperature = 0.0,
                         messages = listOf(
                             Message(
                                 role = "user",
@@ -52,7 +54,12 @@ class AnthropicRepository(
                 .content.firstOrNull()?.text ?: ""
             val cleaned = "{${response.substringAfter("{").substringBeforeLast("}")}}"
             val json = Json { ignoreUnknownKeys = true }
-            json.decodeFromString<NutritionEntry>(cleaned).copy(query = query)
+            val parsed = json.decodeFromString<NutritionEntry>(cleaned).copy(query = query)
+            println("Before multiply: quantity=${parsed.quantity}, calories=${parsed.calories}")
+
+            val entry = if (parsed.isMeal) parsed.multiplyByQuantity() else parsed
+            println("After multiply: quantity=${entry.quantity}, calories=${entry.calories}")
+            entry
         }
     }
 }
