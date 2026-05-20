@@ -10,7 +10,8 @@ data class OnboardingData(
     val unitSystem: UnitSystem,
     val pickerState: PickerState,
     val dailyCalorieLimit: Int,
-    val weightGoal: WeightGoal?
+    val weightGoal: WeightGoal?,
+    val tdee: Int
 )
 
 enum class WeightGoal(val kgPerWeek: Double) {

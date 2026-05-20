@@ -35,9 +35,6 @@ class OnboardingViewModel(
         )
     )
     val pickerState = _pickerState.asStateFlow()
-
-    //    val _pickerState.value: _pickerState.value
-//        get() = _pickerState.value
     var isMale: Boolean? by mutableStateOf(null)
     val ageRange: ClosedFloatingPointRange<Float> = 10f..99f
 
@@ -129,7 +126,8 @@ class OnboardingViewModel(
             unitSystem = unitSystem,
             pickerState = _pickerState.value,
             dailyCalorieLimit = dailyCalorieLimit,
-            weightGoal = weightGoal
+            weightGoal = weightGoal,
+            tdee = tdee
         )
     }
 
