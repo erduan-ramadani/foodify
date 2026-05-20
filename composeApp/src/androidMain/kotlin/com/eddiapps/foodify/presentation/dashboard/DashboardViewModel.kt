@@ -49,8 +49,6 @@ class DashboardViewModel(
     var dailyCalorieLimit by mutableIntStateOf(0)
 
     var selectedDate: LocalDate by mutableStateOf(LocalDate.now())
-    val isToday: Boolean
-        get() = selectedDate == LocalDate.now()
     var isLoading by mutableStateOf(false)
     private val _stringEvents = Channel<String>()
     private val _connectionEvents = Channel<UiConnectionEvent>()
@@ -170,9 +168,20 @@ class DashboardViewModel(
     val calorieDeficit: Int
         get() = ((dailyCalorieLimit * trackedDays) - totalCalories)
 
+    val nutrientList: List<Pair<String, String>>
+        get() = listOf(
+            "Protein" to "$totalProtein g",
+            "Kohlenhydrate" to "$totalCarbs g",
+            "Cholesterin" to "$totalCholesterol mg",
+            "Magnesium" to "$totalMagnesium mg",
+            "Eisen" to "$totalIron mg",
+            "Vitamin C" to "$totalVitaminC mg",
+        )
+
     val totalSugar: Int get() = getTotalNutritionValue { it.sugar }
     val totalSaturatedFat: Int get() = getTotalNutritionValue { it.saturatedFat }
     val totalSalt: Int get() = getTotalNutritionValue { it.salt }
+    val totalProtein: Int get() = getTotalNutritionValue { it.protein }
     val totalCarbs: Int get() = getTotalNutritionValue { it.carbohydrates }
     val totalCholesterol: Int get() = getTotalNutritionValue { it.cholesterol }
     val totalMagnesium: Int get() = getTotalNutritionValue { it.magnesium }

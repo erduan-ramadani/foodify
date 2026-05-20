@@ -22,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.eddiapps.foodify.R
 import com.eddiapps.foodify.presentation.dashboard.DashboardViewModel
+import com.eddiapps.foodify.presentation.dashboard.analysistab.components.AllNutrientsCard
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.BestDayCard
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.GoalProgressCard
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.HeroCard
@@ -172,6 +173,12 @@ fun AnalysisScreen() {
                 )
                 Spacer(modifier = Modifier.height(12.dp))
             }
+            item {
+                Text("${vm.range}-Tage-Bilanz")
+                Spacer(modifier = Modifier.height(12.dp))
+            }
+            item {
+                AllNutrientsCard(vm.nutrientList)
                 Spacer(modifier = Modifier.height(12.dp))
             }
         }
