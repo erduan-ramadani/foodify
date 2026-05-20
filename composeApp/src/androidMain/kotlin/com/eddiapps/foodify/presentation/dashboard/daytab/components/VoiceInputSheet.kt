@@ -35,6 +35,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
@@ -94,7 +95,7 @@ fun VoiceInputSheet(
         }
     }
 
-    DisposableEffect(hasPermission) {
+    fun startListening() {
         if (hasPermission) {
             speechRecognizer.setRecognitionListener(object : RecognitionListener {
                 override fun onReadyForSpeech(params: Bundle?) {
@@ -140,6 +141,10 @@ fun VoiceInputSheet(
             }
             speechRecognizer.startListening(intent)
         }
+    }
+
+    DisposableEffect(hasPermission) {
+        startListening()
         onDispose {
             speechRecognizer.destroy()
         }
@@ -157,7 +162,10 @@ fun VoiceInputSheet(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Mic-Icon mit Pulse-Animation
-            PulsingMicIcon(isActive = isListening)
+            PulsingMicIcon(
+                isActive = isListening,
+                onMicClick = { if (!isListening) startListening() }
+            )
 
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -226,7 +234,10 @@ fun VoiceInputSheet(
 }
 
 @Composable
-private fun PulsingMicIcon(isActive: Boolean) {
+private fun PulsingMicIcon(
+    isActive: Boolean,
+    onMicClick: () -> Unit,
+) {
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
     val scale by infiniteTransition.animateFloat(
         initialValue = 1f,
@@ -275,12 +286,15 @@ private fun PulsingMicIcon(isActive: Boolean) {
                 ),
             contentAlignment = Alignment.Center
         ) {
-            Icon(
-                imageVector = Icons.Default.Mic,
-                contentDescription = null,
-                tint = Color.White,
-                modifier = Modifier.size(36.dp)
-            )
+            IconButton(onClick = onMicClick) {
+                Icon(
+                    imageVector = Icons.Default.Mic,
+                    contentDescription = null,
+                    tint = Color.White,
+                    modifier = Modifier.size(36.dp)
+                )
+            }
+
         }
     }
 }
