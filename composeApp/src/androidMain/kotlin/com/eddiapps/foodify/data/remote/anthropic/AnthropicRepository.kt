@@ -36,7 +36,7 @@ class AnthropicRepository(
                 header("anthropic-version", "2023-06-01")
                 setBody(
                     MessageRequest(
-                        model = "claude-sonnet-4-6",
+                        model = "claude-haiku-4-5",
                         max_tokens = 1024,
                         messages = listOf(
                             Message(
