@@ -47,7 +47,6 @@ class DashboardViewModel(
         null
     )
     var dailyCalorieLimit by mutableIntStateOf(0)
-
     var selectedDate: LocalDate by mutableStateOf(LocalDate.now())
     var isLoading by mutableStateOf(false)
     private val _stringEvents = Channel<String>()
@@ -56,6 +55,8 @@ class DashboardViewModel(
     val connectionEvents = _connectionEvents.receiveAsFlow()
 
     // === DAY TAB ===
+    // Merkt sich was "heute" war, als die App zuletzt aktiv war
+    private var lastKnownToday: LocalDate = LocalDate.now()
     val dailyCalories: Int
         get() {
             return dailyCaloriesEaten - dailyCaloriesBurned
@@ -202,6 +203,15 @@ class DashboardViewModel(
                 dailyCalorieLimit = data?.dailyCalorieLimit ?: 0
             }
         }
+    }
+
+    fun onResume() {
+        val today = LocalDate.now()
+        // Tag hat sich geändert UND User stand auf der "Heute"-Seite
+        if (today != lastKnownToday && selectedDate == lastKnownToday) {
+            selectedDate = today
+        }
+        lastKnownToday = today
     }
 
     fun requestNutritionValues(query: String) {
