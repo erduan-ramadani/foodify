@@ -42,7 +42,7 @@ fun RecentSuggestions(
             items(entries, key = { it.id }) { entry ->
                 SuggestionChip(
                     onClick = { onSuggestionClick(entry) },
-                    label = { Text("${entry.emoji} ${entry.query}") },
+                    label = { Text("${entry.emoji} ${entry.title}") },
                     colors = SuggestionChipDefaults.suggestionChipColors(
                         containerColor = MaterialTheme.colorScheme.surface
                     )
