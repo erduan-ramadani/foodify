@@ -4,11 +4,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MessageResponse(
-    val content: List<ContentBlock> = emptyList()
+    val content: List<ResponseContent>
 )
 
 @Serializable
-data class ContentBlock(
+data class ResponseContent(
     val type: String,
     val text: String? = null
 )

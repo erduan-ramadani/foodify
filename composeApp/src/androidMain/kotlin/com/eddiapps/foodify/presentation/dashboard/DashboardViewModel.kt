@@ -214,15 +214,19 @@ class DashboardViewModel(
         lastKnownToday = today
     }
 
-    fun requestNutritionValues(query: String) {
+    fun requestNutritionValues(query: String, isImage: Boolean) {
         viewModelScope.launch {
             isLoading = true
-            val formattedQuery = query.replaceFirstChar { it.uppercase() }
-            val result = anthropicRepo.requestNutritionValues(
-                formattedQuery,
-                onboardingData.value?.pickerState?.weightKg ?: 75.0
-            )
+            val result = if (isImage) {
+                anthropicRepo.requestNutritionValuesFromImage(query)
+            } else {
+                anthropicRepo.requestNutritionValues(
+                    query,
+                    onboardingData.value?.pickerState?.weightKg ?: 75.0
+                )
+            }
             result.onFailure { exception ->
+                println("Antwort: $exception")
                 val event = when (exception) {
                     is UnknownHostException -> UiConnectionEvent.NoInternet
                     is HttpRequestTimeoutException -> UiConnectionEvent.Timeout

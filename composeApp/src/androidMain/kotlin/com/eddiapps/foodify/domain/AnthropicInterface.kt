@@ -4,4 +4,7 @@ import com.eddiapps.foodify.domain.model.sheet.NutritionEntry
 
 interface AnthropicInterface {
     suspend fun requestNutritionValues(query: String, weight: Double): Result<NutritionEntry>
+    suspend fun requestNutritionValuesFromImage(
+        base64Image: String,
+    ): Result<NutritionEntry>
 }

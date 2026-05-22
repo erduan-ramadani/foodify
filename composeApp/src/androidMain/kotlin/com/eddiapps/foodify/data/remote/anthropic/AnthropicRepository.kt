@@ -10,6 +10,7 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
@@ -19,9 +20,14 @@ class AnthropicRepository(
     private val firebaseRepository: FirebaseRepository
 ) : AnthropicInterface {
 
+    private val json = Json { ignoreUnknownKeys = true }
+
     private val client = HttpClient {
         install(ContentNegotiation) {
-            json(Json { ignoreUnknownKeys = true })
+            json(Json {
+                ignoreUnknownKeys = true
+                encodeDefaults = true
+            })
         }
     }
 
@@ -43,8 +49,10 @@ class AnthropicRepository(
                         messages = listOf(
                             Message(
                                 role = "user",
-                                content = buildNutritionQuery(
-                                    query, weight
+                                content = listOf(
+                                    ContentBlock.Text(
+                                        text = buildNutritionQuery(query, weight)
+                                    )
                                 )
                             )
                         )
@@ -60,6 +68,43 @@ class AnthropicRepository(
             val entry = if (parsed.isMeal) parsed.multiplyByQuantity() else parsed
             println("After multiply: quantity=${entry.quantity}, calories=${entry.calories}")
             entry
+        }
+    }
+
+    override suspend fun requestNutritionValuesFromImage(
+        base64Image: String,
+    ): Result<NutritionEntry> {
+        val key = firebaseRepository.fetchAnthropicApiKey()
+        return runCatching {
+            val httpResponse = client.post("https://api.anthropic.com/v1/messages") {
+                contentType(ContentType.Application.Json)
+                header("x-api-key", key)
+                header("anthropic-version", "2023-06-01")
+                setBody(
+                    MessageRequest(
+                        model = "claude-sonnet-4-6",
+                        max_tokens = 1024,
+                        temperature = 0.0,
+                        messages = listOf(
+                            Message(
+                                role = "user",
+                                content = listOf(
+                                    ContentBlock.Image(source = ImageSource(data = base64Image)),
+                                    ContentBlock.Text(text = buildImageNutritionQuery())
+                                )
+                            )
+                        )
+                    )
+                )
+            }
+            val rawBody = httpResponse.bodyAsText()
+            println("Raw image API response: $rawBody")
+
+            val messageResponse = json.decodeFromString<MessageResponse>(rawBody)
+            val response = messageResponse.content.firstOrNull()?.text ?: ""
+
+            val cleaned = "{${response.substringAfter("{").substringBeforeLast("}")}}"
+            json.decodeFromString<NutritionEntry>(cleaned)
         }
     }
 }
