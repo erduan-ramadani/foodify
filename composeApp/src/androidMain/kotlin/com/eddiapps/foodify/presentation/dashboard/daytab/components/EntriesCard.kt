@@ -154,7 +154,7 @@ private fun EntryRow(
         // Name + Subtitle
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = entry.query,
+                text = entry.title,
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.onSurface,

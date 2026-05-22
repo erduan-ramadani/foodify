@@ -59,7 +59,7 @@ fun EditEntrySheet(
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
-    var name by remember { mutableStateOf(entry.query) }
+    var title by remember { mutableStateOf(entry.title) }
     var calories by remember { mutableStateOf(entry.calories.toInt().toString()) }
     var showTimePicker by remember { mutableStateOf(false) }
 
@@ -110,8 +110,8 @@ fun EditEntrySheet(
             )
             Spacer(modifier = Modifier.height(6.dp))
             OutlinedTextField(
-                value = name,
-                onValueChange = { name = it },
+                value = title,
+                onValueChange = { title = it },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp)
@@ -190,7 +190,7 @@ fun EditEntrySheet(
                 onClick = {
                     val newTime = LocalTime.of(timeState.hour, timeState.minute)
                     val newCalories = calories.toDoubleOrNull() ?: entry.calories
-                    onSave(name, newTime, newCalories)
+                    onSave(title, newTime, newCalories)
                 },
                 shape = RoundedCornerShape(20.dp),
                 modifier = Modifier.fillMaxWidth()

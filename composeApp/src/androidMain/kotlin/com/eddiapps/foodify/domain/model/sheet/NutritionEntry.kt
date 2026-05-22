@@ -12,6 +12,7 @@ import java.util.UUID
 data class NutritionEntry(
     val id: String = UUID.randomUUID().toString(),
     val query: String = "",
+    val title: String = "",
     val isMeal: Boolean = true,
     val emoji: String = "",
     val createdAt: Long = System.currentTimeMillis(),

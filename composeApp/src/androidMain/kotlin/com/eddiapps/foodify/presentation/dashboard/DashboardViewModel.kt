@@ -287,7 +287,7 @@ class DashboardViewModel(
             .toEpochMilli()
 
         nutritionEntries[index] = entry.copy(
-            query = newName,
+            title = newName,
             createdAt = newTimestamp,
             calories = newCalories
         )

@@ -68,7 +68,7 @@ fun NutritionBottomSheet(
 
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = entry.query,
+                        text = entry.title,
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.primary
                     )
