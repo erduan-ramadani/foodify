@@ -44,7 +44,7 @@ import com.eddiapps.foodify.presentation.dashboard.daytab.components.VoiceInputS
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun FoodifyBottomBar(
-    onButtonClick: (String) -> Unit,
+    onMicButtonClick: (String) -> Unit,
     onCameraButtonClick: (String) -> Unit,
     isLoading: Boolean
 ) {
@@ -70,7 +70,7 @@ fun FoodifyBottomBar(
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
         keyboardActions = KeyboardActions(
             onDone = {
-                onButtonClick(userTextInput)
+                onMicButtonClick(userTextInput)
                 keyboardController?.hide()
                 userTextInput = ""
             }
@@ -117,7 +117,7 @@ fun FoodifyBottomBar(
                             .clip(RoundedCornerShape(12.dp))
                             .background(MaterialTheme.colorScheme.primary)
                             .clickable {
-                                onButtonClick(userTextInput)
+                                onMicButtonClick(userTextInput)
                                 keyboardController?.hide()
                                 userTextInput = ""
                             },
@@ -138,7 +138,7 @@ fun FoodifyBottomBar(
             onDismiss = { showVoiceSheet = false },
             onTextRecognized = { spokenText ->
                 userTextInput = spokenText
-                onButtonClick(userTextInput)
+                onMicButtonClick(userTextInput)
                 userTextInput = ""
             }
         )
