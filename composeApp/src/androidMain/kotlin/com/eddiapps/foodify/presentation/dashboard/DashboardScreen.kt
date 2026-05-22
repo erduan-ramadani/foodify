@@ -62,6 +62,15 @@ fun DashboardScreen(
         }
     }
 
+    LaunchedEffect(Unit) {
+        vm.messageEvents.collect { resId ->
+            snackbarHostState.showSnackbar(
+                message = context.getString(resId),
+                duration = SnackbarDuration.Long
+            )
+        }
+    }
+
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         snackbarHost = { SnackbarHost(snackbarHostState) },

@@ -197,4 +197,8 @@
     <string name="voice_done">Fertig</string>
     <string name="voice_hint">Sprich jetzt deine Mahlzeit oder Aktivität</string>
     <string name="apply">Übernehmen</string>
+
+    <!-- Camera -->
+    <string name="take_photo">Foto aufnehmen</string>
+    <string name="meal_not_detected">Keine Mahlzeit erkannt. Bitte füge ein Lebensmittel hinzu.</string>
 </resources>

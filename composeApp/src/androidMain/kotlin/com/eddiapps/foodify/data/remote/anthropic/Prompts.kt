@@ -41,7 +41,28 @@ fun buildNutritionQuery(query: String, userWeightKg: Double): String {
         - "10000 steps" ≈ ${(userWeightKg * 4)} kcal
 
         JSON fields:
-        isMeal, calories, quantity, emoji, protein, fat, saturatedFat, unsaturatedFat, carbohydrates,
+        title, isMeal, isMealDetected, calories, quantity, emoji, protein, fat, saturatedFat, unsaturatedFat, carbohydrates,
+        sugar, fiber, salt, cholesterol, sodium, potassium, vitaminA, vitaminB6,
+        vitaminB12, vitaminC, vitaminD, vitaminE, vitaminK, folicAcid, calcium,
+        iron, magnesium, zinc, phosphorus, selenium, copper, manganese, omega3, omega6
+    """.trimIndent()
+}
+
+fun buildImageNutritionQuery(): String {
+    val locale = Locale.getDefault().displayLanguage
+    return """
+        Analyze the food in this image. Output language context: $locale.
+        Identify all food items and estimate portion sizes visually.
+        Return nutritional values as JSON. No text before or after the JSON.
+        
+        - Estimate the total values for the entire meal shown.
+        - If multiple items are visible, sum them up.
+        - Calories must be positive.
+        - isMeal is true, quantity is 1.
+        - If you dont recognize a meal set isMealDetected to false
+        
+        JSON fields:
+        title, isMeal, isMealDetected, calories, quantity, emoji, protein, fat, saturatedFat, unsaturatedFat, carbohydrates,
         sugar, fiber, salt, cholesterol, sodium, potassium, vitaminA, vitaminB6,
         vitaminB12, vitaminC, vitaminD, vitaminE, vitaminK, folicAcid, calcium,
         iron, magnesium, zinc, phosphorus, selenium, copper, manganese, omega3, omega6

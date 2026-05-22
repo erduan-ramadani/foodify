@@ -14,6 +14,7 @@ data class NutritionEntry(
     val query: String = "",
     val title: String = "",
     val isMeal: Boolean = true,
+    val isMealDetected: Boolean = true,
     val emoji: String = "",
     val createdAt: Long = System.currentTimeMillis(),
     val calories: Double = 0.0,

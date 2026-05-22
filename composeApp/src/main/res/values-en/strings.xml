@@ -196,4 +196,8 @@
     <string name="voice_done">Done</string>
     <string name="voice_hint">Speak your meal or activity now</string>
     <string name="apply">Apply</string>
+
+    <!-- Camera -->
+    <string name="take_photo">Take photo</string>
+    <string name="meal_not_detected">"Meal not detected. Please add a food or a drink."</string>
 </resources>

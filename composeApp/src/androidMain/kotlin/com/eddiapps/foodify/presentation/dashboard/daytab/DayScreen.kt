@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.unit.dp
 import com.eddiapps.foodify.presentation.dashboard.DashboardViewModel
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.BalanceCard
@@ -31,12 +32,13 @@ fun DayScreen(
     val dailyEntries =
         vm.nutritionEntriesByDate[vm.selectedDate] ?: emptyList()
     val listState = rememberLazyListState()
+    val context = LocalResources.current
 
 
     LaunchedEffect(Unit) {
-        vm.stringEvents.collect { apiResponse ->
+        vm.messageEvents.collect { apiResponse ->
             snackbarHostState.showSnackbar(
-                message = apiResponse,
+                message = context.getString(apiResponse),
                 duration = SnackbarDuration.Long
             )
         }

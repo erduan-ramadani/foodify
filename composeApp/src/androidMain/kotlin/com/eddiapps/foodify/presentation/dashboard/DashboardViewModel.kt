@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eddiapps.foodify.R
 import com.eddiapps.foodify.domain.AnthropicInterface
 import com.eddiapps.foodify.domain.PreferencesInterface
 import com.eddiapps.foodify.domain.calculation.calculateSaltLimit
@@ -49,9 +50,9 @@ class DashboardViewModel(
     var dailyCalorieLimit by mutableIntStateOf(0)
     var selectedDate: LocalDate by mutableStateOf(LocalDate.now())
     var isLoading by mutableStateOf(false)
-    private val _stringEvents = Channel<String>()
+    private val _messageEvents = Channel<Int>()
+    val messageEvents = _messageEvents.receiveAsFlow()
     private val _connectionEvents = Channel<UiConnectionEvent>()
-    val stringEvents = _stringEvents.receiveAsFlow()
     val connectionEvents = _connectionEvents.receiveAsFlow()
 
     // === DAY TAB ===
@@ -234,9 +235,13 @@ class DashboardViewModel(
                 }
                 _connectionEvents.send(event)
             }
-            result.onSuccess { response ->
-                println("Antwort: $response")
-                addEntry(response)
+            result.onSuccess { nutritionEntry ->
+                println("Antwort: $nutritionEntry")
+                if (!nutritionEntry.isMealDetected) { // from image
+                    _messageEvents.send(R.string.meal_not_detected)
+                } else {
+                    addEntry(nutritionEntry)
+                }
             }
             isLoading = false
         }
