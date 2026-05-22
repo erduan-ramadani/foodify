@@ -27,6 +27,8 @@ fun buildNutritionQuery(query: String, userWeightKg: Double): String {
         - Extract quantity from input, including written numbers 
             (e.g. "vier" = 4, "ein/eine" = 1, "zwei" = 2, "ten" = 10).
         - If no quantity is found, set quantity=1.
+        - If the quantity is >1 add it to the title
+            (e.g. quantity = 2, title = Äpfel, title should be: 2 Äpfel)
 
         If the input is an ACTIVITY (e.g. "30min walking", "1h cycling", "45min jogging"):
         - Calculate calories burned using MET values for a person weighing $userWeightKg kg.
