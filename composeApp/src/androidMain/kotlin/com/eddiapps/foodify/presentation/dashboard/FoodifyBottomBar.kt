@@ -1,8 +1,12 @@
 package com.eddiapps.foodify.presentation.dashboard
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -34,17 +38,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.eddiapps.foodify.R
+import com.eddiapps.foodify.presentation.dashboard.daytab.components.CameraButton
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.VoiceInputSheet
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun FoodifyBottomBar(
     onButtonClick: (String) -> Unit,
+    onCameraButtonClick: (String) -> Unit,
     isLoading: Boolean
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     var userTextInput by remember { mutableStateOf("") }
     var showVoiceSheet by remember { mutableStateOf(false) }
-
 
     OutlinedTextField(
         value = userTextInput,
@@ -89,11 +95,17 @@ fun FoodifyBottomBar(
                 }
 
                 userTextInput.isBlank() -> {
-                    IconButton(onClick = { showVoiceSheet = true }) {
-                        Icon(
-                            Icons.Default.Mic, contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        IconButton(onClick = { showVoiceSheet = true }) {
+                            Icon(
+                                Icons.Default.Mic, contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        CameraButton(onCameraButtonClick)
                     }
                 }
 

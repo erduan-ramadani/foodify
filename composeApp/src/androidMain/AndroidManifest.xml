@@ -2,8 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name="com.eddiapps.foodify.presentation.FoodifyApp"
@@ -25,7 +30,8 @@
 
         <activity
             android:name="com.eddiapps.foodify.presentation.MainActivity"
-            android:exported="false"></activity>
+            android:exported="false"
+            tools:targetApi="26"></activity>
 
         <service
             android:name="com.eddiapps.foodify.data.remote.firebase.FirebaseService"
