@@ -63,10 +63,7 @@ class AnthropicRepository(
             val cleaned = "{${response.substringAfter("{").substringBeforeLast("}")}}"
             val json = Json { ignoreUnknownKeys = true }
             val parsed = json.decodeFromString<NutritionEntry>(cleaned).copy(query = query)
-            println("Before multiply: quantity=${parsed.quantity}, calories=${parsed.calories}")
-
             val entry = if (parsed.isMeal) parsed.multiplyByQuantity() else parsed
-            println("After multiply: quantity=${entry.quantity}, calories=${entry.calories}")
             entry
         }
     }
@@ -98,8 +95,6 @@ class AnthropicRepository(
                 )
             }
             val rawBody = httpResponse.bodyAsText()
-            println("Raw image API response: $rawBody")
-
             val messageResponse = json.decodeFromString<MessageResponse>(rawBody)
             val response = messageResponse.content.firstOrNull()?.text ?: ""
 

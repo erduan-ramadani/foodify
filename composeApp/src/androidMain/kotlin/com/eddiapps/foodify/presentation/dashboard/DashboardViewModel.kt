@@ -194,8 +194,6 @@ class DashboardViewModel(
     init {
         viewModelScope.launch {
             val loaded = prefRepository.getNutritionEntries()
-            Log.d("Foodify", "Loaded entries: ${loaded.size}")
-            loaded.forEach { println("  - ${it.query} at ${it.createdAt}") }
             nutritionEntries.addAll(loaded)
         }
 
@@ -227,7 +225,7 @@ class DashboardViewModel(
                 )
             }
             result.onFailure { exception ->
-                println("Antwort: $exception")
+                Log.d("Foodify", "Antwort failure: $exception")
                 val event = when (exception) {
                     is UnknownHostException -> UiConnectionEvent.NoInternet
                     is HttpRequestTimeoutException -> UiConnectionEvent.Timeout
@@ -236,7 +234,7 @@ class DashboardViewModel(
                 _connectionEvents.send(event)
             }
             result.onSuccess { nutritionEntry ->
-                println("Antwort: $nutritionEntry")
+                Log.d("Foodify", "Antwort success: $nutritionEntry")
                 if (!nutritionEntry.isMealDetected) { // from image
                     _messageEvents.send(R.string.meal_not_detected)
                 } else {

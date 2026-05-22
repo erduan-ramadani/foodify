@@ -20,3 +20,8 @@
 -dontwarn java.lang.management.**
 
 -dontwarn kotlinx.serialization.**
+
+-assumenosideeffects class android.util.Log {
+    public static int d(...);
+    public static int v(...);
+}
