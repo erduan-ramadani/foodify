@@ -18,12 +18,15 @@ import com.eddiapps.foodify.domain.calculation.calculateSaturatedFatLimit
 import com.eddiapps.foodify.domain.calculation.calculateSugarLimit
 import com.eddiapps.foodify.domain.model.onboarding.WeightGoal
 import com.eddiapps.foodify.domain.model.sheet.NutritionEntry
+import com.eddiapps.foodify.presentation.util.imageFileToBase64
 import io.ktor.client.plugins.HttpRequestTimeoutException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.net.UnknownHostException
 import java.time.Instant
 import java.time.LocalDate
@@ -213,14 +216,17 @@ class DashboardViewModel(
         lastKnownToday = today
     }
 
-    fun requestNutritionValues(query: String, imagePath: String?) {
+    fun requestNutritionValues(textQuery: String, imagePath: String? = null) {
         viewModelScope.launch {
             isLoading = true
             val result = if (imagePath != null) {
-                anthropicRepo.requestNutritionValuesFromImage(query)
+                val base64 = withContext(Dispatchers.IO) {
+                    imageFileToBase64(imagePath)
+                }
+                anthropicRepo.requestNutritionValuesFromImage(base64)
             } else {
                 anthropicRepo.requestNutritionValues(
-                    query,
+                    textQuery,
                     onboardingData.value?.pickerState?.weightKg ?: 75.0
                 )
             }

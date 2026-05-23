@@ -77,12 +77,10 @@ fun DashboardScreen(
         topBar = { FoodifyTopAppBar(onSettingsClick, vm) },
         bottomBar = {
             FoodifyBottomBar(
-                onMicButtonClick = { vm.requestNutritionValues(it, null) },
-                onCameraButtonClick = { base64, imagePath ->
-                    vm.requestNutritionValues(
-                        base64,
-                        imagePath
-                    )
+                onMicButtonClick = { vm.requestNutritionValues(textQuery = it) },
+                onCameraButtonClick = { photoFilePath ->
+                    vm.requestNutritionValues("", photoFilePath)
+
                 },
                 isLoading = vm.isLoading
             )
