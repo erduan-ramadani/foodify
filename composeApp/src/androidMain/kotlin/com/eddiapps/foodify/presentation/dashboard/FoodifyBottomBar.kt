@@ -45,7 +45,7 @@ import com.eddiapps.foodify.presentation.dashboard.daytab.components.VoiceInputS
 @Composable
 fun FoodifyBottomBar(
     onMicButtonClick: (String) -> Unit,
-    onCameraButtonClick: (String) -> Unit,
+    onCameraButtonClick: (String, String) -> Unit,
     isLoading: Boolean
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current

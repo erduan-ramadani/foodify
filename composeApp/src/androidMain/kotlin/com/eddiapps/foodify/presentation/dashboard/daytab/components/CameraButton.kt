@@ -18,19 +18,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
 import com.eddiapps.foodify.R
 import com.eddiapps.foodify.presentation.util.bitmapToBase64
+import com.eddiapps.foodify.presentation.util.saveBitmapToInternalStorage
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CameraButton(
-    onCameraClick: (String) -> Unit
+    onCameraClick: (String, String) -> Unit
 ) {
     val context = LocalContext.current
     val cameraLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.TakePicturePreview()
     ) { bitmap: Bitmap? ->
         bitmap?.let {
+            val imagePath = saveBitmapToInternalStorage(context, it)
             val base64 = bitmapToBase64(it)
-            onCameraClick(base64)
+            onCameraClick(base64, imagePath)
         }
     }
 

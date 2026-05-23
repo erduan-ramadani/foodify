@@ -213,10 +213,10 @@ class DashboardViewModel(
         lastKnownToday = today
     }
 
-    fun requestNutritionValues(query: String, isImage: Boolean) {
+    fun requestNutritionValues(query: String, imagePath: String?) {
         viewModelScope.launch {
             isLoading = true
-            val result = if (isImage) {
+            val result = if (imagePath != null) {
                 anthropicRepo.requestNutritionValuesFromImage(query)
             } else {
                 anthropicRepo.requestNutritionValues(
@@ -238,6 +238,7 @@ class DashboardViewModel(
                 if (!nutritionEntry.isMealDetected) { // from image
                     _messageEvents.send(R.string.meal_not_detected)
                 } else {
+                    val nutritionEntry = nutritionEntry.copy(imagePath = imagePath)
                     addEntry(nutritionEntry)
                 }
             }
