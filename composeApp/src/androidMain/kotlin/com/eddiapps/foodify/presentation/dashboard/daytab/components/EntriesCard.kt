@@ -29,7 +29,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -135,15 +134,12 @@ private fun EntryRow(
                     showEditSheet = true
                 }
             )
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically,
+            .padding(end = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        // Icon
         Box(
             modifier = Modifier
-                .size(32.dp)
-                .clip(RoundedCornerShape(8.dp))
+                .size(100.dp)
                 .background(MaterialTheme.colorScheme.surfaceVariant),
             contentAlignment = Alignment.Center
         ) {
@@ -152,54 +148,56 @@ private fun EntryRow(
                     model = entry.imagePath,
                     contentDescription = null,
                     modifier = Modifier
-                        .size(40.dp)
-                        .clip(RoundedCornerShape(8.dp)),
+                        .size(100.dp),
                     contentScale = ContentScale.Crop
                 )
             } else {
-                Text(text = entry.emoji, fontSize = 20.sp)
+                Text(text = entry.emoji, fontSize = 40.sp)
             }
         }
 
-        // Name + Subtitle
-        Column(modifier = Modifier.weight(1f)) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+        ) {
+            Text(
+                text = entry.formattedTime,
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(top = 8.dp)
+            )
             Text(
                 text = entry.title,
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.onSurface,
-                maxLines = 1,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
-            Spacer(modifier = Modifier.height(2.dp))
-            Text(
-                text = "${entry.formattedTime} · ${
-                    if (entry.isMeal) stringResource(R.string.meal)
-                    else stringResource(R.string.activity)
-                }",
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
+            Row(
+                horizontalArrangement = Arrangement.End
+            ) {
+                Text(
+                    text = if (entry.isMeal) "+${entry.calories.toInt()}" else "-${entry.calories.toInt()}",
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.SemiBold,
+                    color = if (entry.isMeal)
+                        MaterialTheme.colorScheme.onSurface
+                    else
+                        MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.alignByBaseline()
 
-        // Calories
-        Row(verticalAlignment = Alignment.Bottom) {
-            Text(
-                text = if (entry.isMeal) "+${entry.calories.toInt()}" else "${entry.calories.toInt()}",
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.SemiBold,
-                color = if (entry.isMeal)
-                    MaterialTheme.colorScheme.onSurface
-                else
-                    MaterialTheme.colorScheme.primary
-            )
-            Spacer(modifier = Modifier.width(2.dp))
-            Text(
-                text = "kcal",
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(bottom = 2.dp)
-            )
+                )
+                Spacer(modifier = Modifier.width(2.dp))
+                Text(
+                    text = "kcal",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.alignByBaseline()
+                )
+            }
         }
     }
 
