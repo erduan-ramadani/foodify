@@ -31,12 +31,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import com.eddiapps.foodify.R
 import com.eddiapps.foodify.domain.model.sheet.NutritionEntry
 import com.eddiapps.foodify.domain.model.sheet.formattedTime
@@ -145,10 +147,18 @@ private fun EntryRow(
                 .background(MaterialTheme.colorScheme.surfaceVariant),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = entry.emoji,
-                fontSize = 16.sp
-            )
+            if (entry.imagePath != null) {
+                AsyncImage(
+                    model = entry.imagePath,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(RoundedCornerShape(8.dp)),
+                    contentScale = ContentScale.Crop
+                )
+            } else {
+                Text(text = entry.emoji, fontSize = 20.sp)
+            }
         }
 
         // Name + Subtitle
