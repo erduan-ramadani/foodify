@@ -45,6 +45,7 @@ kotlin {
             implementation(libs.firebase.config)
             implementation(libs.firebase.messaging)
 
+            implementation(libs.coil.compose)
         }
         commonMain.dependencies {
             implementation(libs.androidx.lifecycle.viewmodelCompose)

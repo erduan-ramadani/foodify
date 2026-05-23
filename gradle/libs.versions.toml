@@ -15,6 +15,7 @@ kotlinx-coroutines = "1.10.2"
 kotlin = "2.3.20"
 material-icons = "1.7.3"
 material3 = "1.10.0-alpha05"
+coil = "3.4.0"
 
 # Third-Party
 koin = "4.2.1"
@@ -78,6 +79,9 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
 firebase-config = { group = "com.google.firebase", name = "firebase-config", version.ref = "firebaseConfig" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessaging" }
+
+#Coil
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
