@@ -7,11 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -30,8 +30,8 @@ fun Navigation() {
 
     val mainViewModel: MainViewModel = koinViewModel()
     val navController = rememberNavController()
-    val startState by mainViewModel.startState.collectAsState()
-    val isDarkMode by mainViewModel.isDarkMode.collectAsState()
+    val startState by mainViewModel.startState.collectAsStateWithLifecycle()
+    val isDarkMode by mainViewModel.isDarkMode.collectAsStateWithLifecycle()
 
     FoodifyTheme(darkTheme = isDarkMode) {
         when (startState) {

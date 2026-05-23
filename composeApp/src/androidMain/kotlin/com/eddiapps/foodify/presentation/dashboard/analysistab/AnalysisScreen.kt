@@ -14,12 +14,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.eddiapps.foodify.R
 import com.eddiapps.foodify.presentation.dashboard.DashboardViewModel
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.AllNutrientsCard
@@ -37,7 +37,7 @@ import org.koin.androidx.compose.koinViewModel
 fun AnalysisScreen() {
     val vm: DashboardViewModel = koinViewModel()
     // Triggers recomposition when onboarding data changes (e.g. weeklyGoal in settings)
-    val onboarding by vm.onboardingData.collectAsState()
+    val onboarding by vm.onboardingData.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier

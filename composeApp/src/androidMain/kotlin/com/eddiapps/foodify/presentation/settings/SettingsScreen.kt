@@ -33,7 +33,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,6 +45,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.eddiapps.foodify.BuildConfig
 import com.eddiapps.foodify.R
 import com.eddiapps.foodify.data.local.Scheduling
@@ -59,14 +59,14 @@ fun SettingsScreen(
     onDeleteAllData: () -> Unit,
 ) {
     val viewModel: SettingsViewModel = koinViewModel()
-    val isDarkMode by viewModel.isDarkMode.collectAsState(false)
-    val isReminding by viewModel.isReminding.collectAsState(true)
-    val onboardingData by viewModel.onboardingData.collectAsState(null)
+    val isDarkMode by viewModel.isDarkMode.collectAsStateWithLifecycle(false)
+    val isReminding by viewModel.isReminding.collectAsStateWithLifecycle(true)
+    val onboardingData by viewModel.onboardingData.collectAsStateWithLifecycle(null)
+    val pickerState by viewModel.pickerState.collectAsStateWithLifecycle()
+    val unitSystem by viewModel.unitSystem.collectAsStateWithLifecycle()
     var settingsField by remember { mutableStateOf<SettingsField?>(null) }
     var showConfirmDataDeletionDialog by remember { mutableStateOf(false) }
-    val unitSystem by viewModel.unitSystem.collectAsState()
 
-    val pickerState by viewModel.pickerState.collectAsState()
     val context = LocalContext.current
     val scheduleReminder = rememberReminderScheduler()
 

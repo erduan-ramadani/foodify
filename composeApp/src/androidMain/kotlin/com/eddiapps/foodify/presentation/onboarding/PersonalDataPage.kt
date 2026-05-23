@@ -28,7 +28,6 @@ import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,6 +38,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.eddiapps.foodify.R
 import com.eddiapps.foodify.presentation.picker.PickerBottomSheet
 import com.eddiapps.foodify.presentation.picker.PickerConfigMapper
@@ -56,7 +56,7 @@ fun PersonalDataPage(
     val interactionSourceWeight = remember { MutableInteractionSource() }
     val interactionSourceHeight = remember { MutableInteractionSource() }
 
-    val pickerState by vm.pickerState.collectAsState()
+    val pickerState by vm.pickerState.collectAsStateWithLifecycle()
 
 
     // Used in OutlinedTextField to open PickerBottomSheet on click
