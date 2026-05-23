@@ -58,7 +58,7 @@ fun CalorieRing(
     )
 
     Box(
-        modifier = Modifier.size(200.dp),
+        modifier = Modifier.size(160.dp),
         contentAlignment = Alignment.Center
     ) {
         Canvas(
