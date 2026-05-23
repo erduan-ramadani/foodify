@@ -45,7 +45,10 @@ fun DayScreen(
 
     LaunchedEffect(dailyEntries.size) {
         if (dailyEntries.isNotEmpty()) {
-            listState.animateScrollToItem(listState.layoutInfo.totalItemsCount - 1)
+            listState.animateScrollToItem(
+                index = listState.layoutInfo.totalItemsCount - 1,
+                scrollOffset = Int.MAX_VALUE
+            )
         }
     }
 
