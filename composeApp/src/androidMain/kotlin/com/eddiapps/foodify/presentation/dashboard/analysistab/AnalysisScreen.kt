@@ -42,7 +42,7 @@ fun AnalysisScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 8.dp)
+            .padding(8.dp)
     ) {
         LazyColumn(
             modifier = Modifier
