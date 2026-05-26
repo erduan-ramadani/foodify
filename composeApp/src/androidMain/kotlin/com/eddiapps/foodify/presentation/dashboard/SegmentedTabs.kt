@@ -25,11 +25,12 @@ import com.eddiapps.foodify.R
 @Composable
 fun SegmentedTabs(
     selectedTab: Int,
-    onTabSelected: (Int) -> Unit
+    onTabSelected: (Int) -> Unit,
+    modifier: Modifier
 ) {
     val tabs = listOf(stringResource(R.string.day), stringResource(R.string.analysis))
 
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = modifier.fillMaxWidth()) {
         Row(modifier = Modifier.fillMaxWidth()) {
             tabs.forEachIndexed { index, title ->
                 val isSelected = index == selectedTab
