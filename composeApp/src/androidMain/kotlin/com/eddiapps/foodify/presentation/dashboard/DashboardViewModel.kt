@@ -104,6 +104,16 @@ class DashboardViewModel(
     val progress: Float
         get() = if (dailyCalorieLimit > 0) dailyCalories.toFloat() / dailyCalorieLimit else 0f
 
+    fun progressForDate(date: LocalDate): Float {
+        val entries = nutritionEntriesByDate[date] ?: return 0f
+        val eaten = entries.filter { it.isMeal }.sumOf { it.calories }
+        val burned = entries.filter { !it.isMeal }.sumOf { it.calories }
+        val net = eaten - burned
+        return if (dailyCalorieLimit > 0)
+            (net / dailyCalorieLimit).toFloat().coerceIn(0f, 1f)
+        else 0f
+    }
+
     val remainingDailyCaloriesLimit: Int
         get() = (dailyCalorieLimit - dailyCalories).absoluteValue
 

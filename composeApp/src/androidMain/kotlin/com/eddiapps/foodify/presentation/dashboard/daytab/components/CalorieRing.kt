@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.stringResource
@@ -30,6 +29,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eddiapps.foodify.R
 import com.eddiapps.foodify.presentation.dashboard.DashboardViewModel
+import com.eddiapps.foodify.presentation.theme.CalorieGreen
+import com.eddiapps.foodify.presentation.theme.CalorieOrange
+import com.eddiapps.foodify.presentation.theme.CalorieYellow
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -39,9 +41,9 @@ fun CalorieRing(
     val isOverLimit = viewModel.dailyCalories > viewModel.dailyCalorieLimit
 
     val ringColor = when {
-        viewModel.progress > 1f -> Color(0xFFC77B5B)   // Über Limit - Orange
-        viewModel.progress > 0.85f -> Color(0xFFD4A04E) // Knapp - Gelb
-        else -> Color(0xFF4A9F6F)             // OK - Grün
+        viewModel.progress > 1f -> CalorieOrange   // Über Limit - Orange
+        viewModel.progress > 0.85f -> CalorieYellow // Knapp - Gelb
+        else -> CalorieGreen             // OK - Grün
     }
     val backgroundColor = MaterialTheme.colorScheme.outline
 
