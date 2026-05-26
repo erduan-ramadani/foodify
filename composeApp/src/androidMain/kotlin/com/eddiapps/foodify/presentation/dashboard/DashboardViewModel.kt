@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.UnknownHostException
+import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
@@ -52,6 +53,19 @@ class DashboardViewModel(
     )
     var dailyCalorieLimit by mutableIntStateOf(0)
     var selectedDate: LocalDate by mutableStateOf(LocalDate.now())
+    val visibleDays: List<LocalDate>
+        get() {
+            val today = LocalDate.now()
+            val start = today.minusDays(21).with(DayOfWeek.MONDAY)
+            val end = today.with(DayOfWeek.SUNDAY)
+            val days = mutableListOf<LocalDate>()
+            var date = start
+            while (!date.isAfter(end)) {
+                days.add(date)
+                date = date.plusDays(1)
+            }
+            return days
+        }
     var isLoading by mutableStateOf(false)
     private val _messageEvents = Channel<Int>()
     val messageEvents = _messageEvents.receiveAsFlow()

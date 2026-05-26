@@ -20,6 +20,7 @@ import com.eddiapps.foodify.presentation.dashboard.DashboardViewModel
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.BalanceCard
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.CalorieRing
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.EntriesCard
+import com.eddiapps.foodify.presentation.dashboard.daytab.components.WeekDaySelector
 import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -59,6 +60,9 @@ fun DayScreen(
             .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        item {
+            WeekDaySelector(vm)
+        }
         item {
             CalorieRing(vm)
         }
