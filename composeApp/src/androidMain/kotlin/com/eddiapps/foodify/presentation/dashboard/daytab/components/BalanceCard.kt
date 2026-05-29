@@ -31,20 +31,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.eddiapps.foodify.R
-import com.eddiapps.foodify.presentation.dashboard.DashboardViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun BalanceCard(
-    viewModel: DashboardViewModel
+    dailyCaloriesEaten: Int,
+    dailyCaloriesBurned: Int,
+    dailyCalorieLimit: Int
 ) {
     val animatedEatenCalories by animateIntAsState(
-        targetValue = viewModel.dailyCaloriesEaten,
+        targetValue = dailyCaloriesEaten,
         animationSpec = tween(durationMillis = 2000),
         label = "eatenCalorieAnimation"
     )
     val animatedBurnedCalories by animateIntAsState(
-        targetValue = viewModel.dailyCaloriesBurned,
+        targetValue = dailyCaloriesBurned,
         animationSpec = tween(durationMillis = 2000),
         label = "eatenCalorieAnimation"
     )
@@ -75,7 +76,7 @@ fun BalanceCard(
             )
             BalanceItem(
                 label = stringResource(R.string.limit),
-                value = viewModel.dailyCalorieLimit,
+                value = dailyCalorieLimit,
                 dotColor = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }

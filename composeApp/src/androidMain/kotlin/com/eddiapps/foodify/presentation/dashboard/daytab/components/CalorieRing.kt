@@ -28,7 +28,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eddiapps.foodify.R
-import com.eddiapps.foodify.presentation.dashboard.DashboardViewModel
 import com.eddiapps.foodify.presentation.theme.CalorieGreen
 import com.eddiapps.foodify.presentation.theme.CalorieOrange
 import com.eddiapps.foodify.presentation.theme.CalorieYellow
@@ -36,25 +35,26 @@ import com.eddiapps.foodify.presentation.theme.CalorieYellow
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CalorieRing(
-    viewModel: DashboardViewModel
+    remainingCalories: Int,
+    progress: Float,
+    isOverLimit: Boolean
 ) {
-    val isOverLimit = viewModel.dailyCalories > viewModel.dailyCalorieLimit
 
     val ringColor = when {
-        viewModel.progress > 1f -> CalorieOrange   // Über Limit - Orange
-        viewModel.progress > 0.85f -> CalorieYellow // Knapp - Gelb
+        progress > 1f -> CalorieOrange   // Über Limit - Orange
+        progress > 0.85f -> CalorieYellow // Knapp - Gelb
         else -> CalorieGreen             // OK - Grün
     }
     val backgroundColor = MaterialTheme.colorScheme.outline
 
     val animatedCalories by animateIntAsState(
-        targetValue = viewModel.remainingDailyCaloriesLimit,
+        targetValue = remainingCalories,
         animationSpec = tween(durationMillis = 2000),
         label = "calorieAnimation"
     )
 
     val animatedProgress by animateFloatAsState(
-        targetValue = viewModel.progress,
+        targetValue = progress,
         animationSpec = tween(durationMillis = 4000),
         label = "calorieAnimation"
     )

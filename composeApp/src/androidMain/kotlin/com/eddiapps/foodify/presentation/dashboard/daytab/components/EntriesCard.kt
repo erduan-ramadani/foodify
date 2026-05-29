@@ -41,14 +41,14 @@ import coil3.compose.AsyncImage
 import com.eddiapps.foodify.R
 import com.eddiapps.foodify.domain.model.sheet.NutritionEntry
 import com.eddiapps.foodify.domain.model.sheet.formattedTime
-import com.eddiapps.foodify.presentation.dashboard.DashboardViewModel
 import com.eddiapps.foodify.presentation.dashboard.daytab.sheet.NutritionBottomSheet
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun EntriesCard(
     entries: List<NutritionEntry>,
-    viewModel: DashboardViewModel
+    onDelete: (NutritionEntry) -> Unit,
+    onUpdate: (NutritionEntry) -> Unit
 ) {
     Column {
         Text(
@@ -94,7 +94,10 @@ fun EntriesCard(
                         key(entry.id) {
                             EntryRow(
                                 entry = entry,
-                                viewModel = viewModel
+                                onDelete = { onDelete(it) },
+                                onUpdate = { updatedEntry ->
+                                    onUpdate(updatedEntry)
+                                }
                             )
                             if (index < entries.size - 1) {
                                 HorizontalDivider(
@@ -114,7 +117,8 @@ fun EntriesCard(
 @Composable
 private fun EntryRow(
     entry: NutritionEntry,
-    viewModel: DashboardViewModel
+    onUpdate: (NutritionEntry) -> Unit,
+    onDelete: (NutritionEntry) -> Unit
 ) {
     var showNutritionSheet by remember { mutableStateOf(false) }
     var showEditSheet by remember { mutableStateOf(false) }
@@ -210,11 +214,13 @@ private fun EntryRow(
     if (showEditSheet) {
         EditEntrySheet(
             entry = entry,
-            onSave = { name, time, calories ->
-                viewModel.updateEntry(entry, name, time, calories)
+            onUpdate = { updatedEntry ->
+                onUpdate(updatedEntry)
                 showEditSheet = false
             },
-            onEntryDelete = { viewModel.removeNutritionEntry(entry) },
+            onDelete = {
+                onDelete(entry)
+            },
             onDismiss = { showEditSheet = false }
         )
     }

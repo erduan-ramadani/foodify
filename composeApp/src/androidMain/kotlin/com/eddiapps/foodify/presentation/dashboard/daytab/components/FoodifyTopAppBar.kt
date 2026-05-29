@@ -19,14 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.eddiapps.foodify.R
-import com.eddiapps.foodify.presentation.dashboard.DashboardViewModel
 import com.eddiapps.foodify.presentation.dashboard.SegmentedTabs
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun FoodifyTopAppBar(
     onSettingsClick: () -> Unit,
-    viewModel: DashboardViewModel
+    selectedTab: Int,
+    onTabSelected: (Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -41,8 +41,8 @@ fun FoodifyTopAppBar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             SegmentedTabs(
-                selectedTab = viewModel.selectedTab,
-                onTabSelected = { viewModel.selectedTab = it },
+                selectedTab = selectedTab,
+                onTabSelected = onTabSelected,
                 modifier = Modifier.weight(1f)
             )
             IconButton(onClick = onSettingsClick) {

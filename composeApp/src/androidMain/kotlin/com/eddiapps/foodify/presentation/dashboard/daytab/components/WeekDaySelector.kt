@@ -30,7 +30,6 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.eddiapps.foodify.presentation.dashboard.DashboardViewModel
 import com.eddiapps.foodify.presentation.theme.CalorieGreen
 import com.eddiapps.foodify.presentation.theme.CalorieOrange
 import com.eddiapps.foodify.presentation.theme.CalorieYellow
@@ -41,15 +40,17 @@ import java.util.Locale
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun WeekDaySelector(
-    vm: DashboardViewModel,
+    visibleDays: List<LocalDate>,
+    selectedDate: LocalDate,
+    onProgressForDate: (LocalDate) -> Float,
+    onWeekDaySelected: (LocalDate) -> Unit
 ) {
     val today = LocalDate.now()
     val listState = rememberLazyListState()
-    val days: List<LocalDate> = vm.visibleDays
 
     // Beim Öffnen zum heutigen Tag scrollen
     LaunchedEffect(Unit) {
-        val todayIndex = days.indexOfFirst { it == today }
+        val todayIndex = visibleDays.indexOfFirst { it == today }
         if (todayIndex >= 0) listState.scrollToItem(todayIndex)
     }
 
@@ -61,15 +62,15 @@ fun WeekDaySelector(
         horizontalArrangement = Arrangement.spacedBy(2.dp),
         contentPadding = PaddingValues(horizontal = 8.dp)
     ) {
-        items(days) { date ->
-            val isSelected = date == vm.selectedDate
+        items(visibleDays) { date ->
+            val isSelected = date == selectedDate
             val isToday = date == today
             val isFuture = date.isAfter(today)
 
             Column(
                 modifier = Modifier
                     .width(48.dp)
-                    .clickable(enabled = !isFuture) { vm.selectedDate = date }
+                    .clickable(enabled = !isFuture) { onWeekDaySelected(date) }
                     .padding(vertical = 4.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -90,7 +91,7 @@ fun WeekDaySelector(
                     modifier = Modifier.size(36.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    val progress = vm.progressForDate(date)
+                    val progress = onProgressForDate(date)
                     val ringColor = when {
                         progress > 1f -> CalorieOrange
                         progress > 0.85f -> CalorieYellow
