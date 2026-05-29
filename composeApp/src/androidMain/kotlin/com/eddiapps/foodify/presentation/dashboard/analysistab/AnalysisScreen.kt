@@ -21,7 +21,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.eddiapps.foodify.R
-import com.eddiapps.foodify.presentation.dashboard.DashboardViewModel
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.AllNutrientsCard
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.BestDayCard
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.GoalProgressCard
@@ -35,7 +34,7 @@ import org.koin.androidx.compose.koinViewModel
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AnalysisScreen() {
-    val vm: DashboardViewModel = koinViewModel()
+    val vm: AnalysisViewModel = koinViewModel()
     // Triggers recomposition when onboarding data changes (e.g. weeklyGoal in settings)
     val onboarding by vm.onboardingData.collectAsStateWithLifecycle()
 

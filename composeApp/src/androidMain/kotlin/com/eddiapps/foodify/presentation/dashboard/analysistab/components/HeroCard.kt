@@ -22,13 +22,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eddiapps.foodify.R
-import com.eddiapps.foodify.presentation.dashboard.DashboardViewModel
+import com.eddiapps.foodify.presentation.dashboard.analysistab.AnalysisViewModel
 import kotlin.math.absoluteValue
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HeroCard(
-    vm: DashboardViewModel
+    vm: AnalysisViewModel
 ) {
     val isDeficit = vm.weightChange < 0
     val prefix = if (isDeficit) "−" else "+"
