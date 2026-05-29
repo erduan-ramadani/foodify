@@ -139,7 +139,7 @@ class DayViewModel(
             }
             result.onSuccess { nutritionEntry ->
                 Log.d("Foodify", "Antwort success: $nutritionEntry")
-                if (!nutritionEntry.isMealDetected) { // from image
+                if (nutritionEntry.isMeal && !nutritionEntry.isMealDetected) {
                     _messageEvents.send(R.string.meal_not_detected)
                 } else {
                     addNutritionEntry(nutritionEntry, imagePath)
