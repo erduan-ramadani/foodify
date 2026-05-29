@@ -41,7 +41,6 @@ class SettingsViewModel(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000), null
     )
-    val weightGoal: WeightGoal = onboardingData.value?.weightGoal ?: WeightGoal.NORMAL
     val weightUnit: String
         get() = if (unitSystem.value == UnitSystem.METRIC) "kg" else "lb"
     val heightUnit: String
@@ -107,23 +106,6 @@ class SettingsViewModel(
             updateLimit { it.copy(unitSystem = UnitSystem.METRIC) }
     }
 
-//    private fun convertImperialToMetric(
-//        field: SettingsField,
-//        firstPickerValue: Int,
-//        secondPickerValue: Int
-//    ): Double {
-//        return when (field) {
-//            SettingsField.HEIGHT -> UnitConverter.convertFeetInchesToCm(
-//                firstPickerValue,
-//                secondPickerValue
-//            )
-//
-//            SettingsField.WEIGHT -> UnitConverter.convertLbToKg(firstPickerValue)
-//            SettingsField.AGE -> firstPickerValue.toDouble()
-//            SettingsField.WEIGHT_GOAL -> TODO()
-//        }
-//    }
-
     fun savePickerChange(fieldName: SettingsField, firstValue: Int, secondValue: Int) {
         when (fieldName) {
             SettingsField.AGE -> onAgeChanged(firstValue)
@@ -143,9 +125,7 @@ class SettingsViewModel(
         firstValue: Int,
         secondValue: Int
     ) {
-        val onboardingData = this@SettingsViewModel.onboardingData.value ?: return
-
-        val updatedPickerState = if (unitSystem.value == UnitSystem.IMPERIAL) {
+        if (unitSystem.value == UnitSystem.IMPERIAL) {
             when (fieldName) {
                 SettingsField.HEIGHT ->
                     updateLimit {
@@ -231,14 +211,6 @@ class SettingsViewModel(
         viewModelScope.launch {
             preferencesRepository.clearAll()
             nutritionRepository.clearAll()
-        }
-    }
-
-    fun getWeeklyWeightGoalDisplayValue(): Double {
-        return if (unitSystem.value == UnitSystem.METRIC) {
-            weightGoal.kgPerWeek
-        } else {
-            weightGoal.kgPerWeek.times(2.20462)
         }
     }
 }
