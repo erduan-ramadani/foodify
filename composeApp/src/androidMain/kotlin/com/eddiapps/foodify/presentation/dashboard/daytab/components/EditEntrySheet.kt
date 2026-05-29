@@ -53,8 +53,8 @@ import java.time.ZoneId
 @Composable
 fun EditEntrySheet(
     entry: NutritionEntry,
-    onSave: (name: String, time: LocalTime, calories: Double) -> Unit,
-    onEntryDelete: () -> Unit,
+    onUpdate: (entry: NutritionEntry) -> Unit,
+    onDelete: () -> Unit,
     onDismiss: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -102,7 +102,6 @@ fun EditEntrySheet(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            // Name
             Text(
                 text = stringResource(R.string.name),
                 style = MaterialTheme.typography.labelMedium,
@@ -167,7 +166,6 @@ fun EditEntrySheet(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Kalorien
             Text(
                 text = stringResource(R.string.nutrient_calories),
                 style = MaterialTheme.typography.labelMedium,
@@ -221,7 +219,7 @@ fun EditEntrySheet(
             Spacer(Modifier.height(8.dp))
 
             TextButton(
-                onClick = { onEntryDelete() },
+                onClick = { onDelete() },
                 colors = ButtonDefaults.textButtonColors(
                     contentColor = MaterialTheme.colorScheme.error
                 ),
