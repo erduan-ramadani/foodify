@@ -190,7 +190,23 @@ fun EditEntrySheet(
                 onClick = {
                     val newTime = LocalTime.of(timeState.hour, timeState.minute)
                     val newCalories = calories.toDoubleOrNull() ?: entry.calories
-                    onSave(title, newTime, newCalories)
+
+                    // Datum vom alten Eintrag behalten, Uhrzeit ersetzen
+                    val oldDate = Instant.ofEpochMilli(entry.createdAt)
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate()
+
+                    val newTimestamp = oldDate.atTime(newTime)
+                        .atZone(ZoneId.systemDefault())
+                        .toInstant()
+                        .toEpochMilli()
+
+                    val updatedEntry = entry.copy(
+                        title = title,
+                        calories = newCalories,
+                        createdAt = newTimestamp
+                    )
+                    onUpdate(updatedEntry)
                 },
                 shape = RoundedCornerShape(20.dp),
                 modifier = Modifier.fillMaxWidth()
