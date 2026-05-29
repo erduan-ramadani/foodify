@@ -7,6 +7,7 @@ import com.eddiapps.foodify.domain.calculation.UnitConverter
 import com.eddiapps.foodify.domain.calculation.calculateDailyCalorieLimit
 import com.eddiapps.foodify.domain.model.NutritionInterface
 import com.eddiapps.foodify.domain.model.UnitSystem
+import com.eddiapps.foodify.domain.model.onboarding.OnboardingData
 import com.eddiapps.foodify.domain.model.onboarding.WeightGoal
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -81,18 +82,6 @@ class SettingsViewModel(
                 (weeklyGoalLbs * 10).roundToInt() / 10.0
             }
         }
-//    private val _pickerState = MutableStateFlow(
-//        PickerStateData(36, 180, 80.0, 5, 11, 176)
-//    )
-//    val pickerState = _pickerState.asStateFlow()
-
-    init {
-//        viewModelScope.launch {
-//            onboardingData.filterNotNull().first().let { onboardingData ->
-//                _pickerState.update { onboardingData.pickerStateData }
-//            }
-//        }
-    }
 
     fun toggleDarkMode() {
         viewModelScope.launch {
@@ -107,19 +96,15 @@ class SettingsViewModel(
     }
 
     fun toggleGender() {
-        viewModelScope.launch {
-            val isMale: Boolean = onboardingData.value?.isMale ?: false
-            preferencesRepository.setOnboardingData(onboardingData.value?.copy(isMale = !isMale))
-        }
+        val isMale: Boolean = onboardingData.value?.isMale ?: false
+        updateLimit { it.copy(isMale = !isMale) }
     }
 
     fun toggleUnitSystem() {
-        viewModelScope.launch {
-            if (onboardingData.value?.unitSystem == UnitSystem.METRIC)
-                preferencesRepository.setOnboardingData(onboardingData.value?.copy(unitSystem = UnitSystem.IMPERIAL))
-            else
-                preferencesRepository.setOnboardingData(onboardingData.value?.copy(unitSystem = UnitSystem.METRIC))
-        }
+        if (onboardingData.value?.unitSystem == UnitSystem.METRIC)
+            updateLimit { it.copy(unitSystem = UnitSystem.IMPERIAL) }
+        else
+            updateLimit { it.copy(unitSystem = UnitSystem.METRIC) }
     }
 
 //    private fun convertImperialToMetric(
@@ -150,14 +135,7 @@ class SettingsViewModel(
     }
 
     private fun onAgeChanged(firstValue: Int) {
-        val current = onboardingData.value ?: return
-        viewModelScope.launch {
-            preferencesRepository.setOnboardingData(
-                current.copy(
-                    pickerState = current.pickerState.copy(age = firstValue)
-                )
-            )
-        }
+        updateLimit { it.copy(pickerState = it.pickerState.copy(age = firstValue)) }
     }
 
     private fun onHeightOrWeightChanged(
@@ -169,62 +147,82 @@ class SettingsViewModel(
 
         val updatedPickerState = if (unitSystem.value == UnitSystem.IMPERIAL) {
             when (fieldName) {
-                SettingsField.HEIGHT -> onboardingData.pickerState.copy(
-                    heightFt = firstValue,
-                    heightIn = secondValue,
-                    heightCm = UnitConverter.convertFeetInchesToCm(firstValue, secondValue)
-                )
+                SettingsField.HEIGHT ->
+                    updateLimit {
+                        it.copy(
+                            pickerState = it.pickerState.copy(
+                                heightFt = firstValue,
+                                heightIn = secondValue,
+                                heightCm = UnitConverter.convertFeetInchesToCm(
+                                    firstValue,
+                                    secondValue
+                                )
+                            )
+                        )
+                    }
 
-                SettingsField.WEIGHT -> onboardingData.pickerState.copy(
-                    weightLb = firstValue,
-                    weightKg = UnitConverter.convertLbToKg(firstValue)
-                )
+                SettingsField.WEIGHT ->
+                    updateLimit {
+                        it.copy(
+                            pickerState = it.pickerState.copy(
+                                weightLb = firstValue,
+                                weightKg = UnitConverter.convertLbToKg(firstValue)
+                            )
+                        )
+                    }
 
                 else -> return
             }
         } else {
             when (fieldName) {
-                SettingsField.HEIGHT -> onboardingData.pickerState.copy(
-                    heightCm = firstValue,
-                    heightFt = UnitConverter.convertCmToFeetInches(firstValue).first,
-                    heightIn = UnitConverter.convertCmToFeetInches(firstValue).second
-                )
-
-                SettingsField.WEIGHT ->
-                    onboardingData.pickerState.copy(
-                        weightKg = UnitConverter.toDecimal(firstValue, secondValue),
-                        weightLb = UnitConverter.convertKgToLb(
-                            UnitConverter.toDecimal(
-                                firstValue,
-                                secondValue
+                SettingsField.HEIGHT ->
+                    updateLimit {
+                        it.copy(
+                            pickerState = it.pickerState.copy(
+                                heightCm = firstValue,
+                                heightFt = UnitConverter.convertCmToFeetInches(firstValue).first,
+                                heightIn = UnitConverter.convertCmToFeetInches(firstValue).second
                             )
                         )
-                    )
+                    }
+
+                SettingsField.WEIGHT ->
+                    updateLimit {
+                        it.copy(
+                            pickerState = it.pickerState.copy(
+                                weightKg = UnitConverter.toDecimal(firstValue, secondValue),
+                                weightLb = UnitConverter.convertKgToLb(
+                                    UnitConverter.toDecimal(
+                                        firstValue,
+                                        secondValue
+                                    )
+                                )
+                            )
+                        )
+                    }
 
                 else -> return
             }
         }
-
-        viewModelScope.launch {
-            preferencesRepository.setOnboardingData(onboardingData.copy(pickerState = updatedPickerState))
-        }
     }
 
     fun setWeightGoal(goal: WeightGoal) {
+        updateLimit { it.copy(weightGoal = goal) }
+    }
+
+    private fun updateLimit(transform: (OnboardingData) -> OnboardingData) {
         val current = onboardingData.value ?: return
+        val updated = transform(current)
         val newLimit = calculateDailyCalorieLimit(
-            isMale = current.isMale,
-            age = current.pickerState.age,
-            weight = current.pickerState.weightKg,
-            height = current.pickerState.heightCm,
-            weightGoal = goal
+            updated.isMale,
+            updated.pickerState.age,
+            updated.pickerState.weightKg,
+            updated.pickerState.heightCm,
+            updated.weightGoal ?: WeightGoal.NORMAL
         )
         viewModelScope.launch {
             preferencesRepository.setOnboardingData(
-                current.copy(
-                    weightGoal = goal,
-                    dailyCalorieLimit = newLimit
-                )
+                updated.copy(dailyCalorieLimit = newLimit)
             )
         }
     }
