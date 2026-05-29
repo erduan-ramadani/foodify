@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.eddiapps.foodify.domain.PreferencesInterface
 import com.eddiapps.foodify.domain.calculation.UnitConverter
 import com.eddiapps.foodify.domain.calculation.calculateDailyCalorieLimit
+import com.eddiapps.foodify.domain.model.NutritionInterface
 import com.eddiapps.foodify.domain.model.UnitSystem
 import com.eddiapps.foodify.domain.model.onboarding.WeightGoal
 import kotlinx.coroutines.flow.Flow
@@ -16,11 +17,14 @@ import kotlinx.coroutines.launch
 import java.util.Locale
 import kotlin.math.roundToInt
 
-class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel() {
+class SettingsViewModel(
+    private val preferencesRepository: PreferencesInterface,
+    private val nutritionRepository: NutritionInterface
+) : ViewModel() {
 
-    val isDarkMode: Flow<Boolean> = prefRepo.darkMode
-    val isReminding: Flow<Boolean> = prefRepo.reminder
-    val onboardingData = prefRepo.onboardingData.stateIn(
+    val isDarkMode: Flow<Boolean> = preferencesRepository.darkMode
+    val isReminding: Flow<Boolean> = preferencesRepository.reminder
+    val onboardingData = preferencesRepository.onboardingData.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
         null
@@ -92,29 +96,29 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
 
     fun toggleDarkMode() {
         viewModelScope.launch {
-            prefRepo.setDarkMode(!isDarkMode.first())
+            preferencesRepository.setDarkMode(!isDarkMode.first())
         }
     }
 
     fun toggleReminder() {
         viewModelScope.launch {
-            prefRepo.setReminder(!isReminding.first())
+            preferencesRepository.setReminder(!isReminding.first())
         }
     }
 
     fun toggleGender() {
         viewModelScope.launch {
             val isMale: Boolean = onboardingData.value?.isMale ?: false
-            prefRepo.setOnboardingData(onboardingData.value?.copy(isMale = !isMale))
+            preferencesRepository.setOnboardingData(onboardingData.value?.copy(isMale = !isMale))
         }
     }
 
     fun toggleUnitSystem() {
         viewModelScope.launch {
             if (onboardingData.value?.unitSystem == UnitSystem.METRIC)
-                prefRepo.setOnboardingData(onboardingData.value?.copy(unitSystem = UnitSystem.IMPERIAL))
+                preferencesRepository.setOnboardingData(onboardingData.value?.copy(unitSystem = UnitSystem.IMPERIAL))
             else
-                prefRepo.setOnboardingData(onboardingData.value?.copy(unitSystem = UnitSystem.METRIC))
+                preferencesRepository.setOnboardingData(onboardingData.value?.copy(unitSystem = UnitSystem.METRIC))
         }
     }
 
@@ -148,7 +152,7 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
     private fun onAgeChanged(firstValue: Int) {
         val current = onboardingData.value ?: return
         viewModelScope.launch {
-            prefRepo.setOnboardingData(
+            preferencesRepository.setOnboardingData(
                 current.copy(
                     pickerState = current.pickerState.copy(age = firstValue)
                 )
@@ -202,7 +206,7 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
         }
 
         viewModelScope.launch {
-            prefRepo.setOnboardingData(onboardingData.copy(pickerState = updatedPickerState))
+            preferencesRepository.setOnboardingData(onboardingData.copy(pickerState = updatedPickerState))
         }
     }
 
@@ -216,7 +220,7 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
             weightGoal = goal
         )
         viewModelScope.launch {
-            prefRepo.setOnboardingData(
+            preferencesRepository.setOnboardingData(
                 current.copy(
                     weightGoal = goal,
                     dailyCalorieLimit = newLimit
@@ -227,7 +231,8 @@ class SettingsViewModel(private val prefRepo: PreferencesInterface) : ViewModel(
 
     fun deleteAllData() {
         viewModelScope.launch {
-            prefRepo.clearAll()
+            preferencesRepository.clearAll()
+            nutritionRepository.clearAll()
         }
     }
 

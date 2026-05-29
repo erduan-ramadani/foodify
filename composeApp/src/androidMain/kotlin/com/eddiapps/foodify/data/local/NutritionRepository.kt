@@ -44,4 +44,8 @@ class NutritionRepository(
             prefRepository.setNutritionEntries(_entries.value)
         }
     }
+
+    override fun clearAll() {
+        _entries.value = emptyList()
+    }
 }

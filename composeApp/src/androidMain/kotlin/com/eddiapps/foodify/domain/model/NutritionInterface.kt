@@ -8,4 +8,5 @@ interface NutritionInterface {
     fun addEntry(entry: NutritionEntry)
     fun removeEntry(entry: NutritionEntry)
     fun updateEntry(updated: NutritionEntry)
+    fun clearAll()
 }

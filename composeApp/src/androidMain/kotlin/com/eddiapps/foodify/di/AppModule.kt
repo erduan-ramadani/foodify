@@ -41,5 +41,5 @@ val viewModelModule = module {
     viewModel { OnboardingViewModel() }
     viewModel { DayViewModel(get(), get(), get()) }
     viewModel { AnalysisViewModel(get(), get()) }
-    viewModel { SettingsViewModel(get()) }
+    viewModel { SettingsViewModel(get(), get()) }
 }
