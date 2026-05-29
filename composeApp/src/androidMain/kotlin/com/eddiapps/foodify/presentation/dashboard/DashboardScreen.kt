@@ -7,23 +7,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.compose.LocalLifecycleOwner
-import com.eddiapps.foodify.R
 import com.eddiapps.foodify.presentation.dashboard.analysistab.AnalysisScreen
 import com.eddiapps.foodify.presentation.dashboard.daytab.DayScreen
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.FoodifyTopAppBar
-import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("LocalContextGetResourceValueCall")
 @RequiresApi(Build.VERSION_CODES.O)
@@ -31,60 +26,22 @@ import org.koin.androidx.compose.koinViewModel
 fun DashboardScreen(
     onSettingsClick: () -> Unit
 ) {
-    val vm: DashboardViewModel = koinViewModel()
+    var selectedTab by rememberSaveable { mutableIntStateOf(0) }
     val snackbarHostState = remember { SnackbarHostState() }
-    val context = LocalContext.current
-    val lifecycleOwner = LocalLifecycleOwner.current
-
-    DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME) {
-                vm.onResume()
-            }
-        }
-        lifecycleOwner.lifecycle.addObserver(observer)
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
-        }
-    }
-
-    LaunchedEffect(Unit) {
-        vm.connectionEvents.collect { event ->
-            val message = when (event) {
-                UiConnectionEvent.NoInternet -> context.getString(R.string.error_no_internet)
-                UiConnectionEvent.Timeout -> context.getString(R.string.error_timeout)
-                UiConnectionEvent.UnknownError -> context.getString(R.string.error_unknown)
-            }
-            snackbarHostState.showSnackbar(message, duration = SnackbarDuration.Long)
-        }
-    }
-
-    LaunchedEffect(Unit) {
-        vm.messageEvents.collect { resId ->
-            snackbarHostState.showSnackbar(
-                message = context.getString(resId),
-                duration = SnackbarDuration.Long
-            )
-        }
-    }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         snackbarHost = { SnackbarHost(snackbarHostState) },
-        topBar = { FoodifyTopAppBar(onSettingsClick, vm) },
-        bottomBar = {
-            FoodifyBottomBar(
-                onMicButtonClick = { vm.requestNutritionValues(textQuery = it) },
-                onCameraButtonClick = { photoFilePath ->
-                    vm.requestNutritionValues("", photoFilePath)
-
-                },
-                isLoading = vm.isLoading
+        topBar = {
+            FoodifyTopAppBar(
+                onSettingsClick,
+                selectedTab,
+                onTabSelected = { selectedTab = it }
             )
-        }
+        },
     ) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
-            if (vm.selectedTab == 0) {
+            if (selectedTab == 0) {
                 DayScreen(snackbarHostState)
             } else {
                 AnalysisScreen()
