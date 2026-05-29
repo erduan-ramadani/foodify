@@ -15,7 +15,10 @@ fun calculateDailyCalorieLimit(
     height: Int,
     weightGoal: WeightGoal
 ): Int {
-    return calculateBMR(isMale, weight, height, age).toInt() - weightGoal.dailyDeficit
+    val bmr = calculateBMR(isMale, weight, height, age).toInt()
+    val tdee = bmr * ActivityLevel.SEDENTARY.factor
+    val newCalorieLimit = (tdee - weightGoal.dailyDeficit).toInt()
+    return newCalorieLimit
 }
 
 fun calculateTDEE(bmr: Int, activityLevel: ActivityLevel?): Int {

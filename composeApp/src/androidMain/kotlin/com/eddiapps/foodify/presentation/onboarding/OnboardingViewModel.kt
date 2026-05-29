@@ -97,7 +97,7 @@ class OnboardingViewModel(
             _pickerState.value.age
         ).toInt()
     var activityLevel: ActivityLevel? by mutableStateOf(null)
-    val baseTdee: Int get() = (bmr * 1.2).toInt() //sedentary baseline
+    val baseTdee: Int get() = (bmr * ActivityLevel.SEDENTARY.factor).toInt()
     val tdee: Int
         get() = calculateTDEE(bmr, activityLevel)
     val dailyCalorieLimit: Int
