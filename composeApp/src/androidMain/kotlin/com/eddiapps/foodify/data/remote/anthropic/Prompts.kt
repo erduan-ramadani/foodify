@@ -29,6 +29,8 @@ fun buildNutritionQuery(query: String, userWeightKg: Double): String {
         - If no quantity is found, set quantity=1.
         - If the quantity is >1 add it to the title
             (e.g. quantity = 2, title = Äpfel, title should be: 2 Äpfel)
+        - JSON field isMealDetected is always true.
+
 
         If the input is an ACTIVITY (e.g. "30min walking", "1h cycling", "45min jogging"):
         - Calculate calories burned using MET values for a person weighing $userWeightKg kg.
@@ -36,6 +38,7 @@ fun buildNutritionQuery(query: String, userWeightKg: Double): String {
         - Set ALL other nutritional values to 0.
         - Use an appropriate activity emoji.
         - JSON field isMeal is false.
+        - JSON field isMealDetected is always true.
         
         Examples for a ${userWeightKg}kg person:
         - "10km cycling" (≈30min moderate) ≈ ${(userWeightKg * 8 * 0.5).toInt()} kcal
@@ -57,11 +60,15 @@ fun buildImageNutritionQuery(): String {
         Identify all food items and estimate portion sizes visually.
         Return nutritional values as JSON. No text before or after the JSON.
         
-        - Estimate the total values for the entire meal shown.
-        - If multiple items are visible, sum them up.
-        - Calories must be positive.
-        - isMeal is true, quantity is 1.
-        - If you dont recognize a meal set isMealDetected to false
+        - If the image shows NO food and NO drink (e.g. a keyboard, a person, a landscape, an empty plate):
+        - Set isMealDetected to false
+        - Set isMeal to false  
+        - Set all nutritional values to 0
+        - Set title to "No meal detected"
+        - If the image shows food or a drink:
+        - Set isMealDetected to true
+        - Set isMeal to true
+        - Estimate values normally
         
         JSON fields:
         title, isMeal, isMealDetected, calories, quantity, emoji, protein, fat, saturatedFat, unsaturatedFat, carbohydrates,
