@@ -69,6 +69,8 @@ fun buildImageNutritionQuery(): String {
         - Set isMealDetected to true
         - Set isMeal to true
         - Estimate values normally
+        - quantity is always an integer (e.g. 1, 2, 3), never a string or description.
+        - quantity refers to how many separate items are shown (e.g. 2 apples → quantity=2). For a single meal or drink, quantity is always 1.
         
         JSON fields:
         title, isMeal, isMealDetected, calories, quantity, emoji, protein, fat, saturatedFat, unsaturatedFat, carbohydrates,
