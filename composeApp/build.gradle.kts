@@ -44,6 +44,7 @@ kotlin {
             implementation(project.dependencies.platform(libs.firebase.bom))
             implementation(libs.firebase.config)
             implementation(libs.firebase.messaging)
+            implementation(libs.firebase.analytics)
 
             implementation(libs.coil.compose)
         }
