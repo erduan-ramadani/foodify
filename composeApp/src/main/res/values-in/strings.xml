@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="step_indicator">Langkah %1$d dari %2$d</string>
+    <string name="goal_title">Kebutuhan energi Anda</string>
+    <string name="bmi_low">Berat badan kurang</string>
+    <string name="bmi_normal">Berat badan normal</string>
+    <string name="bmi_lightly_increased">Sedikit meningkat</string>
+    <string name="bmi_high">Berat badan berlebih</string>
+    <string name="your_activity_level">Tingkat aktivitas Anda</string>
+    <string name="bmi">IMT</string>
+    <string name="tdee">Pengeluaran energi harian total</string>
+    <string name="recommended_weight">Berat yang disarankan</string>
+    <string name="goal_description">Tubuh Anda menggunakan energi ini setiap hari saat istirahat dan beraktivitas</string>
+    <string name="calorie_base">Kalori istirahat</string>
+    <string name="calorie_total">Total kalori</string>
+    <string name="weekly_goal">Target mingguan</string>
+    <string name="daily_limit">Batas harian Anda</string>
+    <string name="kcal_day">kkal/hari</string>
+    <string name="kg_week">%1$s kg/minggu</string>
+    <string name="calculate_needs">Hitung kebutuhan</string>
+    <string name="calculate_bmi">Hitung IMT</string>
+    <string name="start">Mulai</string>
+    <string name="next">Lanjut</string>
+
+
+    <string name="about_you">Tentang Anda</string>
+    <string name="calculate_calorie_title">Kami akan menghitung kebutuhan kalori pribadi Anda</string>
+    <string name="weightloss_title">Seberapa cepat Anda ingin menurunkan berat badan?</string>
+
+    <string name="gender">Jenis kelamin</string>
+    <string name="male">Pria</string>
+    <string name="female">Wanita</string>
+    <string name="settings_male">♂ Pria</string>
+    <string name="settings_female">♀ Wanita</string>
+    <string name="age">Usia</string>
+    <string name="years">Tahun</string>
+    <string name="unit_system">Sistem satuan</string>
+    <string name="weight_and_height">Tinggi dan berat badan</string>
+    <string name="x_cm">%1$d cm</string>
+    <string name="x_kg">%1$d kg</string>
+    <string name="height">Tinggi</string>
+    <string name="weight">Berat</string>
+
+    <string name="settings_daily_calorie_limit">Batas kalori harian</string>
+    <string name="settings_personal_data">Data pribadi</string>
+    <string name="app">Aplikasi</string>
+    <string name="dark_mode">Mode gelap</string>
+    <string name="reminder">Pengingat</string>
+    <string name="data">Data</string>
+    <string name="data_export">Ekspor data</string>
+    <string name="delete_all_data">Hapus semua data</string>
+    <string name="version">Foodify v1.0.0 - Dibuat dengan 💜</string>
+    <string name="confirm_delete_title">Hapus semua data?</string>
+    <string name="confirm_delete_description">Semua entri dan data onboarding Anda akan dihapus secara permanen.</string>
+    <string name="delete">Hapus</string>
+    <string name="cancel">Batal</string>
+    <string name="day">Hari</string>
+    <string name="analysis">Analisis</string>
+    <string name="meal_or_activity">Makanan atau aktivitas</string>
+    <string name="voice_input">Input suara</string>
+    <string name="error_no_internet">Tidak ada internet</string>
+    <string name="error_timeout">Waktu habis</string>
+    <string name="error_unknown">Kesalahan tidak diketahui</string>
+    <string name="limit">Batas</string>
+    <string name="burned">Terbakar</string>
+    <string name="eaten">Dikonsumsi</string>
+    <string name="over_limit">Melebihi batas</string>
+    <string name="left_over">Tersisa</string>
+    <string name="kcal">kkal</string>
+    <string name="calendar">Kalender</string>
+    <string name="back">Kembali</string>
+    <string name="edit_entry">Ubah entri</string>
+    <string name="name">Nama</string>
+    <string name="time">Waktu</string>
+    <string name="finished">Selesai</string>
+    <string name="save">Simpan</string>
+    <string name="entries">Entri</string>
+    <string name="no_entries">Belum ada entri</string>
+    <string name="add_first_entry">Tambahkan makanan pertama Anda di bawah</string>
+    <string name="previous_day">Hari sebelumnya</string>
+    <string name="next_day">Hari berikutnya</string>
+    <string name="settings">Pengaturan</string>
+    <string name="meal">Makanan</string>
+    <string name="activity">Aktivitas</string>
+    <string name="add_meal_or_activity">Tambah makanan/aktivitas</string>
+    <string name="frequent_entries">Terbaru</string>
+    <string name="speech_prompt">Apa yang Anda makan?</string>
+    <string name="analysis_title">Progres Anda sekilas</string>
+    <string name="goal">Target: turun %1$s kg/minggu (defisit %2$d kkal)</string>
+    <string name="average_eaten">Rata-rata dikonsumsi</string>
+    <string name="kcal_per_day">kkal/hari</string>
+    <string name="average_burned">Rata-rata terbakar</string>
+    <string name="total_eaten">Total dikonsumsi</string>
+    <string name="total_burned">Total terbakar</string>
+    <string name="kcal_x_days">kkal · %1$d hari</string>
+    <string name="gram_who_per_week">WHO: maks. %1$d g/minggu</string>
+    <string name="estimated_change">PERKIRAAN PERUBAHAN</string>
+    <string name="based_on">Berdasarkan %1$d kkal %2$s</string>
+    <string name="deficit">Defisit</string>
+    <string name="surplus">Surplus</string>
+    <string name="weekly_goal_reached">Target mingguan tercapai</string>
+    <string name="tracking_consistency">Konsistensi pencatatan</string>
+    <string name="days_tracked_text">Tercatat %1$s hari</string>
+    <string name="days_sugar_text">Gula %1$s hari</string>
+    <string name="best_day">Hari terbaik</string>
+    <string name="x_kcal_deficit">%1$s · defisit %2$d kkal</string>
+    <string name="at_goal">Sesuai target</string>
+    <string name="today">Hari ini</string>
+    <string name="yesterday">Kemarin</string>
+    <string name="kg">kg</string>
+    <string name="cm">cm</string>
+    <string name="x_days">%1$d hari</string>
+    <string name="day_empty_state">Tidak ada entri hari ini</string>
+
+
+    <!-- Activity Levels -->
+    <string name="activity_sedentary_label">Tidak aktif</string>
+    <string name="activity_light_label">Sedikit aktif</string>
+    <string name="activity_active_label">Aktif</string>
+    <string name="activity_very_active_label">Sangat aktif</string>
+    <string name="activity_sedentary_description">Pekerjaan kantor, kurang dari 5.000 langkah/hari</string>
+    <string name="activity_light_description">Olahraga 1-2× per minggu atau banyak berjalan</string>
+    <string name="activity_active_description">Latihan intens 3-5× per minggu</string>
+    <string name="activity_very_active_description">Latihan harian, pekerjaan fisik atau binaragawan</string>
+
+    <!-- Weight Goals -->
+    <string name="weight_goal_slow">Lambat</string>
+    <string name="weight_goal_normal">Seimbang</string>
+    <string name="weight_goal_fast">Cepat</string>
+    <string name="weight_goal_aggressive">Sangat cepat</string>
+    <string name="weight_goal_fast_warning">Membutuhkan disiplin ketat</string>
+    <string name="weight_goal_aggressive_warning">Hanya disarankan untuk periode pendek</string>
+
+    <!-- Notifications -->
+    <string name="reminder_notification_title">Foodify 🍽️</string>
+    <string name="reminder_daily_notification_text">Belum ada yang dicatat hari ini — hanya butuh 10 detik!</string>
+    <string name="reminder_weekly_notification_text">Lihat statistik mingguan Anda 📊</string>
+    <string-array name="reminder_daily_texts">
+        <item>Belum ada yang dicatat hari ini — hanya butuh 10 detik!</item>
+        <item>Hai, bagaimana hari Anda? Catat cepat apa yang Anda makan 🍽️</item>
+        <item>Tetap di jalur! Sudah catat makanan hari ini?</item>
+        <item>Hari Foodify Anda masih kosong 📋</item>
+        <item>Pssst… Anda belum mencatat apa pun hari ini</item>
+        <item>Hanya 10 detik — dan hari Anda tercatat!</item>
+        <item>Entri cepat sebelum hari berakhir 🌙</item>
+    </string-array>
+
+    <!-- Nutrient sections -->
+    <string name="nutrients_macros">Makronutrien</string>
+    <string name="nutrients_fatty_acids">Asam lemak</string>
+    <string name="nutrients_vitamins">Vitamin</string>
+    <string name="nutrients_minerals">Mineral</string>
+
+    <string name="nutrient_progress_within_limit">Dalam batas</string>
+    <string name="nutrient_progress_nearly_limit">Mendekati batas</string>
+    <string name="nutrient_progress_exceeded">Terlampaui</string>
+    <string name="nutrient_who_recommendation">Rekomendasi WHO: maks. %1$d g · %2$d hari</string>
+
+    <!-- Macros -->
+    <string name="nutrient_calories">Kalori</string>
+    <string name="nutrient_carbs">Karbohidrat</string>
+    <string name="nutrient_sugar">termasuk gula</string>
+    <string name="nutrient_fiber">Serat</string>
+    <string name="nutrient_protein">Protein</string>
+    <string name="nutrient_fat">Lemak</string>
+    <string name="nutrient_fat_saturated">jenuh</string>
+    <string name="nutrient_fat_unsaturated">tak jenuh</string>
+    <string name="nutrient_salt">Garam</string>
+    <string name="nutrient_cholesterol">Kolesterol</string>
+
+    <!-- Fatty acids -->
+    <string name="nutrient_omega3">Omega-3</string>
+    <string name="nutrient_omega6">Omega-6</string>
+
+    <!-- Vitamins -->
+    <string name="nutrient_vitamin_a">Vitamin A</string>
+    <string name="nutrient_vitamin_b6">Vitamin B6</string>
+    <string name="nutrient_vitamin_b12">Vitamin B12</string>
+    <string name="nutrient_vitamin_c">Vitamin C</string>
+    <string name="nutrient_vitamin_d">Vitamin D</string>
+    <string name="nutrient_vitamin_e">Vitamin E</string>
+    <string name="nutrient_vitamin_k">Vitamin K</string>
+    <string name="nutrient_folic_acid">Asam folat</string>
+
+    <!-- Minerals -->
+    <string name="nutrient_calcium">Kalsium</string>
+    <string name="nutrient_iron">Zat besi</string>
+    <string name="nutrient_magnesium">Magnesium</string>
+    <string name="nutrient_zinc">Seng</string>
+    <string name="nutrient_potassium">Kalium</string>
+    <string name="nutrient_phosphorus">Fosfor</string>
+    <string name="confirm">Konfirmasi</string>
+
+    <!-- Voice -->
+    <string name="voice_listening">Mendengarkan…</string>
+    <string name="voice_done">Selesai</string>
+    <string name="voice_hint">Sebutkan makanan atau aktivitas Anda sekarang</string>
+    <string name="apply">Terapkan</string>
+
+    <!-- Camera -->
+    <string name="take_photo">Ambil foto</string>
+    <string name="meal_not_detected">Tidak ada makanan terdeteksi. Silakan tambahkan makanan atau minuman.</string>
+</resources>

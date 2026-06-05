@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="step_indicator">Stap %1$d van %2$d</string>
+    <string name="goal_title">Jouw energiebehoefte</string>
+    <string name="bmi_low">Ondergewicht</string>
+    <string name="bmi_normal">Normaal gewicht</string>
+    <string name="bmi_lightly_increased">Licht verhoogd</string>
+    <string name="bmi_high">Overgewicht</string>
+    <string name="your_activity_level">Jouw activiteitsniveau</string>
+    <string name="bmi">BMI</string>
+    <string name="tdee">Totaal dagelijks energieverbruik</string>
+    <string name="recommended_weight">Aanbevolen gewicht</string>
+    <string name="goal_description">Je lichaam gebruikt deze energie dagelijks in rust en bij activiteit</string>
+    <string name="calorie_base">Rustcalorieën</string>
+    <string name="calorie_total">Totale calorieën</string>
+    <string name="weekly_goal">Wekelijks doel</string>
+    <string name="daily_limit">Jouw daglimiet</string>
+    <string name="kcal_day">kcal/dag</string>
+    <string name="kg_week">%1$s kg/week</string>
+    <string name="calculate_needs">Behoefte berekenen</string>
+    <string name="calculate_bmi">BMI berekenen</string>
+    <string name="start">Aan de slag</string>
+    <string name="next">Volgende</string>
+
+
+    <string name="about_you">Over jou</string>
+    <string name="calculate_calorie_title">We berekenen jouw persoonlijke caloriebehoefte</string>
+    <string name="weightloss_title">Hoe snel wil je afvallen?</string>
+
+    <string name="gender">Geslacht</string>
+    <string name="male">Man</string>
+    <string name="female">Vrouw</string>
+    <string name="settings_male">♂ Man</string>
+    <string name="settings_female">♀ Vrouw</string>
+    <string name="age">Leeftijd</string>
+    <string name="years">Jaar</string>
+    <string name="unit_system">Eenhedenstelsel</string>
+    <string name="weight_and_height">Lengte en gewicht</string>
+    <string name="x_cm">%1$d cm</string>
+    <string name="x_kg">%1$d kg</string>
+    <string name="height">Lengte</string>
+    <string name="weight">Gewicht</string>
+
+    <string name="settings_daily_calorie_limit">Dagelijkse calorielimiet</string>
+    <string name="settings_personal_data">Persoonlijke gegevens</string>
+    <string name="app">App</string>
+    <string name="dark_mode">Donkere modus</string>
+    <string name="reminder">Herinneringen</string>
+    <string name="data">Gegevens</string>
+    <string name="data_export">Gegevens exporteren</string>
+    <string name="delete_all_data">Alle gegevens verwijderen</string>
+    <string name="version">Foodify v1.0.0 - Gemaakt met 💜</string>
+    <string name="confirm_delete_title">Alle gegevens verwijderen?</string>
+    <string name="confirm_delete_description">Alle invoer en je onboardinggegevens worden permanent verwijderd.</string>
+    <string name="delete">Verwijderen</string>
+    <string name="cancel">Annuleren</string>
+    <string name="day">Dag</string>
+    <string name="analysis">Analyse</string>
+    <string name="meal_or_activity">Maaltijd of activiteit</string>
+    <string name="voice_input">Spraakinvoer</string>
+    <string name="error_no_internet">Geen internet</string>
+    <string name="error_timeout">Time-out</string>
+    <string name="error_unknown">Onbekende fout</string>
+    <string name="limit">Limiet</string>
+    <string name="burned">Verbrand</string>
+    <string name="eaten">Gegeten</string>
+    <string name="over_limit">Limiet overschreden</string>
+    <string name="left_over">Resterend</string>
+    <string name="kcal">kcal</string>
+    <string name="calendar">Agenda</string>
+    <string name="back">Terug</string>
+    <string name="edit_entry">Invoer bewerken</string>
+    <string name="name">Naam</string>
+    <string name="time">Tijd</string>
+    <string name="finished">Klaar</string>
+    <string name="save">Opslaan</string>
+    <string name="entries">Invoer</string>
+    <string name="no_entries">Nog geen invoer</string>
+    <string name="add_first_entry">Voeg hieronder je eerste maaltijd toe</string>
+    <string name="previous_day">Vorige dag</string>
+    <string name="next_day">Volgende dag</string>
+    <string name="settings">Instellingen</string>
+    <string name="meal">Maaltijd</string>
+    <string name="activity">Activiteit</string>
+    <string name="add_meal_or_activity">Maaltijd/activiteit toevoegen</string>
+    <string name="frequent_entries">Recent</string>
+    <string name="speech_prompt">Wat heb je gegeten?</string>
+    <string name="analysis_title">Je voortgang in één oogopslag</string>
+    <string name="goal">Doel: %1$s kg/week afvallen (%2$d kcal tekort)</string>
+    <string name="average_eaten">Gem. gegeten</string>
+    <string name="kcal_per_day">kcal/dag</string>
+    <string name="average_burned">Gem. verbrand</string>
+    <string name="total_eaten">Totaal gegeten</string>
+    <string name="total_burned">Totaal verbrand</string>
+    <string name="kcal_x_days">kcal · %1$d dagen</string>
+    <string name="gram_who_per_week">WHO: max. %1$d g/week</string>
+    <string name="estimated_change">VERWACHTE VERANDERING</string>
+    <string name="based_on">Op basis van %1$d kcal %2$s</string>
+    <string name="deficit">Tekort</string>
+    <string name="surplus">Overschot</string>
+    <string name="weekly_goal_reached">Wekelijks doel bereikt</string>
+    <string name="tracking_consistency">Consistentie van bijhouden</string>
+    <string name="days_tracked_text">%1$s dagen bijgehouden</string>
+    <string name="days_sugar_text">Suiker %1$s dagen</string>
+    <string name="best_day">Beste dag</string>
+    <string name="x_kcal_deficit">%1$s · %2$d kcal tekort</string>
+    <string name="at_goal">Op doel</string>
+    <string name="today">Vandaag</string>
+    <string name="yesterday">Gisteren</string>
+    <string name="kg">kg</string>
+    <string name="cm">cm</string>
+    <string name="x_days">%1$d dagen</string>
+    <string name="day_empty_state">Geen invoer vandaag</string>
+
+
+    <!-- Activity Levels -->
+    <string name="activity_sedentary_label">Zittend</string>
+    <string name="activity_light_label">Licht actief</string>
+    <string name="activity_active_label">Actief</string>
+    <string name="activity_very_active_label">Zeer actief</string>
+    <string name="activity_sedentary_description">Kantoorbaan, minder dan 5.000 stappen/dag</string>
+    <string name="activity_light_description">1-2× sporten per week of veel wandelen</string>
+    <string name="activity_active_description">3-5× intensief trainen per week</string>
+    <string name="activity_very_active_description">Dagelijks trainen, fysiek werk of bodybuilder</string>
+
+    <!-- Weight Goals -->
+    <string name="weight_goal_slow">Langzaam</string>
+    <string name="weight_goal_normal">In balans</string>
+    <string name="weight_goal_fast">Snel</string>
+    <string name="weight_goal_aggressive">Zeer snel</string>
+    <string name="weight_goal_fast_warning">Vereist strikte discipline</string>
+    <string name="weight_goal_aggressive_warning">Alleen aanbevolen voor korte periodes</string>
+
+    <!-- Notifications -->
+    <string name="reminder_notification_title">Foodify 🍽️</string>
+    <string name="reminder_daily_notification_text">Vandaag nog niets bijgehouden — duurt maar 10 seconden!</string>
+    <string name="reminder_weekly_notification_text">Bekijk je weekstatistieken 📊</string>
+    <string-array name="reminder_daily_texts">
+        <item>Vandaag nog niets bijgehouden — duurt maar 10 seconden!</item>
+        <item>Hé, hoe was je dag? Noteer snel wat je hebt gegeten 🍽️</item>
+        <item>Blijf op koers! Al een maaltijd bijgehouden vandaag?</item>
+        <item>Je Foodify-dag is nog leeg 📋</item>
+        <item>Psst… je hebt vandaag nog niets ingevuld</item>
+        <item>Slechts 10 seconden — en je dag is bijgehouden!</item>
+        <item>Een snelle invoer voor het einde van de dag 🌙</item>
+    </string-array>
+
+    <!-- Nutrient sections -->
+    <string name="nutrients_macros">Macronutriënten</string>
+    <string name="nutrients_fatty_acids">Vetzuren</string>
+    <string name="nutrients_vitamins">Vitaminen</string>
+    <string name="nutrients_minerals">Mineralen</string>
+
+    <string name="nutrient_progress_within_limit">Binnen limiet</string>
+    <string name="nutrient_progress_nearly_limit">Bijna op limiet</string>
+    <string name="nutrient_progress_exceeded">Overschreden</string>
+    <string name="nutrient_who_recommendation">WHO-aanbeveling: max. %1$d g · %2$d dagen</string>
+
+    <!-- Macros -->
+    <string name="nutrient_calories">Calorieën</string>
+    <string name="nutrient_carbs">Koolhydraten</string>
+    <string name="nutrient_sugar">waarvan suikers</string>
+    <string name="nutrient_fiber">Vezels</string>
+    <string name="nutrient_protein">Eiwitten</string>
+    <string name="nutrient_fat">Vet</string>
+    <string name="nutrient_fat_saturated">verzadigd</string>
+    <string name="nutrient_fat_unsaturated">onverzadigd</string>
+    <string name="nutrient_salt">Zout</string>
+    <string name="nutrient_cholesterol">Cholesterol</string>
+
+    <!-- Fatty acids -->
+    <string name="nutrient_omega3">Omega-3</string>
+    <string name="nutrient_omega6">Omega-6</string>
+
+    <!-- Vitamins -->
+    <string name="nutrient_vitamin_a">Vitamine A</string>
+    <string name="nutrient_vitamin_b6">Vitamine B6</string>
+    <string name="nutrient_vitamin_b12">Vitamine B12</string>
+    <string name="nutrient_vitamin_c">Vitamine C</string>
+    <string name="nutrient_vitamin_d">Vitamine D</string>
+    <string name="nutrient_vitamin_e">Vitamine E</string>
+    <string name="nutrient_vitamin_k">Vitamine K</string>
+    <string name="nutrient_folic_acid">Foliumzuur</string>
+
+    <!-- Minerals -->
+    <string name="nutrient_calcium">Calcium</string>
+    <string name="nutrient_iron">IJzer</string>
+    <string name="nutrient_magnesium">Magnesium</string>
+    <string name="nutrient_zinc">Zink</string>
+    <string name="nutrient_potassium">Kalium</string>
+    <string name="nutrient_phosphorus">Fosfor</string>
+    <string name="confirm">Bevestigen</string>
+
+    <!-- Voice -->
+    <string name="voice_listening">Luistert…</string>
+    <string name="voice_done">Klaar</string>
+    <string name="voice_hint">Spreek nu je maaltijd of activiteit in</string>
+    <string name="apply">Toepassen</string>
+
+    <!-- Camera -->
+    <string name="take_photo">Foto maken</string>
+    <string name="meal_not_detected">Geen maaltijd gedetecteerd. Voeg een voedingsmiddel of drankje toe.</string>
+</resources>

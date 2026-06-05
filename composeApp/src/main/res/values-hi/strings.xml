@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="step_indicator">चरण %1$d / %2$d</string>
+    <string name="goal_title">आपकी ऊर्जा आवश्यकताएँ</string>
+    <string name="bmi_low">कम वजन</string>
+    <string name="bmi_normal">सामान्य वजन</string>
+    <string name="bmi_lightly_increased">थोड़ा बढ़ा हुआ</string>
+    <string name="bmi_high">अधिक वजन</string>
+    <string name="your_activity_level">आपकी सक्रियता का स्तर</string>
+    <string name="bmi">BMI</string>
+    <string name="tdee">कुल दैनिक ऊर्जा व्यय</string>
+    <string name="recommended_weight">अनुशंसित वजन</string>
+    <string name="goal_description">आपका शरीर आराम के दौरान और गतिविधि के साथ इस ऊर्जा का उपयोग करता है</string>
+    <string name="calorie_base">आराम की कैलोरी</string>
+    <string name="calorie_total">कुल कैलोरी</string>
+    <string name="weekly_goal">साप्ताहिक लक्ष्य</string>
+    <string name="daily_limit">आपकी दैनिक सीमा</string>
+    <string name="kcal_day">kcal/दिन</string>
+    <string name="kg_week">%1$s kg/सप्ताह</string>
+    <string name="calculate_needs">आवश्यकता गणना करें</string>
+    <string name="calculate_bmi">BMI गणना करें</string>
+    <string name="start">चलिए शुरू करें</string>
+    <string name="next">आगे</string>
+
+
+    <string name="about_you">आपके बारे में</string>
+    <string name="calculate_calorie_title">हम आपकी व्यक्तिगत कैलोरी आवश्यकता की गणना करेंगे</string>
+    <string name="weightloss_title">आप कितनी जल्दी वजन कम करना चाहते हैं?</string>
+
+    <string name="gender">लिंग</string>
+    <string name="male">पुरुष</string>
+    <string name="female">महिला</string>
+    <string name="settings_male">♂ पुरुष</string>
+    <string name="settings_female">♀ महिला</string>
+    <string name="age">आयु</string>
+    <string name="years">वर्ष</string>
+    <string name="unit_system">इकाई प्रणाली</string>
+    <string name="weight_and_height">ऊँचाई और वजन</string>
+    <string name="x_cm">%1$d cm</string>
+    <string name="x_kg">%1$d kg</string>
+    <string name="height">ऊँचाई</string>
+    <string name="weight">वजन</string>
+
+    <string name="settings_daily_calorie_limit">दैनिक कैलोरी सीमा</string>
+    <string name="settings_personal_data">व्यक्तिगत जानकारी</string>
+    <string name="app">ऐप</string>
+    <string name="dark_mode">डार्क मोड</string>
+    <string name="reminder">रिमाइंडर</string>
+    <string name="data">डेटा</string>
+    <string name="data_export">डेटा निर्यात करें</string>
+    <string name="delete_all_data">सभी डेटा हटाएँ</string>
+    <string name="version">Foodify v1.0.0 - 💜 के साथ बनाया गया</string>
+    <string name="confirm_delete_title">सभी डेटा हटाएँ?</string>
+    <string name="confirm_delete_description">सभी प्रविष्टियाँ और आपका onboarding डेटा स्थायी रूप से हटा दिया जाएगा।</string>
+    <string name="delete">हटाएँ</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="day">दिन</string>
+    <string name="analysis">विश्लेषण</string>
+    <string name="meal_or_activity">भोजन या गतिविधि</string>
+    <string name="voice_input">वॉइस इनपुट</string>
+    <string name="error_no_internet">इंटरनेट नहीं है</string>
+    <string name="error_timeout">समय समाप्त</string>
+    <string name="error_unknown">अज्ञात त्रुटि</string>
+    <string name="limit">सीमा</string>
+    <string name="burned">जलाई गई</string>
+    <string name="eaten">खाई गई</string>
+    <string name="over_limit">सीमा से अधिक</string>
+    <string name="left_over">शेष</string>
+    <string name="kcal">kcal</string>
+    <string name="calendar">कैलेंडर</string>
+    <string name="back">वापस</string>
+    <string name="edit_entry">प्रविष्टि संपादित करें</string>
+    <string name="name">नाम</string>
+    <string name="time">समय</string>
+    <string name="finished">पूर्ण</string>
+    <string name="save">सहेजें</string>
+    <string name="entries">प्रविष्टियाँ</string>
+    <string name="no_entries">अभी कोई प्रविष्टि नहीं</string>
+    <string name="add_first_entry">नीचे अपना पहला भोजन जोड़ें</string>
+    <string name="previous_day">पिछला दिन</string>
+    <string name="next_day">अगला दिन</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="meal">भोजन</string>
+    <string name="activity">गतिविधि</string>
+    <string name="add_meal_or_activity">भोजन/गतिविधि जोड़ें</string>
+    <string name="frequent_entries">हाल ही के</string>
+    <string name="speech_prompt">आपने क्या खाया?</string>
+    <string name="analysis_title">एक नज़र में आपकी प्रगति</string>
+    <string name="goal">लक्ष्य: %1$s kg/सप्ताह घटाएँ (%2$d kcal कमी)</string>
+    <string name="average_eaten">औसत खपत</string>
+    <string name="kcal_per_day">kcal/दिन</string>
+    <string name="average_burned">औसत जलाई गई</string>
+    <string name="total_eaten">कुल खपत</string>
+    <string name="total_burned">कुल जलाई गई</string>
+    <string name="kcal_x_days">kcal · %1$d दिन</string>
+    <string name="gram_who_per_week">WHO: अधिकतम %1$d g/सप्ताह</string>
+    <string name="estimated_change">अनुमानित बदलाव</string>
+    <string name="based_on">%1$d kcal %2$s के आधार पर</string>
+    <string name="deficit">कमी</string>
+    <string name="surplus">अधिशेष</string>
+    <string name="weekly_goal_reached">साप्ताहिक लक्ष्य पूरा</string>
+    <string name="tracking_consistency">ट्रैकिंग में निरंतरता</string>
+    <string name="days_tracked_text">%1$s दिन ट्रैक किए</string>
+    <string name="days_sugar_text">शक्कर %1$s दिन</string>
+    <string name="best_day">सर्वश्रेष्ठ दिन</string>
+    <string name="x_kcal_deficit">%1$s · %2$d kcal कमी</string>
+    <string name="at_goal">लक्ष्य पर</string>
+    <string name="today">आज</string>
+    <string name="yesterday">कल</string>
+    <string name="kg">kg</string>
+    <string name="cm">cm</string>
+    <string name="x_days">%1$d दिन</string>
+    <string name="day_empty_state">आज कोई प्रविष्टि नहीं</string>
+
+
+    <!-- Activity Levels -->
+    <string name="activity_sedentary_label">गतिहीन</string>
+    <string name="activity_light_label">हल्का सक्रिय</string>
+    <string name="activity_active_label">सक्रिय</string>
+    <string name="activity_very_active_label">अति सक्रिय</string>
+    <string name="activity_sedentary_description">ऑफिस का काम, 5,000 कदम/दिन से कम</string>
+    <string name="activity_light_description">सप्ताह में 1-2 बार व्यायाम या काफी पैदल चलना</string>
+    <string name="activity_active_description">सप्ताह में 3-5 बार तीव्र प्रशिक्षण</string>
+    <string name="activity_very_active_description">रोज़ाना प्रशिक्षण, शारीरिक काम या बॉडीबिल्डर</string>
+
+    <!-- Weight Goals -->
+    <string name="weight_goal_slow">धीमा</string>
+    <string name="weight_goal_normal">संतुलित</string>
+    <string name="weight_goal_fast">तेज़</string>
+    <string name="weight_goal_aggressive">बहुत तेज़</string>
+    <string name="weight_goal_fast_warning">सख्त अनुशासन की आवश्यकता</string>
+    <string name="weight_goal_aggressive_warning">केवल कम समय के लिए सुझाया गया</string>
+
+    <!-- Notifications -->
+    <string name="reminder_notification_title">Foodify 🍽️</string>
+    <string name="reminder_daily_notification_text">आज अभी तक कुछ ट्रैक नहीं किया — बस 10 सेकंड लगते हैं!</string>
+    <string name="reminder_weekly_notification_text">अपने साप्ताहिक आँकड़े देखें 📊</string>
+    <string-array name="reminder_daily_texts">
+        <item>आज अभी तक कुछ ट्रैक नहीं किया — बस 10 सेकंड लगते हैं!</item>
+        <item>हाय, आपका दिन कैसा था? जल्दी से दर्ज करें क्या खाया 🍽️</item>
+        <item>लक्ष्य पर बने रहें! क्या आज कोई भोजन ट्रैक किया?</item>
+        <item>आपका Foodify दिन अभी खाली है 📋</item>
+        <item>हे… आपने आज कुछ दर्ज नहीं किया है</item>
+        <item>बस 10 सेकंड — और आपका दिन ट्रैक हो गया!</item>
+        <item>दिन खत्म होने से पहले एक त्वरित प्रविष्टि 🌙</item>
+    </string-array>
+
+    <!-- Nutrient sections -->
+    <string name="nutrients_macros">मैक्रोन्यूट्रिएंट्स</string>
+    <string name="nutrients_fatty_acids">वसीय अम्ल</string>
+    <string name="nutrients_vitamins">विटामिन</string>
+    <string name="nutrients_minerals">खनिज</string>
+
+    <string name="nutrient_progress_within_limit">सीमा के भीतर</string>
+    <string name="nutrient_progress_nearly_limit">सीमा के निकट</string>
+    <string name="nutrient_progress_exceeded">पार हो गया</string>
+    <string name="nutrient_who_recommendation">WHO सिफारिश: अधिकतम %1$d g · %2$d दिन</string>
+
+    <!-- Macros -->
+    <string name="nutrient_calories">कैलोरी</string>
+    <string name="nutrient_carbs">कार्बोहाइड्रेट</string>
+    <string name="nutrient_sugar">जिसमें शक्कर</string>
+    <string name="nutrient_fiber">फाइबर</string>
+    <string name="nutrient_protein">प्रोटीन</string>
+    <string name="nutrient_fat">वसा</string>
+    <string name="nutrient_fat_saturated">संतृप्त</string>
+    <string name="nutrient_fat_unsaturated">असंतृप्त</string>
+    <string name="nutrient_salt">नमक</string>
+    <string name="nutrient_cholesterol">कोलेस्ट्रॉल</string>
+
+    <!-- Fatty acids -->
+    <string name="nutrient_omega3">ओमेगा-3</string>
+    <string name="nutrient_omega6">ओमेगा-6</string>
+
+    <!-- Vitamins -->
+    <string name="nutrient_vitamin_a">विटामिन A</string>
+    <string name="nutrient_vitamin_b6">विटामिन B6</string>
+    <string name="nutrient_vitamin_b12">विटामिन B12</string>
+    <string name="nutrient_vitamin_c">विटामिन C</string>
+    <string name="nutrient_vitamin_d">विटामिन D</string>
+    <string name="nutrient_vitamin_e">विटामिन E</string>
+    <string name="nutrient_vitamin_k">विटामिन K</string>
+    <string name="nutrient_folic_acid">फोलिक अम्ल</string>
+
+    <!-- Minerals -->
+    <string name="nutrient_calcium">कैल्शियम</string>
+    <string name="nutrient_iron">आयरन</string>
+    <string name="nutrient_magnesium">मैग्नीशियम</string>
+    <string name="nutrient_zinc">जिंक</string>
+    <string name="nutrient_potassium">पोटैशियम</string>
+    <string name="nutrient_phosphorus">फॉस्फोरस</string>
+    <string name="confirm">पुष्टि करें</string>
+
+    <!-- Voice -->
+    <string name="voice_listening">सुन रहा है…</string>
+    <string name="voice_done">पूर्ण</string>
+    <string name="voice_hint">अब अपना भोजन या गतिविधि बोलें</string>
+    <string name="apply">लागू करें</string>
+
+    <!-- Camera -->
+    <string name="take_photo">फोटो लें</string>
+    <string name="meal_not_detected">कोई भोजन नहीं पहचाना गया। कृपया एक खाद्य पदार्थ या पेय जोड़ें।</string>
+</resources>

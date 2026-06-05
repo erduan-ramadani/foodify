@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="step_indicator">Paso %1$d de %2$d</string>
+    <string name="goal_title">Tus necesidades energéticas</string>
+    <string name="bmi_low">Bajo peso</string>
+    <string name="bmi_normal">Peso normal</string>
+    <string name="bmi_lightly_increased">Ligeramente elevado</string>
+    <string name="bmi_high">Sobrepeso</string>
+    <string name="your_activity_level">Tu nivel de actividad</string>
+    <string name="bmi">IMC</string>
+    <string name="tdee">Gasto energético diario total</string>
+    <string name="recommended_weight">Peso recomendado</string>
+    <string name="goal_description">Tu cuerpo usa esta energía diariamente en reposo y con actividad</string>
+    <string name="calorie_base">Calorías en reposo</string>
+    <string name="calorie_total">Calorías totales</string>
+    <string name="weekly_goal">Objetivo semanal</string>
+    <string name="daily_limit">Tu límite diario</string>
+    <string name="kcal_day">kcal/día</string>
+    <string name="kg_week">%1$s kg/semana</string>
+    <string name="calculate_needs">Calcular necesidades</string>
+    <string name="calculate_bmi">Calcular IMC</string>
+    <string name="start">¡Vamos!</string>
+    <string name="next">Siguiente</string>
+
+
+    <string name="about_you">Sobre ti</string>
+    <string name="calculate_calorie_title">Calcularemos tus necesidades calóricas personales</string>
+    <string name="weightloss_title">¿Con qué rapidez quieres perder peso?</string>
+
+    <string name="gender">Género</string>
+    <string name="male">Hombre</string>
+    <string name="female">Mujer</string>
+    <string name="settings_male">♂ Hombre</string>
+    <string name="settings_female">♀ Mujer</string>
+    <string name="age">Edad</string>
+    <string name="years">Años</string>
+    <string name="unit_system">Sistema de unidades</string>
+    <string name="weight_and_height">Altura y peso</string>
+    <string name="x_cm">%1$d cm</string>
+    <string name="x_kg">%1$d kg</string>
+    <string name="height">Altura</string>
+    <string name="weight">Peso</string>
+
+    <string name="settings_daily_calorie_limit">Límite diario de calorías</string>
+    <string name="settings_personal_data">Datos personales</string>
+    <string name="app">App</string>
+    <string name="dark_mode">Modo oscuro</string>
+    <string name="reminder">Recordatorios</string>
+    <string name="data">Datos</string>
+    <string name="data_export">Exportar datos</string>
+    <string name="delete_all_data">Eliminar todos los datos</string>
+    <string name="version">Foodify v1.0.0 - Hecho con 💜</string>
+    <string name="confirm_delete_title">¿Eliminar todos los datos?</string>
+    <string name="confirm_delete_description">Todas las entradas y tus datos de onboarding se eliminarán de forma permanente.</string>
+    <string name="delete">Eliminar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="day">Día</string>
+    <string name="analysis">Análisis</string>
+    <string name="meal_or_activity">Comida o actividad</string>
+    <string name="voice_input">Entrada por voz</string>
+    <string name="error_no_internet">Sin internet</string>
+    <string name="error_timeout">Tiempo de espera agotado</string>
+    <string name="error_unknown">Error desconocido</string>
+    <string name="limit">Límite</string>
+    <string name="burned">Quemadas</string>
+    <string name="eaten">Consumidas</string>
+    <string name="over_limit">Límite superado</string>
+    <string name="left_over">Restantes</string>
+    <string name="kcal">kcal</string>
+    <string name="calendar">Calendario</string>
+    <string name="back">Atrás</string>
+    <string name="edit_entry">Editar entrada</string>
+    <string name="name">Nombre</string>
+    <string name="time">Hora</string>
+    <string name="finished">Listo</string>
+    <string name="save">Guardar</string>
+    <string name="entries">Entradas</string>
+    <string name="no_entries">Aún no hay entradas</string>
+    <string name="add_first_entry">Añade tu primera comida abajo</string>
+    <string name="previous_day">Día anterior</string>
+    <string name="next_day">Día siguiente</string>
+    <string name="settings">Ajustes</string>
+    <string name="meal">Comida</string>
+    <string name="activity">Actividad</string>
+    <string name="add_meal_or_activity">Añadir comida/actividad</string>
+    <string name="frequent_entries">Recientes</string>
+    <string name="speech_prompt">¿Qué has comido?</string>
+    <string name="analysis_title">Tu progreso de un vistazo</string>
+    <string name="goal">Objetivo: perder %1$s kg/semana (déficit de %2$d kcal)</string>
+    <string name="average_eaten">Media consumida</string>
+    <string name="kcal_per_day">kcal/día</string>
+    <string name="average_burned">Media quemada</string>
+    <string name="total_eaten">Total consumido</string>
+    <string name="total_burned">Total quemado</string>
+    <string name="kcal_x_days">kcal · %1$d días</string>
+    <string name="gram_who_per_week">OMS: máx. %1$d g/semana</string>
+    <string name="estimated_change">CAMBIO ESTIMADO</string>
+    <string name="based_on">Basado en %1$d kcal %2$s</string>
+    <string name="deficit">Déficit</string>
+    <string name="surplus">Superávit</string>
+    <string name="weekly_goal_reached">Objetivo semanal alcanzado</string>
+    <string name="tracking_consistency">Constancia en el registro</string>
+    <string name="days_tracked_text">Registrados %1$s días</string>
+    <string name="days_sugar_text">Azúcar %1$s días</string>
+    <string name="best_day">Mejor día</string>
+    <string name="x_kcal_deficit">%1$s · déficit de %2$d kcal</string>
+    <string name="at_goal">En objetivo</string>
+    <string name="today">Hoy</string>
+    <string name="yesterday">Ayer</string>
+    <string name="kg">kg</string>
+    <string name="cm">cm</string>
+    <string name="x_days">%1$d días</string>
+    <string name="day_empty_state">Sin entradas hoy</string>
+
+
+    <!-- Activity Levels -->
+    <string name="activity_sedentary_label">Sedentario</string>
+    <string name="activity_light_label">Ligeramente activo</string>
+    <string name="activity_active_label">Activo</string>
+    <string name="activity_very_active_label">Muy activo</string>
+    <string name="activity_sedentary_description">Trabajo de oficina, menos de 5.000 pasos/día</string>
+    <string name="activity_light_description">1-2 entrenamientos por semana o muchas caminatas</string>
+    <string name="activity_active_description">3-5 entrenamientos intensos por semana</string>
+    <string name="activity_very_active_description">Entrenamiento diario, trabajo físico o culturista</string>
+
+    <!-- Weight Goals -->
+    <string name="weight_goal_slow">Lento</string>
+    <string name="weight_goal_normal">Equilibrado</string>
+    <string name="weight_goal_fast">Rápido</string>
+    <string name="weight_goal_aggressive">Muy rápido</string>
+    <string name="weight_goal_fast_warning">Requiere disciplina estricta</string>
+    <string name="weight_goal_aggressive_warning">Solo recomendado para períodos cortos</string>
+
+    <!-- Notifications -->
+    <string name="reminder_notification_title">Foodify 🍽️</string>
+    <string name="reminder_daily_notification_text">Aún no has registrado nada hoy — ¡solo lleva 10 segundos!</string>
+    <string name="reminder_weekly_notification_text">Echa un vistazo a tus estadísticas semanales 📊</string>
+    <string-array name="reminder_daily_texts">
+        <item>Aún no has registrado nada hoy — ¡solo lleva 10 segundos!</item>
+        <item>Oye, ¿qué tal tu día? Registra rápidamente lo que has comido 🍽️</item>
+        <item>¡Mantén el rumbo! ¿Ya has registrado una comida hoy?</item>
+        <item>Tu día en Foodify aún está vacío 📋</item>
+        <item>Psst… aún no has registrado nada hoy</item>
+        <item>Solo 10 segundos — ¡y tu día estará registrado!</item>
+        <item>Una entrada rápida antes de que acabe el día 🌙</item>
+    </string-array>
+
+    <!-- Nutrient sections -->
+    <string name="nutrients_macros">Macronutrientes</string>
+    <string name="nutrients_fatty_acids">Ácidos grasos</string>
+    <string name="nutrients_vitamins">Vitaminas</string>
+    <string name="nutrients_minerals">Minerales</string>
+
+    <string name="nutrient_progress_within_limit">Dentro del límite</string>
+    <string name="nutrient_progress_nearly_limit">Cerca del límite</string>
+    <string name="nutrient_progress_exceeded">Superado</string>
+    <string name="nutrient_who_recommendation">Recomendación OMS: máx. %1$d g · %2$d días</string>
+
+    <!-- Macros -->
+    <string name="nutrient_calories">Calorías</string>
+    <string name="nutrient_carbs">Carbohidratos</string>
+    <string name="nutrient_sugar">de los cuales azúcares</string>
+    <string name="nutrient_fiber">Fibra</string>
+    <string name="nutrient_protein">Proteína</string>
+    <string name="nutrient_fat">Grasa</string>
+    <string name="nutrient_fat_saturated">saturada</string>
+    <string name="nutrient_fat_unsaturated">insaturada</string>
+    <string name="nutrient_salt">Sal</string>
+    <string name="nutrient_cholesterol">Colesterol</string>
+
+    <!-- Fatty acids -->
+    <string name="nutrient_omega3">Omega-3</string>
+    <string name="nutrient_omega6">Omega-6</string>
+
+    <!-- Vitamins -->
+    <string name="nutrient_vitamin_a">Vitamina A</string>
+    <string name="nutrient_vitamin_b6">Vitamina B6</string>
+    <string name="nutrient_vitamin_b12">Vitamina B12</string>
+    <string name="nutrient_vitamin_c">Vitamina C</string>
+    <string name="nutrient_vitamin_d">Vitamina D</string>
+    <string name="nutrient_vitamin_e">Vitamina E</string>
+    <string name="nutrient_vitamin_k">Vitamina K</string>
+    <string name="nutrient_folic_acid">Ácido fólico</string>
+
+    <!-- Minerals -->
+    <string name="nutrient_calcium">Calcio</string>
+    <string name="nutrient_iron">Hierro</string>
+    <string name="nutrient_magnesium">Magnesio</string>
+    <string name="nutrient_zinc">Zinc</string>
+    <string name="nutrient_potassium">Potasio</string>
+    <string name="nutrient_phosphorus">Fósforo</string>
+    <string name="confirm">Confirmar</string>
+
+    <!-- Voice -->
+    <string name="voice_listening">Escuchando…</string>
+    <string name="voice_done">Listo</string>
+    <string name="voice_hint">Di tu comida o actividad ahora</string>
+    <string name="apply">Aplicar</string>
+
+    <!-- Camera -->
+    <string name="take_photo">Tomar foto</string>
+    <string name="meal_not_detected">No se detectó ninguna comida. Por favor, añade un alimento o una bebida.</string>
+</resources>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="step_indicator">Шаг %1$d из %2$d</string>
+    <string name="goal_title">Ваши энергозатраты</string>
+    <string name="bmi_low">Недостаточный вес</string>
+    <string name="bmi_normal">Нормальный вес</string>
+    <string name="bmi_lightly_increased">Слегка повышен</string>
+    <string name="bmi_high">Избыточный вес</string>
+    <string name="your_activity_level">Ваш уровень активности</string>
+    <string name="bmi">ИМТ</string>
+    <string name="tdee">Общий суточный расход энергии</string>
+    <string name="recommended_weight">Рекомендуемый вес</string>
+    <string name="goal_description">Ваше тело использует эту энергию ежедневно в покое и при активности</string>
+    <string name="calorie_base">Калории в покое</string>
+    <string name="calorie_total">Всего калорий</string>
+    <string name="weekly_goal">Недельная цель</string>
+    <string name="daily_limit">Ваш дневной лимит</string>
+    <string name="kcal_day">ккал/день</string>
+    <string name="kg_week">%1$s кг/неделю</string>
+    <string name="calculate_needs">Рассчитать потребность</string>
+    <string name="calculate_bmi">Рассчитать ИМТ</string>
+    <string name="start">Поехали</string>
+    <string name="next">Далее</string>
+
+
+    <string name="about_you">О вас</string>
+    <string name="calculate_calorie_title">Мы рассчитаем вашу личную потребность в калориях</string>
+    <string name="weightloss_title">Как быстро вы хотите похудеть?</string>
+
+    <string name="gender">Пол</string>
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    <string name="settings_male">♂ Мужской</string>
+    <string name="settings_female">♀ Женский</string>
+    <string name="age">Возраст</string>
+    <string name="years">Лет</string>
+    <string name="unit_system">Система единиц</string>
+    <string name="weight_and_height">Рост и вес</string>
+    <string name="x_cm">%1$d см</string>
+    <string name="x_kg">%1$d кг</string>
+    <string name="height">Рост</string>
+    <string name="weight">Вес</string>
+
+    <string name="settings_daily_calorie_limit">Дневной лимит калорий</string>
+    <string name="settings_personal_data">Личные данные</string>
+    <string name="app">Приложение</string>
+    <string name="dark_mode">Тёмная тема</string>
+    <string name="reminder">Напоминания</string>
+    <string name="data">Данные</string>
+    <string name="data_export">Экспорт данных</string>
+    <string name="delete_all_data">Удалить все данные</string>
+    <string name="version">Foodify v1.0.0 - Сделано с 💜</string>
+    <string name="confirm_delete_title">Удалить все данные?</string>
+    <string name="confirm_delete_description">Все записи и ваши данные онбординга будут безвозвратно удалены.</string>
+    <string name="delete">Удалить</string>
+    <string name="cancel">Отмена</string>
+    <string name="day">День</string>
+    <string name="analysis">Анализ</string>
+    <string name="meal_or_activity">Приём пищи или активность</string>
+    <string name="voice_input">Голосовой ввод</string>
+    <string name="error_no_internet">Нет интернета</string>
+    <string name="error_timeout">Время ожидания истекло</string>
+    <string name="error_unknown">Неизвестная ошибка</string>
+    <string name="limit">Лимит</string>
+    <string name="burned">Сожжено</string>
+    <string name="eaten">Съедено</string>
+    <string name="over_limit">Лимит превышен</string>
+    <string name="left_over">Осталось</string>
+    <string name="kcal">ккал</string>
+    <string name="calendar">Календарь</string>
+    <string name="back">Назад</string>
+    <string name="edit_entry">Редактировать запись</string>
+    <string name="name">Название</string>
+    <string name="time">Время</string>
+    <string name="finished">Готово</string>
+    <string name="save">Сохранить</string>
+    <string name="entries">Записи</string>
+    <string name="no_entries">Пока нет записей</string>
+    <string name="add_first_entry">Добавьте свой первый приём пищи ниже</string>
+    <string name="previous_day">Предыдущий день</string>
+    <string name="next_day">Следующий день</string>
+    <string name="settings">Настройки</string>
+    <string name="meal">Приём пищи</string>
+    <string name="activity">Активность</string>
+    <string name="add_meal_or_activity">Добавить приём пищи/активность</string>
+    <string name="frequent_entries">Недавние</string>
+    <string name="speech_prompt">Что вы съели?</string>
+    <string name="analysis_title">Ваш прогресс с первого взгляда</string>
+    <string name="goal">Цель: терять %1$s кг/неделю (дефицит %2$d ккал)</string>
+    <string name="average_eaten">В среднем съедено</string>
+    <string name="kcal_per_day">ккал/день</string>
+    <string name="average_burned">В среднем сожжено</string>
+    <string name="total_eaten">Всего съедено</string>
+    <string name="total_burned">Всего сожжено</string>
+    <string name="kcal_x_days">ккал · %1$d дней</string>
+    <string name="gram_who_per_week">ВОЗ: макс. %1$d г/неделю</string>
+    <string name="estimated_change">ОЖИДАЕМОЕ ИЗМЕНЕНИЕ</string>
+    <string name="based_on">На основе %1$d ккал %2$s</string>
+    <string name="deficit">Дефицит</string>
+    <string name="surplus">Избыток</string>
+    <string name="weekly_goal_reached">Недельная цель достигнута</string>
+    <string name="tracking_consistency">Постоянство отслеживания</string>
+    <string name="days_tracked_text">Отслежено %1$s дней</string>
+    <string name="days_sugar_text">Сахар %1$s дней</string>
+    <string name="best_day">Лучший день</string>
+    <string name="x_kcal_deficit">%1$s · дефицит %2$d ккал</string>
+    <string name="at_goal">В цели</string>
+    <string name="today">Сегодня</string>
+    <string name="yesterday">Вчера</string>
+    <string name="kg">кг</string>
+    <string name="cm">см</string>
+    <string name="x_days">%1$d дней</string>
+    <string name="day_empty_state">Сегодня нет записей</string>
+
+
+    <!-- Activity Levels -->
+    <string name="activity_sedentary_label">Сидячий образ жизни</string>
+    <string name="activity_light_label">Легкая активность</string>
+    <string name="activity_active_label">Активный</string>
+    <string name="activity_very_active_label">Очень активный</string>
+    <string name="activity_sedentary_description">Офисная работа, менее 5 000 шагов/день</string>
+    <string name="activity_light_description">1-2 тренировки в неделю или много ходьбы</string>
+    <string name="activity_active_description">3-5 интенсивных тренировок в неделю</string>
+    <string name="activity_very_active_description">Ежедневные тренировки, физическая работа или бодибилдер</string>
+
+    <!-- Weight Goals -->
+    <string name="weight_goal_slow">Медленно</string>
+    <string name="weight_goal_normal">Сбалансированно</string>
+    <string name="weight_goal_fast">Быстро</string>
+    <string name="weight_goal_aggressive">Очень быстро</string>
+    <string name="weight_goal_fast_warning">Требует строгой дисциплины</string>
+    <string name="weight_goal_aggressive_warning">Рекомендуется только на короткие периоды</string>
+
+    <!-- Notifications -->
+    <string name="reminder_notification_title">Foodify 🍽️</string>
+    <string name="reminder_daily_notification_text">Сегодня ещё ничего не записано — это займёт всего 10 секунд!</string>
+    <string name="reminder_weekly_notification_text">Посмотрите свою недельную статистику 📊</string>
+    <string-array name="reminder_daily_texts">
+        <item>Сегодня ещё ничего не записано — это займёт всего 10 секунд!</item>
+        <item>Привет, как прошёл твой день? Быстро запиши, что съел 🍽️</item>
+        <item>Держись цели! Записал сегодня приём пищи?</item>
+        <item>Твой день в Foodify ещё пуст 📋</item>
+        <item>Псст… ты ещё ничего не записал сегодня</item>
+        <item>Всего 10 секунд — и твой день записан!</item>
+        <item>Быстрая запись до конца дня 🌙</item>
+    </string-array>
+
+    <!-- Nutrient sections -->
+    <string name="nutrients_macros">Макронутриенты</string>
+    <string name="nutrients_fatty_acids">Жирные кислоты</string>
+    <string name="nutrients_vitamins">Витамины</string>
+    <string name="nutrients_minerals">Минералы</string>
+
+    <string name="nutrient_progress_within_limit">В пределах лимита</string>
+    <string name="nutrient_progress_nearly_limit">Близко к лимиту</string>
+    <string name="nutrient_progress_exceeded">Превышен</string>
+    <string name="nutrient_who_recommendation">Рекомендация ВОЗ: макс. %1$d г · %2$d дней</string>
+
+    <!-- Macros -->
+    <string name="nutrient_calories">Калории</string>
+    <string name="nutrient_carbs">Углеводы</string>
+    <string name="nutrient_sugar">из них сахара</string>
+    <string name="nutrient_fiber">Клетчатка</string>
+    <string name="nutrient_protein">Белки</string>
+    <string name="nutrient_fat">Жиры</string>
+    <string name="nutrient_fat_saturated">насыщенные</string>
+    <string name="nutrient_fat_unsaturated">ненасыщенные</string>
+    <string name="nutrient_salt">Соль</string>
+    <string name="nutrient_cholesterol">Холестерин</string>
+
+    <!-- Fatty acids -->
+    <string name="nutrient_omega3">Омега-3</string>
+    <string name="nutrient_omega6">Омега-6</string>
+
+    <!-- Vitamins -->
+    <string name="nutrient_vitamin_a">Витамин A</string>
+    <string name="nutrient_vitamin_b6">Витамин B6</string>
+    <string name="nutrient_vitamin_b12">Витамин B12</string>
+    <string name="nutrient_vitamin_c">Витамин C</string>
+    <string name="nutrient_vitamin_d">Витамин D</string>
+    <string name="nutrient_vitamin_e">Витамин E</string>
+    <string name="nutrient_vitamin_k">Витамин K</string>
+    <string name="nutrient_folic_acid">Фолиевая кислота</string>
+
+    <!-- Minerals -->
+    <string name="nutrient_calcium">Кальций</string>
+    <string name="nutrient_iron">Железо</string>
+    <string name="nutrient_magnesium">Магний</string>
+    <string name="nutrient_zinc">Цинк</string>
+    <string name="nutrient_potassium">Калий</string>
+    <string name="nutrient_phosphorus">Фосфор</string>
+    <string name="confirm">Подтвердить</string>
+
+    <!-- Voice -->
+    <string name="voice_listening">Слушаю…</string>
+    <string name="voice_done">Готово</string>
+    <string name="voice_hint">Произнесите ваш приём пищи или активность сейчас</string>
+    <string name="apply">Применить</string>
+
+    <!-- Camera -->
+    <string name="take_photo">Сделать фото</string>
+    <string name="meal_not_detected">Приём пищи не распознан. Пожалуйста, добавьте еду или напиток.</string>
+</resources>

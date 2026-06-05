@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="step_indicator">Adım %1$d / %2$d</string>
+    <string name="goal_title">Enerji İhtiyacın</string>
+    <string name="bmi_low">Düşük kilo</string>
+    <string name="bmi_normal">Normal kilo</string>
+    <string name="bmi_lightly_increased">Hafif yüksek</string>
+    <string name="bmi_high">Fazla kilo</string>
+    <string name="your_activity_level">Aktivite seviyen</string>
+    <string name="bmi">VKİ</string>
+    <string name="tdee">Toplam Günlük Enerji Harcaması</string>
+    <string name="recommended_weight">Önerilen kilo</string>
+    <string name="goal_description">Vücudun bu enerjiyi her gün dinlenme ve aktivite sırasında kullanır</string>
+    <string name="calorie_base">Dinlenme kalorileri</string>
+    <string name="calorie_total">Toplam kalori</string>
+    <string name="weekly_goal">Haftalık hedef</string>
+    <string name="daily_limit">Günlük limitin</string>
+    <string name="kcal_day">kcal/gün</string>
+    <string name="kg_week">%1$s kg/hafta</string>
+    <string name="calculate_needs">İhtiyacı hesapla</string>
+    <string name="calculate_bmi">VKİ hesapla</string>
+    <string name="start">Başlayalım</string>
+    <string name="next">İleri</string>
+
+
+    <string name="about_you">Senin hakkında</string>
+    <string name="calculate_calorie_title">Kişisel kalori ihtiyacını hesaplayacağız</string>
+    <string name="weightloss_title">Ne kadar hızlı kilo vermek istiyorsun?</string>
+
+    <string name="gender">Cinsiyet</string>
+    <string name="male">Erkek</string>
+    <string name="female">Kadın</string>
+    <string name="settings_male">♂ Erkek</string>
+    <string name="settings_female">♀ Kadın</string>
+    <string name="age">Yaş</string>
+    <string name="years">Yıl</string>
+    <string name="unit_system">Birim sistemi</string>
+    <string name="weight_and_height">Boy ve kilo</string>
+    <string name="x_cm">%1$d cm</string>
+    <string name="x_kg">%1$d kg</string>
+    <string name="height">Boy</string>
+    <string name="weight">Kilo</string>
+
+    <string name="settings_daily_calorie_limit">Günlük kalori limiti</string>
+    <string name="settings_personal_data">Kişisel veriler</string>
+    <string name="app">Uygulama</string>
+    <string name="dark_mode">Koyu mod</string>
+    <string name="reminder">Hatırlatıcılar</string>
+    <string name="data">Veriler</string>
+    <string name="data_export">Verileri dışa aktar</string>
+    <string name="delete_all_data">Tüm verileri sil</string>
+    <string name="version">Foodify v1.0.0 - 💜 ile yapıldı</string>
+    <string name="confirm_delete_title">Tüm veriler silinsin mi?</string>
+    <string name="confirm_delete_description">Tüm girişler ve onboarding verilerin kalıcı olarak silinecek.</string>
+    <string name="delete">Sil</string>
+    <string name="cancel">İptal</string>
+    <string name="day">Gün</string>
+    <string name="analysis">Analiz</string>
+    <string name="meal_or_activity">Öğün veya aktivite</string>
+    <string name="voice_input">Sesli giriş</string>
+    <string name="error_no_internet">İnternet yok</string>
+    <string name="error_timeout">Zaman aşımı</string>
+    <string name="error_unknown">Bilinmeyen hata</string>
+    <string name="limit">Limit</string>
+    <string name="burned">Yakılan</string>
+    <string name="eaten">Tüketilen</string>
+    <string name="over_limit">Limit aşıldı</string>
+    <string name="left_over">Kalan</string>
+    <string name="kcal">kcal</string>
+    <string name="calendar">Takvim</string>
+    <string name="back">Geri</string>
+    <string name="edit_entry">Girişi düzenle</string>
+    <string name="name">Ad</string>
+    <string name="time">Saat</string>
+    <string name="finished">Tamam</string>
+    <string name="save">Kaydet</string>
+    <string name="entries">Girişler</string>
+    <string name="no_entries">Henüz giriş yok</string>
+    <string name="add_first_entry">İlk öğününü aşağıdan ekle</string>
+    <string name="previous_day">Önceki gün</string>
+    <string name="next_day">Sonraki gün</string>
+    <string name="settings">Ayarlar</string>
+    <string name="meal">Öğün</string>
+    <string name="activity">Aktivite</string>
+    <string name="add_meal_or_activity">Öğün/aktivite ekle</string>
+    <string name="frequent_entries">Son eklenenler</string>
+    <string name="speech_prompt">Ne yedin?</string>
+    <string name="analysis_title">İlerlemen bir bakışta</string>
+    <string name="goal">Hedef: haftada %1$s kg vermek (%2$d kcal eksiklik)</string>
+    <string name="average_eaten">Ort. tüketilen</string>
+    <string name="kcal_per_day">kcal/gün</string>
+    <string name="average_burned">Ort. yakılan</string>
+    <string name="total_eaten">Toplam tüketilen</string>
+    <string name="total_burned">Toplam yakılan</string>
+    <string name="kcal_x_days">kcal · %1$d gün</string>
+    <string name="gram_who_per_week">DSÖ: maks. %1$d g/hafta</string>
+    <string name="estimated_change">TAHMİNİ DEĞİŞİM</string>
+    <string name="based_on">%1$d kcal %2$s temel alınarak</string>
+    <string name="deficit">Eksik</string>
+    <string name="surplus">Fazla</string>
+    <string name="weekly_goal_reached">Haftalık hedefe ulaşıldı</string>
+    <string name="tracking_consistency">Takip sürekliliği</string>
+    <string name="days_tracked_text">%1$s gün takip edildi</string>
+    <string name="days_sugar_text">Şeker %1$s gün</string>
+    <string name="best_day">En iyi gün</string>
+    <string name="x_kcal_deficit">%1$s · %2$d kcal eksiklik</string>
+    <string name="at_goal">Hedefte</string>
+    <string name="today">Bugün</string>
+    <string name="yesterday">Dün</string>
+    <string name="kg">kg</string>
+    <string name="cm">cm</string>
+    <string name="x_days">%1$d gün</string>
+    <string name="day_empty_state">Bugün giriş yok</string>
+
+
+    <!-- Activity Levels -->
+    <string name="activity_sedentary_label">Hareketsiz</string>
+    <string name="activity_light_label">Hafif aktif</string>
+    <string name="activity_active_label">Aktif</string>
+    <string name="activity_very_active_label">Çok aktif</string>
+    <string name="activity_sedentary_description">Ofis işi, günde 5.000 adımdan az</string>
+    <string name="activity_light_description">Haftada 1-2 antrenman veya çok yürüyüş</string>
+    <string name="activity_active_description">Haftada 3-5 yoğun antrenman</string>
+    <string name="activity_very_active_description">Günlük antrenman, fiziksel iş veya vücut geliştirmeci</string>
+
+    <!-- Weight Goals -->
+    <string name="weight_goal_slow">Yavaş</string>
+    <string name="weight_goal_normal">Dengeli</string>
+    <string name="weight_goal_fast">Hızlı</string>
+    <string name="weight_goal_aggressive">Çok hızlı</string>
+    <string name="weight_goal_fast_warning">Sıkı disiplin gerektirir</string>
+    <string name="weight_goal_aggressive_warning">Sadece kısa süreler için önerilir</string>
+
+    <!-- Notifications -->
+    <string name="reminder_notification_title">Foodify 🍽️</string>
+    <string name="reminder_daily_notification_text">Bugün henüz hiçbir şey eklenmedi — sadece 10 saniye sürer!</string>
+    <string name="reminder_weekly_notification_text">Haftalık istatistiklerine bir göz at 📊</string>
+    <string-array name="reminder_daily_texts">
+        <item>Bugün henüz hiçbir şey eklenmedi — sadece 10 saniye sürer!</item>
+        <item>Selam, günün nasıldı? Ne yediğini hızlıca ekle 🍽️</item>
+        <item>Yolunda kal! Bugün bir öğün ekledin mi?</item>
+        <item>Foodify günün hâlâ boş 📋</item>
+        <item>Pssst… bugün henüz bir şey eklemedin</item>
+        <item>Sadece 10 saniye — ve günün eklenmiş olur!</item>
+        <item>Gün bitmeden hızlı bir giriş 🌙</item>
+    </string-array>
+
+    <!-- Nutrient sections -->
+    <string name="nutrients_macros">Makro besinler</string>
+    <string name="nutrients_fatty_acids">Yağ asitleri</string>
+    <string name="nutrients_vitamins">Vitaminler</string>
+    <string name="nutrients_minerals">Mineraller</string>
+
+    <string name="nutrient_progress_within_limit">Limit içinde</string>
+    <string name="nutrient_progress_nearly_limit">Limite yakın</string>
+    <string name="nutrient_progress_exceeded">Aşıldı</string>
+    <string name="nutrient_who_recommendation">DSÖ önerisi: maks. %1$d g · %2$d gün</string>
+
+    <!-- Macros -->
+    <string name="nutrient_calories">Kalori</string>
+    <string name="nutrient_carbs">Karbonhidrat</string>
+    <string name="nutrient_sugar">bunun şeker</string>
+    <string name="nutrient_fiber">Lif</string>
+    <string name="nutrient_protein">Protein</string>
+    <string name="nutrient_fat">Yağ</string>
+    <string name="nutrient_fat_saturated">doymuş</string>
+    <string name="nutrient_fat_unsaturated">doymamış</string>
+    <string name="nutrient_salt">Tuz</string>
+    <string name="nutrient_cholesterol">Kolesterol</string>
+
+    <!-- Fatty acids -->
+    <string name="nutrient_omega3">Omega-3</string>
+    <string name="nutrient_omega6">Omega-6</string>
+
+    <!-- Vitamins -->
+    <string name="nutrient_vitamin_a">A vitamini</string>
+    <string name="nutrient_vitamin_b6">B6 vitamini</string>
+    <string name="nutrient_vitamin_b12">B12 vitamini</string>
+    <string name="nutrient_vitamin_c">C vitamini</string>
+    <string name="nutrient_vitamin_d">D vitamini</string>
+    <string name="nutrient_vitamin_e">E vitamini</string>
+    <string name="nutrient_vitamin_k">K vitamini</string>
+    <string name="nutrient_folic_acid">Folik asit</string>
+
+    <!-- Minerals -->
+    <string name="nutrient_calcium">Kalsiyum</string>
+    <string name="nutrient_iron">Demir</string>
+    <string name="nutrient_magnesium">Magnezyum</string>
+    <string name="nutrient_zinc">Çinko</string>
+    <string name="nutrient_potassium">Potasyum</string>
+    <string name="nutrient_phosphorus">Fosfor</string>
+    <string name="confirm">Onayla</string>
+
+    <!-- Voice -->
+    <string name="voice_listening">Dinleniyor…</string>
+    <string name="voice_done">Tamam</string>
+    <string name="voice_hint">Şimdi öğününü veya aktiviteni söyle</string>
+    <string name="apply">Uygula</string>
+
+    <!-- Camera -->
+    <string name="take_photo">Fotoğraf çek</string>
+    <string name="meal_not_detected">Öğün algılanmadı. Lütfen bir yiyecek veya içecek ekleyin.</string>
+</resources>
