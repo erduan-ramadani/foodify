@@ -155,11 +155,15 @@
     <string name="nutrient_progress_nearly_limit">सीमा के निकट</string>
     <string name="nutrient_progress_exceeded">पार हो गया</string>
     <string name="nutrient_who_recommendation">WHO सिफारिश: अधिकतम %1$d g · %2$d दिन</string>
+    <string name="nutrient_critical">महत्वपूर्ण पोषक तत्व</string>
+    <string name="nutrient_days_balance">%1$d दिनों का संतुलन</string>
+    <string name="nutrient_sugar">शक्कर</string>
+    <string name="nutrient_saturated_fat">संतृप्त वसा</string>
 
     <!-- Macros -->
     <string name="nutrient_calories">कैलोरी</string>
     <string name="nutrient_carbs">कार्बोहाइड्रेट</string>
-    <string name="nutrient_sugar">जिसमें शक्कर</string>
+    <string name="nutrient_sugar_of">जिसमें शक्कर</string>
     <string name="nutrient_fiber">फाइबर</string>
     <string name="nutrient_protein">प्रोटीन</string>
     <string name="nutrient_fat">वसा</string>

@@ -155,11 +155,15 @@
     <string name="nutrient_progress_nearly_limit">Cerca del límite</string>
     <string name="nutrient_progress_exceeded">Superado</string>
     <string name="nutrient_who_recommendation">Recomendación OMS: máx. %1$d g · %2$d días</string>
+    <string name="nutrient_critical">Nutrientes críticos</string>
+    <string name="nutrient_days_balance">Balance de %1$d días</string>
+    <string name="nutrient_sugar">Azúcar</string>
+    <string name="nutrient_saturated_fat">Grasas saturadas</string>
 
     <!-- Macros -->
     <string name="nutrient_calories">Calorías</string>
     <string name="nutrient_carbs">Carbohidratos</string>
-    <string name="nutrient_sugar">de los cuales azúcares</string>
+    <string name="nutrient_sugar_of">de los cuales azúcares</string>
     <string name="nutrient_fiber">Fibra</string>
     <string name="nutrient_protein">Proteína</string>
     <string name="nutrient_fat">Grasa</string>

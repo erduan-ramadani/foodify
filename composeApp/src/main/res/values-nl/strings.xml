@@ -155,11 +155,15 @@
     <string name="nutrient_progress_nearly_limit">Bijna op limiet</string>
     <string name="nutrient_progress_exceeded">Overschreden</string>
     <string name="nutrient_who_recommendation">WHO-aanbeveling: max. %1$d g · %2$d dagen</string>
+    <string name="nutrient_critical">Kritische voedingsstoffen</string>
+    <string name="nutrient_days_balance">%1$d-dagen-balans</string>
+    <string name="nutrient_sugar">Suiker</string>
+    <string name="nutrient_saturated_fat">Verzadigde vetten</string>
 
     <!-- Macros -->
     <string name="nutrient_calories">Calorieën</string>
     <string name="nutrient_carbs">Koolhydraten</string>
-    <string name="nutrient_sugar">waarvan suikers</string>
+    <string name="nutrient_sugar_of">waarvan suikers</string>
     <string name="nutrient_fiber">Vezels</string>
     <string name="nutrient_protein">Eiwitten</string>
     <string name="nutrient_fat">Vet</string>

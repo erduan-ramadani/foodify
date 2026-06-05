@@ -151,6 +151,8 @@
     <string name="nutrients_vitamins">Vitamins</string>
     <string name="nutrients_minerals">Minerals</string>
 
+    <string name="nutrient_critical">Critical nutrients</string>
+    <string name="nutrient_days_balance">%1$d-days-balance</string>
     <string name="nutrient_progress_within_limit">Within Limit</string>
     <string name="nutrient_progress_nearly_limit">Nearly at Limit</string>
     <string name="nutrient_progress_exceeded">Exceeded</string>
@@ -159,7 +161,9 @@
     <!-- Macros -->
     <string name="nutrient_calories">Calories</string>
     <string name="nutrient_carbs">Carbohydrates</string>
-    <string name="nutrient_sugar">of which sugar</string>
+    <string name="nutrient_saturated_fat">Saturated Fat</string>
+    <string name="nutrient_sugar">Sugar</string>
+    <string name="nutrient_sugar_of">of which sugar</string>
     <string name="nutrient_fiber">Fiber</string>
     <string name="nutrient_protein">Protein</string>
     <string name="nutrient_fat">Fat</string>

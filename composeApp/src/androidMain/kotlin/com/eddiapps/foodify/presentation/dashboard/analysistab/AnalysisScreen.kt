@@ -66,7 +66,6 @@ fun AnalysisScreen() {
             }
             item {
                 HeroCard(vm)
-
                 Spacer(modifier = Modifier.height(12.dp))
             }
             item {
@@ -141,12 +140,12 @@ fun AnalysisScreen() {
 //                Spacer(modifier = Modifier.height(12.dp))
 //            }
             item {
-                Text("Kritische Nährstoffe")
+                Text(stringResource(R.string.nutrient_critical))
                 Spacer(modifier = Modifier.height(12.dp))
             }
             item {
                 NutrientProgressCard(
-                    label = "Zucker",
+                    label = stringResource(R.string.nutrient_sugar),
                     current = vm.totalSugar.toFloat(),
                     limit = vm.totalSugarLimit.toFloat(),
                     range = vm.range,
@@ -155,7 +154,7 @@ fun AnalysisScreen() {
                 Spacer(modifier = Modifier.height(12.dp))
 
                 NutrientProgressCard(
-                    label = "Salz",
+                    label = stringResource(R.string.nutrient_salt),
                     current = vm.totalSalt.toFloat(),
                     limit = vm.totalSaltLimit.toFloat(),
                     range = vm.range,
@@ -164,7 +163,7 @@ fun AnalysisScreen() {
                 Spacer(modifier = Modifier.height(12.dp))
 
                 NutrientProgressCard(
-                    label = "Gesättigte Fette",
+                    label = stringResource(R.string.nutrient_saturated_fat),
                     current = vm.totalSaturatedFat.toFloat(),
                     limit = vm.totalSaturatedFatLimit.toFloat(),
                     range = vm.range,
@@ -173,7 +172,7 @@ fun AnalysisScreen() {
                 Spacer(modifier = Modifier.height(12.dp))
             }
             item {
-                Text("${vm.range}-Tage-Bilanz")
+                Text(stringResource(R.string.nutrient_days_balance, vm.range))
                 Spacer(modifier = Modifier.height(12.dp))
             }
             item {

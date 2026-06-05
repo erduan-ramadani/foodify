@@ -156,11 +156,15 @@
     <string name="nutrient_progress_nearly_limit">Grenzwertig</string>
     <string name="nutrient_progress_exceeded">Überschritten</string>
     <string name="nutrient_who_recommendation">WHO-Empfehlung: max. %1$d g · %2$d Tage</string>
+    <string name="nutrient_critical">Kritische Nährstoffe</string>
+    <string name="nutrient_days_balance">%1$d-Tage-Bilanz</string>
+    <string name="nutrient_sugar">Zucker</string>
+    <string name="nutrient_saturated_fat">Gesättigte Fette</string>
 
     <!-- Macros -->
     <string name="nutrient_calories">Kalorien</string>
     <string name="nutrient_carbs">Kohlenhydrate</string>
-    <string name="nutrient_sugar">davon Zucker</string>
+    <string name="nutrient_sugar_of">davon Zucker</string>
     <string name="nutrient_fiber">Ballaststoffe</string>
     <string name="nutrient_protein">Protein</string>
     <string name="nutrient_fat">Fett</string>

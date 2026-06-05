@@ -155,11 +155,15 @@
     <string name="nutrient_progress_nearly_limit">Близко к лимиту</string>
     <string name="nutrient_progress_exceeded">Превышен</string>
     <string name="nutrient_who_recommendation">Рекомендация ВОЗ: макс. %1$d г · %2$d дней</string>
+    <string name="nutrient_critical">Важные нутриенты</string>
+    <string name="nutrient_days_balance">Баланс за %1$d дней</string>
+    <string name="nutrient_sugar">Сахар</string>
+    <string name="nutrient_saturated_fat">Насыщенные жиры</string>
 
     <!-- Macros -->
     <string name="nutrient_calories">Калории</string>
     <string name="nutrient_carbs">Углеводы</string>
-    <string name="nutrient_sugar">из них сахара</string>
+    <string name="nutrient_sugar_of">из них сахара</string>
     <string name="nutrient_fiber">Клетчатка</string>
     <string name="nutrient_protein">Белки</string>
     <string name="nutrient_fat">Жиры</string>

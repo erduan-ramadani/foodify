@@ -19,7 +19,7 @@ fun NutritionEntry.toNutrientSections(): List<NutrientSection> = listOf(
                 isBold = true
             ),
             NutrientRow(stringResource(R.string.nutrient_carbs), carbohydrates, "g", isBold = true),
-            NutrientRow(stringResource(R.string.nutrient_sugar), sugar, "g", isIndented = true),
+            NutrientRow(stringResource(R.string.nutrient_sugar_of), sugar, "g", isIndented = true),
             NutrientRow(stringResource(R.string.nutrient_fiber), fiber, "g", isIndented = true),
             NutrientRow(stringResource(R.string.nutrient_protein), protein, "g", isBold = true),
             NutrientRow(stringResource(R.string.nutrient_fat), fat, "g", isBold = true),

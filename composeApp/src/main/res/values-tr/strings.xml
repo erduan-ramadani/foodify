@@ -155,11 +155,15 @@
     <string name="nutrient_progress_nearly_limit">Limite yakın</string>
     <string name="nutrient_progress_exceeded">Aşıldı</string>
     <string name="nutrient_who_recommendation">DSÖ önerisi: maks. %1$d g · %2$d gün</string>
+    <string name="nutrient_critical">Kritik besinler</string>
+    <string name="nutrient_days_balance">%1$d günlük bilanço</string>
+    <string name="nutrient_sugar">Şeker</string>
+    <string name="nutrient_saturated_fat">Doymuş yağ</string>
 
     <!-- Macros -->
     <string name="nutrient_calories">Kalori</string>
     <string name="nutrient_carbs">Karbonhidrat</string>
-    <string name="nutrient_sugar">bunun şeker</string>
+    <string name="nutrient_sugar_of">bunun şeker</string>
     <string name="nutrient_fiber">Lif</string>
     <string name="nutrient_protein">Protein</string>
     <string name="nutrient_fat">Yağ</string>

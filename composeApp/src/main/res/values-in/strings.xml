@@ -155,11 +155,15 @@
     <string name="nutrient_progress_nearly_limit">Mendekati batas</string>
     <string name="nutrient_progress_exceeded">Terlampaui</string>
     <string name="nutrient_who_recommendation">Rekomendasi WHO: maks. %1$d g · %2$d hari</string>
+    <string name="nutrient_critical">Nutrisi penting</string>
+    <string name="nutrient_days_balance">Saldo %1$d hari</string>
+    <string name="nutrient_sugar">Gula</string>
+    <string name="nutrient_saturated_fat">Lemak jenuh</string>
 
     <!-- Macros -->
     <string name="nutrient_calories">Kalori</string>
     <string name="nutrient_carbs">Karbohidrat</string>
-    <string name="nutrient_sugar">termasuk gula</string>
+    <string name="nutrient_sugar_of">termasuk gula</string>
     <string name="nutrient_fiber">Serat</string>
     <string name="nutrient_protein">Protein</string>
     <string name="nutrient_fat">Lemak</string>

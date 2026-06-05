@@ -155,11 +155,15 @@
     <string name="nutrient_progress_nearly_limit">Blisko limitu</string>
     <string name="nutrient_progress_exceeded">Przekroczono</string>
     <string name="nutrient_who_recommendation">Zalecenie WHO: maks. %1$d g · %2$d dni</string>
+    <string name="nutrient_critical">Kluczowe składniki</string>
+    <string name="nutrient_days_balance">Bilans z %1$d dni</string>
+    <string name="nutrient_sugar">Cukier</string>
+    <string name="nutrient_saturated_fat">Tłuszcze nasycone</string>
 
     <!-- Macros -->
     <string name="nutrient_calories">Kalorie</string>
     <string name="nutrient_carbs">Węglowodany</string>
-    <string name="nutrient_sugar">w tym cukry</string>
+    <string name="nutrient_sugar_of">w tym cukry</string>
     <string name="nutrient_fiber">Błonnik</string>
     <string name="nutrient_protein">Białko</string>
     <string name="nutrient_fat">Tłuszcz</string>
