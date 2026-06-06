@@ -8,9 +8,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eddiapps.foodify.domain.PreferencesInterface
-import com.eddiapps.foodify.domain.calculation.calculateSaltLimit
-import com.eddiapps.foodify.domain.calculation.calculateSaturatedFatLimit
-import com.eddiapps.foodify.domain.calculation.calculateSugarLimit
 import com.eddiapps.foodify.domain.model.NutritionInterface
 import com.eddiapps.foodify.domain.model.onboarding.WeightGoal
 import com.eddiapps.foodify.domain.model.sheet.NutritionEntry
@@ -88,15 +85,6 @@ class AnalysisViewModel(
         get() = if (trackedDays > 0) totalEaten / trackedDays else 0
     val avgBurned: Int
         get() = if (trackedDays > 0) totalBurned / trackedDays else 0
-
-    val totalSaturatedFatLimit: Double
-        get() = calculateSaturatedFatLimit(dailyCalorieLimit, range)
-
-    val totalSugarLimit: Double
-        get() = calculateSugarLimit(dailyCalorieLimit, range)
-
-    val totalSaltLimit: Double
-        get() = calculateSaltLimit(range)
 
     val bestDay: Pair<LocalDate, Double>?
         get() {

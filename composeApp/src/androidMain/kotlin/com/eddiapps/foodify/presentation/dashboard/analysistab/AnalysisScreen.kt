@@ -21,6 +21,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.eddiapps.foodify.R
+import com.eddiapps.foodify.domain.calculation.calculateSaltLimit
+import com.eddiapps.foodify.domain.calculation.calculateSaturatedFatLimit
+import com.eddiapps.foodify.domain.calculation.calculateSugarLimit
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.AllNutrientsCard
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.BestDayCard
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.GoalProgressCard
@@ -37,6 +40,7 @@ fun AnalysisScreen() {
     val vm: AnalysisViewModel = koinViewModel()
     // Triggers recomposition when onboarding data changes (e.g. weeklyGoal in settings)
     val onboarding by vm.onboardingData.collectAsStateWithLifecycle()
+    val dailyCalorieLimit = onboarding?.dailyCalorieLimit ?: 0
 
     Column(
         modifier = Modifier
@@ -147,7 +151,7 @@ fun AnalysisScreen() {
                 NutrientProgressCard(
                     label = stringResource(R.string.nutrient_sugar),
                     current = vm.totalSugar.toFloat(),
-                    limit = vm.totalSugarLimit.toFloat(),
+                    limit = calculateSugarLimit(dailyCalorieLimit, vm.range).toFloat(),
                     range = vm.range,
                     icon = "\uD83C\uDF6C"
                 )
@@ -156,7 +160,7 @@ fun AnalysisScreen() {
                 NutrientProgressCard(
                     label = stringResource(R.string.nutrient_salt),
                     current = vm.totalSalt.toFloat(),
-                    limit = vm.totalSaltLimit.toFloat(),
+                    limit = calculateSaltLimit(vm.range).toFloat(),
                     range = vm.range,
                     icon = "\uD83E\uDDC2",
                 )
@@ -165,7 +169,9 @@ fun AnalysisScreen() {
                 NutrientProgressCard(
                     label = stringResource(R.string.nutrient_saturated_fat),
                     current = vm.totalSaturatedFat.toFloat(),
-                    limit = vm.totalSaturatedFatLimit.toFloat(),
+                    limit = calculateSaturatedFatLimit(
+                        dailyCalorieLimit, vm.range
+                    ).toFloat(),
                     range = vm.range,
                     icon = "\uD83E\uDD69",
                 )
