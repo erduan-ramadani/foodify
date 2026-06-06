@@ -78,7 +78,7 @@ class AnalysisViewModel(
         get() = onboardingData.value?.weightGoal?.kgPerWeek ?: WeightGoal.NORMAL.kgPerWeek
 
     val weeklyLimit: Double
-        get() = 7000 * weeklyGoal
+        get() = 7700 * weeklyGoal
     val weeklyProgress: Double
         get() {
             val progress = calorieDeficit / weeklyLimit * 100
