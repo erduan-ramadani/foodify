@@ -107,17 +107,6 @@ class AnalysisViewModel(
         get() = ((tdee * trackedDays) - totalCalories)
     val weightChange: Double
         get() = -calorieDeficit / 7700.0
-
-    val nutrientList: List<Pair<String, String>>
-        get() = listOf(
-            "Protein" to "$totalProtein g",
-            "Kohlenhydrate" to "$totalCarbs g",
-            "Cholesterin" to "$totalCholesterol mg",
-            "Magnesium" to "$totalMagnesium mg",
-            "Eisen" to "$totalIron mg",
-            "Vitamin C" to "$totalVitaminC mg",
-        )
-
     val totalSugar: Int get() = getTotalNutritionValue { it.sugar }
     val totalSaturatedFat: Int get() = getTotalNutritionValue { it.saturatedFat }
     val totalSalt: Int get() = getTotalNutritionValue { it.salt }
@@ -127,6 +116,21 @@ class AnalysisViewModel(
     val totalMagnesium: Int get() = getTotalNutritionValue { it.magnesium }
     val totalIron: Int get() = getTotalNutritionValue { it.iron }
     val totalVitaminC: Int get() = getTotalNutritionValue { it.vitaminC }
+    val totalFat: Int get() = getTotalNutritionValue { it.fat }
+    val totalFiber: Int get() = getTotalNutritionValue { it.fiber }
+    val totalOmega3: Int get() = getTotalNutritionValue { it.omega3 }
+    val totalOmega6: Int get() = getTotalNutritionValue { it.omega6 }
+    val totalVitaminA: Int get() = getTotalNutritionValue { it.vitaminA }
+    val totalVitaminB6: Int get() = getTotalNutritionValue { it.vitaminB6 }
+    val totalVitaminB12: Int get() = getTotalNutritionValue { it.vitaminB12 }
+    val totalVitaminD: Int get() = getTotalNutritionValue { it.vitaminD }
+    val totalVitaminE: Int get() = getTotalNutritionValue { it.vitaminE }
+    val totalVitaminK: Int get() = getTotalNutritionValue { it.vitaminK }
+    val totalFolicAcid: Int get() = getTotalNutritionValue { it.folicAcid }
+    val totalCalcium: Int get() = getTotalNutritionValue { it.calcium }
+    val totalZinc: Int get() = getTotalNutritionValue { it.zinc }
+    val totalPotassium: Int get() = getTotalNutritionValue { it.potassium }
+    val totalPhosphorus: Int get() = getTotalNutritionValue { it.phosphorus }
 
     private fun getTotalNutritionValue(selector: (NutritionEntry) -> Double): Int {
         return (0 until range).sumOf { day ->

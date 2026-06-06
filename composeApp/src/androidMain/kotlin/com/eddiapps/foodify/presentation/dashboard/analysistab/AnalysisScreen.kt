@@ -41,6 +41,36 @@ fun AnalysisScreen() {
     // Triggers recomposition when onboarding data changes (e.g. weeklyGoal in settings)
     val onboarding by vm.onboardingData.collectAsStateWithLifecycle()
     val dailyCalorieLimit = onboarding?.dailyCalorieLimit ?: 0
+    val nutrients = listOf(
+        // Macros
+        stringResource(R.string.nutrient_protein) to "${vm.totalProtein} g",
+        stringResource(R.string.nutrient_carbs) to "${vm.totalCarbs} g",
+        stringResource(R.string.nutrient_fiber) to "${vm.totalFiber} g",
+        stringResource(R.string.nutrient_fat) to "${vm.totalFat} g",
+        stringResource(R.string.nutrient_cholesterol) to "${vm.totalCholesterol} mg",
+
+        // Fatty acids
+        stringResource(R.string.nutrient_omega3) to "${vm.totalOmega3} g",
+        stringResource(R.string.nutrient_omega6) to "${vm.totalOmega6} g",
+
+        // Vitamins
+        stringResource(R.string.nutrient_vitamin_a) to "${vm.totalVitaminA} µg",
+        stringResource(R.string.nutrient_vitamin_b6) to "${vm.totalVitaminB6} mg",
+        stringResource(R.string.nutrient_vitamin_b12) to "${vm.totalVitaminB12} µg",
+        stringResource(R.string.nutrient_vitamin_c) to "${vm.totalVitaminC} mg",
+        stringResource(R.string.nutrient_vitamin_d) to "${vm.totalVitaminD} µg",
+        stringResource(R.string.nutrient_vitamin_e) to "${vm.totalVitaminE} mg",
+        stringResource(R.string.nutrient_vitamin_k) to "${vm.totalVitaminK} µg",
+        stringResource(R.string.nutrient_folic_acid) to "${vm.totalFolicAcid} µg",
+
+        // Minerals
+        stringResource(R.string.nutrient_calcium) to "${vm.totalCalcium} mg",
+        stringResource(R.string.nutrient_iron) to "${vm.totalIron} mg",
+        stringResource(R.string.nutrient_magnesium) to "${vm.totalMagnesium} mg",
+        stringResource(R.string.nutrient_zinc) to "${vm.totalZinc} mg",
+        stringResource(R.string.nutrient_potassium) to "${vm.totalPotassium} mg",
+        stringResource(R.string.nutrient_phosphorus) to "${vm.totalPhosphorus} mg",
+    )
 
     Column(
         modifier = Modifier
@@ -182,7 +212,7 @@ fun AnalysisScreen() {
                 Spacer(modifier = Modifier.height(12.dp))
             }
             item {
-                AllNutrientsCard(vm.nutrientList)
+                AllNutrientsCard(nutrients)
                 Spacer(modifier = Modifier.height(12.dp))
             }
         }
