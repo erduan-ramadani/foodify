@@ -113,11 +113,12 @@ class AnalysisViewModel(
             return dayDeficits.maxByOrNull { it.second }
         }
 
-    val weightChange: Double
-        get() = (totalCalories - (dailyCalorieLimit * trackedDays)) / 7700.0
-
+    val tdee: Int
+        get() = onboardingData.value?.tdee ?: 2000
     val calorieDeficit: Int
-        get() = ((dailyCalorieLimit * trackedDays) - totalCalories)
+        get() = ((tdee * trackedDays) - totalCalories)
+    val weightChange: Double
+        get() = -calorieDeficit / 7700.0
 
     val nutrientList: List<Pair<String, String>>
         get() = listOf(
