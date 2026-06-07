@@ -65,11 +65,11 @@ fun NutrientProgressCard(
             ) {
                 Text(
                     icon,
-                    fontSize = 14.sp
+                    fontSize = 18.sp
                 )
                 Text(
                     text = label,
-                    style = MaterialTheme.typography.labelSmall,
+                    style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.weight(1f)
