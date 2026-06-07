@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -45,15 +44,14 @@ fun GoalProgressCard(
             ) {
                 Text(
                     text = stringResource(R.string.weekly_goal_reached),
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.SemiBold
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 Text(
                     text = "${progress}%",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = if (progress >= 100f) Color(0xFF4CAF50)
-                    else MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
                 )
             }
 
@@ -65,9 +63,7 @@ fun GoalProgressCard(
                     .fillMaxWidth()
                     .height(8.dp)
                     .clip(RoundedCornerShape(4.dp)),
-                color = if (progress >= 100f) Color(0xFF4CAF50)
-                else MaterialTheme.colorScheme.primary,
-                trackColor = MaterialTheme.colorScheme.primaryContainer
+                color = MaterialTheme.colorScheme.primary
             )
 
             Spacer(modifier = Modifier.height(6.dp))

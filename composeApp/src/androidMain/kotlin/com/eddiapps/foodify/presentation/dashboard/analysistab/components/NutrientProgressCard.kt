@@ -84,7 +84,7 @@ fun NutrientProgressCard(
                         text = progressText,
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.primaryContainer
+                        color = Color.White
                     )
                 }
             }
@@ -99,7 +99,6 @@ fun NutrientProgressCard(
                     text = "${current.toInt()}",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 Text(
                     text = " / ${limit.toInt()} g",
