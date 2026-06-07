@@ -22,16 +22,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eddiapps.foodify.R
-import com.eddiapps.foodify.presentation.dashboard.analysistab.AnalysisViewModel
-import kotlin.math.absoluteValue
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HeroCard(
-    vm: AnalysisViewModel
+    weightChange: Double,
+    calorieDeficit: Int
 ) {
-    val isDeficit = vm.weightChange < 0
-    val prefix = if (isDeficit) "−" else "+"
+    val isDeficit = weightChange < 0
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -57,7 +55,7 @@ fun HeroCard(
 
             Row(verticalAlignment = Alignment.Bottom) {
                 Text(
-                    text = "$prefix%.2f".format(vm.weightChange.absoluteValue),
+                    text = "%.2f".format(weightChange),
                     fontSize = 56.sp,
                     fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.primary,
@@ -77,7 +75,7 @@ fun HeroCard(
             Text(
                 text = stringResource(
                     R.string.based_on,
-                    vm.calorieDeficit.absoluteValue,
+                    calorieDeficit,
                     if (isDeficit) stringResource(R.string.deficit) else stringResource(R.string.surplus)
                 ),
                 style = MaterialTheme.typography.bodySmall,

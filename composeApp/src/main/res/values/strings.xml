@@ -96,8 +96,8 @@
     <string name="gram_who_per_week">WHO: max. %1$d g/Week</string>
     <string name="estimated_change">ESTIMATED CHANGE</string>
     <string name="based_on">Based on %1$d kcal %2$s</string>
-    <string name="deficit">Deficit</string>
-    <string name="surplus">Surplus</string>
+    <string name="deficit">deficit</string>
+    <string name="surplus">surplus</string>
     <string name="weekly_goal_reached">Weekly goal reached</string>
     <string name="tracking_consistency">Tracking consistency</string>
     <string name="days_tracked_text">Tracked %1$s days</string>

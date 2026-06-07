@@ -28,7 +28,7 @@ class AnalysisViewModel(
         SharingStarted.WhileSubscribed(5000),
         null
     )
-    private val entries = nutritionRepository.entries  // StateFlow<List<NutritionEntry>>
+    private val entries = nutritionRepository.entries
     val nutritionEntriesByDate: Map<LocalDate, List<NutritionEntry>>
         get() = entries.value.groupBy { entry ->
             Instant.ofEpochMilli(entry.createdAt)
@@ -45,7 +45,6 @@ class AnalysisViewModel(
                 nutritionEntriesByDate[today.minusDays(day.toLong())] ?: emptyList()
             }
         }
-
     val totalBurned: Int
         get() {
             return entriesInRange.filter { !it.isMeal }
@@ -57,12 +56,10 @@ class AnalysisViewModel(
                 .filter { it.isMeal }
                 .sumOf { it.calories }.toInt()
         }
-
     val totalCalories: Int
         get() {
             return totalEaten - totalBurned
         }
-
     val trackedDays: Int
         get() {
             val today = LocalDate.now()
@@ -70,22 +67,12 @@ class AnalysisViewModel(
                 nutritionEntriesByDate[today.minusDays(day.toLong())]?.isNotEmpty() == true
             }
         }
-
     val weeklyGoal: Double
         get() = onboardingData.value?.weightGoal?.kgPerWeek ?: WeightGoal.NORMAL.kgPerWeek
-
-    val weeklyLimit: Double
-        get() = 7700 * weeklyGoal
-    val weeklyProgress: Double
-        get() {
-            val progress = calorieDeficit / weeklyLimit * 100
-            return if (progress > 0) progress else 0.0
-        }
     val avgEaten: Int
         get() = if (trackedDays > 0) totalEaten / trackedDays else 0
     val avgBurned: Int
         get() = if (trackedDays > 0) totalBurned / trackedDays else 0
-
     val bestDay: Pair<LocalDate, Double>?
         get() {
             val today = LocalDate.now()
@@ -100,13 +87,6 @@ class AnalysisViewModel(
                 .filter { it.second > 0 }  // nur Tage mit echtem Defizit
             return dayDeficits.maxByOrNull { it.second }
         }
-
-    val tdee: Int
-        get() = onboardingData.value?.tdee ?: 2000
-    val calorieDeficit: Int
-        get() = ((tdee * trackedDays) - totalCalories)
-    val weightChange: Double
-        get() = -calorieDeficit / 7700.0
     val totalSugar: Int get() = getTotalNutritionValue { it.sugar }
     val totalSaturatedFat: Int get() = getTotalNutritionValue { it.saturatedFat }
     val totalSalt: Int get() = getTotalNutritionValue { it.salt }

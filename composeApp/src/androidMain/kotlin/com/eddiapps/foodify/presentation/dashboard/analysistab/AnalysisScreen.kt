@@ -38,9 +38,15 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun AnalysisScreen() {
     val vm: AnalysisViewModel = koinViewModel()
-    // Triggers recomposition when onboarding data changes (e.g. weeklyGoal in settings)
     val onboarding by vm.onboardingData.collectAsStateWithLifecycle()
+    val tdee = onboarding?.tdee ?: 2000
+    val calorieDeficit = (tdee * vm.trackedDays) - vm.totalCalories
+    val weightChange = -calorieDeficit.toDouble() / 7700.0
     val dailyCalorieLimit = onboarding?.dailyCalorieLimit ?: 0
+    val weeklyLimit = 7700 * vm.weeklyGoal
+    val weeklyProgress = if (calorieDeficit > 0) {
+        (calorieDeficit / weeklyLimit * 100).toInt()
+    } else 0
     val nutrients = listOf(
         // Macros
         stringResource(R.string.nutrient_protein) to "${vm.totalProtein} g",
@@ -99,16 +105,19 @@ fun AnalysisScreen() {
                 Spacer(modifier = Modifier.height(16.dp))
             }
             item {
-                HeroCard(vm)
+                HeroCard(
+                    weightChange,
+                    calorieDeficit
+                )
                 Spacer(modifier = Modifier.height(12.dp))
             }
             item {
                 GoalProgressCard(
-                    progress = vm.weeklyProgress.toInt(),
+                    progress = weeklyProgress,
                     goalDescription = stringResource(
                         R.string.goal,
                         vm.weeklyGoal,
-                        vm.weeklyLimit.toInt()
+                        weeklyLimit.toInt()
                     )
                 )
 
