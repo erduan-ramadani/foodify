@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,6 +21,7 @@ import androidx.compose.material.icons.filled.Keyboard
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.PhotoLibrary
+import androidx.compose.material.icons.filled.QrCodeScanner
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
@@ -40,6 +42,9 @@ import com.eddiapps.foodify.presentation.dashboard.daytab.components.TextInputSh
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.VoiceInputSheet
 import com.eddiapps.foodify.presentation.util.copyUriToAppStorage
 import com.eddiapps.foodify.presentation.util.createCameraImageUri
+import com.google.mlkit.vision.barcode.common.Barcode
+import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions
+import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -131,6 +136,32 @@ fun AddEntryFab(
                     )
                 }) {
                     Icon(Icons.Default.PhotoLibrary, contentDescription = "Gallery")
+                }
+                SmallFloatingActionButton(onClick = {
+                    isExpanded = false
+                    val options = GmsBarcodeScannerOptions.Builder()
+                        .setBarcodeFormats(
+                            Barcode.FORMAT_EAN_13,
+                            Barcode.FORMAT_EAN_8,
+                            Barcode.FORMAT_UPC_A
+                        )
+                        .build()
+                    val scanner = GmsBarcodeScanning.getClient(context, options)
+
+                    scanner.startScan()
+                        .addOnSuccessListener { barcode ->
+                            val rawValue = barcode.rawValue
+                            Log.d("Foodify", "Barcode scanned: $rawValue")
+                            // TODO: API-Aufruf hier
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.e("Foodify", "Barcode scan failed", exception)
+                        }
+                        .addOnCanceledListener {
+                            Log.d("Foodify", "Barcode scan canceled")
+                        }
+                }) {
+                    Icon(Icons.Default.QrCodeScanner, contentDescription = "Barcode")
                 }
             }
         }
