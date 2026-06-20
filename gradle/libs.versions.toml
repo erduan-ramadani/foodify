@@ -27,6 +27,8 @@ gms = "4.4.4"
 firebase = "34.12.0"
 firebaseConfig = "23.0.1"
 firebaseMessaging = "23.4.1"
+mlkit-barcode = "18.3.1"
+play-services-codescanner = "16.1.0"
 
 
 [libraries]
@@ -83,6 +85,10 @@ firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 
 #Coil
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+
+#Barcode-Scanner
+mlkit-barcode = { module = "com.google.mlkit:barcode-scanning", version.ref = "mlkit-barcode" }
+play-services-codescanner = { module = "com.google.android.gms:play-services-code-scanner", version.ref = "play-services-codescanner" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

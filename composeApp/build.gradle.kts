@@ -47,6 +47,7 @@ kotlin {
             implementation(libs.firebase.analytics)
 
             implementation(libs.coil.compose)
+            implementation(libs.play.services.codescanner)
         }
         commonMain.dependencies {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
