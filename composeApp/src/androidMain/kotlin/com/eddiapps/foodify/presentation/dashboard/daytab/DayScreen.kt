@@ -2,6 +2,7 @@ package com.eddiapps.foodify.presentation.dashboard.daytab
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,7 +25,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.eddiapps.foodify.R
-import com.eddiapps.foodify.presentation.dashboard.FoodifyBottomBar
+import com.eddiapps.foodify.presentation.dashboard.AddEntryFab
 import com.eddiapps.foodify.presentation.dashboard.UiConnectionEvent
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.BalanceCard
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.CalorieRing
@@ -49,7 +50,7 @@ fun DayScreen(
     val remaining = kotlin.math.abs(dailyCalorieLimit - dailyCalories)
 
     val listState = rememberLazyListState()
-    val context = LocalResources.current
+    val resources = LocalResources.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
     DisposableEffect(lifecycleOwner) {
@@ -67,9 +68,9 @@ fun DayScreen(
     LaunchedEffect(Unit) {
         vm.connectionEvents.collect { event ->
             val message = when (event) {
-                UiConnectionEvent.NoInternet -> context.getString(R.string.error_no_internet)
-                UiConnectionEvent.Timeout -> context.getString(R.string.error_timeout)
-                UiConnectionEvent.UnknownError -> context.getString(R.string.error_unknown)
+                UiConnectionEvent.NoInternet -> resources.getString(R.string.error_no_internet)
+                UiConnectionEvent.Timeout -> resources.getString(R.string.error_timeout)
+                UiConnectionEvent.UnknownError -> resources.getString(R.string.error_unknown)
             }
             snackbarHostState.showSnackbar(message, duration = SnackbarDuration.Long)
         }
@@ -78,7 +79,7 @@ fun DayScreen(
     LaunchedEffect(Unit) {
         vm.messageEvents.collect { resId ->
             snackbarHostState.showSnackbar(
-                message = context.getString(resId),
+                message = resources.getString(resId),
                 duration = SnackbarDuration.Long
             )
         }
@@ -93,40 +94,44 @@ fun DayScreen(
         }
     }
 
-    Column(
+    Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        LazyColumn(
-            state = listState,
-            modifier = Modifier
-                .weight(1f)
-                .padding(horizontal = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            item {
-                WeekDaySelector(
-                    vm.visibleDays,
-                    vm.selectedDate,
-                    onProgressForDate = { vm.progressForDate(it) },
-                    onWeekDaySelected = { vm.selectedDate = it }
-                )
-            }
-            item {
-                CalorieRing(
-                    remainingCalories = remaining,
-                    progress = progress,
-                    isOverLimit = dailyCalories > dailyCalorieLimit
-                )
-            }
 
-            item {
-                BalanceCard(
-                    dailyEaten,
-                    dailyBurned,
-                    dailyCalorieLimit
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-            }
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            LazyColumn(
+                state = listState,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                item {
+                    WeekDaySelector(
+                        vm.visibleDays,
+                        vm.selectedDate,
+                        onProgressForDate = { vm.progressForDate(it) },
+                        onWeekDaySelected = { vm.selectedDate = it }
+                    )
+                }
+                item {
+                    CalorieRing(
+                        remainingCalories = remaining,
+                        progress = progress,
+                        isOverLimit = dailyCalories > dailyCalorieLimit
+                    )
+                }
+
+                item {
+                    BalanceCard(
+                        dailyEaten,
+                        dailyBurned,
+                        dailyCalorieLimit
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
 
 //        item {
 //            RecentSuggestions(vm.recentEntries) { entry ->
@@ -135,24 +140,30 @@ fun DayScreen(
 //            Spacer(modifier = Modifier.height(4.dp))
 //        }
 
-            item {
-                EntriesCard(
-                    entries = dailyEntries,
-                    onDelete = { vm.removeNutritionEntry(it) },
-                    onUpdate = { updateEntry ->
-                        vm.updateEntry(updateEntry)
-                    }
-                )
-                Spacer(modifier = Modifier.height(4.dp))
+                item {
+                    EntriesCard(
+                        entries = dailyEntries,
+                        onDelete = { vm.removeNutritionEntry(it) },
+                        onUpdate = { updateEntry ->
+                            vm.updateEntry(updateEntry)
+                        }
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                }
             }
         }
-        FoodifyBottomBar(
-            onMicButtonClick = { vm.requestNutritionValues(textQuery = it) },
-            onCameraButtonClick = { photoFilePath ->
+        AddEntryFab(
+            onTextClick = { vm.requestNutritionValues(textQuery = it) },
+            onCameraClick = { photoFilePath ->
                 vm.requestNutritionValues("", photoFilePath)
 
             },
-            isLoading = vm.isLoading
+            onGalleryClick = { photoFilePath ->
+                vm.requestNutritionValues("", photoFilePath)
+            },
+            onMicClick = { vm.requestNutritionValues(textQuery = it) },
+            isLoading = vm.isLoading,
+            modifier = Modifier.align(Alignment.BottomEnd),
         )
     }
 }
