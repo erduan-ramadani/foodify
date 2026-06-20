@@ -136,7 +136,7 @@ fun AddEntryFab(
         }
 
         FloatingActionButton(
-            onClick = { isExpanded = !isExpanded },
+            onClick = { if (!isLoading) isExpanded = !isExpanded },
             containerColor = if (isLoading)
                 MaterialTheme.colorScheme.surfaceVariant
             else
