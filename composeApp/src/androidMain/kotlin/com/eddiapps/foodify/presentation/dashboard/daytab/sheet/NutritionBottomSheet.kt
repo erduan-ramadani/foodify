@@ -49,13 +49,14 @@ fun NutritionBottomSheet(
                 .verticalScroll(rememberScrollState())
         ) {
             if (entry.imagePath != null) {
+                val isUrl = entry.imagePath.startsWith("http")
                 AsyncImage(
                     model = entry.imagePath,
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(220.dp),
-                    contentScale = ContentScale.Crop
+                    contentScale = if (isUrl) ContentScale.Fit else ContentScale.Crop
                 )
             } else {
                 Text(

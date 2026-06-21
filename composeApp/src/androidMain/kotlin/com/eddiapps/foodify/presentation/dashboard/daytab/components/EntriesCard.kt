@@ -148,12 +148,13 @@ private fun EntryRow(
             contentAlignment = Alignment.Center
         ) {
             if (entry.imagePath != null) {
+                val isUrl = entry.imagePath.startsWith("http")
                 AsyncImage(
                     model = entry.imagePath,
                     contentDescription = null,
                     modifier = Modifier
                         .size(100.dp),
-                    contentScale = ContentScale.Crop
+                    contentScale = if (isUrl) ContentScale.Fit else ContentScale.Crop
                 )
             } else {
                 Text(text = entry.emoji, fontSize = 40.sp)

@@ -11,6 +11,7 @@ fun OpenFoodFactsProduct.toNutritionEntry(
 
     return NutritionEntry(
         title = productName ?: "Unknown product",
+        imagePath = imageUrl ?: imageFrontUrl ?: imageSmallUrl,
         emoji = "🛒",
         isMeal = true,
         isMealDetected = true,
