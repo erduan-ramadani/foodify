@@ -35,7 +35,8 @@ import java.time.ZoneId
 class DayViewModel(
     private val anthropicRepo: AnthropicInterface,
     prefRepository: PreferencesInterface,
-    private val nutritionRepository: NutritionInterface
+    private val nutritionRepository: NutritionInterface,
+    private val openFoodFactsRepository: OpenFoodFactsInterface  // ← neu
 ) : ViewModel() {
     private val nutritionEntries = nutritionRepository.entries  // StateFlow<List<NutritionEntry>>
     val nutritionEntriesByDate: StateFlow<Map<LocalDate, List<NutritionEntry>>> =

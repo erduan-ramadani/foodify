@@ -10,7 +10,9 @@ import com.eddiapps.foodify.data.local.NutritionRepository
 import com.eddiapps.foodify.data.local.PreferencesRepository
 import com.eddiapps.foodify.data.remote.anthropic.AnthropicRepository
 import com.eddiapps.foodify.data.remote.firebase.FirebaseRepository
+import com.eddiapps.foodify.data.remote.openfoodfacts.OpenFoodFactsRepository
 import com.eddiapps.foodify.domain.AnthropicInterface
+import com.eddiapps.foodify.domain.OpenFoodFactsInterface
 import com.eddiapps.foodify.domain.PreferencesInterface
 import com.eddiapps.foodify.domain.model.NutritionInterface
 import com.eddiapps.foodify.presentation.MainViewModel
@@ -33,13 +35,14 @@ val appModule = module {
     single<NutritionInterface> { NutritionRepository(get(), get()) }
     single { FirebaseRepository() }
     single<AnthropicInterface> { AnthropicRepository(get()) }
+    single<OpenFoodFactsInterface> { OpenFoodFactsRepository() }
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
 val viewModelModule = module {
     viewModel { MainViewModel(get()) }
     viewModel { OnboardingViewModel() }
-    viewModel { DayViewModel(get(), get(), get()) }
+    viewModel { DayViewModel(get(), get(), get(), get()) }
     viewModel { AnalysisViewModel(get(), get()) }
     viewModel { SettingsViewModel(get(), get()) }
 }
