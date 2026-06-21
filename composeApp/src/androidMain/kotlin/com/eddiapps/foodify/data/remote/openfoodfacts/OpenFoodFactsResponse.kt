@@ -14,6 +14,8 @@ data class OpenFoodFactsProduct(
     @SerialName("product_name") val productName: String? = null,
     val brands: String? = null,
     @SerialName("image_url") val imageUrl: String? = null,
+    @SerialName("image_front_url") val imageFrontUrl: String? = null,
+    @SerialName("image_small_url") val imageSmallUrl: String? = null,
     val nutriments: OpenFoodFactsNutriments? = null
 )
 
