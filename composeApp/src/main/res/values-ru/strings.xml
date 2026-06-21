@@ -204,4 +204,9 @@
     <!-- Camera -->
     <string name="take_photo">Сделать фото</string>
     <string name="meal_not_detected">Приём пищи не распознан. Пожалуйста, добавьте еду или напиток.</string>
+
+    <!-- Barcode Scanner -->
+    <string name="product_not_found">Товар не найден</string>
+    <string name="quantity">Количество</string>
+    <string name="add">Добавить</string>
 </resources>

@@ -204,4 +204,9 @@
     <!-- Camera -->
     <string name="take_photo">Foto maken</string>
     <string name="meal_not_detected">Geen maaltijd gedetecteerd. Voeg een voedingsmiddel of drankje toe.</string>
+
+    <!-- Barcode Scanner -->
+    <string name="product_not_found">Product niet gevonden</string>
+    <string name="quantity">Hoeveelheid</string>
+    <string name="add">Toevoegen</string>
 </resources>

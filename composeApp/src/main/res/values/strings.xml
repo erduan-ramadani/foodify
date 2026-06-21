@@ -204,4 +204,9 @@
     <!-- Camera -->
     <string name="take_photo">Take photo</string>
     <string name="meal_not_detected">"Meal not detected. Please add a food or a drink."</string>
+
+    <!-- Barcode Scanner -->
+    <string name="product_not_found">Product not found</string>
+    <string name="quantity">Quantity</string>
+    <string name="add">Add</string>
 </resources>

@@ -204,4 +204,9 @@
     <!-- Camera -->
     <string name="take_photo">Tirar foto</string>
     <string name="meal_not_detected">Nenhuma refeição detectada. Adicione um alimento ou uma bebida.</string>
+
+    <!-- Barcode Scanner -->
+    <string name="product_not_found">Prodotto non trovato</string>
+    <string name="quantity">Quantità</string>
+    <string name="add">Aggiungi</string>
 </resources>

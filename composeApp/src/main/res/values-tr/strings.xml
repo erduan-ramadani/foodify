@@ -204,4 +204,9 @@
     <!-- Camera -->
     <string name="take_photo">Fotoğraf çek</string>
     <string name="meal_not_detected">Öğün algılanmadı. Lütfen bir yiyecek veya içecek ekleyin.</string>
+
+    <!-- Barcode Scanner -->
+    <string name="product_not_found">Ürün bulunamadı</string>
+    <string name="quantity">Miktar</string>
+    <string name="add">Eklen</string>
 </resources>
