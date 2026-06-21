@@ -47,6 +47,7 @@ kotlin {
             implementation(libs.firebase.analytics)
 
             implementation(libs.coil.compose)
+            implementation(libs.coil.network)
             implementation(libs.play.services.codescanner)
         }
         commonMain.dependencies {
