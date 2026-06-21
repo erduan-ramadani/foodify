@@ -28,6 +28,7 @@ import com.eddiapps.foodify.R
 import com.eddiapps.foodify.presentation.dashboard.AddEntryFab
 import com.eddiapps.foodify.presentation.dashboard.UiConnectionEvent
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.BalanceCard
+import com.eddiapps.foodify.presentation.dashboard.daytab.components.BarcodeAmountSheet
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.CalorieRing
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.EntriesCard
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.WeekDaySelector
@@ -52,6 +53,15 @@ fun DayScreen(
     val listState = rememberLazyListState()
     val resources = LocalResources.current
     val lifecycleOwner = LocalLifecycleOwner.current
+
+    val scannedProduct by vm.scannedProduct.collectAsStateWithLifecycle()
+    scannedProduct?.let { product ->
+        BarcodeAmountSheet(
+            product = product,
+            onDismiss = { vm.dismissBarcodeSheet() },
+            onSave = { grams -> vm.saveBarcodeProduct(grams) }
+        )
+    }
 
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
