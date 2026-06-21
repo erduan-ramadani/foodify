@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eddiapps.foodify.R
 import com.eddiapps.foodify.domain.AnthropicInterface
+import com.eddiapps.foodify.domain.OpenFoodFactsInterface
 import com.eddiapps.foodify.domain.PreferencesInterface
 import com.eddiapps.foodify.domain.model.NutritionInterface
 import com.eddiapps.foodify.domain.model.sheet.NutritionEntry
@@ -95,6 +96,23 @@ class DayViewModel(
         get() = nutritionEntries.value.distinctBy { it.query }.take(8)
     val progress: Float
         get() = if (dailyCalorieLimit > 0) dailyCalories.toFloat() / dailyCalorieLimit else 0f
+
+
+    fun fetchBarcode(barcode: String) {
+        viewModelScope.launch {
+            val result = openFoodFactsRepository.getProductByBarcode(barcode)
+            result.onSuccess { response ->
+                Log.d("Foodify1", "Product: ${response.product?.productName}")
+                Log.d(
+                    "Foodify1",
+                    "Calories per 100g: ${response.product?.nutriments?.caloriesPer100g}"
+                )
+            }
+            result.onFailure { error ->
+                Log.e("Foodify", "Barcode lookup failed", error)
+            }
+        }
+    }
 
     fun progressForDate(date: LocalDate): Float {
         val entries = nutritionEntriesByDate.value[date] ?: return 0f
