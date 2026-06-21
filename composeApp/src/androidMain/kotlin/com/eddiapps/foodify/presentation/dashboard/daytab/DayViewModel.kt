@@ -9,6 +9,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eddiapps.foodify.R
+import com.eddiapps.foodify.data.remote.openfoodfacts.OpenFoodFactsProduct
+import com.eddiapps.foodify.data.remote.openfoodfacts.toNutritionEntry
 import com.eddiapps.foodify.domain.AnthropicInterface
 import com.eddiapps.foodify.domain.OpenFoodFactsInterface
 import com.eddiapps.foodify.domain.PreferencesInterface
@@ -19,6 +21,7 @@ import com.eddiapps.foodify.presentation.util.imageFileToBase64
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -30,6 +33,7 @@ import java.net.UnknownHostException
 import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.ZoneId
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -97,22 +101,8 @@ class DayViewModel(
     val progress: Float
         get() = if (dailyCalorieLimit > 0) dailyCalories.toFloat() / dailyCalorieLimit else 0f
 
-
-    fun fetchBarcode(barcode: String) {
-        viewModelScope.launch {
-            val result = openFoodFactsRepository.getProductByBarcode(barcode)
-            result.onSuccess { response ->
-                Log.d("Foodify1", "Product: ${response.product?.productName}")
-                Log.d(
-                    "Foodify1",
-                    "Calories per 100g: ${response.product?.nutriments?.caloriesPer100g}"
-                )
-            }
-            result.onFailure { error ->
-                Log.e("Foodify", "Barcode lookup failed", error)
-            }
-        }
-    }
+    private val _scannedProduct = MutableStateFlow<OpenFoodFactsProduct?>(null)
+    val scannedProduct: StateFlow<OpenFoodFactsProduct?> = _scannedProduct
 
     fun progressForDate(date: LocalDate): Float {
         val entries = nutritionEntriesByDate.value[date] ?: return 0f
@@ -191,5 +181,39 @@ class DayViewModel(
         val index = nutritionEntries.value.indexOfFirst { it.id == updatedEntry.id }
         if (index == -1) return
         nutritionRepository.updateEntry(updatedEntry)
+    }
+
+    fun fetchBarcode(barcode: String) {
+        viewModelScope.launch {
+            val result = openFoodFactsRepository.getProductByBarcode(barcode)
+            result.onSuccess { response ->
+                if (response.status == 1 && response.product != null) {
+                    _scannedProduct.value = response.product
+                } else {
+                    _messageEvents.send(R.string.product_not_found)
+                }
+            }
+            result.onFailure {
+                _messageEvents.send(R.string.error_unknown)
+            }
+        }
+    }
+
+    fun saveBarcodeProduct(grams: Int) {
+        val product = _scannedProduct.value ?: return
+        val timestamp = selectedDate
+            .atTime(LocalTime.now())
+            .atZone(ZoneId.systemDefault())
+            .toInstant()
+            .toEpochMilli()
+        val entry = product.toNutritionEntry(grams, timestamp)
+        viewModelScope.launch {
+            nutritionRepository.addEntry(entry)
+            _scannedProduct.value = null
+        }
+    }
+
+    fun dismissBarcodeSheet() {
+        _scannedProduct.value = null
     }
 }
