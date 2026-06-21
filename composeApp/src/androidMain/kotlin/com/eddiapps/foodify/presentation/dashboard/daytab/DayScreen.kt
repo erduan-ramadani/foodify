@@ -162,6 +162,9 @@ fun DayScreen(
                 vm.requestNutritionValues("", photoFilePath)
             },
             onMicClick = { vm.requestNutritionValues(textQuery = it) },
+            onBarcodeScanned = { barcode ->
+                barcode?.let { vm.fetchBarcode(it) }
+            },
             isLoading = vm.isLoading,
             modifier = Modifier.align(Alignment.BottomEnd),
         )

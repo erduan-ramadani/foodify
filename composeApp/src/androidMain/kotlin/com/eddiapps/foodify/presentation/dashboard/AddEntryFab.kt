@@ -53,6 +53,7 @@ fun AddEntryFab(
     onCameraClick: (String) -> Unit,
     onGalleryClick: (String) -> Unit,
     onMicClick: (String) -> Unit,
+    onBarcodeScanned: (String?) -> Unit,
     isLoading: Boolean,
     modifier: Modifier = Modifier
 ) {
@@ -152,7 +153,7 @@ fun AddEntryFab(
                         .addOnSuccessListener { barcode ->
                             val rawValue = barcode.rawValue
                             Log.d("Foodify", "Barcode scanned: $rawValue")
-                            // TODO: API-Aufruf hier
+                            onBarcodeScanned(rawValue)
                         }
                         .addOnFailureListener { exception ->
                             Log.e("Foodify", "Barcode scan failed", exception)
