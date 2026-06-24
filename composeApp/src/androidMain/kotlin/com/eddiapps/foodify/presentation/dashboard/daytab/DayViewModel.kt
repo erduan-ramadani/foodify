@@ -41,7 +41,7 @@ class DayViewModel(
     private val anthropicRepo: AnthropicInterface,
     prefRepository: PreferencesInterface,
     private val nutritionRepository: NutritionInterface,
-    private val openFoodFactsRepository: OpenFoodFactsInterface  // ← neu
+    private val openFoodFactsRepository: OpenFoodFactsInterface
 ) : ViewModel() {
     private val nutritionEntries = nutritionRepository.entries  // StateFlow<List<NutritionEntry>>
     val nutritionEntriesByDate: StateFlow<Map<LocalDate, List<NutritionEntry>>> =
