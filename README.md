@@ -1,35 +1,68 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# Foodify
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+![Android CI](https://github.com/erduan-ramadani/foodify/actions/workflows/android.yml/badge.svg)
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+AI-powered calorie tracker for Android. Built with Kotlin Multiplatform and Jetpack Compose.
 
-### Build and Run Android Application
+[Available on Google Play](https://play.google.com/store/apps/details?id=com.eddiapps.foodify)
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+## Features
 
-### Build and Run iOS Application
+- **AI-powered nutrition recognition** — describe meals in text, voice, or photo
+- **Barcode scanning** — scan packaged foods, data from Open Food Facts
+- **Detailed analysis** — weekly progress, weight trends, critical nutrients
+- **Privacy-first** — no account, no ads, data stays on device
+- **12 languages** — DE, EN, ES, FR, IT, PT-BR, HI, TR, PL, RU, NL, IN
 
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+## Tech Stack
+
+- **UI:** Jetpack Compose, Material 3
+- **Architecture:** Clean Architecture, MVVM
+- **DI:** Koin
+- **State:** Kotlin Flow / StateFlow
+- **Networking:** Ktor (Anthropic API, Open Food Facts API)
+- **Local Storage:** DataStore
+- **Image Loading:** Coil 3
+- **Barcode:** Google ML Kit
+- **Analytics:** Firebase Analytics
+- **Testing:** JUnit, Coroutines Test, Compose UI Test
+
+## Architecture
+
+- `data/` — Repositories, remote APIs, local persistence
+- `domain/` — Interfaces, models, calculation logic
+- `presentation/` — ViewModels, Composables, UI state
+
+ViewModels depend on interfaces, not concrete implementations. Repositories are injected via Koin.
+State flows reactively from data layer to UI via StateFlow.
+
+## Testing
+
+- **Unit tests** for calculation logic
+- **ViewModel tests** with fake repositories
+- **Compose UI tests** for key components
+- Tests run automatically on every push via GitHub Actions
+
+## Build
+
+Requires JDK 17.
+
+```bash
+./gradlew :composeApp:assembleDebug
+```
+
+To run tests:
+
+```bash
+./gradlew testDebugUnitTest
+```
+
+## Roadmap
+
+- Test coverage reporting (JaCoCo)
+- Compose UI tests in CI with emulator
+- iOS release (currently Android only)
 
 ---
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+Built by [Eddi Ramadani](https://github.com/erduan-ramadani).
