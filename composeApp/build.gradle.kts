@@ -88,6 +88,7 @@ kotlin {
     }
     sourceSets.androidInstrumentedTest.dependencies {
         implementation(kotlin("test"))
+        implementation(libs.compose.ui.test.junit4)
     }
 }
 
@@ -134,5 +135,6 @@ android {
 
 dependencies {
     debugImplementation(libs.compose.uiTooling)
+    debugImplementation(libs.compose.ui.test.manifest)
 }
 
