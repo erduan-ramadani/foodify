@@ -13,7 +13,7 @@ class FakeNutritionRepository(
     private val _entries = MutableStateFlow(initialEntries)
     override val entries: StateFlow<List<NutritionEntry>> = _entries.asStateFlow()
 
-    var clearAllCached = false
+    var clearAllCalled = false
         private set
 
     override fun addEntry(entry: NutritionEntry) {
@@ -32,6 +32,6 @@ class FakeNutritionRepository(
 
     override fun clearAll() {
         _entries.value = emptyList()
-        clearAllCached = true
+        clearAllCalled = true
     }
 }
