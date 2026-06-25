@@ -33,6 +33,14 @@ jobs:
       - name: Run unit tests
         run: ./gradlew testDebugUnitTest
 
+      - name: Publish test report
+        uses: mikepenz/action-junit-report@v4
+        if: success() || failure()
+        with:
+          report_paths: 'composeApp/build/test-results/**/*.xml'
+          check_name: 'Test Results'
+          require_tests: true
+
       - name: Upload test report
         if: always()
         uses: actions/upload-artifact@v4
