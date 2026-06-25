@@ -89,6 +89,7 @@ kotlin {
     sourceSets.androidInstrumentedTest.dependencies {
         implementation(kotlin("test"))
         implementation(libs.compose.ui.test.junit4)
+        implementation(libs.androidx.test.runner)
     }
 }
 
@@ -102,6 +103,7 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 12
         versionName = "1.0.1"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packaging {
         resources {
