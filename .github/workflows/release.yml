@@ -47,3 +47,11 @@ jobs:
         with:
           name: foodify-release-bundle
           path: composeApp/build/outputs/bundle/release/composeApp-release.aab
+
+      - name: Upload to Play Store
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: play-service-account.json
+          packageName: com.eddiapps.foodify
+          releaseFiles: composeApp/build/outputs/bundle/release/composeApp-release.aab
+          track: internal
