@@ -96,7 +96,21 @@ kotlin {
 android {
     namespace = "com.eddiapps.foodify"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
+    signingConfigs {
+        create("release") {
+            val keystorePath = System.getenv("KEYSTORE_PATH")
+            val keystorePassword = System.getenv("KEYSTORE_PASSWORD")
+            val keyAliasEnv = System.getenv("KEY_ALIAS")
+            val keyPasswordEnv = System.getenv("KEY_PASSWORD")
 
+            if (keystorePath != null && keystorePassword != null && keyAliasEnv != null && keyPasswordEnv != null) {
+                storeFile = file(keystorePath)
+                storePassword = keystorePassword
+                keyAlias = keyAliasEnv
+                keyPassword = keyPasswordEnv
+            }
+        }
+    }
     defaultConfig {
         applicationId = "com.eddiapps.foodify"
         minSdk = libs.versions.android.minSdk.get().toInt()
@@ -112,6 +126,7 @@ android {
     }
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
