@@ -24,6 +24,7 @@ import com.eddiapps.foodify.R
 import com.eddiapps.foodify.domain.calculation.calculateSaltLimit
 import com.eddiapps.foodify.domain.calculation.calculateSaturatedFatLimit
 import com.eddiapps.foodify.domain.calculation.calculateSugarLimit
+import com.eddiapps.foodify.domain.calculation.calculateWeightChange
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.AllNutrientsCard
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.BestDayCard
 import com.eddiapps.foodify.presentation.dashboard.analysistab.components.GoalProgressCard
@@ -41,8 +42,11 @@ fun AnalysisScreen() {
     val vm: AnalysisViewModel = koinViewModel()
     val onboarding by vm.onboardingData.collectAsStateWithLifecycle()
     val tdee = onboarding?.tdee ?: 2000
-    val calorieDeficit = (tdee * vm.trackedDays) - vm.totalCalories
-    val weightChange = -calorieDeficit.toDouble() / 7700.0
+    val (calorieDeficit, weightChange) = calculateWeightChange(
+        tdee,
+        vm.trackedDays,
+        vm.totalCalories
+    )
     val dailyCalorieLimit = onboarding?.dailyCalorieLimit ?: 0
     val weeklyLimit = 7700 * vm.weeklyGoal
     val weeklyProgress = if (calorieDeficit > 0) {
@@ -51,7 +55,7 @@ fun AnalysisScreen() {
     val nutrients = NUTRIENT_ROWS.map { row ->
         stringResource(row.labelRes) to "${vm.getTotalNutritionValue(row.selector)} ${row.unit}"
     }
-    
+
     Column(
         modifier = Modifier
             .fillMaxSize()

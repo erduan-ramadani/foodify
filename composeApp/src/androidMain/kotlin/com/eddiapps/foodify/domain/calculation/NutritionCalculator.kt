@@ -50,3 +50,13 @@ fun calculateSugarLimit(
 fun calculateSaltLimit(days: Int): Double {
     return 5.0 * days
 }
+
+fun calculateWeightChange(
+    tdee: Int,
+    trackedDays: Int,
+    totalCalories: Int
+): Pair<Int, Double> {
+    val calorieDeficit = (tdee * trackedDays) - totalCalories
+    val weightChange = -calorieDeficit.toDouble() / 7700.0
+    return calorieDeficit to weightChange
+}
