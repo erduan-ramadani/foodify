@@ -56,7 +56,7 @@ fun calculateWeightChange(
     trackedDays: Int,
     totalCalories: Int
 ): Pair<Int, Double> {
-    val calorieDeficit = (tdee * trackedDays) - totalCalories
-    val weightChange = -calorieDeficit.toDouble() / 7700.0
-    return calorieDeficit to weightChange
+    val calorieBalance = totalCalories - (tdee * trackedDays)
+    val weightChange = calorieBalance / 7700.0
+    return calorieBalance to weightChange
 }
