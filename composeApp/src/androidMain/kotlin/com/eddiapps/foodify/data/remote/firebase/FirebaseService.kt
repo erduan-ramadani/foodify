@@ -8,6 +8,8 @@ import com.google.firebase.messaging.RemoteMessage
 
 class FirebaseService : FirebaseMessagingService() {
 
+    @Deprecated("Deprecated in Java")
+    @Suppress("DEPRECATION")
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         // Token an dein Backend schicken
