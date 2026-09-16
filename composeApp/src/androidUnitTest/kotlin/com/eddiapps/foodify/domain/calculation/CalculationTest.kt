@@ -66,6 +66,30 @@ class CalculationTest {
     }
 
     @Test
+    fun `calculateWeightChange returns weight loss when calories are below TDEE`() {
+        val result = calculateWeightChange(
+            tdee = 2500,
+            trackedDays = 2,
+            totalCalories = 4000
+        )
+
+        assertEquals(-1000, result.first)
+        assertEquals(-1000.0 / 7700.0, result.second, 0.0001)
+    }
+
+    @Test
+    fun `calculateWeightChange returns weight gain when calories are above TDEE`() {
+        val result = calculateWeightChange(
+            tdee = 2500,
+            trackedDays = 2,
+            totalCalories = 6000
+        )
+
+        assertEquals(1000, result.first)
+        assertEquals(1000.0 / 7700.0, result.second, 0.0001)
+    }
+
+    @Test
     fun `calculateDailyCalorieLimit applies activity limit before deficit`() {
         val limit = calculateDailyCalorieLimit(
             isMale = true,
