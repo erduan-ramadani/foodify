@@ -42,9 +42,9 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
 
             implementation(project.dependencies.platform(libs.firebase.bom))
-            implementation(libs.firebase.config)
             implementation(libs.firebase.messaging)
             implementation(libs.firebase.analytics)
+            implementation(libs.firebase.appcheck.playintegrity)
 
             implementation(libs.coil.compose)
             implementation(libs.coil.network)
@@ -153,5 +153,6 @@ android {
 dependencies {
     debugImplementation(libs.compose.uiTooling)
     debugImplementation(libs.compose.ui.test.manifest)
+    debugImplementation(libs.firebase.appcheck.debug)
 }
 

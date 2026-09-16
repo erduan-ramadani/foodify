@@ -25,8 +25,6 @@ kotlinx-coroutines-test = "1.11.0"
 junit = "4.13.2"
 gms = "4.5.0"
 firebase = "34.15.0"
-firebaseConfig = "23.1.0"
-firebaseMessaging = "25.1.0"
 mlkit-barcode = "18.3.1"
 play-services-codescanner = "16.1.0"
 
@@ -87,9 +85,10 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 
 #Firebase
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
-firebase-config = { group = "com.google.firebase", name = "firebase-config", version.ref = "firebaseConfig" }
-firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessaging" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-appcheck-playintegrity = { module = "com.google.firebase:firebase-appcheck-playintegrity" }
+firebase-appcheck-debug = { module = "com.google.firebase:firebase-appcheck-debug" }
 
 #Coil
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }

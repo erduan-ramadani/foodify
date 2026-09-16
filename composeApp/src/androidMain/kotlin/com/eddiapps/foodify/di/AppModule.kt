@@ -9,7 +9,6 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.eddiapps.foodify.data.local.NutritionRepository
 import com.eddiapps.foodify.data.local.PreferencesRepository
 import com.eddiapps.foodify.data.remote.anthropic.AnthropicRepository
-import com.eddiapps.foodify.data.remote.firebase.FirebaseRepository
 import com.eddiapps.foodify.data.remote.openfoodfacts.OpenFoodFactsRepository
 import com.eddiapps.foodify.domain.AnthropicInterface
 import com.eddiapps.foodify.domain.OpenFoodFactsInterface
@@ -33,8 +32,7 @@ val appModule = module {
     single { androidContext().dataStore }
     single<PreferencesInterface> { PreferencesRepository(get()) }
     single<NutritionInterface> { NutritionRepository(get(), get()) }
-    single { FirebaseRepository() }
-    single<AnthropicInterface> { AnthropicRepository(get()) }
+    single<AnthropicInterface> { AnthropicRepository() }
     single<OpenFoodFactsInterface> { OpenFoodFactsRepository() }
 }
 
