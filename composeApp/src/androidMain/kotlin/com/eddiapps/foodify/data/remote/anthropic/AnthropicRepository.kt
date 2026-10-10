@@ -61,8 +61,9 @@ class AnthropicRepository : AnthropicInterface {
                 ?.text
                 ?: error("Empty response")
 
-            val parsed = json
-                .decodeFromString<NutritionEntry>(responseText)
+            val parsed = json.decodeFromString<NutritionEntry>(
+                cleanJsonResponse(responseText)
+            )
                 .copy(query = query)
 
             if (parsed.isMeal) {
@@ -104,7 +105,18 @@ class AnthropicRepository : AnthropicInterface {
                 ?.text
                 ?: error("Empty response")
 
-            json.decodeFromString<NutritionEntry>(responseText)
+            json.decodeFromString<NutritionEntry>(
+                cleanJsonResponse(responseText)
+            )
         }
+    }
+
+    private fun cleanJsonResponse(responseText: String): String {
+        return responseText
+            .trim()
+            .removePrefix("```json")
+            .removePrefix("```")
+            .removeSuffix("```")
+            .trim()
     }
 }
