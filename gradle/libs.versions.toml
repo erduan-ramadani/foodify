@@ -31,6 +31,7 @@ play-services-codescanner = "16.1.0"
 # Testing
 compose-ui-test = "1.11.3"
 androidx-test-runner = "1.7.0"
+uiText = "1.12.1"
 
 
 [libraries]
@@ -97,6 +98,7 @@ coil-network = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = 
 #Barcode-Scanner
 mlkit-barcode = { module = "com.google.mlkit:barcode-scanning", version.ref = "mlkit-barcode" }
 play-services-codescanner = { module = "com.google.android.gms:play-services-code-scanner", version.ref = "play-services-codescanner" }
+androidx-ui-text = { group = "androidx.compose.ui", name = "ui-text", version.ref = "uiText" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
