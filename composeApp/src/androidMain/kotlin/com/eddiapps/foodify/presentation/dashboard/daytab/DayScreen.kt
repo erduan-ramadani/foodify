@@ -163,7 +163,6 @@ fun DayScreen(
             }
         }
         AddEntryFab(
-            onTextClick = { vm.requestNutritionValues(textQuery = it) },
             onCameraClick = { photoFilePath ->
                 vm.requestNutritionValues("", photoFilePath)
 
@@ -171,7 +170,6 @@ fun DayScreen(
             onGalleryClick = { photoFilePath ->
                 vm.requestNutritionValues("", photoFilePath)
             },
-            onMicClick = { vm.requestNutritionValues(textQuery = it) },
             onBarcodeScanned = { barcode ->
                 barcode?.let { vm.fetchBarcode(it) }
             },

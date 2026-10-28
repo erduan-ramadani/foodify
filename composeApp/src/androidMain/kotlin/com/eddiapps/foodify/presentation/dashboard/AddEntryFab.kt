@@ -17,8 +17,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Keyboard
-import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.PhotoLibrary
 import androidx.compose.material.icons.filled.QrCodeScanner
@@ -38,8 +36,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import com.eddiapps.foodify.presentation.dashboard.daytab.components.TextInputSheet
-import com.eddiapps.foodify.presentation.dashboard.daytab.components.VoiceInputSheet
 import com.eddiapps.foodify.presentation.util.copyUriToAppStorage
 import com.eddiapps.foodify.presentation.util.createCameraImageUri
 import com.google.mlkit.vision.barcode.common.Barcode
@@ -49,10 +45,8 @@ import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AddEntryFab(
-    onTextClick: (String) -> Unit,
     onCameraClick: (String) -> Unit,
     onGalleryClick: (String) -> Unit,
-    onMicClick: (String) -> Unit,
     onBarcodeScanned: (String?) -> Unit,
     isLoading: Boolean,
     modifier: Modifier = Modifier
@@ -101,18 +95,6 @@ fun AddEntryFab(
                 horizontalAlignment = Alignment.End,
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                SmallFloatingActionButton(onClick = {
-                    isExpanded = false
-                    showTextSheet = true
-                }) {
-                    Icon(Icons.Default.Keyboard, contentDescription = "Text")
-                }
-                SmallFloatingActionButton(onClick = {
-                    isExpanded = false
-                    showVoiceSheet = true
-                }) {
-                    Icon(Icons.Default.Mic, contentDescription = "Voice")
-                }
                 SmallFloatingActionButton(onClick = {
                     isExpanded = false
                     val hasPermission = ContextCompat.checkSelfPermission(
@@ -187,24 +169,5 @@ fun AddEntryFab(
                 )
             }
         }
-    }
-
-    if (showVoiceSheet) {
-        VoiceInputSheet(
-            onDismiss = { showVoiceSheet = false },
-            onTextRecognized = { spokenText ->
-                onMicClick(spokenText)
-            }
-        )
-    }
-
-    if (showTextSheet) {
-        TextInputSheet(
-            onDismiss = { showTextSheet = false },
-            onSend = { text ->
-                showTextSheet = false
-                onTextClick(text)
-            }
-        )
     }
 }
