@@ -16,6 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
@@ -30,6 +33,7 @@ import com.eddiapps.foodify.presentation.dashboard.UiConnectionEvent
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.BalanceCard
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.BarcodeAmountSheet
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.CalorieRing
+import com.eddiapps.foodify.presentation.dashboard.daytab.components.DayInputBar
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.EntriesCard
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.VoiceInputSheet
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.WeekDaySelector
@@ -135,7 +139,6 @@ fun DayScreen(
                         isOverLimit = dailyCalories > dailyCalorieLimit
                     )
                 }
-
                 item {
                     BalanceCard(
                         dailyEaten,
@@ -163,7 +166,13 @@ fun DayScreen(
                     Spacer(modifier = Modifier.height(4.dp))
                 }
             }
+
+            DayInputBar(
+                onSend = { text -> vm.requestNutritionValues(textQuery = text) },
+                onMicClick = { showVoiceSheet = true }
+            )
         }
+
         AddEntryFab(
             onCameraClick = { photoFilePath ->
                 vm.requestNutritionValues("", photoFilePath)
