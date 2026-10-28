@@ -99,7 +99,8 @@ fun DayInputBar(
                         } else {
                             sendText()
                         }
-                    }
+                    },
+                    modifier = Modifier.testTag("day_entry_send")
                 ) {
                     Icon(
                         imageVector = if (text.isBlank()) {

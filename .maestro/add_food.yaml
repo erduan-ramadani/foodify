@@ -1,0 +1,20 @@
+appId: com.eddiapps.foodify
+---
+- launchApp
+
+- extendedWaitUntil:
+    visible:
+      id: "day_entry_input"
+    timeout: 15000
+
+- tapOn:
+    id: "day_entry_input"
+
+- inputText: "1 Birne"
+
+- tapOn:
+    id: "day_entry_send"
+
+- extendedWaitUntil:
+    visible: "1 Birne"
+    timeout: 30000
