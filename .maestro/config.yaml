@@ -1,0 +1,7 @@
+executionOrder:
+  continueOnFailure: true
+  flowsOrder:
+    - food_input
+    - add_food
+    - edit_food
+    - delete_food
