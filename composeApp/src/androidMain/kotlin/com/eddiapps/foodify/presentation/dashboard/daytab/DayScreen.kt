@@ -31,6 +31,7 @@ import com.eddiapps.foodify.presentation.dashboard.daytab.components.BalanceCard
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.BarcodeAmountSheet
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.CalorieRing
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.EntriesCard
+import com.eddiapps.foodify.presentation.dashboard.daytab.components.VoiceInputSheet
 import com.eddiapps.foodify.presentation.dashboard.daytab.components.WeekDaySelector
 import org.koin.androidx.compose.koinViewModel
 
@@ -49,6 +50,7 @@ fun DayScreen(
     val dailyCalorieLimit = onboarding?.dailyCalorieLimit ?: 0
     val progress = if (dailyCalorieLimit > 0) dailyCalories.toFloat() / dailyCalorieLimit else 0f
     val remaining = kotlin.math.abs(dailyCalorieLimit - dailyCalories)
+    var showVoiceSheet by remember { mutableStateOf(false) }
 
     val listState = rememberLazyListState()
     val resources = LocalResources.current
@@ -174,7 +176,18 @@ fun DayScreen(
                 barcode?.let { vm.fetchBarcode(it) }
             },
             isLoading = vm.isLoading,
-            modifier = Modifier.align(Alignment.BottomEnd),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 60.dp)
+        )
+    }
+
+    if (showVoiceSheet) {
+        VoiceInputSheet(
+            onDismiss = { showVoiceSheet = false },
+            onTextRecognized = { spokenText ->
+                vm.requestNutritionValues(textQuery = spokenText)
+            }
         )
     }
 }
