@@ -115,7 +115,9 @@ fun EditEntrySheet(
             OutlinedTextField(
                 value = title,
                 onValueChange = { title = it },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("edit_food_name"),
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp)
             )
@@ -215,7 +217,9 @@ fun EditEntrySheet(
             ) {
                 Text(
                     text = stringResource(R.string.save),
-                    modifier = Modifier.padding(vertical = 4.dp),
+                    modifier = Modifier
+                        .padding(vertical = 4.dp)
+                        .testTag("edit_food_save"),
                     fontWeight = FontWeight.SemiBold
                 )
             }
