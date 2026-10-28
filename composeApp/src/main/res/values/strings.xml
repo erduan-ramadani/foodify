@@ -56,7 +56,7 @@
     <string name="cancel">Cancel</string>
     <string name="day">Day</string>
     <string name="analysis">Analysis</string>
-    <string name="meal_or_activity">Meal or activity</string>
+    <string name="food_or_activity">Add food or activity</string>
     <string name="voice_input">Voice input</string>
     <string name="error_no_internet">No internet</string>
     <string name="error_timeout">Timeout</string>
@@ -198,7 +198,7 @@
     <!-- Voice -->
     <string name="voice_listening">Listening…</string>
     <string name="voice_done">Done</string>
-    <string name="voice_hint">Speak your meal or activity now</string>
+    <string name="voice_hint">Speak your food or activity now</string>
     <string name="apply">Apply</string>
 
     <!-- Camera -->

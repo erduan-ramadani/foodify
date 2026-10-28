@@ -56,7 +56,7 @@
     <string name="cancel">Отмена</string>
     <string name="day">День</string>
     <string name="analysis">Анализ</string>
-    <string name="meal_or_activity">Приём пищи или активность</string>
+    <string name="food_or_activity">Приём пищи или активность</string>
     <string name="voice_input">Голосовой ввод</string>
     <string name="error_no_internet">Нет интернета</string>
     <string name="error_timeout">Время ожидания истекло</string>

@@ -56,7 +56,7 @@
     <string name="cancel">Cancelar</string>
     <string name="day">Día</string>
     <string name="analysis">Análisis</string>
-    <string name="meal_or_activity">Comida o actividad</string>
+    <string name="food_or_activity">Comida o actividad</string>
     <string name="voice_input">Entrada por voz</string>
     <string name="error_no_internet">Sin internet</string>
     <string name="error_timeout">Tiempo de espera agotado</string>

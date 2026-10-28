@@ -56,7 +56,7 @@
     <string name="cancel">Batal</string>
     <string name="day">Hari</string>
     <string name="analysis">Analisis</string>
-    <string name="meal_or_activity">Makanan atau aktivitas</string>
+    <string name="food_or_activity">Makanan atau aktivitas</string>
     <string name="voice_input">Input suara</string>
     <string name="error_no_internet">Tidak ada internet</string>
     <string name="error_timeout">Waktu habis</string>

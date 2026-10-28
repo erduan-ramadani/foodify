@@ -56,7 +56,7 @@
     <string name="cancel">रद्द करें</string>
     <string name="day">दिन</string>
     <string name="analysis">विश्लेषण</string>
-    <string name="meal_or_activity">भोजन या गतिविधि</string>
+    <string name="food_or_activity">भोजन या गतिविधि</string>
     <string name="voice_input">वॉइस इनपुट</string>
     <string name="error_no_internet">इंटरनेट नहीं है</string>
     <string name="error_timeout">समय समाप्त</string>

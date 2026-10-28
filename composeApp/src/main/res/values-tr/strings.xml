@@ -56,7 +56,7 @@
     <string name="cancel">İptal</string>
     <string name="day">Gün</string>
     <string name="analysis">Analiz</string>
-    <string name="meal_or_activity">Öğün veya aktivite</string>
+    <string name="food_or_activity">Öğün veya aktivite</string>
     <string name="voice_input">Sesli giriş</string>
     <string name="error_no_internet">İnternet yok</string>
     <string name="error_timeout">Zaman aşımı</string>
