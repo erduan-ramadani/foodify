@@ -1,0 +1,9 @@
+appId: com.eddiapps.foodify
+---
+- launchApp
+- assertVisible:
+    id: "day_entry_input"
+- tapOn:
+    id: "day_entry_input"
+- inputText: "Apfel"
+- assertVisible: "Apfel"

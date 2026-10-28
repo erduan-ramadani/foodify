@@ -27,7 +27,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.eddiapps.foodify.R
@@ -52,7 +55,10 @@ fun DayInputBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .semantics {
+                testTagsAsResourceId = true
+            },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -67,7 +73,8 @@ fun DayInputBar(
                     1.dp,
                     MaterialTheme.colorScheme.outlineVariant,
                     RoundedCornerShape(16.dp)
-                ),
+                )
+                .testTag("day_entry_input"),
             placeholder = {
                 Text(stringResource(R.string.food_or_activity))
             },
