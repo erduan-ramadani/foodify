@@ -28,6 +28,8 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build debug APK
+        env:
+          APP_CHECK_DEBUG_TOKEN: ${{ secrets.APP_CHECK_DEBUG_TOKEN }}
         run: ./gradlew :composeApp:assembleDebug
 
       - name: Install Maestro
@@ -41,7 +43,7 @@ jobs:
         with:
           path: ${{ env.ANDROID_HOME }}/system-images/android-34/google_apis/x86_64
           key: android-34-google-apis-x86_64-v1
-          
+
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
