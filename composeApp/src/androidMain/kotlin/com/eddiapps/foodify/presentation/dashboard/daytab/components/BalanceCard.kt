@@ -27,7 +27,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.eddiapps.foodify.R
@@ -51,7 +54,11 @@ fun BalanceCard(
     )
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .semantics {
+                testTagsAsResourceId = true
+            },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
@@ -67,7 +74,8 @@ fun BalanceCard(
             BalanceItem(
                 label = stringResource(R.string.eaten),
                 value = animatedEatenCalories,
-                dotColor = Color(0xFFD4A04E)
+                dotColor = Color(0xFFD4A04E),
+                testTag = "eaten_calories_value"
             )
             BalanceItem(
                 label = stringResource(R.string.burned),
@@ -87,7 +95,8 @@ fun BalanceCard(
 private fun BalanceItem(
     label: String,
     value: Int,
-    dotColor: Color
+    dotColor: Color,
+    testTag: String? = null
 ) {
     Column {
         Row(
@@ -112,7 +121,12 @@ private fun BalanceItem(
             text = value.toString(),
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onSurface,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Medium,
+            modifier = if (testTag != null) {
+                Modifier.testTag(testTag)
+            } else {
+                Modifier
+            }
         )
     }
 }

@@ -1,0 +1,83 @@
+appId: com.eddiapps.foodify
+---
+- launchApp
+
+- extendedWaitUntil:
+    visible:
+      id: "day_entry_input"
+    timeout: 15000
+
+# Kiwi hinzufügen
+- tapOn:
+    id: "day_entry_input"
+
+- inputText: "1 Kiwi"
+
+- tapOn:
+    id: "day_entry_send"
+
+- extendedWaitUntil:
+    visible: "1 Kiwi"
+    timeout: 30000
+
+# Kiwi auf genau 150 kcal setzen
+- longPressOn:
+    text: "1 Kiwi"
+
+- extendedWaitUntil:
+    visible:
+      id: "edit_food_calories"
+    timeout: 5000
+
+- tapOn:
+    id: "edit_food_calories"
+
+- eraseText: 20
+
+- inputText: "150"
+
+- tapOn:
+    id: "edit_food_save"
+
+# Prüfen, ob Kiwi 150 kcal hat
+- extendedWaitUntil:
+    visible:
+      id: "food_entry_.*"
+      containsDescendants:
+        - text: "1 Kiwi"
+        - text: "+150"
+    timeout: 10000
+
+# Tageskalorien vor dem Löschen speichern
+- copyTextFrom:
+    id: "eaten_calories_value"
+
+- evalScript: ${output.caloriesBefore = Number(maestro.copiedText.replace(/[^0-9]/g, ""))}
+
+# Kiwi löschen
+- longPressOn:
+    text: "1 Kiwi"
+
+- extendedWaitUntil:
+    visible:
+      id: "delete_food_button"
+    timeout: 5000
+
+- tapOn:
+    id: "delete_food_button"
+
+# Warten, bis Kiwi verschwunden ist
+- extendedWaitUntil:
+    notVisible: "1 Kiwi"
+    timeout: 10000
+
+# Tageskalorien nach dem Löschen speichern
+- copyTextFrom:
+    id: "eaten_calories_value"
+
+- evalScript: ${output.caloriesAfter = Number(maestro.copiedText.replace(/[^0-9]/g, ""))}
+
+# Prüfen, ob exakt 150 kcal abgezogen wurden
+- assertTrue:
+    condition: ${output.caloriesBefore - output.caloriesAfter === 150}
+    label: "Die Tageskalorien müssen um 150 kcal sinken"
