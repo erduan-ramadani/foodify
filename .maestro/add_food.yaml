@@ -16,5 +16,8 @@ appId: com.eddiapps.foodify
     id: "day_entry_send"
 
 - extendedWaitUntil:
-    visible: "1 Birne"
+    visible:
+      id: "food_entry_.*"
+      containsDescendants:
+        - text: "1 Birne"
     timeout: 30000
