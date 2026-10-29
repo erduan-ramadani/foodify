@@ -34,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -120,7 +121,9 @@ fun PersonalDataPage(
                 icon = "♂",
                 isSelected = vm.isMale == true,
                 onClick = { vm.isMale = true },
-                modifier = Modifier.weight(1f)
+                modifier = Modifier
+                    .weight(1f)
+                    .testTag("onboarding_gender_male")
             )
             GenderCard(
                 label = stringResource(R.string.female),

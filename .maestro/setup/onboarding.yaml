@@ -1,0 +1,35 @@
+appId: com.eddiapps.foodify
+---
+- launchApp
+- extendedWaitUntil:
+    visible: "Männlich"
+    timeout: 30000
+    
+# Onboarding nur ausführen, wenn es angezeigt wird
+- runFlow:
+    when:
+      visible: "Männlich"
+    commands:
+      # Seite 1: Geschlecht auswählen
+      - tapOn: "Männlich"
+
+      - tapOn: "BMI berechnen"
+
+      # Seite 2: Aktivitätslevel auswählen
+      - extendedWaitUntil:
+          visible:
+            text: "Dein Aktivitätslevel"
+          timeout: 10000
+
+      - tapOn: "Aktiv"
+
+      - tapOn: "Bedarf berechnen"
+
+      # Seite 3: Onboarding abschließen
+      - tapOn: "Los gehts"
+
+# Dashboard muss anschließend sichtbar sein
+- extendedWaitUntil:
+    visible:
+      id: "day_entry_input"
+    timeout: 30000

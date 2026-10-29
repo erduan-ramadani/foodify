@@ -24,7 +24,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
 import com.eddiapps.foodify.R
 import com.eddiapps.foodify.domain.model.onboarding.OnboardingData
@@ -47,7 +50,11 @@ fun OnboardingScreen(
     }
 
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .semantics {
+                testTagsAsResourceId = true
+            },
         color = MaterialTheme.colorScheme.background
     ) {
         Column(
@@ -113,7 +120,9 @@ fun OnboardingScreen(
                         }
                     },
                     enabled = canProceed,
-                    modifier = Modifier.weight(1.2f),
+                    modifier = Modifier
+                        .weight(1.2f)
+                        .testTag("onboarding_next_button"),
                     shape = RoundedCornerShape(20.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary

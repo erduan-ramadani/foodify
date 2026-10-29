@@ -1,3 +1,6 @@
+flows:
+  - "*.yaml"
+
 executionOrder:
   continueOnFailure: true
   flowsOrder:
@@ -8,3 +11,6 @@ executionOrder:
     - edit_food_details
     - delete_food
     - verify_calorie_balance_after_food_deletion
+
+onFlowStart:
+  - runFlow: setup/onboarding.yaml
