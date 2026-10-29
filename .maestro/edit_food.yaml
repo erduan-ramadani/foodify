@@ -37,6 +37,15 @@ appId: com.eddiapps.foodify
 
 - inputText: "2 Mangos"
 
+# Tastatur schließen
+- hideKeyboard
+
+# Speichern-Button abwarten
+- extendedWaitUntil:
+    visible:
+      id: "edit_food_save"
+    timeout: 10000
+
 # Änderungen speichern
 - tapOn:
     id: "edit_food_save"
