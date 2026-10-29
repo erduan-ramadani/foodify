@@ -2,7 +2,7 @@ flows:
   - "*.yaml"
 
 executionOrder:
-  continueOnFailure: true
+  continueOnFailure: false
   flowsOrder:
     - food_input
     - add_food
