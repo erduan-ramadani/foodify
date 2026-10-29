@@ -5,4 +5,5 @@ executionOrder:
     - add_food
     - edit_food
     - edit_food_calories
+    - edit_food_details
     - delete_food

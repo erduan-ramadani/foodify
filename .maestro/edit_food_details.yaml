@@ -1,0 +1,64 @@
+appId: com.eddiapps.foodify
+---
+- launchApp
+
+# Warten, bis der DayScreen sichtbar ist
+- extendedWaitUntil:
+    visible:
+      id: "day_entry_input"
+    timeout: 15000
+
+# Lebensmittel hinzufügen
+- tapOn:
+    id: "day_entry_input"
+
+- inputText: "1 Orange"
+
+- tapOn:
+    id: "day_entry_send"
+
+- extendedWaitUntil:
+    visible: "1 Orange"
+    timeout: 30000
+
+# Bearbeitungsdialog öffnen
+- longPressOn:
+    text: "1 Orange"
+
+- extendedWaitUntil:
+    visible:
+      id: "edit_food_name"
+    timeout: 5000
+
+# Namen ändern
+- tapOn:
+    id: "edit_food_name"
+
+- eraseText: 30
+
+- inputText: "2 Orangen"
+
+# Kalorien ändern
+- tapOn:
+    id: "edit_food_calories"
+
+- eraseText: 20
+
+- inputText: "180"
+
+# Änderungen speichern
+- tapOn:
+    id: "edit_food_save"
+
+# Prüfen, ob beide Änderungen in derselben Zeile stehen
+- extendedWaitUntil:
+    visible:
+      id: "food_entry_.*"
+      containsDescendants:
+        - text: "2 Orangen"
+        - text: "+180"
+    timeout: 10000
+
+# Prüfen, ob der alte Name verschwunden ist
+- assertNotVisible:
+    text: "1 Orange"
