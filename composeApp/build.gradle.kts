@@ -139,8 +139,6 @@ android {
         }
         debug {
             isMinifyEnabled = false
-            manifestPlaceholders["firebaseAppCheckDebugSecret"] =
-                System.getenv("APP_CHECK_DEBUG_TOKEN") ?: ""
         }
     }
     buildFeatures {
