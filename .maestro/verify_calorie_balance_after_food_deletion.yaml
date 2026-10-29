@@ -36,6 +36,13 @@ appId: com.eddiapps.foodify
 
 - inputText: "150"
 
+- hideKeyboard
+
+- extendedWaitUntil:
+    visible:
+      id: "edit_food_save"
+    timeout: 10000
+
 - tapOn:
     id: "edit_food_save"
 
