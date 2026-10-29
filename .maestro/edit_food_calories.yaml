@@ -1,6 +1,7 @@
 appId: com.eddiapps.foodify
 ---
-- launchApp
+- launchApp:
+    stopApp: true
 
 # Warten, bis der DayScreen sichtbar ist
 - extendedWaitUntil:

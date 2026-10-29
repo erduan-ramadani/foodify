@@ -1,6 +1,7 @@
 appId: com.eddiapps.foodify
 ---
-- launchApp
+- launchApp:
+    stopApp: true
 
 # Warten, bis der DayScreen sichtbar ist
 - extendedWaitUntil:
@@ -53,7 +54,7 @@ appId: com.eddiapps.foodify
     visible:
       id: "edit_food_save"
     timeout: 10000
-      
+
 - tapOn:
     id: "edit_food_save"
 

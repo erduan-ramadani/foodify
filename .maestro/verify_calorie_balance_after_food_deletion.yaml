@@ -1,6 +1,7 @@
 appId: com.eddiapps.foodify
 ---
-- launchApp
+- launchApp:
+    stopApp: true
 
 - extendedWaitUntil:
     visible:

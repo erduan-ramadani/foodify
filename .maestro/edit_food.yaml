@@ -1,13 +1,14 @@
 appId: com.eddiapps.foodify
 ---
-- launchApp
+- launchApp:
+    stopApp: true
 
 - extendedWaitUntil:
     visible:
       id: "day_entry_input"
     timeout: 15000
 
-# Lebensmittel hinzufügen
+# Mango hinzufügen
 - tapOn:
     id: "day_entry_input"
 
@@ -16,18 +17,27 @@ appId: com.eddiapps.foodify
 - tapOn:
     id: "day_entry_send"
 
+# Warten, bis Mango hinzugefügt wurde
 - extendedWaitUntil:
-    visible: "1 Mango"
+    visible:
+      id: "food_entry_.*"
+      containsDescendants:
+        - text: "1 Mango"
     timeout: 30000
 
-# Lebensmittel bearbeiten
+# Tastatur vor dem Öffnen des Bearbeitungsdialogs schließen
+- hideKeyboard
+
+# Mango bearbeiten
 - longPressOn:
-    text: "1 Mango"
+    id: "food_entry_.*"
+    containsDescendants:
+      - text: "1 Mango"
 
 - extendedWaitUntil:
     visible:
       id: "edit_food_name"
-    timeout: 5000
+    timeout: 10000
 
 # Namen ändern
 - tapOn:
@@ -37,20 +47,18 @@ appId: com.eddiapps.foodify
 
 - inputText: "2 Mangos"
 
-# Tastatur schließen
+# Tastatur vor dem Speichern schließen
 - hideKeyboard
 
-# Speichern-Button abwarten
 - extendedWaitUntil:
     visible:
       id: "edit_food_save"
     timeout: 10000
 
-# Änderungen speichern
 - tapOn:
     id: "edit_food_save"
 
-# Ergebnis überprüfen
+# Geänderten Namen überprüfen
 - extendedWaitUntil:
     visible: "2 Mangos"
     timeout: 10000
