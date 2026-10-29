@@ -181,7 +181,9 @@ fun EditEntrySheet(
             OutlinedTextField(
                 value = calories,
                 onValueChange = { calories = it.filter { c -> c.isDigit() || c == '-' } },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("edit_food_calories"),
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp),
                 suffix = { Text(stringResource(R.string.kcal)) },
