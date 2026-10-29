@@ -1,34 +1,49 @@
 appId: com.eddiapps.foodify
 ---
 - launchApp
+
+# Warten, bis das Onboarding oder Dashboard erscheint
 - extendedWaitUntil:
-    visible: "Männlich"
+    visible:
+      id: "onboarding_gender_male|day_entry_input"
     timeout: 30000
-    
-# Onboarding nur ausführen, wenn es angezeigt wird
+
+# Onboarding nur beim ersten App-Start ausführen
 - runFlow:
     when:
-      visible: "Männlich"
+      visible:
+        id: "onboarding_gender_male"
     commands:
-      # Seite 1: Geschlecht auswählen
-      - tapOn: "Männlich"
 
-      - tapOn: "BMI berechnen"
+      # Seite 1: Persönliche Daten
+      - tapOn:
+          id: "onboarding_gender_male"
 
-      # Seite 2: Aktivitätslevel auswählen
+      - tapOn:
+          id: "onboarding_next_button"
+
+      # Seite 2: Aktivitätslevel
       - extendedWaitUntil:
           visible:
-            text: "Dein Aktivitätslevel"
+            id: "onboarding_activity_sedentary"
           timeout: 10000
 
-      - tapOn: "Aktiv"
+      - tapOn:
+          id: "onboarding_activity_sedentary"
 
-      - tapOn: "Bedarf berechnen"
+      - tapOn:
+          id: "onboarding_next_button"
 
-      # Seite 3: Onboarding abschließen
-      - tapOn: "Los gehts"
+      # Seite 3: Gewichtsziel
+      - extendedWaitUntil:
+          visible:
+            id: "onboarding_next_button"
+          timeout: 10000
 
-# Dashboard muss anschließend sichtbar sein
+      - tapOn:
+          id: "onboarding_next_button"
+
+# Dashboard muss nach dem Onboarding sichtbar sein
 - extendedWaitUntil:
     visible:
       id: "day_entry_input"
