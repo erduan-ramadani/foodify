@@ -24,7 +24,6 @@ appId: com.eddiapps.foodify
         - text: "1 Kiwi"
     timeout: 30000
 
-# Tastatur nach dem Hinzufügen schließen
 - hideKeyboard
 
 # Kiwi auf genau 150 kcal setzen
@@ -65,9 +64,10 @@ appId: com.eddiapps.foodify
     timeout: 10000
 
 # Tageskalorien vor dem Löschen speichern
-- extendedWaitUntil:
-    visible:
+- scrollUntilVisible:
+    element:
       id: "eaten_calories_value"
+    direction: UP
     timeout: 15000
 
 - waitForAnimationToEnd
@@ -76,6 +76,15 @@ appId: com.eddiapps.foodify
     id: "eaten_calories_value"
 
 - evalScript: ${output.caloriesBefore = Number(maestro.copiedText.replace(/[^0-9]/g, ""))}
+
+# Kiwi zum Löschen wiederfinden
+- scrollUntilVisible:
+    element:
+      id: "food_entry_.*"
+      containsDescendants:
+        - text: "1 Kiwi"
+    direction: DOWN
+    timeout: 15000
 
 # Kiwi löschen
 - longPressOn:
@@ -100,9 +109,10 @@ appId: com.eddiapps.foodify
     timeout: 10000
 
 # Tageskalorien nach dem Löschen speichern
-- extendedWaitUntil:
-    visible:
+- scrollUntilVisible:
+    element:
       id: "eaten_calories_value"
+    direction: UP
     timeout: 15000
 
 - waitForAnimationToEnd
