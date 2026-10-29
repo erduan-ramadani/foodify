@@ -68,8 +68,8 @@ updated = ET.tostring(root, encoding="utf-8", xml_declaration=True)
 
 # Write through stdin; do not print or pass the secret as a command argument.
 adb(
-    "shell", "run-as", PACKAGE,
-    "sh", "-c", f"cat > {path}",
+    "shell", "-T", "run-as", PACKAGE,
+    "sh", "-c", f"'cat > {path}'",
     data=updated,
 )
 
