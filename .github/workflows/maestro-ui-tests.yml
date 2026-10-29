@@ -50,8 +50,9 @@ jobs:
           arch: x86_64
           script: |
             adb install -r composeApp/build/outputs/apk/debug/composeApp-debug.apk
+            maestro test .maestro/setup/onboarding.yaml
             maestro test .maestro
-
+      
       - name: Upload test artifacts
         if: failure()
         uses: actions/upload-artifact@v4
