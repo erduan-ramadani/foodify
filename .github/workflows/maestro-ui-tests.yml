@@ -52,12 +52,15 @@ jobs:
 
       - name: Run Maestro UI tests
         uses: reactivecircus/android-emulator-runner@v2
+        env:
+          APP_CHECK_DEBUG_TOKEN: ${{ secrets.APP_CHECK_DEBUG_TOKEN }}
         with:
           api-level: 34
           target: google_apis
           arch: x86_64
           script: |
             adb install -r composeApp/build/outputs/apk/debug/composeApp-debug.apk
+            python3 .github/scripts/setup-appcheck.py
             maestro test .maestro/setup/onboarding.yaml
             adb logcat -c
             bash .github/scripts/run-maestro-tests.sh
