@@ -24,8 +24,11 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: Build debug APK
-        run: ./gradlew :app:assembleDebug
+        run: ./gradlew :composeApp:assembleDebug
 
       - name: Install Maestro
         run: |
@@ -46,7 +49,7 @@ jobs:
           target: google_apis
           arch: x86_64
           script: |
-            adb install -r app/build/outputs/apk/debug/app-debug.apk
+            adb install -r composeApp/build/outputs/apk/debug/composeApp-debug.apk
             maestro test .maestro
 
       - name: Upload test artifacts
