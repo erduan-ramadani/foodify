@@ -17,17 +17,25 @@ appId: com.eddiapps.foodify
     id: "day_entry_send"
 
 - extendedWaitUntil:
-    visible: "1 Kiwi"
+    visible:
+      id: "food_entry_.*"
+      containsDescendants:
+        - text: "1 Kiwi"
     timeout: 30000
+
+# Tastatur nach dem Hinzufügen schließen
+- hideKeyboard
 
 # Kiwi auf genau 150 kcal setzen
 - longPressOn:
-    text: "1 Kiwi"
+    id: "food_entry_.*"
+    containsDescendants:
+      - text: "1 Kiwi"
 
 - extendedWaitUntil:
     visible:
       id: "edit_food_calories"
-    timeout: 5000
+    timeout: 10000
 
 - tapOn:
     id: "edit_food_calories"
@@ -56,6 +64,13 @@ appId: com.eddiapps.foodify
     timeout: 10000
 
 # Tageskalorien vor dem Löschen speichern
+- extendedWaitUntil:
+    visible:
+      id: "eaten_calories_value"
+    timeout: 15000
+
+- waitForAnimationToEnd
+
 - copyTextFrom:
     id: "eaten_calories_value"
 
@@ -63,22 +78,34 @@ appId: com.eddiapps.foodify
 
 # Kiwi löschen
 - longPressOn:
-    text: "1 Kiwi"
+    id: "food_entry_.*"
+    containsDescendants:
+      - text: "1 Kiwi"
 
 - extendedWaitUntil:
     visible:
       id: "delete_food_button"
-    timeout: 5000
+    timeout: 10000
 
 - tapOn:
     id: "delete_food_button"
 
 # Warten, bis Kiwi verschwunden ist
 - extendedWaitUntil:
-    notVisible: "1 Kiwi"
+    notVisible:
+      id: "food_entry_.*"
+      containsDescendants:
+        - text: "1 Kiwi"
     timeout: 10000
 
 # Tageskalorien nach dem Löschen speichern
+- extendedWaitUntil:
+    visible:
+      id: "eaten_calories_value"
+    timeout: 15000
+
+- waitForAnimationToEnd
+
 - copyTextFrom:
     id: "eaten_calories_value"
 
