@@ -4,4 +4,5 @@ executionOrder:
     - food_input
     - add_food
     - edit_food
+    - edit_food_calories
     - delete_food

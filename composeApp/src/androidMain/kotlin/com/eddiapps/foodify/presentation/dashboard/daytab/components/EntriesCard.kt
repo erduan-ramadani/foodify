@@ -34,6 +34,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -51,7 +53,9 @@ fun EntriesCard(
     onDelete: (NutritionEntry) -> Unit,
     onUpdate: (NutritionEntry) -> Unit
 ) {
-    Column {
+    Column(Modifier.semantics {
+        testTagsAsResourceId = true
+    }) {
         Text(
             text = stringResource(R.string.entries),
             style = MaterialTheme.typography.labelMedium,

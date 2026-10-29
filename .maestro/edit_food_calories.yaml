@@ -2,6 +2,7 @@ appId: com.eddiapps.foodify
 ---
 - launchApp
 
+# Warten, bis der DayScreen sichtbar ist
 - extendedWaitUntil:
     visible:
       id: "day_entry_input"
@@ -37,13 +38,15 @@ appId: com.eddiapps.foodify
 
 - inputText: "150"
 
-# Änderungen speichern
+# Speichern
 - tapOn:
     id: "edit_food_save"
 
-# Ergebnis überprüfen
+# Prüfen, ob ein Eintrag mit Titel und Kalorienwert existiert
 - extendedWaitUntil:
-    visible: "1 Banane"
+    visible:
+      id: "food_entry_.*"
+      containsDescendants:
+        - text: "1 Banane"
+        - text: "+150"
     timeout: 10000
-
-- assertVisible: "+150"
